@@ -11,11 +11,45 @@
             @php
                 $menuLists = [
                     [
+                        'list' => 'Menu',
+                        'url' => '',
+                        'icon' => '',
+                        'class' => 'menu-title',
+                        'isMenuTitle' => true,
+                    ],[
                         'list' => 'Dashboard',
                         'url' => 'index.html',
-                        'icon' => '<i class="ri-dashboard-line"></i><span class="badge rounded-pill bg-success float-end">3</span>',
+                        'icon' => '<i class="ri-dashboard-line"></i>',
                         'class' => 'waves-effect',
                         'isMenuTitle' => false,
+                    ],[
+                        'list' => 'Manage Supplier',
+                        'url' => 'javascript: void(0);',
+                        'icon' => '<i class="ri-store-3-line"></i>',
+                        'class' => 'has-arrow waves-effect',
+                        'isMenuTitle' => false,
+                        'submenu' => [
+                            [
+                                'list' => 'All Supplier',
+                                'url' => route('admin.supplier'),
+                                'icon' => '',
+                                'class' => '',
+                            ],
+                        ],
+                    ],[
+                        'list' => 'Manage Customer',
+                        'url' => 'javascript: void(0);',
+                        'icon' => '<i class="ri-chat-smile-3-line"></i>',
+                        'class' => 'has-arrow waves-effect',
+                        'isMenuTitle' => false,
+                        'submenu' => [
+                            [
+                                'list' => 'All Customer',
+                                'url' => route('admin.customer'),
+                                'icon' => '',
+                                'class' => '',
+                            ],
+                        ],
                     ],[
                         'list' => 'Sample Menu',
                         'url' => '',

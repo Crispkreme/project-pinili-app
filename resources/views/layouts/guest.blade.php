@@ -10,9 +10,19 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite([
+            // Styles
+            'resources/css/app.css',
+            'resources/css/toastr.css',
+
+            // Javascripts
+            'resources/js/app.js',
+            'resources/js/toastr.min.js',
+            'resources/js/notification.js',
+        ])
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
@@ -26,5 +36,13 @@
                 {{ $slot }}
             </div>
         </div>
+
+        <script>
+            var sessionData = {!! json_encode([
+                'message' => Session::get('message'),
+                'alertType' => Session::get('alert-type', 'info'),
+            ]) !!};
+        </script>
+
     </body>
 </html>

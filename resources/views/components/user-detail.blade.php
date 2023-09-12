@@ -1,5 +1,5 @@
 <div class="user-profile text-center mt-3">
-    <div class="">
+    <div class="" style="display:flex;justify-content:center;">
         <img src="{{ asset('img/users/avatar-1.jpg') }}" alt="" class="avatar-md rounded-circle">
     </div>
     <div class="mt-3">
