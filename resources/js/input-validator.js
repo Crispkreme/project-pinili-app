@@ -10,6 +10,12 @@ $(document).ready(function (){
             confirm_password: {
                 required : true,
             },
+            name: {
+                required : true,
+            },
+            role_id: {
+                required : true,
+            },
             firstname: {
                 required : true,
             },
@@ -31,6 +37,12 @@ $(document).ready(function (){
                 required : 'Fields are required',
             },
             confirm_password: {
+                required : 'Fields are required',
+            },
+            name: {
+                required : 'Fields are required',
+            },
+            role_id: {
                 required : 'Fields are required',
             },
             firstname: {

@@ -18,26 +18,12 @@
                         'isMenuTitle' => true,
                     ],[
                         'list' => 'Dashboard',
-                        'url' => 'index.html',
+                        'url' => route('admin.dashboard'),
                         'icon' => '<i class="ri-dashboard-line"></i>',
                         'class' => 'waves-effect',
                         'isMenuTitle' => false,
                     ],[
-                        'list' => 'Manage Supplier',
-                        'url' => 'javascript: void(0);',
-                        'icon' => '<i class="ri-store-3-line"></i>',
-                        'class' => 'has-arrow waves-effect',
-                        'isMenuTitle' => false,
-                        'submenu' => [
-                            [
-                                'list' => 'All Supplier',
-                                'url' => '',
-                                'icon' => '',
-                                'class' => '',
-                            ],
-                        ],
-                    ],[
-                        'list' => 'Manage Customer',
+                        'list' => 'Manage Users',
                         'url' => 'javascript: void(0);',
                         'icon' => '<i class="ri-chat-smile-3-line"></i>',
                         'class' => 'has-arrow waves-effect',
@@ -45,6 +31,11 @@
                         'submenu' => [
                             [
                                 'list' => 'All Customer',
+                                'url' => route('admin.all.user'),
+                                'icon' => '',
+                                'class' => '',
+                            ],[
+                                'list' => 'All Represetative',
                                 'url' => '',
                                 'icon' => '',
                                 'class' => '',

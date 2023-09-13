@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('contact_number');
             $table->string('position');
-            $table->string('profile_image');
+            $table->text('address')->nullable();
+            $table->string('profile_image')->nullable();
 
             $table->foreign('role_id')
                   ->references('id')

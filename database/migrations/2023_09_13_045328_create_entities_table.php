@@ -13,12 +13,19 @@ return new class extends Migration
     {
         Schema::create('entities', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('role_id');
             $table->string('id_number');
             $table->string('name');
             $table->string('contact_number');
             $table->text('address');
             $table->string('role');
             $table->boolean('isActive');
+
+            $table->foreign('role_id')
+                  ->references('id')
+                  ->on('roles')
+                  ->onDelete('cascade');
+
             $table->timestamps();
             $table->softDeletes();
         });
