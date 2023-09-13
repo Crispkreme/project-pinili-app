@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('drug_classes', function (Blueprint $table) {
             $table->id();
+            $table->string('id_number');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('username')->unique();
-            $table->string('position');
-            $table->boolean('isActive');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('profile_image');
-            $table->rememberToken();
+            $table->text('description');
+            $table->string('classification'); //forms and category
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('drug_classes');
     }
 };
