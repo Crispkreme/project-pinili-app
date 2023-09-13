@@ -31,7 +31,7 @@
                         'submenu' => [
                             [
                                 'list' => 'All Supplier',
-                                'url' => route('admin.supplier'),
+                                'url' => '',
                                 'icon' => '',
                                 'class' => '',
                             ],
@@ -45,7 +45,7 @@
                         'submenu' => [
                             [
                                 'list' => 'All Customer',
-                                'url' => route('admin.customer'),
+                                'url' => '',
                                 'icon' => '',
                                 'class' => '',
                             ],
