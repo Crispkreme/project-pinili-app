@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DistributorController;
 use App\Http\Controllers\EntityController;
+use App\Http\Controllers\DrugClassController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -46,4 +47,11 @@ Route::group(['controller' => DistributorController::class], function () {
     Route::get('/all/distributor', 'index')->name('all.distributor');
     Route::get('/edit/distributor/{id}', 'editDistributor')->name('edit.distributor');
     Route::post('/update/distributor/{id}', 'updateDistributor')->name('update.distributor');
+});
+Route::group(['controller' => DrugClassController::class], function () {
+    Route::get('/create/drug/class', 'createDrugClass')->name('create.drug.class');
+    Route::post('/store/drug/class', 'storeDrugClass')->name('store.drug.class');
+    Route::get('/all/drug/class', 'index')->name('all.drug.class');
+    Route::get('/edit/drug/class/{id}', 'editDrugClass')->name('edit.drug.class');
+    Route::post('/update/drug/class/{id}', 'updateDrugClass')->name('update.drug.class');
 });
