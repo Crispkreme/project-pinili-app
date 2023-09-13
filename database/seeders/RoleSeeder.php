@@ -20,10 +20,10 @@ class RoleSeeder extends Seeder
             'role_name' => 'cashier',
         ]);
         Role::create([
-            'role_name' => 'doctor',
+            'role_name' => 'checker',
         ]);
         Role::create([
-            'role_name' => 'clerk',
+            'role_name' => 'office',
         ]);
         Role::create([
             'role_name' => 'supplier',
