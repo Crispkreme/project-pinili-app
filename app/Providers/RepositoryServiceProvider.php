@@ -6,11 +6,13 @@ namespace App\Providers;
 use App\Contracts\RoleContract;
 use App\Contracts\UserContract;
 use App\Contracts\RepresentativeContract;
+use App\Contracts\CompanyContract;
 
 // REPOSITORY
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\RepresentativeRepository;
+use App\Repositories\CompanyRepository;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +22,7 @@ class RepositoryServiceProvider extends ServiceProvider
         UserContract::class => UserRepository::class,
         RoleContract::class => RoleRepository::class,
         RepresentativeContract::class => RepresentativeRepository::class,
+        CompanyContract::class => CompanyRepository::class,
     ];
 
     /**

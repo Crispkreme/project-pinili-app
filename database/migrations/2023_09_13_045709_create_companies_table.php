@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('id_number');
             $table->string('company_name');
             $table->string('contact_number');
-            $table->string('landline');
-            $table->string('email');
-            $table->text('address');
+            $table->string('landline')->nullable();
+            $table->string('email')->unique();
+            $table->text('address')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
