@@ -28,6 +28,9 @@ $(document).ready(function (){
             contact_number: {
                 required : true,
             },
+            company_name: {
+                required : true,
+            },
         },
         messages :{
             username: {
@@ -40,6 +43,9 @@ $(document).ready(function (){
                 required : 'Fields are required',
             },
             name: {
+                required : 'Fields are required',
+            },
+            company_name: {
                 required : 'Fields are required',
             },
             role_id: {

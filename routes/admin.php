@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EntityController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompanyController;
 
 
 
@@ -28,4 +29,12 @@ Route::group(['controller' => EntityController::class], function () {
     Route::post('/store/representative', 'storeRepresentative')->name('store.representative');
     Route::get('/all/representative', 'index')->name('all.representative');
     Route::get('/edit/representative/{id}', 'editRepresentative')->name('edit.representative');
+    Route::get('/update/representative/{id}', 'updateRepresentative')->name('update.representative');
+});
+Route::group(['controller' => CompanyController::class], function () {
+    Route::get('/create/company', 'createCompany')->name('create.company');
+    Route::post('/store/company', 'storeCompany')->name('store.company');
+    Route::get('/all/company', 'index')->name('all.company');
+    Route::get('/edit/company/{id}', 'editCompany')->name('edit.company');
+    Route::post('/update/company/{id}', 'updateCompany')->name('update.company');
 });

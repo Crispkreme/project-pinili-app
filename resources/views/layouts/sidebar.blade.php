@@ -42,6 +42,25 @@
                             ],
                         ],
                     ],[
+                        'list' => 'Manage Distribution',
+                        'url' => 'javascript: void(0);',
+                        'icon' => '<i class="ri-store-2-line"></i>',
+                        'class' => 'has-arrow waves-effect',
+                        'isMenuTitle' => false,
+                        'submenu' => [
+                            [
+                                'list' => 'All Company',
+                                'url' => route('admin.all.company'),
+                                'icon' => '',
+                                'class' => '',
+                            ],[
+                                'list' => 'All Represetative',
+                                'url' => '',
+                                'icon' => '',
+                                'class' => '',
+                            ],
+                        ],
+                    ],[
                         'list' => 'Sample Menu',
                         'url' => '',
                         'icon' => '',
