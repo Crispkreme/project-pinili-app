@@ -18,7 +18,7 @@ class RoleRepository implements RoleContract {
 
     public function getRoles()
     {
-        return $this->model->get();
+        return Role::pluck('role_name', 'id')->toArray();
     }
 
     public function getRoleName($id)

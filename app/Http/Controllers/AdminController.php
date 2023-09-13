@@ -80,4 +80,14 @@ class AdminController extends Controller
             return view('admin.profile.change-password')->with($notification);
         }
     }
+
+    public function editUser()
+    {
+        $users = $this->userContract->editUser();
+        $roles = $this->roleContract->getRoles();
+        return view('admin.users.edit', [
+            'users' => $users,
+            'roles' => $roles,
+        ]);
+    }
 }

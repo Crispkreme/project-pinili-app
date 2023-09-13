@@ -35,10 +35,10 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('admin.create.user') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add User</a><br><br>
+                                    <a href="{{ route('admin.create.representative') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Representative</a><br><br>
 
-                                    <h4 class="card-title">User List Data</h4>
-                                    <p class="card-title-desc">This are the complete list of our users.</p>
+                                    <h4 class="card-title">Representative List Data</h4>
+                                    <p class="card-title-desc">This are the complete list of our representative.</p>
 
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
@@ -46,28 +46,28 @@
                                                 <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Contact Number</th>
-                                                <th>Email</th>
-                                                <th>Status</th>
+                                                <th>Role</th>
                                                 <th>Address</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($userData as $key => $item)
                                                 <tr>
-                                                    <td>{{ $key+1}}</td>
+                                                    <td>{{ $item->id_number }}</td>
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->contact_number }}</td>
-                                                    <td>{{ $item->email }}</td>
+                                                    <td>{{ $item->role }}</td>
+                                                    <td>{{ $item->address }}</td>
                                                     <td>
                                                         <div class="square-switch">
                                                             <input type="checkbox" id="square-switch1" switch="none" {{ $item->isActive == 1 ? 'checked' : '' }}>
                                                             <label for="square-switch1" data-on-label="Active" data-off-label="Inactive"></label>
                                                         </div>
                                                     </td>
-                                                    <td>{{ $item->address }}</td>
                                                     <td>
-                                                        <a href="{{ route('admin.edit.user', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                        <a href="{{ route('admin.edit.representative', $item->id) }}" class="btn btn-info sm" title="Edit Data">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                         <a href="" class="btn btn-danger sm" title="Delete Data" id="delete">

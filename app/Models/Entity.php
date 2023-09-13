@@ -12,11 +12,16 @@ class Entity extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'role_id',
         'id_number',
         'name',
         'contact_number',
         'address',
-        'address',
+        'role',
         'isActive',
     ];
+
+    public function role() {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }
