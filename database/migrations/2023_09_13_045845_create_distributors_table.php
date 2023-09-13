@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('entity_id');
             $table->unsignedBigInteger('company_id');
             $table->boolean('isActive');
+
             $table->foreign('entity_id')
                   -> references('id')
                   ->on('entities')

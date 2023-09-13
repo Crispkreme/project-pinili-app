@@ -17,4 +17,12 @@ class Distributor extends Model
         'company_id',
         'isActive',
     ];
+
+    public function entity() {
+        return $this->belongsTo(Entity::class, 'entity_id');
+    }
+
+    public function company() {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
 }

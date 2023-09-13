@@ -54,8 +54,8 @@
                                 'icon' => '',
                                 'class' => '',
                             ],[
-                                'list' => 'All Represetative',
-                                'url' => '',
+                                'list' => 'All Distributor',
+                                'url' => route('admin.all.distributor'),
                                 'icon' => '',
                                 'class' => '',
                             ],
