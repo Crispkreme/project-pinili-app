@@ -25,6 +25,11 @@ class RepresentativeRepository implements RepresentativeContract {
         return $this->model->get();
     }
 
+    public function getRepresentativeData()
+    {
+        return Entity::pluck('name', 'id')->toArray();
+    }
+
     public function editRepresentative($id)
     {
         return $this->model->with('role')->find($id);

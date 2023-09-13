@@ -25,6 +25,11 @@ class CompanyRepository implements CompanyContract {
         return $this->model->get();
     }
 
+    public function getCompanyData()
+    {
+        return Company::pluck('company_name', 'id')->toArray();
+    }
+
     public function editCompany($id)
     {
         return $this->model->find($id);

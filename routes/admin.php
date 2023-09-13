@@ -1,9 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\EntityController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DistributorController;
+use App\Http\Controllers\EntityController;
+use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -37,4 +39,11 @@ Route::group(['controller' => CompanyController::class], function () {
     Route::get('/all/company', 'index')->name('all.company');
     Route::get('/edit/company/{id}', 'editCompany')->name('edit.company');
     Route::post('/update/company/{id}', 'updateCompany')->name('update.company');
+});
+Route::group(['controller' => DistributorController::class], function () {
+    Route::get('/create/distributor', 'createDistributor')->name('create.distributor');
+    Route::post('/store/distributor', 'storeDistributor')->name('store.distributor');
+    Route::get('/all/distributor', 'index')->name('all.distributor');
+    Route::get('/edit/distributor/{id}', 'editDistributor')->name('edit.distributor');
+    Route::post('/update/distributor/{id}', 'updateDistributor')->name('update.distributor');
 });
