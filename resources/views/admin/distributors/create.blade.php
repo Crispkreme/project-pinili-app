@@ -29,7 +29,7 @@
                                         @endforeach
                                     @endif
 
-                                    <form method="POST" action="{{ route('admin.store.representative') }}" enctype="multipart/form-data" id="myForm">
+                                    <form method="POST" action="{{ route('admin.store.distributor') }}" enctype="multipart/form-data" id="myForm">
                                         @csrf
                                         <h4 class="card-title">General Information</h4><br>
                                         <div class="row mb-3">

@@ -33,35 +33,33 @@
                                         @csrf
                                         <h4 class="card-title">General Information</h4><br>
                                         <div class="row mb-3">
-                                            <label class="col-sm-2 col-form-label">Role</label>
+                                            <label class="col-sm-2 col-form-label">Representative</label>
                                             <div class="col-sm-10">
-                                                <select class="form-select" name="role_id" aria-label="Default select example" id="role_id">
-                                                    @foreach ($roles as $roleId => $roleName)
-                                                        @if ($representative->role_id)
-                                                            <option value="{{ $representative->role_id }}" style="text-transform:capitalize">{{ $roleName }}</option>
-                                                        @else
-                                                            <option value="{{ $roleId }}" style="text-transform:capitalize">{{ $roleName }}</option>
-                                                        @endif
-                                                    @endforeach
+                                                <select class="form-select" name="entity_id" aria-label="Default select example" id="entity_id">
+                                                    <option selected disabled>{{ $distributor->entity->name }}</option>
+                                                    @if (empty($representatives))
+                                                        <option value="" disabled>No data found</option>
+                                                    @else
+                                                        @foreach ($representatives as $representativeId => $name)
+                                                            <option value="{{ $representativeId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                        @endforeach
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="name" class="col-sm-2 col-form-label">Name</label>
-                                            <div class="form-group col-sm-10">
-                                                <input class="form-control" type="text" name="name" value="{{ $representative->name }}" placeholder="Name" id="name">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="name" class="col-sm-2 col-form-label">Contact Number</label>
-                                            <div class="form-group col-sm-10">
-                                                <input class="form-control" type="text" name="contact_number" placeholder="Contact Number" value="{{ $representative->contact_number }}" id="contact_number">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="name" class="col-sm-2 col-form-label">Address</label>
-                                            <div class="form-group col-sm-10">
-                                                <textarea name="address" id="address" cols="10" rows="5" class="form-control">{{ $representative->address }}</textarea>
+                                            <label class="col-sm-2 col-form-label">Company</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-select" name="company_id" aria-label="Default select example" id="company_id">
+                                                    <option selected disabled>{{ $distributor->company->company_name }}</option>
+                                                    @if (empty($companies))
+                                                        <option value="" disabled>No data found</option>
+                                                    @else
+                                                        @foreach ($companies as $companyId => $companyName)
+                                                            <option value="{{ $companyId }}" style="text-transform:capitalize">{{ $companyName }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
                                             </div>
                                         </div>
 

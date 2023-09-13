@@ -22,12 +22,12 @@ class DistributorRepository implements DistributorContract {
 
     public function getAllDistributor()
     {
-        return $this->model->get();
+        return $this->model->with(['entity', 'company'])->get();
     }
 
     public function editDistributor($id)
     {
-        return $this->model->find($id);
+        return $this->model->with(['entity', 'company'])->find($id);
     }
 
     public function updateDistributor($id, $params)
