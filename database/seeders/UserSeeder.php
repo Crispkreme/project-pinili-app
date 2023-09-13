@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             'contact_number' => '0926123227',
             'position'       => 'admin',
             'isActive'       => '1',
+            'address'        => 'General Santos City',
             'profile_image'  => '',
         ]);
         User::create([
@@ -34,6 +35,7 @@ class UserSeeder extends Seeder
             'contact_number' => '0926123227',
             'position'       => 'cashier',
             'isActive'       => '1',
+            'address'        => 'General Santos City',
             'profile_image'  => '',
         ]);
         User::create([
@@ -45,6 +47,7 @@ class UserSeeder extends Seeder
             'contact_number' => '0926123227',
             'position'       => 'checker',
             'isActive'       => '1',
+            'address'        => 'General Santos City',
             'profile_image'  => '',
         ]);
         User::create([
@@ -56,6 +59,7 @@ class UserSeeder extends Seeder
             'contact_number' => '0926123227',
             'position'       => 'clerk',
             'isActive'       => '1',
+            'address'        => 'General Santos City',
             'profile_image'  => '',
         ]);
     }

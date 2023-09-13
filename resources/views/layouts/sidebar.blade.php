@@ -18,7 +18,7 @@
                         'isMenuTitle' => true,
                     ],[
                         'list' => 'Dashboard',
-                        'url' => 'index.html',
+                        'url' => route('admin.dashboard'),
                         'icon' => '<i class="ri-dashboard-line"></i>',
                         'class' => 'waves-effect',
                         'isMenuTitle' => false,

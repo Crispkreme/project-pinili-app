@@ -16,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['controller' => AdminController::class], function () {
     Route::get('/dashboard', 'index')->name('dashboard');
+    Route::get('/create/user', 'createUser')->name('create.user');
+    Route::post('/store/user', 'storeUser')->name('store.user');
+    Route::get('/all/user', 'getAllUser')->name('all.user');
+    Route::get('/edit/user', 'getAllUser')->name('edit.user');
 });
