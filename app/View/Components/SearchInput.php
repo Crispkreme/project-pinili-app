@@ -21,6 +21,6 @@ class SearchInput extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.search-input');
+        return view('components.input.search-input');
     }
 }

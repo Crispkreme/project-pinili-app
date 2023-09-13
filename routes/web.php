@@ -24,17 +24,21 @@ Route::get('/home', function () {
     if (Auth::check())
     {
         if (Auth::user()->role_id == 1) {
-            return view('admin.dashboard');
+            return redirect()->route('admin.dashboard');
         } elseif (Auth::user()->role_id == 2) {
-            return view('cashier.dashboard');
+            return redirect()->route('cashier.dashboard');
         } elseif (Auth::user()->role_id == 3) {
-            return view('cashier.dashboard');
+            return redirect()->route('checker.dashboard');
         } elseif (Auth::user()->role_id == 4) {
-            return view('office.dashboard');
+            return redirect()->route('office.dashboard');
         } else {
             dd('error page');
         }
     }
 });
+
+Route::get('/404', function () {
+    return view('404');
+})->name('404');
 
 require __DIR__.'/auth.php';
