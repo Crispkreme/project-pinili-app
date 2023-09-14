@@ -46,7 +46,7 @@ class ProductController extends Controller
     {
         try {
             $prefix = "PRD";
-            $transactionNumber = Carbon::now()->format('YmdHis');
+            $transactionNumber = Carbon::now()->format('Ymd-His');
             $barcode = $prefix.'-'.$transactionNumber;
 
             $params = $request->validated();
