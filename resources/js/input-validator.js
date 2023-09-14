@@ -31,6 +31,12 @@ $(document).ready(function (){
             company_name: {
                 required : true,
             },
+            drug_classification_name: {
+                required : true,
+            },
+            classification_id: {
+                required : true,
+            }
         },
         messages :{
             username: {
@@ -63,6 +69,12 @@ $(document).ready(function (){
             contact_number: {
                 required : 'Fields are required',
             },
+            drug_classification_name: {
+                required : 'Fields are required',
+            },
+            classification_id: {
+                required : 'Fields are required',
+            }
         },
         errorElement : 'span',
         errorPlacement: function (error,element) {

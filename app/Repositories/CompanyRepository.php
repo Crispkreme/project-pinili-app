@@ -27,7 +27,7 @@ class CompanyRepository implements CompanyContract {
 
     public function getCompanyData()
     {
-        return Company::pluck('company_name', 'id')->toArray();
+        return $this->model->pluck('company_name', 'id')->toArray();
     }
 
     public function editCompany($id)
@@ -37,7 +37,7 @@ class CompanyRepository implements CompanyContract {
 
     public function updateCompany($id, $params)
     {
-        $company = Company::findOrFail($id);
+        $company = $this->model->findOrFail($id);
         $company->update($params);
         return $company;
     }

@@ -27,7 +27,7 @@ class RepresentativeRepository implements RepresentativeContract {
 
     public function getRepresentativeData()
     {
-        return Entity::pluck('name', 'id')->toArray();
+        return $this->model->pluck('name', 'id')->toArray();
     }
 
     public function editRepresentative($id)

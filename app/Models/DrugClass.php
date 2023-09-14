@@ -12,9 +12,13 @@ class DrugClass extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'classification_id',
         'id_number',
         'name',
         'description',
-        'classification',
     ];
+
+    public function classification() {
+        return $this->belongsTo(Classification::class, 'classification_id');
+    }
 }

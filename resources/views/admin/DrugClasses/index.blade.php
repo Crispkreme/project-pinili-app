@@ -35,7 +35,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('admin.create.company') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Company</a><br><br>
+                                    <a href="{{ route('admin.create.drug.class') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Drug Class</a><br><br>
 
                                     <h4 class="card-title">Drug Classes List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our drug classes.</p>
@@ -44,11 +44,9 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Company Name</th>
-                                                <th>Contact Number</th>
-                                                <th>Landline</th>
-                                                <th>Email Address</th>
-                                                <th>Address</th>
+                                                <th>Drug Classification Name</th>
+                                                <th>description</th>
+                                                <th>Classification</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -56,13 +54,11 @@
                                             @foreach($userData as $key => $item)
                                                 <tr>
                                                     <td>{{ $item->id_number }}</td>
-                                                    <td>{{ $item->company_name }}</td>
-                                                    <td>{{ $item->contact_number }}</td>
-                                                    <td>{{ $item->landline }}</td>
-                                                    <td>{{ $item->email }}</td>
-                                                    <td>{{ $item->address }}</td>
+                                                    <td>{{ $item->name }}</td>
+                                                    <td>{{ $item->description }}</td>
+                                                    <td>{{ $item->classification->classification }}</td>
                                                     <td>
-                                                        <a href="{{ route('admin.edit.company', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                        <a href="{{ route('admin.edit.drug.class', $item->id) }}" class="btn btn-info sm" title="Edit Data">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                         <a href="" class="btn btn-danger sm" title="Delete Data" id="delete">
