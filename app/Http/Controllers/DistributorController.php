@@ -45,7 +45,7 @@ class DistributorController extends Controller
     public function storeDistributor(AddDistributorStoreRequest $request)
     {
         try {
-            $prefix = "CMPY";
+            $prefix = "DST";
             $transactionNumber = Carbon::now()->format('mHis');
             $id_number = $prefix.'-'.$transactionNumber;
 

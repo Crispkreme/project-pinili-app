@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProductController;
@@ -62,4 +63,7 @@ Route::group(['controller' => ProductController::class], function () {
     Route::get('/all/product', 'index')->name('all.product');
     Route::get('/edit/product/{id}', 'editProduct')->name('edit.product');
     Route::post('/update/product/{id}', 'updateProduct')->name('update.product');
+});
+Route::group(['controller' => OrderController::class], function () {
+    Route::get('/all/order', 'getAllOrder')->name('all.order');
 });
