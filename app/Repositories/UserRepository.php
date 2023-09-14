@@ -43,4 +43,9 @@ class UserRepository implements UserContract {
     {
         return $this->model->get();
     }
+
+    public function getAllUserData()
+    {
+        return $this->model->pluck('name', 'id')->toArray();
+    }
 }

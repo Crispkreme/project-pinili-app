@@ -36,4 +36,8 @@ class DistributorRepository implements DistributorContract {
         $distributor->update($params);
         return $distributor;
     }
+
+    public function getAllDistributorData() {
+        return $this->model->pluck('company_name', 'id')->toArray();
+    }
 }

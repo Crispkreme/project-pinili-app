@@ -80,35 +80,29 @@
                             ],
                         ],
                     ],[
-                        'list' => 'Sample Menu',
+                        'list' => 'Inventory Management',
                         'url' => '',
                         'icon' => '',
                         'class' => 'menu-title',
                         'isMenuTitle' => true,
                     ],[
-                        'list' => 'Calendar',
-                        'url' => 'calendar.html',
-                        'icon' => '<i class="ri-calendar-2-line"></i>',
-                        'class' => 'waves-effect',
-                        'isMenuTitle' => false,
-                    ],[
-                        'list' => 'Email',
+                        'list' => 'Manage Purchase',
                         'url' => 'javascript: void(0);',
-                        'icon' => '<i class="ri-mail-send-line"></i>',
+                        'icon' => '<i class="ri-shopping-basket-2-line"></i>',
                         'class' => 'has-arrow waves-effect',
                         'isMenuTitle' => false,
                         'submenu' => [
                             [
-                                'submenu' => [
-                                    [
-                                        'list' => 'Inbox',
-                                        'url' => 'email-inbox.html',
-                                    ],[
-                                        'list' => 'Read Email',
-                                        'url' => 'email-read.html',
-                                    ]
-                                ],
-                            ]
+                                'list' => 'Product Order',
+                                'url' => route('admin.all.order'),
+                                'icon' => '',
+                                'class' => '',
+                            ],[
+                                'list' => 'Represetative',
+                                'url' => route('admin.all.representative'),
+                                'icon' => '',
+                                'class' => '',
+                            ],
                         ],
                     ],[
                         'list' => 'Layouts',
