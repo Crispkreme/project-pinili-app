@@ -30,27 +30,46 @@
                         'isMenuTitle' => false,
                         'submenu' => [
                             [
-                                'list' => 'All Customer',
+                                'list' => 'Customer',
                                 'url' => route('admin.all.user'),
                                 'icon' => '',
                                 'class' => '',
                             ],[
-                                'list' => 'All Represetative',
+                                'list' => 'Represetative',
                                 'url' => route('admin.all.representative'),
                                 'icon' => '',
                                 'class' => '',
                             ],
                         ],
                     ],[
-                        'list' => 'Manage Distribution',
+                        'list' => 'Manage Distributions',
                         'url' => 'javascript: void(0);',
                         'icon' => '<i class="ri-store-2-line"></i>',
                         'class' => 'has-arrow waves-effect',
                         'isMenuTitle' => false,
                         'submenu' => [
                             [
-                                'list' => 'All Company',
+                                'list' => 'Company',
                                 'url' => route('admin.all.company'),
+                                'icon' => '',
+                                'class' => '',
+                            ],[
+                                'list' => 'Distributor',
+                                'url' => route('admin.all.distributor'),
+                                'icon' => '',
+                                'class' => '',
+                            ],
+                        ],
+                    ],[
+                        'list' => 'Manage Products',
+                        'url' => 'javascript: void(0);',
+                        'icon' => '<i class="ri-handbag-line"></i>',
+                        'class' => 'has-arrow waves-effect',
+                        'isMenuTitle' => false,
+                        'submenu' => [
+                            [
+                                'list' => 'Drug Classification',
+                                'url' => route('admin.all.drug.class'),
                                 'icon' => '',
                                 'class' => '',
                             ],[

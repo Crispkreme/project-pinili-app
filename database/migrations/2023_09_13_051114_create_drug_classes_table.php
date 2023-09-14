@@ -13,10 +13,16 @@ return new class extends Migration
     {
         Schema::create('drug_classes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('classification_id');
             $table->string('id_number');
             $table->string('name');
-            $table->text('description');
-            $table->string('classification'); //forms and category
+            $table->text('description')->nullable();
+
+            $table->foreign('classification_id')
+                  ->references('id')
+                  ->on('classifications')
+                  ->onDelete('cascade');
+
             $table->timestamps();
             $table->softDeletes();
         });
