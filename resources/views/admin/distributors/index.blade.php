@@ -44,9 +44,9 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Contact Number</th>
-                                                <th>Role</th>
+                                                <th>Representative</th>
+                                                <th>Position</th>
+                                                <th>Company Name</th>
                                                 <th>Address</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
@@ -56,10 +56,10 @@
                                             @foreach($userData as $key => $item)
                                                 <tr>
                                                     <td>{{ $item->id_number }}</td>
-                                                    <td>{{ $item->name }}</td>
-                                                    <td>{{ $item->contact_number }}</td>
-                                                    <td>{{ $item->role }}</td>
-                                                    <td>{{ $item->address }}</td>
+                                                    <td>{{ $item->entity->name }}</td>
+                                                    <td>{{ $item->entity->role }}</td>
+                                                    <td>{{ $item->company->company_name }}</td>
+                                                    <td>{{ $item->company->address }}</td>
                                                     <td>
                                                         <div class="square-switch">
                                                             <input type="checkbox" id="square-switch1" switch="none" {{ $item->isActive == 1 ? 'checked' : '' }}>
@@ -67,7 +67,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('admin.edit.representative', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                        <a href="{{ route('admin.edit.distributor', $item->id) }}" class="btn btn-info sm" title="Edit Data">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                         <a href="" class="btn btn-danger sm" title="Delete Data" id="delete">

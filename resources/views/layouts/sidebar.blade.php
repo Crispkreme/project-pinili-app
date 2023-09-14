@@ -36,7 +36,7 @@
                                 'class' => '',
                             ],[
                                 'list' => 'All Represetative',
-                                'url' => '',
+                                'url' => route('admin.all.representative'),
                                 'icon' => '',
                                 'class' => '',
                             ],
