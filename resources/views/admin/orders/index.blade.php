@@ -35,7 +35,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('admin.create.product') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Product</a><br><br>
+                                    <a href="{{ route('admin.create.order') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Order</a><br><br>
 
                                     <h4 class="card-title">Product List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our product.</p>

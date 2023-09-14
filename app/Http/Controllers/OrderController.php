@@ -7,6 +7,7 @@ use App\Contracts\UserContract;
 use App\Contracts\OrderContract;
 use App\Contracts\StatusContract;
 use App\Contracts\ProductContract;
+use App\Contracts\CategoryContract;
 use App\Contracts\DistributorContract;
 use App\Contracts\RepresentativeContract;
 
@@ -18,6 +19,7 @@ class OrderController extends Controller
     protected $distributorContract;
     protected $productContract;
     protected $statusContract;
+    protected $categoryContract;
 
     public function __construct(
         OrderContract $orderContract,
@@ -26,6 +28,7 @@ class OrderController extends Controller
         DistributorContract $distributorContract,
         ProductContract $productContract,
         StatusContract $statusContract,
+        CategoryContract $categoryContract,
     ) {
         $this->orderContract = $orderContract;
         $this->userContract = $userContract;
@@ -33,6 +36,7 @@ class OrderController extends Controller
         $this->distributorContract = $distributorContract;
         $this->productContract = $productContract;
         $this->statusContract = $statusContract;
+        $this->categoryContract = $categoryContract;
     }
 
     public function getAllOrder()
@@ -48,6 +52,7 @@ class OrderController extends Controller
         $distributorData = $this->distributorContract->getAllDistributorData();
         $productData = $this->productContract->getProductData();
         $statusData = $this->statusContract->getAllStatusData();
+        $categoryData = $this->categoryContract->getCategoryData();
 
         return view('admin.orders.create', [
             'userData' => $userData,
@@ -55,6 +60,15 @@ class OrderController extends Controller
             'distributorData' => $distributorData,
             'productData' => $productData,
             'statusData' => $statusData,
+            'categoryData' => $categoryData,
         ]);
+    }
+
+    public function getSpecificProduct(Request $request)
+    {
+        $categoryId = $request->category_id;
+        $userData = $this->productContract->getSpecificProduct($categoryId);
+
+        return response()->json($userData);
     }
 }
