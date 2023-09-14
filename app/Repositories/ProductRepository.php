@@ -27,7 +27,7 @@ class ProductRepository implements ProductContract {
 
     public function getProductData()
     {
-        return $this->model->pluck('product_name', 'id')->toArray();
+        return $this->model->pluck('medicine_name', 'id')->toArray();
     }
 
     public function editProduct($id)
@@ -40,5 +40,11 @@ class ProductRepository implements ProductContract {
         $product = $this->model->findOrFail($id);
         $product->update($params);
         return $product;
+    }
+
+    public function getSpecificProduct($id)
+    {
+        dd('asdasdasd');
+        return $this->model->where('category_id', $id)->get();
     }
 }

@@ -38,6 +38,8 @@ class DistributorRepository implements DistributorContract {
     }
 
     public function getAllDistributorData() {
-        return $this->model->pluck('company_name', 'id')->toArray();
+        return $this->model->join('companies', 'distributors.company_id', '=', 'companies.id')
+        ->pluck('companies.company_name', 'distributors.id')
+        ->toArray();
     }
 }
