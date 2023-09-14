@@ -20,4 +20,12 @@ class Product extends Model
         'generic_name',
         'description',
     ];
+
+    public function category() {
+        return $this->belongsTo(DrugClass::class, 'category_id');
+    }
+
+    public function form() {
+        return $this->belongsTo(DrugClass::class, 'form_id');
+    }
 }

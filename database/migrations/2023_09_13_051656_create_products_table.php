@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('medicine_name');
             $table->string('generic_name');
             $table->text('description')->nullable();
-            $table->boolean('isActive')->nullable()->default(false);
+            $table->boolean('isActive')->nullable()->default(0);
 
             $table->foreign('category_id')
                   ->references('id')

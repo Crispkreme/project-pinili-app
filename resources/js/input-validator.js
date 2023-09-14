@@ -36,6 +36,15 @@ $(document).ready(function (){
             },
             classification_id: {
                 required : true,
+            },
+            medicine_name: {
+                required : true,
+            },
+            generic_name: {
+                required : true,
+            },
+            category_id: {
+                required : true,
             }
         },
         messages :{
@@ -73,6 +82,15 @@ $(document).ready(function (){
                 required : 'Fields are required',
             },
             classification_id: {
+                required : 'Fields are required',
+            },
+            medicine_name: {
+                required : 'Fields are required',
+            },
+            generic_name: {
+                required : 'Fields are required',
+            },
+            category_id: {
                 required : 'Fields are required',
             }
         },

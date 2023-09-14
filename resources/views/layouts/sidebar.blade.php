@@ -73,8 +73,8 @@
                                 'icon' => '',
                                 'class' => '',
                             ],[
-                                'list' => 'All Distributor',
-                                'url' => route('admin.all.distributor'),
+                                'list' => 'Product',
+                                'url' => route('admin.all.product'),
                                 'icon' => '',
                                 'class' => '',
                             ],

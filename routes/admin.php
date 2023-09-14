@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\DistributorController;
-use App\Http\Controllers\EntityController;
-use App\Http\Controllers\DrugClassController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EntityController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DrugClassController;
+use App\Http\Controllers\DistributorController;
 
 
 
@@ -54,4 +55,11 @@ Route::group(['controller' => DrugClassController::class], function () {
     Route::get('/all/drug/class', 'index')->name('all.drug.class');
     Route::get('/edit/drug/class/{id}', 'editDrugClass')->name('edit.drug.class');
     Route::post('/update/drug/class/{id}', 'updateDrugClass')->name('update.drug.class');
+});
+Route::group(['controller' => ProductController::class], function () {
+    Route::get('/create/product', 'createProduct')->name('create.product');
+    Route::post('/store/product', 'storeProduct')->name('store.product');
+    Route::get('/all/product', 'index')->name('all.product');
+    Route::get('/edit/product/{id}', 'editProduct')->name('edit.product');
+    Route::post('/update/product/{id}', 'updateProduct')->name('update.product');
 });

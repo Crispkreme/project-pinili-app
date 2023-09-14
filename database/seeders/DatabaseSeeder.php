@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GenderSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(ClassificationSeeder::class);
+        $this->call(DrugClassSeeder::class);
     }
 }
