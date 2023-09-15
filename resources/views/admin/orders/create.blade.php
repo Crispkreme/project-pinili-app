@@ -153,11 +153,17 @@
                                             <tbody id="addRow" class="addRow"></tbody>
                                             <tbody>
                                                 <tr>
-                                                    <td colspan="8"></td>
-                                                    <td>
-                                                        <input type="text" class="form-control estimated_amount" id="estimated_amount" name="estimated_amount" value="0" style="background-color:#ddd;" readonly>
-                                                    </td>
                                                     <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>Total Amount</td>
+                                                    <td colspan="2">
+                                                        <input type="text" class="form-control total_amount" id="total_amount" name="total_amount" value="0" style="background-color:#ddd;" readonly>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -220,10 +226,13 @@
                 <input type="number" name="quantity[]" min="1" class="form-control quantity text-right" value="">
             </td>
             <td>
-                <input type="number" name="srp[]" class="form-control srp text-right" value="" readonly>
+                <input type="number" name="srp[]" class="form-control srp text-right" value="">
             </td>
             <td>
-                <i class="btn btn-danger btn-sm fas fa-window-close removeeventmore"></i>
+                <input type="text" class="form-control subtotal" id="subtotal" name="subtotal" value="0" style="background-color:#ddd;" readonly>
+            </td>
+            <td>
+                <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
             </td>
         </tr>
     </script>
@@ -301,6 +310,28 @@
                 var html = template(data);
                 $("#addRow").append(html);
             });
+
+            $(document).on('click','.remove_event_more', function() {
+                $(this).closest(".delete_add_more_item").remove();
+            });
+
+            $(document).on('keyup click','.purchase_cost, .quantity', function() {
+                var purchase_cost = $(this).closest("tr").find("input.purchase_cost").val();
+                var quantity = $(this).closest("tr").find("input.quantity").val();
+                var subtotal = purchase_cost * quantity;
+                $(this).closest("tr").find("input.subtotal").val(subtotal);
+                totalAmountPrice();
+            });
+
+            // calculate the total amount
+            function totalAmountPrice() {
+                var sum = 0;
+                $(".subtotal").each(function () {
+                    var value = parseFloat($(this).val()) || 0;
+                    sum += value;
+                });
+                $('.total_amount').val(sum.toFixed(2));
+            }
         });
     </script>
     <script type="text/javascript">
