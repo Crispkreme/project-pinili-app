@@ -5,19 +5,19 @@
             <div class="navbar-brand-box">
                 <a href="index.html" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{{ asset('img/logo-sm.png') }}" alt="logo-sm" height="22">
+                        <img src="{{ asset('storage/img/logo-sm.png') }}" alt="logo-sm" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('img/logo-dark.png') }}" alt="logo-dark" height="20">
+                        <img src="{{ asset('storage/img/logo-dark.png') }}" alt="logo-dark" height="20">
                     </span>
                 </a>
 
                 <a href="index.html" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="{{ asset('img/logo-sm.png') }}" alt="logo-sm-light" height="22">
+                        <img src="{{ asset('storage/img/logo-sm.png') }}" alt="logo-sm-light" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="{{ asset('img/logo-light.png') }}" alt="logo-light" height="20">
+                        <img src="{{ asset('storage/img/logo-light.png') }}" alt="logo-light" height="20">
                     </span>
                 </a>
             </div>
@@ -109,7 +109,7 @@
 
                                 <div class="col-sm-5">
                                     <div>
-                                        <img src="{{ asset('img/megamenu-img.png') }}" alt="megamenu-img" class="img-fluid mx-auto d-block">
+                                        <img src="{{ asset('storage/img/megamenu-img.png') }}" alt="megamenu-img" class="img-fluid mx-auto d-block">
                                     </div>
                                 </div>
                             </div>
@@ -155,35 +155,35 @@
                                 [
                                     'url' => '#',
                                     'title' => 'Facebook',
-                                    'icon' => 'img/brands/facebook.png',
+                                    'icon' => 'storage/img/brands/facebook.png',
                                 ],[
                                     'url' => '#',
                                     'title' => 'Instagram',
-                                    'icon' => 'img/brands/instagram.png',
+                                    'icon' => 'storage/img/brands/instagram.png',
                                 ],[
                                     'url' => '#',
                                     'title' => 'Viber',
-                                    'icon' => 'img/brands/viber.png',
+                                    'icon' => 'storage/img/brands/viber.png',
                                 ],[
                                     'url' => '#',
                                     'title' => 'Messenger',
-                                    'icon' => 'img/brands/messenger.png',
+                                    'icon' => 'storage/img/brands/messenger.png',
                                 ],[
                                     'url' => '#',
                                     'title' => 'LinkIn',
-                                    'icon' => 'img/brands/linkedin.png',
+                                    'icon' => 'storage/img/brands/linkedin.png',
                                 ],[
                                     'url' => '#',
                                     'title' => 'Skype',
-                                    'icon' => 'img/brands/skype.png',
+                                    'icon' => 'storage/img/brands/skype.png',
                                 ],[
                                     'url' => '#',
                                     'title' => 'Slack',
-                                    'icon' => 'img/brands/github.png',
+                                    'icon' => 'storage/img/brands/github.png',
                                 ],[
                                     'url' => '#',
                                     'title' => 'Discord',
-                                    'icon' => 'img/brands/discord.png',
+                                    'icon' => 'storage/img/brands/discord.png',
                                 ]
                             ];
                         @endphp

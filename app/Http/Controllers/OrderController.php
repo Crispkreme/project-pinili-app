@@ -64,11 +64,18 @@ class OrderController extends Controller
         ]);
     }
 
-    public function getSpecificProduct(Request $request)
+    public function getSpecificCategory(Request $request)
     {
         $categoryId = $request->category_id;
-        $userData = $this->productContract->getSpecificProduct($categoryId);
-
+        $userData = $this->productContract->getSpecificCategory($categoryId);
         return response()->json($userData);
+    }
+
+    public function getSpecificForm(Request $request)
+    {
+        $formId = $request->form_id;
+        $userData = $this->productContract->getSpecificForm($formId);
+        return $userData;
+        // return response()->json($userData);
     }
 }

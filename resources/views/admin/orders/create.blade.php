@@ -100,30 +100,16 @@
                                                     <div class="col-md-4">
                                                         <div class="row">
                                                             <label for="name" class="col-form-label">Product Form</label>
-                                                            <select class="form-select" style="width:98%;" name="entity_id" aria-label="Default select example" id="entity_id">
-                                                                <option selected disabled>Select Product Form</option>
-                                                                @if (empty($representatives))
-                                                                    <option value="" disabled>No data found</option>
-                                                                @else
-                                                                    @foreach ($representatives as $representativeId => $name)
-                                                                        <option value="{{ $representativeId }}" style="text-transform: capitalize">{{ $name }}</option>
-                                                                    @endforeach
-                                                                @endif
+                                                            <select class="form-select" style="width:98%;" name="form_id" aria-label="Default select example" id="form_id">
+                                                                <option value="">Select Product Form</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="row">
-                                                            <label for="name" class="col-form-label">Product Name</label>
-                                                            <select class="form-select" style="width:98%;" name="entity_id" aria-label="Default select example" id="entity_id">
-                                                                <option selected disabled>Select Product Name</option>
-                                                                @if (empty($representatives))
-                                                                    <option value="" disabled>No data found</option>
-                                                                @else
-                                                                    @foreach ($representatives as $representativeId => $name)
-                                                                        <option value="{{ $representativeId }}" style="text-transform: capitalize">{{ $name }}</option>
-                                                                    @endforeach
-                                                                @endif
+                                                            <label for="name" class="col-form-label">Product</label>
+                                                            <select class="form-select" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
+                                                                <option value="">Select Product Name</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -319,12 +305,11 @@
     </script>
     <script type="text/javascript">
         $(function(){
-            $(document).on('change','#category_id',function(){
-                let url = '{{ route('admin.get.specific.product', ':id') }}';
+            $(document).on('change','#category_id', function() {
                 var category_id = $(this).val();
 
                 $.ajax({
-                    url: url.replace(':id', this.value),
+                    url: "{{ route('admin.get.specific.category') }}",
                     type: "GET",
                     data: { category_id: category_id },
                     success: function(data){

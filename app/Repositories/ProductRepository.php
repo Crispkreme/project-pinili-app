@@ -42,9 +42,19 @@ class ProductRepository implements ProductContract {
         return $product;
     }
 
-    public function getSpecificProduct($id)
+    public function getSpecificCategory($id)
     {
-        dd('asdasdasd');
-        return $this->model->where('category_id', $id)->get();
+        return $this->model
+        ->with(['category', 'form'])
+        ->where('category_id', $id)
+        ->get();
+    }
+
+    public function getSpecificForm($id)
+    {
+        return $this->model
+        ->with(['category', 'form'])
+        ->where('form_id', $id)
+        ->get();
     }
 }
