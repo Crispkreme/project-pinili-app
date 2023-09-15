@@ -36,6 +36,8 @@ export default defineConfig({
                 'resources/js/datatables.init.js',
                 'resources/js/validate.min.js',
                 'resources/js/input-validator.js',
+                'resources/js/handlebars.js',
+                'resources/js/notify.min.js',
             ],
             refresh: true,
         }),
