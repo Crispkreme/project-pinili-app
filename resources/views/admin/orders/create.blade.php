@@ -34,17 +34,49 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="row mb-3">
-                                                    <label for="name" class="col-form-label">Date</label>
-                                                    <input class="form-control" style="width:98%;" type="date" value="2011-08-19" id="example-date-input">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="row mb-3">
                                                     <label for="name" class="col-form-label">Purchase Number</label>
-                                                    <input class="form-control" style="width:98%;" type="text" id="example-date-input" placeholder="Purchase Number">
+                                                    <input class="form-control" style="width:98%;" type="text" name="invoice_number" id="invoice_number" placeholder="Purchase Number">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="row mb-3">
+                                                    <label for="name" class="col-form-label">Manufacturer</label>
+                                                    <select class="form-select" style="width:98%;" name="manufacturer_id" aria-label="Default select example" id="manufacturer_id">
+                                                        <option selected disabled>Select Manufacturer</option>
+                                                        @if (empty($distributorData))
+                                                            <option value="" disabled>No data found</option>
+                                                        @else
+                                                            @foreach ($distributorData as $distributorDataId => $name)
+                                                                <option value="{{ $distributorDataId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="name" class="col-form-label">Supplier</label>
+                                                <select class="form-select" style="width:98%;" name="supplier_id" aria-label="Default select example" id="supplier_id">
+                                                    <option selected disabled>Select Supplier</option>
+                                                    @if (empty($representativeData))
+                                                        <option value="" disabled>No data found</option>
+                                                    @else
+                                                        @foreach ($representativeData as $representativeDataId => $name)
+                                                            <option value="{{ $representativeDataId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="name" class="col-form-label">Manufacturing Date</label>
+                                                <input class="form-control" name="manufacturing_date" type="date" value="2011-08-19" id="manufacturing_date">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="name" class="col-form-label">Expiry Date</label>
+                                                <input class="form-control" name="expiry_date" type="date" value="2011-08-19" id="expiry_date">
                                             </div>
                                         </div>
                                         <div class="row" style="align-items: flex-end;">
@@ -98,25 +130,59 @@
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <div style="display:flex;justify-content:flex-end;">
-                                                    <button type="button" class="btn btn-secondary btn-rounded waves-effect waves-light">
+                                                <div style="display:flex;justify-content:space-between;">
+                                                    <button type="button" class="btn btn-secondary btn-rounded waves-effect waves-light addeventmore">
                                                         <i class="ri-add-fill align-middle ms-2" style="margin-right: 1px;"></i>
                                                         Add More
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <button type="submit" class="btn btn-success waves-effect waves-light">
-                                            Add Product
-                                            <i class="ri-user-add-line align-middle ms-2"></i>
-                                        </button>
                                     </form>
                                 </div>
                             </div>
                         </div> <!-- end col -->
                     </div>
-
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="">
+                                        @csrf
+                                        <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Medicine Name</th>
+                                                    <th>Generic Name</th>
+                                                    <th>Form</th>
+                                                    <th>Category</th>
+                                                    <th>Description</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Qty</th>
+                                                    <th>SRP</th>
+                                                    <th>Total Price</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="addRow" class="addRow"></tbody>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="8"></td>
+                                                    <td>
+                                                        <input type="text" class="form-control estimated_amount" id="estimated_amount" name="estimated_amount" value="0" style="background-color:#ddd;" readonly>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="form-group">
+                                            <button class="btn btn-info mt-1" id="storeButton">Purchase Order</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div>
                 </div>
             </div>
 
@@ -129,8 +195,128 @@
     <x-right-sidebar />
 
     <div class="rightbar-overlay"></div>
+    <script src="http://[::1]:5173/resources/libs/jquery/jquery.min.js"></script>
+    <script src="http://[::1]:5173/resources/js/handlebars.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script id="document-template" text="text/x-handlerbars-template">
+        <tr class="delete_add_more_item" id="delete_add_more_item">
+
+            <input type="hidden" name="invoice_number[]" value="@{{ invoice_number }}">
+            <input type="hidden" name="manufacturer_id[]" value="@{{ manufacturer_id }}">
+            <input type="hidden" name="supplier_id[]" value="@{{ supplier_id }}">
+            <input type="hidden" name="manufacturing_date[]" value="@{{ manufacturing_date }}">
+            <input type="hidden" name="expiry_date[]" value="@{{ expiry_date }}">
+
+            <td>
+                <input type="hidden" name="product_id[]" value="@{{ product_id }}">
+                @{{ medicine_name }}
+            </td>
+            <td>
+                <input type="hidden" name="product_id[]" value="@{{ product_id }}">
+                @{{ generic_name }}
+            </td>
+            <td>
+                <input type="hidden" name="form_id[]" value="@{{ form_id }}">
+                @{{ form_name }}
+            </td>
+            <td>
+                <input type="hidden" name="category_id[]" value="@{{ category_id }}">
+                @{{ category_name }}
+            </td>
+            <td>
+                <input type="hidden" name="product_id[]" value="@{{ product_id }}">
+                @{{ description }}
+            </td>
+            <td>
+                <input type="number" name="purchase_cost[]" class="form-control purchase_cost text-right" value="">
+            </td>
+            <td>
+                <input type="number" name="quantity[]" min="1" class="form-control quantity text-right" value="">
+            </td>
+            <td>
+                <input type="number" name="srp[]" class="form-control srp text-right" value="" readonly>
+            </td>
+            <td>
+                <i class="btn btn-danger btn-sm fas fa-window-close removeeventmore"></i>
+            </td>
+        </tr>
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click','.addeventmore', function() {
+                var invoice_number = $('#invoice_number').val();
+                var manufacturer_id = $('#manufacturer_id').val();
+                var supplier_id = $('#supplier_id').val();
+                var manufacturing_date = $('#manufacturing_date').val();
+                var expiry_date = $('#expiry_date').val();
+                var category_id = $('#category_id').val();
+                var form_id = $('#form_id').val();
+                var product_id = $('#product_id').val();
+                var category_name = $('#category_id').find('option:selected').text();
+                var form_name = $('#form_id').find('option:selected').text();
+                var medicine_name = $('#product_id').find('option:selected').text();
+                var generic_name = $('#product_id').find('option:selected').text();
+                var description = $('#product_id').find('option:selected').text();
+                var quantity = $('#quantity').val();
+                var purchase_cost = $('#purchase_cost').val();
+                var srp = $('#srp').val();
+
+                if(invoice_number == '')
+                {
+                    $.notify("Invoice Number is required", { globalPosition: 'top right', className: 'error'});
+                    return false;
+                }
+                if(manufacturer_id == '')
+                {
+                    $.notify("Manufacturer is required", { globalPosition: 'top right', className: 'error'});
+                    return false;
+                }
+                if(supplier_id == '')
+                {
+                    $.notify("Supplier is required", { globalPosition: 'top right', className: 'error'});
+                    return false;
+                }
+                if(category_id == '')
+                {
+                    $.notify("Category is required", { globalPosition: 'top right', className: 'error'});
+                    return false;
+                }
+                if(form_id == '')
+                {
+                    $.notify("Category is required", { globalPosition: 'top right', className: 'error'});
+                    return false;
+                }
+                if(product_id == '')
+                {
+                    $.notify("Product is required", { globalPosition: 'top right', className: 'error'});
+                    return false;
+                }
+
+                var source = $("#document-template").html();
+                var template = Handlebars.compile(source);
+                var data = {
+                    supplier_id:supplier_id,
+                    manufacturer_id:manufacturer_id,
+                    product_id:product_id,
+                    invoice_number:invoice_number,
+                    quantity:quantity,
+                    purchase_cost:purchase_cost,
+                    srp:srp,
+                    expiry_date:expiry_date,
+                    manufacturing_date:manufacturing_date,
+                    category_id:category_id,
+                    form_id:form_id,
+                    category_name:category_name,
+                    form_name:form_name,
+                    medicine_name:medicine_name,
+                    generic_name:generic_name,
+                    description:description,
+                }
+                var html = template(data);
+                $("#addRow").append(html);
+            });
+        });
+    </script>
     <script type="text/javascript">
         $(function(){
             $(document).on('change','#category_id',function(){
@@ -142,9 +328,29 @@
                     type: "GET",
                     data: { category_id: category_id },
                     success: function(data){
-                        var html = '<option value="">Select Product</option>';
-                        $.each(data, function(key, v){
-                            html += `<option value="${v.id}">${v.name}</option>`;
+                        var html = '<option value="">Select Product Form</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="'+ v.form_id +'">'+ v.form.name +'</option>';
+                        });
+                        $('#form_id').html(html);
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('change','#form_id', function() {
+                var form_id = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('admin.get.specific.form') }}",
+                    type: "GET",
+                    data: { form_id: form_id },
+                    success: function(data){
+                        var html = '<option value="">Select Product Name</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="'+ v.id +'">'+ v.medicine_name +'</option>';
                         });
                         $('#product_id').html(html);
                     }
