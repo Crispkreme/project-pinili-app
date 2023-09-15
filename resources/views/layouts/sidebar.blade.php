@@ -98,8 +98,8 @@
                                 'icon' => '',
                                 'class' => '',
                             ],[
-                                'list' => 'Represetative',
-                                'url' => route('admin.all.representative'),
+                                'list' => 'Pending Approval',
+                                'url' => route('admin.pending.order'),
                                 'icon' => '',
                                 'class' => '',
                             ],

@@ -29,7 +29,7 @@
                                         @endforeach
                                     @endif
 
-                                    <form method="POST" action="{{ route('admin.store.product') }}" enctype="multipart/form-data" id="myForm">
+                                    <form method="POST" action="" enctype="multipart/form-data" id="myForm">
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-4">
@@ -133,7 +133,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="">
+                                    <form method="POST" action="{{ route('admin.store.order') }}" id="myForm">
                                         @csrf
                                         <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
                                             <thead>
