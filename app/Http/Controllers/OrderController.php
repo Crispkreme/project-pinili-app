@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Contracts\UserContract;
 use App\Contracts\OrderContract;
 use App\Contracts\StatusContract;
 use App\Contracts\ProductContract;
 use App\Contracts\CategoryContract;
+use Illuminate\Support\Facades\Auth;
 use App\Contracts\DistributorContract;
 use App\Contracts\RepresentativeContract;
+use App\Http\Requests\AddOrderStoreRequest;
 
 class OrderController extends Controller
 {
@@ -75,7 +79,63 @@ class OrderController extends Controller
     {
         $formId = $request->form_id;
         $userData = $this->productContract->getSpecificForm($formId);
-        return $userData;
-        // return response()->json($userData);
+        return response()->json($userData);
+    }
+
+    public function storeOrder(AddOrderStoreRequest $request)
+    {
+        try {
+            $prefix = "TNX-ORD";
+            $transactionNumber = Carbon::now()->format('Ymd-His');
+            $invoice_number = $prefix.'-'.$transactionNumber;
+
+            $params = $request->validated();
+            $status_id = 1;
+            $user_id = Auth::user()->id;
+            $remarks = "for approval";
+
+            for ($i = 0; $i < count($params['supplier_id']); $i++) {
+                $data = [
+                    'supplier_id' => $params['supplier_id'][$i],
+                    'manufacturer_id' => $params['manufacturer_id'][$i],
+                    'product_id' => $params['product_id'][$i],
+                    'quantity' => $params['quantity'][$i],
+                    'purchase_cost' => $params['purchase_cost'][$i],
+                    'srp' => $params['srp'][$i],
+                    'expiry_date' => $params['expiry_date'][$i],
+                    'manufacturing_date' => $params['manufacturing_date'][$i],
+                    'status_id' => $status_id,
+                    'user_id' => $user_id,
+                    'remarks' => $remarks,
+                    'invoice_number' => $invoice_number,
+                ];
+                $this->orderContract->storeOrder($data);
+            }
+
+            $notification = [
+                'alert-type' => 'success',
+                'message' => 'Data saved successfully!',
+            ];
+
+            return redirect()->route('admin.all.order')->with($notification);
+        } catch (\Exception $e) {
+            $notification = [
+                'alert-type' => 'danger',
+                'message' => 'Error occurred: ' . $e->getMessage(),
+            ];
+
+            return redirect()->route('admin.all.order')->with($notification);
+        }
+    }
+
+    public function approveOrder()
+    {
+        dd('asdasdds');
+    }
+
+    public function pendingOrder()
+    {
+        $userData = $this->orderContract->pendingOrder(1);
+        return view('admin.orders.index', ['userData' => $userData]);
     }
 }
