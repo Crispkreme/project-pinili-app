@@ -34,8 +34,8 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="row mb-3">
-                                                    <label for="name" class="col-form-label">Purchase Number</label>
-                                                    <input class="form-control" style="width:98%;" type="text" name="invoice_number" id="invoice_number" placeholder="Purchase Number">
+                                                    <label for="name" class="col-form-label">Date</label>
+                                                    <h5 id="currentDate"></h5>
                                                 </div>
                                             </div>
                                             <div class="col-md-4"></div>
@@ -192,8 +192,6 @@
 
     <script id="document-template" text="text/x-handlerbars-template">
         <tr class="delete_add_more_item" id="delete_add_more_item">
-
-            <input type="hidden" name="invoice_number[]" value="@{{ invoice_number }}">
             <input type="hidden" name="manufacturer_id[]" value="@{{ manufacturer_id }}">
             <input type="hidden" name="supplier_id[]" value="@{{ supplier_id }}">
             <input type="hidden" name="manufacturing_date[]" value="@{{ manufacturing_date }}">
@@ -239,7 +237,6 @@
     <script type="text/javascript">
         $(function(){
             $(document).on('click','.addeventmore', function() {
-                var invoice_number = $('#invoice_number').val();
                 var manufacturer_id = $('#manufacturer_id').val();
                 var supplier_id = $('#supplier_id').val();
                 var manufacturing_date = $('#manufacturing_date').val();
@@ -256,11 +253,6 @@
                 var purchase_cost = $('#purchase_cost').val();
                 var srp = $('#srp').val();
 
-                if(invoice_number == '')
-                {
-                    $.notify("Invoice Number is required", { globalPosition: 'top right', className: 'error'});
-                    return false;
-                }
                 if(manufacturer_id == '')
                 {
                     $.notify("Manufacturer is required", { globalPosition: 'top right', className: 'error'});
@@ -293,7 +285,6 @@
                     supplier_id:supplier_id,
                     manufacturer_id:manufacturer_id,
                     product_id:product_id,
-                    invoice_number:invoice_number,
                     quantity:quantity,
                     purchase_cost:purchase_cost,
                     srp:srp,
@@ -313,6 +304,7 @@
 
             $(document).on('click','.remove_event_more', function() {
                 $(this).closest(".delete_add_more_item").remove();
+                totalAmountPrice();
             });
 
             $(document).on('keyup click','.purchase_cost, .quantity', function() {
@@ -373,6 +365,15 @@
                 });
             });
         });
+    </script>
+    <script>
+        function displayCurrentDate() {
+            var currentDate = new Date();
+            var options = { year: 'numeric', month: 'long', day: 'numeric' };
+            var formattedDate = currentDate.toLocaleDateString(undefined, options);
+            document.getElementById("currentDate").textContent = formattedDate;
+        }
+        displayCurrentDate();
     </script>
 
 </x-app-layout>
