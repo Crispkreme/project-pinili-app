@@ -15,6 +15,7 @@ use App\Contracts\FormContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\OrderContract;
 use App\Contracts\StatusContract;
+use App\Contracts\InventoryContract;
 
 // REPOSITORY
 use App\Repositories\RoleRepository;
@@ -29,6 +30,7 @@ use App\Repositories\FormRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\StatusRepository;
+use App\Repositories\InventoryRepository;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -47,6 +49,7 @@ class RepositoryServiceProvider extends ServiceProvider
         CategoryContract::class => CategoryRepository::class,
         OrderContract::class => OrderRepository::class,
         StatusContract::class => StatusRepository::class,
+        InventoryContract::class => InventoryRepository::class,
     ];
 
     /**

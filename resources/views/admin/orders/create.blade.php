@@ -1,4 +1,9 @@
 <x-app-layout>
+
+    @push('styles')
+        <!-- <link rel="stylesheet" href="http://[::1]:5173/resources/libs/select2/css/select2.min.css" /> -->
+    @endpush
+
     <div id="layout-wrapper">
 
         @include('layouts.header-navigation')
@@ -45,8 +50,7 @@
                                             <div class="col-md-3">
                                                 <div class="row mb-3">
                                                     <label for="name" class="col-form-label">Manufacturer</label>
-                                                    <select class="form-select" style="width:98%;" name="manufacturer_id" aria-label="Default select example" id="manufacturer_id">
-                                                        <option selected disabled>Select Manufacturer</option>
+                                                    <select class="form-control" style="width:98%;" name="manufacturer_id" aria-label="Default select example" id="manufacturer_id">
                                                         @if (empty($distributorData))
                                                             <option value="" disabled>No data found</option>
                                                         @else
@@ -187,8 +191,13 @@
     <x-right-sidebar />
 
     <div class="rightbar-overlay"></div>
-    <script src="http://[::1]:5173/resources/libs/jquery/jquery.min.js"></script>
-    <script src="http://[::1]:5173/resources/js/handlebars.js"></script>
+
+    @push('scripts')
+        <script src="http://[::1]:5173/resources/libs/jquery/jquery.min.js"></script>
+        <script src="http://[::1]:5173/resources/js/handlebars.js"></script>
+        <!-- <script src="http://[::1]:5173/resources/libs/select2/js/select2.min.js"></script>
+        <script src="http://[::1]:5173/resources/js/pages/form-advanced.init.js"></script> -->
+    @endpush
 
     <script id="document-template" text="text/x-handlerbars-template">
         <tr class="delete_add_more_item" id="delete_add_more_item">
