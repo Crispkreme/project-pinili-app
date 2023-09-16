@@ -23,15 +23,29 @@ class OrderRepository implements OrderContract {
         return $this->model->create($params);
     }
 
-    public function pendingOrder($statusId)
+    public function pendingOrder($id)
     {
-        // return $this->model->with(['user','supplier','manufacturer','product','status'])->where('status_id', $id)->get();
-
         $relationships = ['user', 'supplier', 'manufacturer', 'product', 'status'];
         $pendingOrders = $this->model
             ->with($relationships)
-            ->where('status_id', $statusId)
+            ->where('status_id', $id)
             ->get();
         return $pendingOrders;
+    }
+
+    public function deleteOrder($id)
+    {
+        $order = $this->model->findOrFail($id);
+        $order->delete($order->id);
+        return $order;
+    }
+
+    public function approveOrder($id)
+    {
+        $order = $this->model->findOrFail($id);
+        $order->update([
+            'status_id' => 2,
+        ]);
+        return $order;
     }
 }

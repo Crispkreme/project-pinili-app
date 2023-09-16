@@ -69,7 +69,8 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/create/order', 'createOrder')->name('create.order');
     Route::get('/get/specific/category', 'getSpecificCategory')->name('get.specific.category');
     Route::get('/get/specific/form', 'getSpecificForm')->name('get.specific.form');
-    Route::post('/store/order', 'storeOrder')->name('store.order');
-    Route::get('/approve/order/{id}', 'approveOrder')->name('approve.order');
     Route::get('/pending/order', 'pendingOrder')->name('pending.order');
+    Route::get('/delete/order/{id}', 'deleteOrder')->name('delete.order');
+    Route::get('/approve/order/{id}', 'approveOrder')->name('approve.order');
+    Route::post('/store/order', 'storeOrder')->name('store.order');
 });

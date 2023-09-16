@@ -10,6 +10,7 @@ use App\Contracts\OrderContract;
 use App\Contracts\StatusContract;
 use App\Contracts\ProductContract;
 use App\Contracts\CategoryContract;
+use App\Contracts\InventoryContract;
 use Illuminate\Support\Facades\Auth;
 use App\Contracts\DistributorContract;
 use App\Contracts\RepresentativeContract;
@@ -24,6 +25,7 @@ class OrderController extends Controller
     protected $productContract;
     protected $statusContract;
     protected $categoryContract;
+    protected $inventoryContract;
 
     public function __construct(
         OrderContract $orderContract,
@@ -33,6 +35,7 @@ class OrderController extends Controller
         ProductContract $productContract,
         StatusContract $statusContract,
         CategoryContract $categoryContract,
+        InventoryContract $inventoryContract,
     ) {
         $this->orderContract = $orderContract;
         $this->userContract = $userContract;
@@ -41,6 +44,7 @@ class OrderController extends Controller
         $this->productContract = $productContract;
         $this->statusContract = $statusContract;
         $this->categoryContract = $categoryContract;
+        $this->inventoryContract = $inventoryContract;
     }
 
     public function getAllOrder()
@@ -128,14 +132,62 @@ class OrderController extends Controller
         }
     }
 
-    public function approveOrder()
+    public function approveOrder(Request $request, $id)
     {
-        dd('asdasdds');
+        try {
+
+            $updatedOrder = $this->orderContract->approveOrder($id);
+
+            $prefix = "IVN";
+            $transactionNumber = Carbon::now()->format('mHis');
+            $id_number = $prefix . '-' . $transactionNumber;
+
+            $params = $request->validated();
+            $params = [
+                'id_number' => $id_number,
+                'product_id' => $updatedOrder->product_id,
+                'stocks' => $updatedOrder->quantity,
+                'srp' => $updatedOrder->srp,
+            ];
+
+            $this->inventoryContract->storeInventory($params);
+
+            $notification = [
+                'alert-type' => 'success',
+                'message' => 'Order approved successfully!',
+            ];
+
+            return redirect()->route('admin.all.order')->with($notification);
+
+        } catch (\Exception $e) {
+            $notification = [
+                'alert-type' => 'danger',
+                'message' => 'Error occurred: ' . $e->getMessage(),
+            ];
+
+            return redirect()->back()->with($notification);
+        }
+
     }
 
     public function pendingOrder()
     {
         $userData = $this->orderContract->pendingOrder(1);
         return view('admin.orders.index', ['userData' => $userData]);
+    }
+
+    public function deleteOrder($id)
+    {
+        try{
+
+            $userData = $this->orderContract->deleteOrder($id);
+            toast('Order deleted successfully!','success');
+            return redirect()->route('admin.all.order');
+            
+        } catch (Exception $e) {
+
+            toast('Error occurred: ' . $e->getMessage(),'danger');
+            return redirect()->route('admin.all.order');
+        }
     }
 }
