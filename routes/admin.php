@@ -8,9 +8,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DrugClassController;
 use App\Http\Controllers\DistributorController;
-
-
-
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +71,12 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/delete/order/{id}', 'deleteOrder')->name('delete.order');
     Route::get('/approve/order/{id}', 'approveOrder')->name('approve.order');
     Route::post('/store/order', 'storeOrder')->name('store.order');
+
+    //Invoice functionality
+    Route::get('/print/invoice/order', 'printOrderInvoice')->name('print.invoice.order');
+    Route::get('/print/invoice/order/{id}', 'printOrderInvoiceById')->name('print.invoice.user.order');
+});
+Route::group(['controller' => InvoiceController::class], function () {
+    Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');
+    Route::get('/daily/order/invoice', 'getDailyOrderInvoice')->name('daily.order.invoice');
 });

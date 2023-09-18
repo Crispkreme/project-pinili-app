@@ -53,6 +53,12 @@ class OrderController extends Controller
         return view('admin.orders.index', ['userData' => $userData]);
     }
 
+    public function printOrderInvoice()
+    {
+        $userData = $this->orderContract->printOrderInvoice(2);
+        return view('admin.orders.print-invoice', ['userData' => $userData]);
+    }
+
     public function createOrder()
     {
         $userData = $this->userContract->getAllUserData();
@@ -113,6 +119,7 @@ class OrderController extends Controller
                     'remarks' => $remarks,
                     'invoice_number' => $invoice_number,
                 ];
+
                 $this->orderContract->storeOrder($data);
             }
 
@@ -189,5 +196,11 @@ class OrderController extends Controller
             toast('Error occurred: ' . $e->getMessage(),'danger');
             return redirect()->route('admin.all.order');
         }
+    }
+
+    public function printOrderInvoiceById($id)
+    {
+        $userData = $this->orderContract->printOrderInvoiceById($id);
+        return view('pdf.print-order-invoice-pdf', ['userData' => $userData]);
     }
 }
