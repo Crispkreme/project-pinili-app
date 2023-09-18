@@ -174,7 +174,6 @@ class OrderController extends Controller
 
             return redirect()->back()->with($notification);
         }
-
     }
 
     public function pendingOrder()
@@ -202,5 +201,27 @@ class OrderController extends Controller
     {
         $userData = $this->orderContract->printOrderInvoiceById($id);
         return view('pdf.print-order-invoice-pdf', ['userData' => $userData]);
+    }
+
+    public function getDailyOrderReport() 
+    {
+        return view('admin.orders.daily-order-report');
+    }
+
+    public function getAllDailyOrderReport(Request $request)
+    {
+        $startDate = date('Y-m-d', strtotime($request->start_date));
+        
+        if (empty($request->end_date)) {
+            $endDate = date('Y-m-d');
+        } else {
+            $endDate = date('Y-m-d', strtotime($request->end_date));
+        }
+
+        $params = [$startDate, $endDate];
+
+        $userData = $this->orderContract->getAllDailyOrderReport($params);
+        return view('admin.orders.daily-order-report', ['userData' => $userData]);
+
     }
 }

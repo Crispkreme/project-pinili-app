@@ -77,4 +77,9 @@ class OrderRepository implements OrderContract {
             ->findOrFail($id);
         return $purchaseOrders;
     }
+
+    public function getAllDailyOrderReport($params)
+    {
+        return $this->model->whereBetween('created_at', $params)->where('status_id', 2)->get();
+    }
 }
