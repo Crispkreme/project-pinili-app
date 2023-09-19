@@ -48,4 +48,22 @@ class UserRepository implements UserContract {
     {
         return $this->model->pluck('name', 'id')->toArray();
     }
+
+    public function updateUserActiveStatus($id)
+    {
+        $order = $this->model->findOrFail($id);
+        $order->update([
+            'isActive' => 1,
+        ]);
+        return $order;
+    }
+
+    public function updateUserNotActiveStatus($id)
+    {
+        $order = $this->model->findOrFail($id);
+        $order->update([
+            'isActive' => 0,
+        ]);
+        return $order;
+    }
 }
