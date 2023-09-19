@@ -39,4 +39,22 @@ class RepresentativeRepository implements RepresentativeContract {
     {
         return $this->model->update($params);
     }
+
+    public function updateEntityActiveStatus($id)
+    {
+        $order = $this->model->findOrFail($id);
+        $order->update([
+            'isActive' => 1,
+        ]);
+        return $order;
+    }
+
+    public function updateEntityNotActiveStatus($id)
+    {
+        $order = $this->model->findOrFail($id);
+        $order->update([
+            'isActive' => 0,
+        ]);
+        return $order;
+    }
 }

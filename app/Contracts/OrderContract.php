@@ -14,4 +14,5 @@ interface OrderContract {
     public function getAllDailyOrderReport($params);
     public function getAllDeletedOrder();
     public function getRestoreDeletedOrder($id);
+    public function getAllStockReport();
 }

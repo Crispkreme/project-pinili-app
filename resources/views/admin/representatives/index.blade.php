@@ -63,7 +63,11 @@
                                                     <td>
                                                         <div class="square-switch">
                                                             <input type="checkbox" id="square-switch1" switch="none" {{ $item->isActive == 1 ? 'checked' : '' }}>
-                                                            <label for="square-switch1" data-on-label="Active" data-off-label="Inactive"></label>
+                                                            <label for="square-switch1"
+                                                                   data-on-label="Active"
+                                                                   data-off-label="Inactive"
+                                                                   onclick="toggleSwitch('{{ route('admin.update.status.notactive.entity', $item->id) }}', '{{ route('admin.update.status.active.entity', $item->id) }}')"
+                                                            ></label>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -100,5 +104,16 @@
 
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
+
+    <script>
+        function toggleSwitch(activeRoute, notActiveRoute) {
+            var checkbox = document.getElementById('square-switch1');
+            if (checkbox.checked) {
+                window.location.href = activeRoute;
+            } else {
+                window.location.href = notActiveRoute;
+            }
+        }
+    </script>
 
 </x-app-layout>

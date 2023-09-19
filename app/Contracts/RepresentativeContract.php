@@ -9,4 +9,6 @@ interface RepresentativeContract {
     public function getRepresentativeData();
     public function editRepresentative($id);
     public function updateRepresentative($id, $params);
+    public function updateEntityActiveStatus($id);
+    public function updateEntityNotActiveStatus($id);
 }
