@@ -1,0 +1,171 @@
+<x-app-layout>
+
+    @push('styles')
+    @endpush
+
+    <div id="layout-wrapper">
+
+        @include('layouts.header-navigation')
+
+        @include('layouts.sidebar')
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0">Invoice</h4>
+
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Utility</a></li>
+                                        <li class="breadcrumb-item active">Invoice</li>
+                                    </ol>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+    
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="invoice-title">
+                                                <h4 class="float-end font-size-16"><strong>Invoice No.: # {{ $userData->invoice_number }}</strong></h4>
+                                                <h3>
+                                                    <img src="assets/images/logo-sm.png" alt="logo" height="24"/> PINILI MEDICAL CLINIC
+                                                </h3>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <address>
+                                                        <strong>COMPANY:</strong><br>
+                                                        EDWIN C. PINILI MD.<br>
+                                                        OCCUPATION AND FAMILY HEALTH PHYSICIAN <br>
+                                                        PINILI CLINIC 2ND RD.<br>
+                                                        BRGY. CALUMPANG<br>
+                                                        GENERAL SANTOS CITY, 9500
+                                                    </address>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <address>
+                                                        <strong>ORDER BY:</strong><br>
+                                                        {{ $userData->user->name }}<br>
+                                                        {{ $userData->user->email }}<br>
+                                                        {{ $userData->user->contact_number }}<br>
+                                                        {{ $userData->user->address }}
+                                                    </address>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 mt-4">
+                                                    <address>
+                                                        <strong>DISTRIBUTOR/SUPPLIER:</strong><br>
+                                                        {{ $userData->manufacturer->company->company_name }}<br>
+                                                        {{ $userData->manufacturer->entity->name }}
+                                                    </address>
+                                                </div>
+                                                <div class="col-6 mt-4 text-end">
+                                                    <address>
+                                                        <strong>Order Date:</strong><br>
+                                                        {{ $userData->created_at->format('F j, Y') }}<br><br>
+                                                    </address>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div>
+                                                <div class="p-2">
+                                                    <h3 class="font-size-16"><strong>Order summary</strong></h3>
+                                                </div>
+                                                <div class="">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <td><strong>Medicine Name</strong></td>
+                                                                <td><strong>Generic Name</strong></td>
+                                                                <td><strong>Description</strong></td>
+                                                                <td class="text-center"><strong>Price</strong></td>
+                                                                <td class="text-center"><strong>Quantity</strong>
+                                                                </td>
+                                                                <td class="text-end"><strong>Totals</strong></td>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                                                <tr>
+                                                                    <td>{{ $userData->product->medicine_name }}</td>
+                                                                    <td>{{ $userData->product->generic_name }}</td>
+                                                                    <td>{{ $userData->product->description }}</td>
+                                                                    <td class="text-center">{{ $userData->purchase_cost }}</td>
+                                                                    <td class="text-center">{{ $userData->quantity }}</td>
+                                                                    <td class="text-end">{{ $userData->purchase_cost * $userData->quantity }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+    
+                                                    <div class="d-print-none">
+                                                        <div class="" style="display:flex;justify-content:flex-end;">
+                                                            <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i> <span style="margin-left:5px;"> Print Invoice</span></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+                                    </div> <!-- end row -->
+    
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+
+                </div> <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+            
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <script>document.write(new Date().getFullYear())</script> © Upcube.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-end d-none d-sm-block">
+                                Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer> 
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+    <!-- Right Sidebar -->
+    <x-right-sidebar />
+    <!-- /Right-bar -->
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+    @push('scripts')
+    @endpush
+    
+</x-app-layout>

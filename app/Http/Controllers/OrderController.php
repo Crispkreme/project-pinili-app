@@ -54,6 +54,12 @@ class OrderController extends Controller
         return view('admin.orders.index', ['userData' => $userData]);
     }
 
+    public function printOrderInvoice()
+    {
+        $userData = $this->orderContract->printOrderInvoice(2);
+        return view('admin.orders.print-invoice', ['userData' => $userData]);
+    }
+
     public function createOrder()
     {
         $userData = $this->userContract->getAllUserData();
@@ -114,6 +120,7 @@ class OrderController extends Controller
                     'remarks' => $remarks,
                     'invoice_number' => $invoice_number,
                 ];
+
                 $this->orderContract->storeOrder($data);
             }
 
@@ -168,7 +175,6 @@ class OrderController extends Controller
 
             return redirect()->back()->with($notification);
         }
-
     }
 
     public function pendingOrder()
@@ -219,7 +225,7 @@ class OrderController extends Controller
         return view('admin.orders.daily-order-report', ['userData' => $userData]);
 
     }
-
+    
     public function getAllDeletedOrder()
     {
         $userData = $this->orderContract->getAllDeletedOrder();

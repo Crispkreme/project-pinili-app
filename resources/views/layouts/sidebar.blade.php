@@ -115,88 +115,22 @@
                             ]
                         ],
                     ],[
-                        'list' => 'Layouts',
+                        'list' => 'Manage Invoice',
                         'url' => 'javascript: void(0);',
-                        'icon' => '<i class="ri-layout-3-line"></i>',
+                        'icon' => '<i class="ri-survey-line"></i>',
                         'class' => 'has-arrow waves-effect',
                         'isMenuTitle' => false,
                         'submenu' => [
                             [
-                                'list' => 'Vertical',
-                                'url' => 'javascript: void(0);',
+                                'list' => 'Daily Invoice Report',
+                                'url' => route('admin.daily.order.report'),
                                 'icon' => '',
-                                'class' => 'has-arrow',
-                                'submenu' => [
-                                    [
-                                        'list' => 'Dark Sidebar',
-                                        'url' => 'layouts-dark-sidebar.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],[
-                                        'list' => 'Compact Sidebar',
-                                        'url' => 'layouts-compact-sidebar.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],[
-                                        'list' => 'Icon Sidebar',
-                                        'url' => 'layouts-icon-sidebar.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],[
-                                        'list' => 'Boxed Layout',
-                                        'url' => 'layouts-boxed.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],[
-                                        'list' => 'Preloader',
-                                        'url' => 'layouts-preloader.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],[
-                                        'list' => 'Colored Sidebar',
-                                        'url' => 'layouts-colored-sidebar.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],
-                                ],
+                                'class' => '',
                             ],[
-                                'list' => 'Horizontal',
-                                'url' => 'javascript: void(0);',
+                                'list' => 'Approve Invoice',
+                                'url' => route('admin.pending.order'),
                                 'icon' => '',
-                                'class' => 'has-arrow',
-                                'submenu' => [
-                                    [
-                                        'list' => 'Dark Sidebar',
-                                        'url' => 'layouts-dark-sidebar.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],[
-                                        'list' => 'Compact Sidebar',
-                                        'url' => 'layouts-compact-sidebar.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],[
-                                        'list' => 'Icon Sidebar',
-                                        'url' => 'layouts-icon-sidebar.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],[
-                                        'list' => 'Boxed Layout',
-                                        'url' => 'layouts-boxed.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],[
-                                        'list' => 'Preloader',
-                                        'url' => 'layouts-preloader.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],[
-                                        'list' => 'Colored Sidebar',
-                                        'url' => 'layouts-colored-sidebar.html',
-                                        'icon' => '',
-                                        'class' => '',
-                                    ],
-                                ],
+                                'class' => '',
                             ],
                         ],
                     ],[

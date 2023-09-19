@@ -8,9 +8,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DrugClassController;
 use App\Http\Controllers\DistributorController;
-
-
-
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------

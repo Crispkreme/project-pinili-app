@@ -49,6 +49,9 @@ $(document).ready(function (){
             start_date: {
                 required : true,
             }
+            start_date: {
+                required : true,
+            }
         },
         messages :{
             username: {
