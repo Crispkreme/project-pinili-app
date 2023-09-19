@@ -10,4 +10,6 @@ interface UserContract {
     public function getAllUser();
     public function editUser();
     public function getAllUserData();
+    public function updateUserActiveStatus($id);
+    public function updateUserNotActiveStatus($id);
 }

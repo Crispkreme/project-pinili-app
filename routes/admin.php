@@ -26,6 +26,8 @@ Route::group(['controller' => AdminController::class], function () {
     Route::post('/store/user', 'storeUser')->name('store.user');
     Route::get('/all/user', 'getAllUser')->name('all.user');
     Route::get('/edit/user/{id}', 'editUser')->name('edit.user');
+    Route::get('/update/status/active/user/{id}', 'updateUserActiveStatus')->name('update.status.active.user');
+    Route::get('/update/status/not/active/user/{id}', 'updateUserNotActiveStatus')->name('update.status.notactive.user');
 });
 Route::group(['controller' => EntityController::class], function () {
     Route::get('/create/representative', 'createRepresentative')->name('create.representative');

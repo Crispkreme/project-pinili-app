@@ -90,4 +90,40 @@ class AdminController extends Controller
             'roles' => $roles,
         ]);
     }
+
+    public function updateUserActiveStatus($id)
+    {
+        try {
+
+            $this->userContract->updateUserActiveStatus($id);
+
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+            $notification = [
+                'alert-type' => 'danger',
+                'message' => 'Error occurred: ' . $e->getMessage(),
+            ];
+
+            return view('admin.profile.change-password')->with($notification);
+        }
+    }
+
+    public function updateUserNotActiveStatus($id)
+    {
+        try {
+
+            $this->userContract->updateUserNotActiveStatus($id);
+
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+            $notification = [
+                'alert-type' => 'danger',
+                'message' => 'Error occurred: ' . $e->getMessage(),
+            ];
+
+            return view('admin.profile.change-password')->with($notification);
+        }
+    }
 }
