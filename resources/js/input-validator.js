@@ -45,6 +45,9 @@ $(document).ready(function (){
             },
             category_id: {
                 required : true,
+            },
+            start_date: {
+                required : true,
             }
             start_date: {
                 required : true,

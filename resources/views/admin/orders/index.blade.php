@@ -64,8 +64,8 @@
                                         <tbody>
                                             @if ($userData)
                                                 @foreach($userData as $key => $item)
-                                                    <tr>
-                                                        <td>{{ (int)$key + 1 }}</td>
+                                                    <tr style="vertical-align: middle;">
+                                                        <td style="text-align: center;">{{ (int)$key + 1 }}</td>
                                                         <td>{{ $item->invoice_number }}</td>
                                                         <td>{{ $item->product->medicine_name }}</td>
                                                         <td>{{ $item->supplier->name }}</td>
@@ -86,17 +86,27 @@
                                                                 </span>
                                                             @endif
                                                         </td>
-                                                        <td>
+                                                        <td style="text-align: center;">
                                                             @if ($item->status_id == 1)
 
                                                                 @if(request()->routeIs('admin.all.order'))
                                                                     <a href="{{ route('admin.delete.order', $item->id) }}" class="btn btn-danger waves-light" id="delete_button">
                                                                         <i class="fas fa-trash-alt"></i>
                                                                     </a>
-                                                                @elseif(request()->routeIs('admin.pending.order'))  
-                                                                    <a href="{{ route('admin.approve.order', $item->id) }}" type="button" class="btn btn-warning waves-light">
+                                                                @elseif(request()->routeIs('admin.pending.order'))
+                                                                    <a href="{{ route('admin.approve.order', $item->id) }}" type="button" class="btn btn-success waves-light">
                                                                         <i class="ri-checkbox-circle-line"></i>
-                                                                    </a> 
+                                                                    </a>
+                                                                @endif
+
+                                                            @endif
+
+                                                            @if ($item->status_id == 3)
+
+                                                                @if(request()->routeIs('admin.all.delete.order'))
+                                                                    <a href="{{ route('admin.restore.deleted.order', $item->id) }}" type="button" class="btn btn-success waves-light">
+                                                                        <i class="ri-recycle-line"></i>
+                                                                    </a>
                                                                 @endif
 
                                                             @endif
@@ -155,10 +165,10 @@
                     //         'success'
                     //       )
                     //     }
-                    // }) 
+                    // })
                 });
             });
         </script>
     @endpush
-    
+
 </x-app-layout>

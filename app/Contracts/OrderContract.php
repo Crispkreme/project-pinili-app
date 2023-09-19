@@ -12,4 +12,6 @@ interface OrderContract {
     public function approveOrder($id);
     public function printOrderInvoiceById($id);
     public function getAllDailyOrderReport($params);
+    public function getAllDeletedOrder();
+    public function getRestoreDeletedOrder($id);
 }

@@ -70,6 +70,8 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/pending/order', 'pendingOrder')->name('pending.order');
     Route::get('/delete/order/{id}', 'deleteOrder')->name('delete.order');
     Route::get('/approve/order/{id}', 'approveOrder')->name('approve.order');
+    Route::get('/restore/deleted/order/{id}', 'getRestoreDeletedOrder')->name('restore.deleted.order');
+    Route::get('/deleted/order/all', 'getAllDeletedOrder')->name('all.delete.order');
     Route::post('/store/order', 'storeOrder')->name('store.order');
 
     //Invoice functionality

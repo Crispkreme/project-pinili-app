@@ -22,6 +22,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">Daily Invoice Report</h4>
                                     <p class="card-title-desc">Select specific date to filter.</p>
+
                                     <form method="POST" id="myForm" action="{{ route('admin.daily.order.report.all')}}">
                                         @csrf
                                         <div style="display:flex;justify-content: space-evenly;">
@@ -32,7 +33,7 @@
                                             <button class="btn btn-info" type="submit">
                                                 <span>
                                                     <i class="ri-search-2-line"></i>
-                                                </span> 
+                                                </span>
                                                 Search
                                             </button>
                                         </div>
@@ -47,9 +48,20 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Order List Data</h4>
-                                        <p class="card-title-desc">This are the complete list of our filtered data.</p>
-
+                                        <div style="align-items: flex-end;display: flex;justify-content: space-between;margin-bottom: 20px;">
+                                            <div class="table-details">
+                                                <h4 class="card-title">Order List Data</h4>
+                                                <p class="card-title-desc">This are the complete list of our filtered data.</p>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-success">
+                                                    <span>
+                                                        <i class="ri-printer-line"></i>
+                                                    </span>
+                                                    Generate Invoice
+                                                </button>
+                                            </div>
+                                        </div>
                                         <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                             <thead>
                                                 <tr>
