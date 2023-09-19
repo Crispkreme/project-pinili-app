@@ -221,7 +221,7 @@
                     <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end mt-1">11</span><i class="ri-settings-2-line align-middle me-1"></i> Settings</a>
                     <a class="dropdown-item" href="#"><i class="ri-lock-unlock-line align-middle me-1"></i> Lock screen</a>
                     <div class="dropdown-divider"></div>
-                    <form method="POST" action="#">
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="dropdown-item text-danger">
                             <i class="ri-shut-down-line align-middle me-1 text-danger"></i>
