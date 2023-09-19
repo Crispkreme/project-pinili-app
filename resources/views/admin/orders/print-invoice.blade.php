@@ -86,20 +86,10 @@
                                                                 </span>
                                                             @endif
                                                         </td>
-                                                        <td>
-                                                            @if ($item->status_id == 1)
-
-                                                                @if(request()->routeIs('admin.all.order'))
-                                                                    <a href="{{ route('admin.delete.order', $item->id) }}" class="btn btn-danger waves-light" id="delete_button">
-                                                                        <i class="fas fa-trash-alt"></i>
-                                                                    </a>
-                                                                @elseif(request()->routeIs('admin.pending.order'))  
-                                                                    <a href="{{ route('admin.approve.order', $item->id) }}" type="button" class="btn btn-warning waves-light">
-                                                                        <i class="ri-checkbox-circle-line"></i>
-                                                                    </a> 
-                                                                @endif
-
-                                                            @endif
+                                                        <td style="text-align: center;">
+                                                            <a href="{{ route('admin.print.invoice.user.order', $item->id) }}" class="btn btn-success waves-light" id="print_button">
+                                                                <i class="ri-printer-line"></i>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

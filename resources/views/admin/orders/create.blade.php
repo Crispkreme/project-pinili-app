@@ -193,12 +193,10 @@
     <div class="rightbar-overlay"></div>
 
     @push('scripts')
-        <script src="http://[::1]:5173/resources/libs/jquery/jquery.min.js"></script>
-        <script src="http://[::1]:5173/resources/js/handlebars.js"></script>
-        <!-- <script src="http://[::1]:5173/resources/libs/select2/js/select2.min.js"></script>
-        <script src="http://[::1]:5173/resources/js/pages/form-advanced.init.js"></script> -->
     @endpush
-
+    
+    <script src="http://[::1]:5173/resources/libs/jquery/jquery.min.js"></script>
+    <script src="http://[::1]:5173/resources/js/handlebars.js"></script>    
     <script id="document-template" text="text/x-handlerbars-template">
         <tr class="delete_add_more_item" id="delete_add_more_item">
             <input type="hidden" name="manufacturer_id[]" value="@{{ manufacturer_id }}">

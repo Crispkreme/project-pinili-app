@@ -16,11 +16,31 @@ class OrderRepository implements OrderContract {
 
     public function getAllOrder()
     {
-        return $this->model->with(['user','supplier','manufacturer','product','status'])->get();
+        return $this->model->with([
+            'user',
+            'supplier',
+            'manufacturer',
+            'product',
+            'status'
+        ])->get();
+    }
+
+    public function printOrderInvoice($id)
+    {
+        return $this->model->with([
+            'user',
+            'supplier',
+            'manufacturer',
+            'product',
+            'status'
+        ])
+        ->where('status_id', $id)
+        ->get();
     }
 
     public function storeOrder($params) {
-        return $this->model->create($params);
+        $order = $this->model->create($params);
+        return $order;
     }
 
     public function pendingOrder($id)
@@ -47,5 +67,14 @@ class OrderRepository implements OrderContract {
             'status_id' => 2,
         ]);
         return $order;
+    }
+
+    public function printOrderInvoiceById($id)
+    {
+        $relationships = ['user', 'supplier', 'manufacturer', 'product', 'status'];
+        $purchaseOrders = $this->model
+            ->with($relationships)
+            ->findOrFail($id);
+        return $purchaseOrders;
     }
 }
