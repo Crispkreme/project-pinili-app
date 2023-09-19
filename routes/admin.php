@@ -75,8 +75,9 @@ Route::group(['controller' => OrderController::class], function () {
     //Invoice functionality
     Route::get('/print/invoice/order', 'printOrderInvoice')->name('print.invoice.order');
     Route::get('/print/invoice/order/{id}', 'printOrderInvoiceById')->name('print.invoice.user.order');
+    Route::get('/daily/order/report', 'getDailyOrderReport')->name('daily.order.report');
+    Route::post('/daily/order/report/all', 'getAllDailyOrderReport')->name('daily.order.report.all');
 });
 Route::group(['controller' => InvoiceController::class], function () {
     Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');
-    Route::get('/daily/order/invoice', 'getDailyOrderInvoice')->name('daily.order.invoice');
 });

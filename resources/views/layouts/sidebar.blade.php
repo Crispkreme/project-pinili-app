@@ -118,7 +118,7 @@
                         'submenu' => [
                             [
                                 'list' => 'Daily Invoice Report',
-                                'url' => route('admin.daily.order.invoice'),
+                                'url' => route('admin.daily.order.report'),
                                 'icon' => '',
                                 'class' => '',
                             ],[
