@@ -72,5 +72,16 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/pending/order', 'pendingOrder')->name('pending.order');
     Route::get('/delete/order/{id}', 'deleteOrder')->name('delete.order');
     Route::get('/approve/order/{id}', 'approveOrder')->name('approve.order');
+    Route::get('/restore/deleted/order/{id}', 'getRestoreDeletedOrder')->name('restore.deleted.order');
+    Route::get('/deleted/order/all', 'getAllDeletedOrder')->name('all.delete.order');
     Route::post('/store/order', 'storeOrder')->name('store.order');
+
+    //Invoice functionality
+    Route::get('/print/invoice/order', 'printOrderInvoice')->name('print.invoice.order');
+    Route::get('/print/invoice/order/{id}', 'printOrderInvoiceById')->name('print.invoice.user.order');
+    Route::get('/daily/order/report', 'getDailyOrderReport')->name('daily.order.report');
+    Route::post('/daily/order/report/all', 'getAllDailyOrderReport')->name('daily.order.report.all');
+});
+Route::group(['controller' => InvoiceController::class], function () {
+    Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');
 });

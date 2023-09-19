@@ -102,7 +102,17 @@
                                 'url' => route('admin.pending.order'),
                                 'icon' => '',
                                 'class' => '',
-                            ],
+                            ],[
+                                'list' => 'Deleted Order',
+                                'url' => route('admin.all.delete.order'),
+                                'icon' => '',
+                                'class' => '',
+                            ],[
+                                'list' => 'Print Invoice',
+                                'url' => route('admin.print.invoice.order'),
+                                'icon' => '',
+                                'class' => '',
+                            ]
                         ],
                     ],[
                         'list' => 'Layouts',

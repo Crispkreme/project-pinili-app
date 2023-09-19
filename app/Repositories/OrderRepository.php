@@ -36,6 +36,9 @@ class OrderRepository implements OrderContract {
     public function deleteOrder($id)
     {
         $order = $this->model->findOrFail($id);
+        $order->update([
+            'status_id' => 3,
+        ]);
         $order->delete($order->id);
         return $order;
     }
@@ -46,6 +49,45 @@ class OrderRepository implements OrderContract {
         $order->update([
             'status_id' => 2,
         ]);
+        return $order;
+    }
+
+    public function printOrderInvoiceById($id)
+    {
+        $relationships = ['user', 'supplier', 'manufacturer', 'product', 'status'];
+        $purchaseOrders = $this->model
+            ->with($relationships)
+            ->findOrFail($id);
+        return $purchaseOrders;
+    }
+
+    public function getAllDailyOrderReport($params)
+    {
+        return $this->model
+            ->whereBetween('created_at', $params)
+            ->where('status_id', 2)
+            ->get();
+    }
+
+    public function getAllDeletedOrder()
+    {
+        $deletedOrders = $this->model->onlyTrashed()->get();
+        return $deletedOrders;
+    }
+
+    public function getRestoreDeletedOrder($id)
+    {
+        $order = $this->model->withTrashed()->findOrFail($id);
+
+        if ($order->trashed()) {
+            $order->restore();
+        }
+
+        $order->update([
+            'status_id' => 1,
+            'created_at' => now(),
+        ]);
+
         return $order;
     }
 }

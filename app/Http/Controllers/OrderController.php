@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -183,11 +184,51 @@ class OrderController extends Controller
             $userData = $this->orderContract->deleteOrder($id);
             toast('Order deleted successfully!','success');
             return redirect()->route('admin.all.order');
-            
+
         } catch (Exception $e) {
 
             toast('Error occurred: ' . $e->getMessage(),'danger');
             return redirect()->route('admin.all.order');
         }
+    }
+
+    public function printOrderInvoiceById($id)
+    {
+        $userData = $this->orderContract->printOrderInvoiceById($id);
+        return view('pdf.print-order-invoice-pdf', ['userData' => $userData]);
+    }
+
+    public function getDailyOrderReport()
+    {
+        return view('admin.orders.daily-order-report');
+    }
+
+    public function getAllDailyOrderReport(Request $request)
+    {
+        $startDate = date('Y-m-d', strtotime($request->start_date));
+
+        if (empty($request->end_date)) {
+            $endDate = date('Y-m-d');
+        } else {
+            $endDate = date('Y-m-d', strtotime($request->end_date));
+        }
+
+        $params = [$startDate, $endDate];
+
+        $userData = $this->orderContract->getAllDailyOrderReport($params);
+        return view('admin.orders.daily-order-report', ['userData' => $userData]);
+
+    }
+
+    public function getAllDeletedOrder()
+    {
+        $userData = $this->orderContract->getAllDeletedOrder();
+        return view('admin.orders.index', ['userData' => $userData]);
+    }
+
+    public function getRestoreDeletedOrder($id)
+    {
+        $this->orderContract->getRestoreDeletedOrder($id);
+        return redirect()->back();
     }
 }

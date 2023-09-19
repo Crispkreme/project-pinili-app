@@ -45,6 +45,9 @@ $(document).ready(function (){
             },
             category_id: {
                 required : true,
+            },
+            start_date: {
+                required : true,
             }
         },
         messages :{
@@ -93,6 +96,9 @@ $(document).ready(function (){
             category_id: {
                 required : 'Fields are required',
             }
+            start_date: {
+                required : 'Fields are required',
+            },
         },
         errorElement : 'span',
         errorPlacement: function (error,element) {
