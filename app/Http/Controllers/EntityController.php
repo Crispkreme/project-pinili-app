@@ -102,4 +102,40 @@ class EntityController extends Controller
             return redirect()->route('admin.all.representative')->with($notification);
         }
     }
+
+    public function updateEntityActiveStatus($id)
+    {
+        try {
+
+            $this->representativeContract->updateEntityActiveStatus($id);
+
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+            $notification = [
+                'alert-type' => 'danger',
+                'message' => 'Error occurred: ' . $e->getMessage(),
+            ];
+
+            return view('admin.profile.change-password')->with($notification);
+        }
+    }
+
+    public function updateEntityNotActiveStatus($id)
+    {
+        try {
+
+            $this->representativeContract->updateEntityNotActiveStatus($id);
+
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+            $notification = [
+                'alert-type' => 'danger',
+                'message' => 'Error occurred: ' . $e->getMessage(),
+            ];
+
+            return view('admin.profile.change-password')->with($notification);
+        }
+    }
 }

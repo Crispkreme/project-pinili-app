@@ -25,6 +25,20 @@ class OrderRepository implements OrderContract {
         ])->get();
     }
 
+    public function getAllStockReport()
+    {
+        return $this->model
+        ->with([
+            'user',
+            'supplier',
+            'manufacturer',
+            'product',
+            'status'
+        ])
+        ->where('status_id', 2)
+        ->get();
+    }
+
     public function printOrderInvoice($id)
     {
         return $this->model->with([

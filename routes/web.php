@@ -21,8 +21,7 @@ Route::get('/', function () {
 })->name('/');
 
 Route::get('/home', function () {
-    if (Auth::check())
-    {
+    if (Auth::check()) {
         if (Auth::user()->role_id == 1) {
             return redirect()->route('admin.dashboard');
         } elseif (Auth::user()->role_id == 2) {

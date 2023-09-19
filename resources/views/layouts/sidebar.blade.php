@@ -118,6 +118,25 @@
                                 ]
                             ],
                         ],[
+                            'list' => 'Manage Stock',
+                            'url' => 'javascript: void(0);',
+                            'icon' => '<i class="ri-swap-box-line"></i>',
+                            'class' => 'has-arrow waves-effect',
+                            'isMenuTitle' => false,
+                            'submenu' => [
+                                [
+                                    'list' => 'Stock Report',
+                                    'url' => route('admin.stock.report'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ],[
+                                    'list' => 'Pending Approval',
+                                    'url' => route('admin.pending.order'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ]
+                            ],
+                        ],[
                             'list' => 'Manage Invoice',
                             'url' => 'javascript: void(0);',
                             'icon' => '<i class="ri-survey-line"></i>',

@@ -65,7 +65,7 @@
                                                             <label for="square-switch1"
                                                                    data-on-label="Active"
                                                                    data-off-label="Inactive"
-                                                                   onclick="toggleSwitch('{{ route('admin.update.status.active.user', $item->id) }}', '{{ route('admin.update.status.notactive.user', $item->id) }}')"
+                                                                   onclick="toggleSwitch('{{ route('admin.update.status.notactive.user', $item->id) }}','{{ route('admin.update.status.active.user', $item->id) }}')"
                                                             ></label>
                                                         </div>
                                                     </td>

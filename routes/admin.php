@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DrugClassController;
 use App\Http\Controllers\DistributorController;
-use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,8 @@ Route::group(['controller' => EntityController::class], function () {
     Route::get('/all/representative', 'index')->name('all.representative');
     Route::get('/edit/representative/{id}', 'editRepresentative')->name('edit.representative');
     Route::get('/update/representative/{id}', 'updateRepresentative')->name('update.representative');
+    Route::get('/update/status/active/entity/{id}', 'updateEntityActiveStatus')->name('update.status.active.entity');
+    Route::get('/update/status/not/active/entity/{id}', 'updateEntityNotActiveStatus')->name('update.status.notactive.entity');
 });
 Route::group(['controller' => CompanyController::class], function () {
     Route::get('/create/company', 'createCompany')->name('create.company');
@@ -84,4 +87,7 @@ Route::group(['controller' => OrderController::class], function () {
 });
 Route::group(['controller' => InvoiceController::class], function () {
     Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');
+});
+Route::group(['controller' => StockController::class], function () {
+    Route::get('/stock/report', 'getAllStockReport')->name('stock.report');
 });
