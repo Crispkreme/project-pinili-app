@@ -21,7 +21,7 @@ class InventoryController extends Controller
     {
         $productId = $request->input('product_id');
         $userData = $this->inventoryContract->getProductWiseReport($productId);
-        dd($this->inventoryContract->getProductWiseReport($productId));
+
         return view('admin.stocks.supplier-product-wise-report', ['userData' => $userData]);
     }
 
@@ -29,7 +29,7 @@ class InventoryController extends Controller
     {
         $supplierId = $request->input('supplier_id');
         $userData = $this->inventoryContract->getSupplierWiseReport($supplierId);
-        dd($userData);
+
         return view('admin.stocks.supplier-product-wise-report', ['userData' => $userData]);
     }
 }
