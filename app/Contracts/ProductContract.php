@@ -11,4 +11,5 @@ interface ProductContract {
     public function getProductData();
     public function editProduct($id);
     public function updateProduct($id, $params);
+    public function updateInventoryData($id, $params);
 }

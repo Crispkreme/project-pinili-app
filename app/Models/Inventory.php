@@ -13,9 +13,23 @@ class Inventory extends Model
 
     protected $fillable = [
         'product_id',
+        'supplier_id',
+        'user_id',
         'id_number',
-        'stocks',
-        'purchase',
+        'price',
+        'purchase_stocks',
         'srp',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function product() {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function supplier() {
+        return $this->belongsTo(Entity::class, 'supplier_id');
+    }
 }

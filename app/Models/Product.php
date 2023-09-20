@@ -19,6 +19,10 @@ class Product extends Model
         'medicine_name',
         'generic_name',
         'description',
+        'isActive',
+        'sku',
+        'sold',
+        'available',
     ];
 
     public function category() {

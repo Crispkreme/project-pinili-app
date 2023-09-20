@@ -48,8 +48,14 @@ $(document).ready(function (){
             },
             start_date: {
                 required : true,
-            }
+            },
             start_date: {
+                required : true,
+            },
+            wise_supplier_id: {
+                required : true,
+            },
+            wise_product_id: {
                 required : true,
             }
         },
@@ -98,10 +104,16 @@ $(document).ready(function (){
             },
             category_id: {
                 required : 'Fields are required',
-            }
+            },
             start_date: {
                 required : 'Fields are required',
             },
+            wise_supplier_id: {
+                required : 'Fields are required',
+            },
+            wise_product_id: {
+                required : 'Fields are required',
+            }
         },
         errorElement : 'span',
         errorPlacement: function (error,element) {

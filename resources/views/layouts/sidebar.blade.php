@@ -130,8 +130,8 @@
                                     'icon' => '',
                                     'class' => '',
                                 ],[
-                                    'list' => 'Pending Approval',
-                                    'url' => route('admin.pending.order'),
+                                    'list' => 'Product/Supplier Wise Report',
+                                    'url' => route('admin.product.supplier.wise.report'),
                                     'icon' => '',
                                     'class' => '',
                                 ]

@@ -140,25 +140,35 @@ class OrderController extends Controller
         }
     }
 
-    public function approveOrder(Request $request, $id)
+    public function approveOrder($id)
     {
         try {
 
             $updatedOrder = $this->orderContract->approveOrder($id);
 
             $prefix = "IVN";
-            $transactionNumber = Carbon::now()->format('mHis');
+            $transactionNumber = Carbon::now()->format('Ymd-His');
             $id_number = $prefix . '-' . $transactionNumber;
 
-            $params = $request->validated();
             $params = [
                 'id_number' => $id_number,
                 'product_id' => $updatedOrder->product_id,
-                'stocks' => $updatedOrder->quantity,
+                'supplier_id' => $updatedOrder->supplier_id,
+                'purchase_stocks' => $updatedOrder->quantity,
                 'srp' => $updatedOrder->srp,
+                'user_id' => Auth::user()->id,
+                'price' => $updatedOrder->purchase_cost,
             ];
 
             $this->inventoryContract->storeInventory($params);
+
+            $productId = $updatedOrder->product_id;
+            $params = [
+                'isActive' => 1,
+                'sku' => $updatedOrder->quantity,
+            ];
+
+            $this->productContract->updateInventoryData($productId, $params);
 
             $notification = [
                 'alert-type' => 'success',
@@ -168,6 +178,7 @@ class OrderController extends Controller
             return redirect()->route('admin.all.order')->with($notification);
 
         } catch (\Exception $e) {
+
             $notification = [
                 'alert-type' => 'danger',
                 'message' => 'Error occurred: ' . $e->getMessage(),
@@ -225,7 +236,7 @@ class OrderController extends Controller
         return view('admin.orders.daily-order-report', ['userData' => $userData]);
 
     }
-    
+
     public function getAllDeletedOrder()
     {
         $userData = $this->orderContract->getAllDeletedOrder();

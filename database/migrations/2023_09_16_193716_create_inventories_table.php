@@ -14,11 +14,21 @@ return new class extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('supplier_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('id_number');
-            $table->integer('stocks');
-            $table->integer('purchase');
-            $table->double('srp');
+            $table->integer('price');
+            $table->integer('purchase_stocks')->nullable();
+            $table->double('srp')->nullable();
 
+            $table->foreign('supplier_id')
+                  ->references('id')
+                  ->on('entities')
+                  ->onDelete('cascade');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
             $table->foreign('product_id')
                   ->references('id')
                   ->on('products')

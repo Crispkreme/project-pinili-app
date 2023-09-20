@@ -1,0 +1,13 @@
+sample code for optimize
+
+public function getProductData($columns, $purpose)
+{
+    return $this->model
+        ->when($purpose == 'stock', function ($query) {
+            $query->select($columns);
+        })
+        ->when($purpose == 'dashboard', function ($query) {
+            $query->with(['category','form']);
+        })
+        ->get()
+}

@@ -1,8 +1,12 @@
 <x-app-layout>
 
     @push('styles')
-        <!-- <link rel="stylesheet" href="http://[::1]:5173/resources/libs/select2/css/select2.min.css" /> -->
     @endpush
+
+    <link rel="stylesheet" href="http://[::1]:5173/resources/libs/select2/css/select2.min.css" />
+    <link rel="stylesheet" href="http://[::1]:5173/resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://[::1]:5173/resources/css/icons.min.css" />
+    <link rel="stylesheet" href="http://[::1]:5173/resources/css/app.min.css" />
 
     <div id="layout-wrapper">
 
@@ -51,6 +55,7 @@
                                                 <div class="row mb-3">
                                                     <label for="name" class="col-form-label">Manufacturer</label>
                                                     <select class="form-control" style="width:98%;" name="manufacturer_id" aria-label="Default select example" id="manufacturer_id">
+                                                        <option selected disabled>Select Manufacturer</option>
                                                         @if (empty($distributorData))
                                                             <option value="" disabled>No data found</option>
                                                         @else
@@ -89,7 +94,7 @@
                                                     <div class="col-md-4">
                                                         <div class="row">
                                                             <label for="name" class="col-form-label">Product Category</label>
-                                                            <select class="form-select" style="width:98%;" name="category_id" aria-label="Default select example" id="category_id">
+                                                            <select class="form-select select-2" style="width:98%;" name="category_id" aria-label="Default select example" id="category_id">
                                                                 <option selected disabled>Select Product Category</option>
                                                                 @if (empty($categoryData))
                                                                     <option value="" disabled>No data found</option>
@@ -104,7 +109,7 @@
                                                     <div class="col-md-4">
                                                         <div class="row">
                                                             <label for="name" class="col-form-label">Product Form</label>
-                                                            <select class="form-select" style="width:98%;" name="form_id" aria-label="Default select example" id="form_id">
+                                                            <select class="form-select select-2" style="width:98%;" name="form_id" aria-label="Default select example" id="form_id">
                                                                 <option value="">Select Product Form</option>
                                                             </select>
                                                         </div>
@@ -112,7 +117,7 @@
                                                     <div class="col-md-4">
                                                         <div class="row">
                                                             <label for="name" class="col-form-label">Product</label>
-                                                            <select class="form-select" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
+                                                            <select class="form-select select-2" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
                                                                 <option value="">Select Product Name</option>
                                                             </select>
                                                         </div>
@@ -192,11 +197,21 @@
 
     <div class="rightbar-overlay"></div>
 
+    <script src="http://[::1]:5173/resources/libs/jquery/jquery.min.js"></script>
+    <script src="http://[::1]:5173/resources/js/handlebars.js"></script>
+
+    <script src="http://[::1]:5173/resources/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="http://[::1]:5173/resources/libs/metismenu/metisMenu.min.js"></script>
+    <script src="http://[::1]:5173/resources/libs/simplebar/simplebar.min.js"></script>
+    <script src="http://[::1]:5173/resources/libs/node-waves/waves.min.js"></script>
+
+    <script src="http://[::1]:5173/resources/libs/select2/js/select2.min.js"></script>
+    <script src="http://[::1]:5173/resources/js/pages/form-advanced.init.js"></script>
+    <script src="http://[::1]:5173/resources/js/main-js.js"></script>
+
     @push('scripts')
     @endpush
-    
-    <script src="http://[::1]:5173/resources/libs/jquery/jquery.min.js"></script>
-    <script src="http://[::1]:5173/resources/js/handlebars.js"></script>    
+
     <script id="document-template" text="text/x-handlerbars-template">
         <tr class="delete_add_more_item" id="delete_add_more_item">
             <input type="hidden" name="manufacturer_id[]" value="@{{ manufacturer_id }}">

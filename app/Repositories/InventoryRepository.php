@@ -18,4 +18,20 @@ class InventoryRepository implements InventoryContract {
     {
         return $this->model->create($params);
     }
+
+    public function getProductWiseReport($id)
+    {
+        return $this->model
+        ->where('product_id', $id)
+        ->orderBy('product_id', 'asc')
+        ->get();
+    }
+
+    public function getSupplierWiseReport($id)
+    {
+        return $this->model
+        ->where('supplier_id', $id)
+        ->orderBy('supplier_id', 'asc')
+        ->get();
+    }
 }

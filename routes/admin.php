@@ -9,6 +9,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DrugClassController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\DistributorController;
 
 /*
@@ -90,4 +91,9 @@ Route::group(['controller' => InvoiceController::class], function () {
 });
 Route::group(['controller' => StockController::class], function () {
     Route::get('/stock/report', 'getAllStockReport')->name('stock.report');
+    Route::get('/product/supplier/wise/report', 'getProductSupplierWiseReport')->name('product.supplier.wise.report');
+});
+Route::group(['controller' => InventoryController::class], function () {
+    Route::post('get/product/wise/report', 'getProductWiseReport')->name('get.product.wise.report');
+    Route::post('get/supplier/wise/report', 'getSupplierWiseReport')->name('get.supplier.wise.report');
 });

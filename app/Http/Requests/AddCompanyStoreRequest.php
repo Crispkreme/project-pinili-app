@@ -38,7 +38,7 @@ class AddCompanyStoreRequest extends FormRequest
             ],
             'landline' => [
                 'nullable',
-                'numeric',
+                'string',
             ],
             'address' => [
                 'nullable',
