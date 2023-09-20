@@ -40,15 +40,9 @@
 
                     <div class="row">
                         <div class="col-12">
+
                             <div class="card">
                                 <div class="card-body">
-                                    @if(request()->routeIs('admin.all.order'))
-                                        <a href="{{ route('admin.create.order') }}"
-                                        class="btn btn-dark btn-rounded waves-effect waves-light"
-                                        style="float:right;">Add Order</a>
-                                        <br><br>
-                                    @endif
-
                                     <h4 class="card-title">Stock List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our stocks.</p>
 
@@ -67,7 +61,9 @@
                                     </div>
 
                                     <div class="row mb-3" id="show_supplier" style="display:none;">
-                                        <form action="{{ route('admin.get.supplier.wise.report') }}" method="POST" style="display:flex;align-items:flex-end;">
+                                        <form action="{{ route('admin.get.supplier.wise.report') }}"
+                                        method="POST"
+                                        style="display:flex;align-items:flex-end;">
                                             @csrf
                                             <div class="col-md-6">
                                                 <label for="name" class="col-form-label">Supplier</label>
@@ -95,7 +91,9 @@
                                     </div>
 
                                     <div class="row mb-3" id="show_product" style="display: none;">
-                                        <form action="{{ route('admin.get.product.wise.report') }}" method="POST" style="display:flex;align-items:flex-end;">
+                                        <form action="{{ route('admin.get.product.wise.report') }}"
+                                        method="POST"
+                                        style="display:flex;align-items:flex-end;">
                                             @csrf
                                             <div class="col-md-6">
                                                 <label for="name" class="col-form-label">Product</label>
@@ -121,8 +119,51 @@
                                             </div>
                                         </form>
                                     </div>
+
                                 </div>
                             </div>
+
+                            {{-- @if($userData!== null)
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table id="datatable"
+                                        class="table table-bordered dt-responsive nowrap"
+                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Invoice Number</th>
+                                                    <th>Product Name</th>
+                                                    <th>Supplier</th>
+                                                    <th>Category</th>
+                                                    <th>Form</th>
+                                                    <th>Purchase</th>
+                                                    <th>Stocks</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if ($userData)
+                                                    @foreach($userData as $key => $item)
+                                                        <tr style="vertical-align: middle;">
+                                                            <td>{{ $item->invoice_number }}</td>
+                                                            <td>{{ $item->product->medicine_name }}</td>
+                                                            <td>{{ $item->supplier->name }}</td>
+                                                            <td>{{ $item->product->category->name }}</td>
+                                                            <td>{{ $item->product->form->name }}</td>
+                                                            <td>{{ $item->purchase_stocks }}</td>
+                                                            <td>{{ $item->product->sku }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <p>No data available.</p>
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            @else
+                                <p>No data available.</p>
+                            @endif --}}
+
                         </div>
                     </div>
                 </div>

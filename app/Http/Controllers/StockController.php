@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\InventoryContract;
 use Illuminate\Http\Request;
 use App\Contracts\OrderContract;
 use App\Contracts\ProductContract;
@@ -14,8 +15,10 @@ class StockController extends Controller
     protected $orderContract;
     protected $representativeContract;
     protected $productContract;
+    protected $inventoryContract;
 
     public function __construct(
+        InventoryContract $inventoryContract,
         OrderContract $orderContract,
         RepresentativeContract $representativeContract,
         ProductContract $productContract,
@@ -23,6 +26,7 @@ class StockController extends Controller
         $this->orderContract = $orderContract;
         $this->representativeContract = $representativeContract;
         $this->productContract = $productContract;
+        $this->inventoryContract = $inventoryContract;
     }
 
     public function getAllStockReport()
@@ -40,17 +44,5 @@ class StockController extends Controller
             'suppliers' => $suppliers,
             'products' => $products
         ]);
-    }
-
-    public function getProductWiseReport(ProductWiseReportRequest $request)
-    {
-        $params = $request->validated();
-        dd($params['product_id']);
-    }
-
-    public function getSupplierWiseReport(SupplierWiseReportRequest $request)
-    {
-        $params = $request->validated();
-        dd($params['supplier_id']);
     }
 }

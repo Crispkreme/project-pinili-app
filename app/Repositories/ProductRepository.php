@@ -57,4 +57,11 @@ class ProductRepository implements ProductContract {
         ->where('form_id', $id)
         ->get();
     }
+
+    public function updateInventoryData($id, $params)
+    {
+        $inventory = $this->model->findOrFail($id);
+        $inventory->update($params);
+        return $inventory;
+    }
 }
