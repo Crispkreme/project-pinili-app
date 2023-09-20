@@ -14,18 +14,6 @@ class DrugClassSeeder extends Seeder
     public function run(): void
     {
         DrugClass::create([
-            'classification_id' => 1,
-            'id_number' => 'DRG-09015814',
-            'name' => 'Category',
-            'description' => 'Category',
-        ]);
-        DrugClass::create([
-            'classification_id' => 2,
-            'id_number' => 'DRG-09015912',
-            'name' => 'Form',
-            'description' => 'Form',
-        ]);
-        DrugClass::create([
             'classification_id' => 2,
             'id_number' => 'DRG-06283253',
             'name' => 'Tablet',
@@ -335,7 +323,7 @@ class DrugClassSeeder extends Seeder
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Sleeping Drugs',
-            'description' => '',
+            'description' => 'A drug and especially a barbiturate that is taken as a tablet or capsule to induce sleep',
         ]);
         DrugClass::create([
             'classification_id' => 1,
@@ -353,85 +341,85 @@ class DrugClassSeeder extends Seeder
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Mucolytic',
-            'description' => '',
+            'description' => 'A mucolytic is any agent which dissolves thick mucus, used to help relieve breathing difficulties.',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Antiprotozoal',
-            'description' => '',
+            'description' => 'Medication used to treat infections caused by protozoa, which are single cell organisms that belong to the type of parasites.',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Antispasmodic',
-            'description' => '',
+            'description' => 'A medication that relieves, prevents, or lowers the incidence of muscle spasms, especially those of smooth muscle such as in the bowel wall.',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Antiasthma',
-            'description' => '',
+            'description' => 'Relieving or counteracting the symptoms of asthma. anti-asthma drugs.',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Antitussive',
-            'description' => '',
+            'description' => 'Used to treat coughs and congestion caused by the common cold, bronchitis, and other breathing illnesses.',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Corticosteroid',
-            'description' => '',
+            'description' => 'Are a class of steroid hormones that are produced in the adrenal cortex of vertebrates, as well as the synthetic analogues of these hormones.',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Antidiabetic',
-            'description' => '',
+            'description' => 'Used in diabetes treat diabetes mellitus by altering the glucose level in the blood.',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Inhibitor',
-            'description' => '',
+            'description' => 'A substance that binds to an enzyme and decreases the enzymes activity',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Antivertigo',
-            'description' => '',
+            'description' => 'Used to prevent or relieve the symptoms of vertigo',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Antimotility',
-            'description' => '',
+            'description' => 'Contain an antimotility agent that relieves the symptoms of diarrhea by slowing intestinal movement.',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Antigout',
-            'description' => '',
+            'description' => 'Agents are medications prescribed for the treatment of gout, a painful arthritic condition caused by excessive uric acid in the blood that gets deposited as monosodium urate crystals in joints.',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Antifibrinolytic',
-            'description' => '',
+            'description' => 'Are drugs that act by inhibiting the process that dissolves clots, thereby reducing bleeding',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Antithrombotic',
-            'description' => '',
+            'description' => 'Any drug that prevents or interferes with the formation of thrombi',
         ]);
         DrugClass::create([
             'classification_id' => 1,
             'id_number' => 'DRG-00325399',
             'name' => 'Anticholinergic',
-            'description' => '',
+            'description' => 'Drugs that block the action of acetylcholine . Acetylcholine is a neurotransmitter, or a chemical messenger.',
         ]);
     }
 }

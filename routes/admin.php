@@ -90,4 +90,7 @@ Route::group(['controller' => InvoiceController::class], function () {
 });
 Route::group(['controller' => StockController::class], function () {
     Route::get('/stock/report', 'getAllStockReport')->name('stock.report');
+    Route::get('/product/supplier/wise/report', 'getProductSupplierWiseReport')->name('product.supplier.wise.report');
+    Route::post('get/product/wise/report', 'getProductWiseReport')->name('get.product.wise.report');
+    Route::post('get/supplier/wise/report', 'getSupplierWiseReport')->name('get.supplier.wise.report');
 });

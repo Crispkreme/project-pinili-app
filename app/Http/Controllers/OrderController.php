@@ -225,7 +225,7 @@ class OrderController extends Controller
         return view('admin.orders.daily-order-report', ['userData' => $userData]);
 
     }
-    
+
     public function getAllDeletedOrder()
     {
         $userData = $this->orderContract->getAllDeletedOrder();
