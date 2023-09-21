@@ -46,18 +46,27 @@
                                     <h4 class="card-title">Stock List Data</h4>
                                     <p class="card-title-desc">You select specific products or suppliers to filter our stock list data.</p>
 
-                                    <div class="form-check form-check-right mb-3" style="margin-right:20px;">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight" id="productOption" value="product_wise">
-                                        <label class="form-check-label" for="formRadiosRight1">
-                                            Product Wise Report
-                                        </label>
-                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-check form-check-right mb-3" style="margin-right:20px;">
+                                                <input class="form-check-input" type="radio" name="formRadiosRight" id="productOption" value="product_wise">
+                                                <label class="form-check-label" for="formRadiosRight1">
+                                                    Product Wise Report
+                                                </label>
+                                            </div>
 
-                                    <div class="form-check form-check-right mb-3">
-                                        <input class="form-check-input" type="radio" name="formRadiosRight" id="supplierOption" value="supplier_wise">
-                                        <label class="form-check-label" for="formRadiosRight1">
-                                            Supplier Wise Report
-                                        </label>
+                                            <div class="form-check form-check-right mb-3">
+                                                <input class="form-check-input" type="radio" name="formRadiosRight" id="supplierOption" value="supplier_wise">
+                                                <label class="form-check-label" for="formRadiosRight1">
+                                                    Supplier Wise Report
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="display:flex;justify-content:flex-end;">
+                                            <button type="submit" class="btn btn-success waves-effect waves-light">
+                                                <i class="ri-printer-line align-middle me-2"></i> Generate Report
+                                            </button>
+                                        </div>
                                     </div>
 
                                     <div class="row mb-3" id="show_supplier" style="display:none;">
@@ -144,7 +153,7 @@
                                                 @if ($userData)
                                                     @foreach($userData as $key => $item)
                                                         <tr style="vertical-align: middle;">
-                                                            <td>{{ $item->invoice_number }}</td>
+                                                            <td>{{ $item->id_number }}</td>
                                                             <td>{{ $item->product->medicine_name }}</td>
                                                             <td>{{ $item->supplier->name }}</td>
                                                             <td>{{ $item->product->category->name }}</td>
@@ -158,6 +167,10 @@
                                                 @endif
                                             </tbody>
                                         </table>
+
+                                        <p class="mt-5">
+                                            <i>Printing Date: {{ now()->format('F j, Y') }}</i>
+                                        </p>
                                     </div>
                                 </div>
                             @else
