@@ -15,4 +15,5 @@ interface OrderContract {
     public function getAllDeletedOrder();
     public function getRestoreDeletedOrder($id);
     public function getAllStockReport();
+    public function getAllOrderHistoryByCompany($id);
 }

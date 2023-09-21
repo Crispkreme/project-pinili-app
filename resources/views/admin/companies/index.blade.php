@@ -55,8 +55,16 @@
                                         <tbody>
                                             @foreach($userData as $key => $item)
                                                 <tr>
-                                                    <td>{{ $item->id_number }}</td>
-                                                    <td>{{ $item->company_name }}</td>
+                                                    <td>
+                                                        <a href="{{ route('admin.all.order.history.company', $item->id) }}">
+                                                            {{ $item->id_number }}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('admin.all.order.history.company', $item->id) }}">
+                                                            {{ $item->company_name }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $item->contact_number }}</td>
                                                     <td>{{ $item->landline }}</td>
                                                     <td>{{ $item->email }}</td>

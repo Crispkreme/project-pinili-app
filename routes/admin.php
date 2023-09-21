@@ -46,6 +46,7 @@ Route::group(['controller' => CompanyController::class], function () {
     Route::get('/all/company', 'index')->name('all.company');
     Route::get('/edit/company/{id}', 'editCompany')->name('edit.company');
     Route::post('/update/company/{id}', 'updateCompany')->name('update.company');
+    Route::get('/get/company/profile', 'getCompanyProfile')->name('get.company.profile');
 });
 Route::group(['controller' => DistributorController::class], function () {
     Route::get('/create/distributor', 'createDistributor')->name('create.distributor');
@@ -85,6 +86,9 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/print/invoice/order/{id}', 'printOrderInvoiceById')->name('print.invoice.user.order');
     Route::get('/daily/order/report', 'getDailyOrderReport')->name('daily.order.report');
     Route::post('/daily/order/report/all', 'getAllDailyOrderReport')->name('daily.order.report.all');
+    Route::get('/all/order/history/company/{id}', 'getAllOrderHistoryByCompany')->name('all.order.history.company');
+    Route::get('/all/payment/history/company/{id}', 'getAllPaymentHistoryByCompany')->name('all.payment.history.company');
+    Route::get('/all/stock/history/company/{id}', 'getAllStockHistoryByCompany')->name('all.stock.history.company');
 });
 Route::group(['controller' => InvoiceController::class], function () {
     Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');

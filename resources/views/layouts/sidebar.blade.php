@@ -148,11 +148,6 @@
                                     'url' => route('admin.daily.order.report'),
                                     'icon' => '',
                                     'class' => '',
-                                ],[
-                                    'list' => 'Approve Invoice',
-                                    'url' => route('admin.pending.order'),
-                                    'icon' => '',
-                                    'class' => '',
                                 ],
                             ],
                         ],[
