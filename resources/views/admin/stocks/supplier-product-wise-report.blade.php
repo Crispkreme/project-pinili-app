@@ -44,7 +44,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Stock List Data</h4>
-                                    <p class="card-title-desc">This are the complete list of our stocks.</p>
+                                    <p class="card-title-desc">You select specific products or suppliers to filter our stock list data.</p>
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
 
-                            {{-- @if($userData!== null)
+                            @if($userData!== null)
                                 <div class="card">
                                     <div class="card-body">
                                         <table id="datatable"
@@ -175,7 +175,7 @@
                                 </div>
                             @else
                                 <p>No data available.</p>
-                            @endif --}}
+                            @endif
 
                         </div>
                     </div>

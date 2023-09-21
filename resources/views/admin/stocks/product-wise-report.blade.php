@@ -158,7 +158,6 @@
                                                 @endif
                                             </tbody>
                                         </table>
-
                                         <p class="mt-5">
                                             <i>Printing Date: {{ now()->format('F j, Y') }}</i>
                                         </p>
