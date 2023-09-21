@@ -91,4 +91,9 @@ class CompanyController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function getCompanyProfile()
+    {
+        dd('profile');
+    }
 }

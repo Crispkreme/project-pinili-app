@@ -248,4 +248,26 @@ class OrderController extends Controller
         $this->orderContract->getRestoreDeletedOrder($id);
         return redirect()->back();
     }
+
+    public function getAllOrderHistoryByCompany($id)
+    {
+        $companyHistory = $this->orderContract->getAllOrderHistoryByCompany($id);
+        $companyId = $id;
+        return view('admin.inventories.inventory-sheet', [
+            'companyHistory' => $companyHistory,
+            'companyId' => $companyId,
+        ]);
+    }
+
+    public function getAllPaymentHistoryByCompany($id)
+    {
+        $companyHistory = $this->orderContract->getAllOrderHistoryByCompany($id);
+        return response()->json($companyHistory);
+    }
+
+    public function getAllStockHistoryByCompany($id)
+    {
+        $companyHistory = $this->orderContract->getAllOrderHistoryByCompany($id);
+        return response()->json($companyHistory);
+    }
 }

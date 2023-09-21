@@ -124,4 +124,17 @@ class OrderRepository implements OrderContract {
 
         return $order;
     }
+
+    public function getAllOrderHistoryByCompany($id)
+    {
+        return $this->model->with([
+            'user',
+            'supplier',
+            'manufacturer',
+            'product',
+            'status'
+        ])
+        ->where('manufacturer_id', $id)
+        ->get();
+    }
 }
