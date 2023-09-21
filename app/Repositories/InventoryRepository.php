@@ -34,4 +34,11 @@ class InventoryRepository implements InventoryContract {
         ->orderBy('supplier_id', 'asc')
         ->get();
     }
+
+    public function getAllInventory() 
+    {
+        return $this->model
+        ->with(['user','product','supplier'])
+        ->get();
+    }
 }

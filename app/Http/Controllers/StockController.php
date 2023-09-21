@@ -37,12 +37,14 @@ class StockController extends Controller
 
     public function getProductSupplierWiseReport()
     {
-        $columns = ['medicine_name','id'];
         $suppliers = $this->representativeContract->getRepresentativeData();
-        $products = $this->productContract->getProductData($columns);
+        $products = $this->productContract->getProductData();
+        $userData = $this->inventoryContract->getAllInventory();
+
         return view('admin.stocks.supplier-product-wise-report', [
             'suppliers' => $suppliers,
-            'products' => $products
+            'products' => $products,
+            'userData' => $userData,
         ]);
     }
 }
