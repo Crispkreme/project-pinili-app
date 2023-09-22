@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('generic_name');
             $table->text('description')->nullable();
             $table->boolean('isActive')->nullable()->default(0);
-            $table->integer('sku')->nullable();
-            $table->integer('sold')->nullable();
-            $table->integer('available')->nullable();
+            $table->integer('sku')->nullable()->default(0);
+            $table->integer('sold')->nullable()->default(0);
+            $table->integer('available')->nullable()->default(0);
 
             $table->foreign('category_id')
                   ->references('id')
