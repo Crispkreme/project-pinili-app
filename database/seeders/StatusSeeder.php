@@ -22,5 +22,14 @@ class StatusSeeder extends Seeder
         Status::create([
             'status' => 'rejected',
         ]);
+        Status::create([
+            'status' => 'partial',
+        ]);
+        Status::create([
+            'status' => 'paid',
+        ]);
+        Status::create([
+            'status' => 'due',
+        ]);
     }
 }

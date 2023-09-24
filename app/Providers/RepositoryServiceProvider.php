@@ -16,6 +16,7 @@ use App\Contracts\CategoryContract;
 use App\Contracts\OrderContract;
 use App\Contracts\StatusContract;
 use App\Contracts\InventoryContract;
+use App\Contracts\InventorySheetContract;
 
 // REPOSITORY
 use App\Repositories\RoleRepository;
@@ -31,6 +32,7 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\StatusRepository;
 use App\Repositories\InventoryRepository;
+use App\Repositories\InventorySheetRepository;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -50,6 +52,7 @@ class RepositoryServiceProvider extends ServiceProvider
         OrderContract::class => OrderRepository::class,
         StatusContract::class => StatusRepository::class,
         InventoryContract::class => InventoryRepository::class,
+        InventorySheetContract::class => InventorySheetRepository::class,
     ];
 
     /**

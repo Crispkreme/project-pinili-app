@@ -52,7 +52,7 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Invoice Number</th>
+                                                <th>Purchase Order Number</th>
                                                 <th>Product Name</th>
                                                 <th>Supplier</th>
                                                 <th>Manufacturer</th>

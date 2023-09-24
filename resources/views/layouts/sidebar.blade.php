@@ -151,6 +151,12 @@
                                 ],
                             ],
                         ],[
+                            'list' => 'Inventory Sheet',
+                            'url' => route('admin.all.inventory.sheet'),
+                            'icon' => '<i class="ri-list-unordered"></i>',
+                            'class' => 'waves-effect',
+                            'isMenuTitle' => false,
+                        ],[
                             'list' => 'Point of Sale',
                             'url' => '',
                             'icon' => '',

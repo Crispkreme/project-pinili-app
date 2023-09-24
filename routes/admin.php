@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DrugClassController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\DistributorController;
+use App\Http\Controllers\InventorySheetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,7 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/create/order', 'createOrder')->name('create.order');
     Route::get('/get/specific/category', 'getSpecificCategory')->name('get.specific.category');
     Route::get('/get/specific/form', 'getSpecificForm')->name('get.specific.form');
+    Route::get('/get/specific/product', 'getSpecificProduct')->name('get.specific.product');
     Route::get('/pending/order', 'pendingOrder')->name('pending.order');
     Route::get('/delete/order/{id}', 'deleteOrder')->name('delete.order');
     Route::get('/approve/order/{id}', 'approveOrder')->name('approve.order');
@@ -100,4 +102,8 @@ Route::group(['controller' => StockController::class], function () {
 Route::group(['controller' => InventoryController::class], function () {
     Route::post('get/product/wise/report', 'getProductWiseReport')->name('get.product.wise.report');
     Route::post('get/supplier/wise/report', 'getSupplierWiseReport')->name('get.supplier.wise.report');
+});
+Route::group(['controller' => InventorySheetController::class], function () {
+    Route::get('/all/inventory/sheet', 'getAllInventorySheet')->name('all.inventory.sheet');
+    Route::get('/add/inventory/sheet', 'addInventoryList')->name('add.inventory.sheet');
 });

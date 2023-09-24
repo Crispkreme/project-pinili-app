@@ -16,6 +16,10 @@ class FormRepository implements FormContract {
 
     public function getFormData()
     {
-        return $this->model->where('classification_id', 2)->pluck('name', 'id')->toArray();
+        return $this->model
+        ->where('classification_id', 2)
+        ->groupBy('name')
+        ->pluck('name', 'id')
+        ->toArray();
     }
 }

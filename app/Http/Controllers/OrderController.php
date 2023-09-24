@@ -93,6 +93,13 @@ class OrderController extends Controller
         return response()->json($userData);
     }
 
+    public function getSpecificProduct(Request $request)
+    {
+        $supplierId = $request->supplier_id;
+        $userData = $this->orderContract->getSpecificProduct($supplierId);
+        return response()->json($userData);
+    }
+
     public function storeOrder(AddOrderStoreRequest $request)
     {
         try {
@@ -175,7 +182,7 @@ class OrderController extends Controller
                 'message' => 'Order approved successfully!',
             ];
 
-            return redirect()->route('admin.all.order')->with($notification);
+            return redirect()->back()->with($notification);
 
         } catch (\Exception $e) {
 
