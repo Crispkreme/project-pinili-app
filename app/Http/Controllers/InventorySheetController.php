@@ -10,6 +10,9 @@ use App\Contracts\DistributorContract;
 use App\Contracts\ProductContract;
 use App\Contracts\StatusContract;
 use App\Contracts\CategoryContract;
+use App\Http\Requests\StoreInventoryDetailRequest;
+use App\Http\Requests\StoreInventoryPaymentDetailRequest;
+use App\Http\Requests\StoreInventoryPaymentRequest;
 use App\Http\Requests\StoreInventorySheetRequest;
 
 class InventorySheetController extends Controller
@@ -65,19 +68,7 @@ class InventorySheetController extends Controller
         ]);
     }
 
-    public function storeInventorySheet(
-        StoreInventorySheetRequest $inventorySheetRequest,
-        StoreInventoryRequest $inventoryRequest,
-        StoreUserRequest $userRequest,
-        StoreCustomerRequest $customerRequest
-    ) {
-        $params = [
-            'inventorySheet' => $inventorySheetRequest->validated(),
-            'inventory' => $inventoryRequest->validated(),
-            'user' => $userRequest->validated(),
-            'customer' => $customerRequest->validated(),
-        ];
-
-        dd($params);
+    public function storeInventorySheet(Request $request) {
+        dd($request);
     }
 }

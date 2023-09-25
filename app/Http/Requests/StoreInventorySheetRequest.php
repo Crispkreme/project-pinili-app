@@ -24,14 +24,14 @@ class StoreInventorySheetRequest extends FormRequest
         return [
             'status_id' => 'string',
             'distributor_id' => 'string',
-            'invoice_number' => 'required|string',
+            'invoice_number' => 'string',
             'po_number' => 'string',
-            'delivery_number' => 'required|string',
-            'delivery_date' => 'required|string',
+            'delivery_number' => 'string',
+            'delivery_date' => 'string',
             'previous_delivery' => 'string',
             'present_delivery' => 'string',
-            'or_number' => 'required|string',
-            'or_date' => 'required|date',
+            'or_number' => 'string',
+            'or_date' => 'date',
             'description' => 'nullable|string',
         ];
     }

@@ -118,7 +118,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('admin.store.order') }}" id="myForm">
+                                    <form method="POST" action="{{ route('admin.store.inventory.sheet') }}" id="myForm">
                                         @csrf
                                         <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
                                             <thead>
@@ -155,7 +155,7 @@
                                                     </td>
                                                     <td>Discount</td>
                                                     <td colspan="2">
-                                                        <input type="text" class="form-control discount_amount" id="discount_amount" name="discount_amount" value="0">
+                                                        <input type="text" class="form-control discount_amount" id="discount_amount" name="discount_amount" placeholder="0">
                                                     </td>
                                                 </tr>
                                                 <tr>

@@ -57,6 +57,12 @@ $(document).ready(function (){
             },
             wise_product_id: {
                 required : true,
+            },
+            discount_amount: {
+                required : true,
+            },
+            current_paid_amount: {
+                required : true,
             }
         },
         messages :{
@@ -112,6 +118,12 @@ $(document).ready(function (){
                 required : 'Fields are required',
             },
             wise_product_id: {
+                required : 'Fields are required',
+            },
+            discount_amount: {
+                required : 'Fields are required',
+            },
+            current_paid_amount: {
                 required : 'Fields are required',
             }
         },
