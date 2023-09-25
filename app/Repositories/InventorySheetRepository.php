@@ -21,4 +21,9 @@ class InventorySheetRepository implements InventorySheetContract {
         ->orderBy('id', 'desc')
         ->get();
     }
+
+    public function storeInventorySheet($params)
+    {
+        return $this->model->create($params);
+    }
 }

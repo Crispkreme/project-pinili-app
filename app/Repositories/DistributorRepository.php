@@ -42,4 +42,12 @@ class DistributorRepository implements DistributorContract {
         ->pluck('companies.company_name', 'distributors.id')
         ->toArray();
     }
+
+    public function getSpecificDistributorBySupplierId($id)
+    {
+        return $this->model
+        ->with(['entity', 'company'])
+        ->where('entity_id', $id)
+        ->get();
+    }
 }

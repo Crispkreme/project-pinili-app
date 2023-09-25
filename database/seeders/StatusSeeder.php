@@ -31,5 +31,8 @@ class StatusSeeder extends Seeder
         Status::create([
             'status' => 'due',
         ]);
+        Status::create([
+            'status' => 'received',
+        ]);
     }
 }

@@ -9,4 +9,5 @@ interface DistributorContract {
     public function editDistributor($id);
     public function updateDistributor($id, $params);
     public function getAllDistributorData();
+    public function getSpecificDistributorBySupplierId($id);
 }

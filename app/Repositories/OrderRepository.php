@@ -67,8 +67,7 @@ class OrderRepository implements OrderContract {
     }
 
     public function storeOrder($params) {
-        $order = $this->model->create($params);
-        return $order;
+        return $this->model->create($params);
     }
 
     public function pendingOrder($id)

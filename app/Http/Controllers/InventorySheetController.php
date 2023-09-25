@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Contracts\InventorySheetContract;
 use App\Contracts\UserContract;
-use App\Contracts\RepresentativeContract;
-use App\Contracts\DistributorContract;
-use App\Contracts\ProductContract;
 use App\Contracts\StatusContract;
+use App\Contracts\ProductContract;
+use Illuminate\Support\Facades\DB;
 use App\Contracts\CategoryContract;
-use App\Http\Requests\StoreInventoryDetailRequest;
-use App\Http\Requests\StoreInventoryPaymentDetailRequest;
-use App\Http\Requests\StoreInventoryPaymentRequest;
+use App\Contracts\DistributorContract;
+use App\Contracts\InventorySheetContract;
+use App\Contracts\RepresentativeContract;
 use App\Http\Requests\StoreInventorySheetRequest;
+use App\Http\Requests\StoreInventoryDetailRequest;
+use App\Http\Requests\StoreInventoryPaymentRequest;
+use App\Http\Requests\StoreInventoryPaymentDetailRequest;
 
 class InventorySheetController extends Controller
 {
@@ -44,7 +47,7 @@ class InventorySheetController extends Controller
     }
 
     public function getAllInventorySheet()
-    { 
+    {
         $inventorySheets = $this->inventorySheetContract->getAllInventorySheet();
         return view('admin.inventories.index', ['inventorySheets' => $inventorySheets]);
     }
@@ -69,6 +72,50 @@ class InventorySheetController extends Controller
     }
 
     public function storeInventorySheet(Request $request) {
-        dd($request);
+
+        DB::beginTransaction();
+
+        try {
+            $prefix = "TNX-RCV";
+            $transactionNumber = Carbon::now()->format('Ymd-His');
+            $invoice_number = $prefix.'-'.$transactionNumber;
+
+            $subtotal = $request->subtotal;
+            $description = $request->description;
+            $current_paid_amount = $request->current_paid_amount;
+            $paid_status_id = $request->paid_status_id;
+            $discount_amount = $request->discount_amount;
+            $total_amount = $request->total_amount;
+
+            for ($i = 0; $i < count($request->supplier_id); $i++) {
+                $data = [
+                    'supplier_id' => $request->supplier_id[$i],
+                    'product_id' => $request->product_id[$i],
+                    'quantity' => $request->quantity[$i],
+                    'purchase_cost' => $request->purchase_cost[$i],
+                    "subtotal" => $subtotal,
+                    "description" => $description,
+                    "current_paid_amount" => $current_paid_amount,
+                    "paid_status_id" => $paid_status_id,
+                    "discount_amount" => $discount_amount,
+                    "total_amount" => $total_amount,
+                ];
+
+                $distributorId = $this->distributorContract->getSpecificDistributorBySupplierId($data['supplier_id']);
+                dd($distributorId->company_id);
+            }
+
+        } catch (Exception $e) {
+
+            DB::rollBack();
+
+            $notification = [
+                'alert-type' => 'danger',
+                'message' => 'Error occurred: ' . $e->getMessage(),
+            ];
+
+            return redirect()->back()->with($notification);
+
+        }
     }
 }

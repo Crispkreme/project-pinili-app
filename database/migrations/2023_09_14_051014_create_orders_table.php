@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('manufacturer_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('order_status_id');
             $table->string('invoice_number');
             $table->integer('quantity');
             $table->double('purchase_cost');
@@ -43,6 +44,10 @@ return new class extends Migration
                   ->on('products')
                   ->onDelete('cascade');
             $table->foreign('status_id')
+                  ->references('id')
+                  ->on('statuses')
+                  ->onDelete('cascade');
+            $table->foreign('order_status_id')
                   ->references('id')
                   ->on('statuses')
                   ->onDelete('cascade');
