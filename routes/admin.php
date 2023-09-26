@@ -91,6 +91,7 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/all/order/history/company/{id}', 'getAllOrderHistoryByCompany')->name('all.order.history.company');
     Route::get('/all/payment/history/company/{id}', 'getAllPaymentHistoryByCompany')->name('all.payment.history.company');
     Route::get('/all/stock/history/company/{id}', 'getAllStockHistoryByCompany')->name('all.stock.history.company');
+    Route::get('/get/order/transaction', 'getOrderTransaction')->name('get.order.transaction');
 });
 Route::group(['controller' => InvoiceController::class], function () {
     Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');

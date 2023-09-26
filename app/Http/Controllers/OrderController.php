@@ -277,4 +277,11 @@ class OrderController extends Controller
         $companyHistory = $this->orderContract->getAllOrderHistoryByCompany($id);
         return response()->json($companyHistory);
     }
+
+    public function getOrderTransaction(Request $request)
+    {
+        $productId = $request->product_id;
+        $orderData = $this->orderContract->getSpecificProduct($productId);
+        return response()->json($orderData);
+    }
 }

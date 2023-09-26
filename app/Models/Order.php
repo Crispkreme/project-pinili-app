@@ -14,9 +14,11 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'supplier_id',
+        'approve_id',
         'manufacturer_id',
         'product_id',
         'status_id',
+        'order_status_id',
         'invoice_number',
         'quantity',
         'purchase_cost',
@@ -44,5 +46,13 @@ class Order extends Model
 
     public function status() {
         return $this->belongsTo(Status::class, 'status_id');
+    }
+
+    public function approve() {
+        return $this->belongsTo(User::class, 'approve_id');
+    }
+
+    public function order_status() {
+        return $this->belongsTo(Status::class, 'order_status_id');
     }
 }

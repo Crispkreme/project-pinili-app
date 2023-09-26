@@ -96,7 +96,7 @@
                                                     </div>
                                                     <div class="col">
                                                         <label for="name" class="col-form-label">PO Order</label>
-                                                        <input class="form-control" name="po_number" type="text" value="" id="po_number" readonly>
+                                                        <input class="form-control po_number" name="po_number" type="text" value="" id="po_number" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -163,6 +163,13 @@
                                                     <td>Due Amount</td>
                                                     <td colspan="2">
                                                         <input type="text" class="form-control due_amount" id="due_amount" name="due_amount" value="0" style="background-color:#ddd;" readonly>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4"></td>
+                                                    <td>Balance</td>
+                                                    <td colspan="2">
+                                                        <input type="text" class="form-control balance" id="balance" name="balance" value="0" style="background-color:#ddd;" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -305,6 +312,41 @@
                 dueAmount();
             });
 
+            $(document).on('change','#product_id', function() {
+                var product_id = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('admin.get.order.transaction') }}",
+                    type: "GET",
+                    data: { product_id: product_id },
+                    success: function(data) {
+                        $('#po_number').val(data[0].invoice_number);
+                    }
+                });
+
+                subTotalPrice();
+            });
+
+            $(document).on('change','#supplier_id', function() {
+                var supplier_id = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('admin.get.specific.product') }}",
+                    type: "GET",
+                    data: { supplier_id: supplier_id },
+                    success: function(data) {
+
+                        var html = '<option value="">Select Product Name</option>';
+                        $.each(data, function(key, v) {
+                            html += '<option value="'+ v.id +'" data-purchase-cost="'+ v.purchase_cost +'" data-quantity="'+ v.quantity +'">'+ v.product.medicine_name +'</option>';
+                        });
+                        $('#product_id').html(html);
+                    }
+                });
+
+                subTotalPrice();
+            });
+
             // calculate the total amount
             function totalAmountPrice() {
                 var sum = 0;
@@ -337,29 +379,6 @@
                 var subtotal = qty * price;
                 $('.subtotal').val(subtotal);
             }
-        });
-    </script>
-    <script type="text/javascript">
-        $(function(){
-            $(document).on('change','#supplier_id', function() {
-                var supplier_id = $(this).val();
-
-                $.ajax({
-                    url: "{{ route('admin.get.specific.product') }}",
-                    type: "GET",
-                    data: { supplier_id: supplier_id },
-                    success: function(data) {
-
-                        var html = '<option value="">Select Product Name</option>';
-                        $.each(data, function(key, v) {
-                            html += '<option value="'+ v.id +'" data-purchase-cost="'+ v.purchase_cost +'" data-quantity="'+ v.quantity +'">'+ v.product.medicine_name +'</option>';
-                        });
-                        $('#product_id').html(html);
-                    }
-                });
-
-                subTotalPrice();
-            });
         });
     </script>
     <script>

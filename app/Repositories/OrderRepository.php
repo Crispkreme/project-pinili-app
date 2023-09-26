@@ -150,4 +150,46 @@ class OrderRepository implements OrderContract {
         ->where('manufacturer_id', $id)
         ->get();
     }
+
+    public function updateOrderStatusByInventorySheet($id)
+    {
+        $orderStatus = $this->model->findOrFail($id);
+        $orderStatus->update([
+            'approve_id' => auth()->user()->id,
+            'order_status_id' => 7,
+        ]);
+        return $orderStatus;
+    }
+
+    public function getOrderTransaction($id)
+    {
+        $order = $this->model->with([
+            'user',
+            'supplier',
+            'manufacturer',
+            'product',
+            'status'
+        ])
+        ->where('product_id', $id)
+        ->where('status_id', 2)
+        ->where('order_status_id', 1)
+        ->first();
+        $order->invoice_number;
+        return $order;
+    }
+
+    public function getOrderIdByInvoiceNumber($params)
+    {
+        $order = $this->model->with([
+            'user',
+            'supplier',
+            'manufacturer',
+            'product',
+            'status'
+        ])
+        ->where('invoice_number', $params)
+        ->first();
+        $order->id;
+        return $order;
+    }
 }

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('supplier_id');
-            $table->unsignedBigInteger('approve_id');
+            $table->unsignedBigInteger('approve_id')->default(1);
             $table->unsignedBigInteger('manufacturer_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('status_id');
-            $table->unsignedBigInteger('order_status_id');
+            $table->unsignedBigInteger('order_status_id')->default(1);
             $table->string('invoice_number');
             $table->integer('quantity');
             $table->double('purchase_cost');

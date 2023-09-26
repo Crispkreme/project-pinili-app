@@ -17,4 +17,7 @@ interface OrderContract {
     public function getAllStockReport();
     public function getAllOrderHistoryByCompany($id);
     public function getSpecificProduct($id);
+    public function updateOrderStatusByInventorySheet($id);
+    public function getOrderTransaction($id);
+    public function getOrderIdByInvoiceNumber($params);
 }

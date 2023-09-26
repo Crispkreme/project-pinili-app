@@ -16,6 +16,7 @@ use App\Contracts\RepresentativeContract;
 use App\Contracts\InventoryPaymentContract;
 use App\Contracts\InventoryDetailContract;
 use App\Contracts\InventoryPaymentDetailContract;
+use App\Contracts\OrderContract;
 use App\Http\Requests\StoreInventorySheetRequest;
 use App\Http\Requests\StoreInventoryDetailRequest;
 use App\Http\Requests\StoreInventoryPaymentRequest;
@@ -33,8 +34,10 @@ class InventorySheetController extends Controller
     protected $inventoryDetailContract;
     protected $inventoryPaymentContract;
     protected $inventoryPaymentDetailContract;
+    protected $orderContract;
 
     public function __construct(
+        OrderContract $orderContract,
         InventorySheetContract $inventorySheetContract,
         InventoryDetailContract $inventoryDetailContract,
         UserContract $userContract,
@@ -56,6 +59,7 @@ class InventorySheetController extends Controller
         $this->categoryContract = $categoryContract;
         $this->inventoryPaymentContract = $inventoryPaymentContract;
         $this->inventoryPaymentDetailContract = $inventoryPaymentDetailContract;
+        $this->orderContract = $orderContract;
     }
 
     public function getAllInventorySheet()
@@ -113,7 +117,7 @@ class InventorySheetController extends Controller
 
             $allData = [];
 
-            for ($i = 0; $i < count($request->product_id); $i++) {   
+            for ($i = 0; $i < count($request->product_id); $i++) {
 
                 $data = [
                     'inventory_sheet_id' => $inventorySheets->id,
@@ -129,13 +133,14 @@ class InventorySheetController extends Controller
 
             foreach ($allData as $data) {
                 $this->inventoryDetailContract->storeInventoryDetail($data);
-            }            
+            }
 
             $current_paid_amount = $request->current_paid_amount;
             $payment_status_id = $request->payment_status_id;
             $discount_amount = $request->discount_amount;
             $due_amount = $request->due_amount;
             $total_amount = $request->total_amount;
+            $balance = $request->balance;
             $customer_id = auth()->user()->id;
 
             $params1 = [
@@ -153,10 +158,14 @@ class InventorySheetController extends Controller
             $params2 = [
                 'inventory_sheet_id' => $inventorySheets->id,
                 'current_paid_amount' => $current_paid_amount,
-                'balance' => $total_amount,
+                'balance' => $balance,
             ];
 
             $this->inventoryPaymentDetailContract->storeInventoryPaymentDetail($params2);
+
+            $orderID = $this->orderContract->getOrderIdByInvoiceNumber($request->input('po_number'));
+
+            $this->orderContract->updateOrderStatusByInventorySheet($orderID->id);
 
             $notification = [
                 'alert-type' => 'success',
