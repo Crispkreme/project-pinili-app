@@ -50,6 +50,7 @@ class OrderRepository implements OrderContract {
         ])
         ->where('supplier_id', $id)
         ->where('status_id', 2)
+        ->where('order_status_id', 1)
         ->get();
     }
 

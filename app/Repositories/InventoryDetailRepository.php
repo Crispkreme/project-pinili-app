@@ -18,4 +18,14 @@ class InventoryDetailRepository implements InventoryDetailContract {
     {
         return $this->model->create($params);
     }
+
+    public function getAllInventoryDetail()
+    {
+        return $this->model->with([
+            'inventory_sheet',
+            'inventory_status',
+            'product',
+        ])
+        ->get();
+    }
 }

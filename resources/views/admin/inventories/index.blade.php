@@ -44,40 +44,35 @@
                                         <thead>
                                             <tr>
                                                 <th>Invoice Number</th>
-                                                <th>Company</th>
-                                                <th>Supplier</th>
+                                                <th>Medicine Name</th>
+                                                <th>Brand Name</th>
+                                                <th>Qty</th>
+                                                <th>Price</th>
                                                 <th>Delivery Number</th>
-                                                <th>OR Number</th>
-                                                <th>OR Date</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
+                                                <th>Delivery Date</th>
+                                                <th>Delivery Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($inventorySheets as $key => $item)
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ route('admin.all.order.history.company', $item->id) }}">
-                                                            {{ $item->invoice_number }}
+                                                        <a href="">
+                                                            {{ $item->inventory_sheet->invoice_number }}
                                                         </a>
                                                     </td>
+                                                    <td>{{ $item->product->medicine_name }}</td>
+                                                    <td>{{ $item->product->generic_name }}</td>
+                                                    <td>{{ $item->qty }}</td>
+                                                    <td>{{ $item->price }}</td>
+                                                    <td>{{ $item->inventory_sheet->delivery_number }}</td>
+                                                    <td>{{ date('M, d, Y', strtotime($item->inventory_sheet->delivery_date)) }}</td>
                                                     <td>
-                                                        <a href="{{ route('admin.all.order.history.company', $item->id) }}">
-                                                            {{ $item->distributor->company->company_name }}
-                                                        </a>
-                                                    </td>
-                                                    <td>{{ $item->distributor->entity->name }}</td>
-                                                    <td>{{ $item->delivery_number }}</td>
-                                                    <td>{{ $item->or_number }}</td>
-                                                    <td>{{ $item->date }}</td>
-                                                    <td>{{ $item->status->status }}</td>
-                                                    <td>
-                                                        <a href="{{ route('admin.edit.company', $item->id) }}" class="btn btn-info sm" title="Edit Data">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        <a href="" class="btn btn-danger sm" title="Delete Data" id="delete">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </a>
+                                                        @if( $item->inventory_status_id == 7)
+                                                            <span class="badge rounded-pill bg-success" style="font-size:12px;padding:5px;">
+                                                                {{ $item->inventory_status->status }}
+                                                            </span>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach

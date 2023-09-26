@@ -64,7 +64,7 @@ class InventorySheetController extends Controller
 
     public function getAllInventorySheet()
     {
-        $inventorySheets = $this->inventorySheetContract->getAllInventorySheet();
+        $inventorySheets = $this->inventoryDetailContract->getAllInventoryDetail();
         return view('admin.inventories.index', ['inventorySheets' => $inventorySheets]);
     }
 
