@@ -14,7 +14,7 @@ class InventoryPayment extends Model
     protected $fillable = [
         'inventory_sheet_id',
         'customer_id',
-        'paid_status_id',
+        'payment_status_id',
         'due_amount',
         'paid_amount',
         'total_amount',
@@ -29,7 +29,7 @@ class InventoryPayment extends Model
         return $this->belongsTo(User::class, 'customer_id');
     }
 
-    public function paid_status() {
-        return $this->belongsTo(Status::class, 'paid_status_id');
+    public function payment_status() {
+        return $this->belongsTo(Status::class, 'payment_status_id');
     }
 }

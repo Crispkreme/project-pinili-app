@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('inventory_sheet_id');
             $table->unsignedBigInteger('customer_id');
-            $table->unsignedBigInteger('paid_status_id');
+            $table->unsignedBigInteger('payment_status_id'); // paid
             $table->double('paid_amount')->nullable();
             $table->double('due_amount')->nullable();
             $table->double('total_amount')->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade');
-            $table->foreign('paid_status_id')
+            $table->foreign('payment_status_id')
                   ->references('id')
                   ->on('statuses')
                   ->onDelete('cascade');

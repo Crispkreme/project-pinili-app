@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('inventory_sheet_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('status_id');
-            $table->double('selling_qty')->nullable();
-            $table->double('unit_price')->nullable();
-            $table->double('selling_price')->nullable();
+            $table->unsignedBigInteger('inventory_status_id'); //ship or not ship
+            $table->integer('qty')->nullable();
+            $table->double('price')->nullable();
+            $table->integer('subtotal')->nullable();
 
             $table->foreign('inventory_sheet_id')
                   ->references('id')
@@ -28,7 +28,7 @@ return new class extends Migration
                   ->references('id')
                   ->on('products')
                   ->onDelete('cascade');
-            $table->foreign('status_id')
+            $table->foreign('inventory_status_id')
                   ->references('id')
                   ->on('statuses')
                   ->onDelete('cascade');

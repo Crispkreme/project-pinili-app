@@ -16,6 +16,7 @@ class OrderSeeder extends Seeder
         Order::create([
             'user_id' => 1,
             'supplier_id' => 1,
+            'approve_id' => 1,
             'manufacturer_id' => 1,
             'product_id' => 1,
             'status_id' => 1,

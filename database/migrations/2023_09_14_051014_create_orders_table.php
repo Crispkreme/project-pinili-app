@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('supplier_id');
+            $table->unsignedBigInteger('approve_id');
             $table->unsignedBigInteger('manufacturer_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('status_id');
@@ -28,6 +29,10 @@ return new class extends Migration
             $table->date('manufacturing_date')->nullable();
 
             $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
+            $table->foreign('approve_id')
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade');

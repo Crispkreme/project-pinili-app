@@ -14,10 +14,10 @@ class InventoryDetail extends Model
     protected $fillable = [
         'inventory_sheet_id',
         'product_id',
-        'status_id',
-        'selling_qty',
-        'unit_price',
-        'selling_price',
+        'inventory_status_id',
+        'qty',
+        'price',
+        'subtotal',
     ];
 
     public function inventory_sheet() {
@@ -28,7 +28,7 @@ class InventoryDetail extends Model
         return $this->belongsTo(Product::class, 'product_id');
     }
 
-    public function status() {
-        return $this->belongsTo(Status::class, 'status_id');
+    public function inventory_status() {
+        return $this->belongsTo(Status::class, 'inventory_status_id');
     }
 }

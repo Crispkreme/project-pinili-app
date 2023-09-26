@@ -88,15 +88,15 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <label for="name" class="col-form-label">Delivery Number</label>
-                                                        <input class="form-control" name="or_number" type="text" id="or_number">
+                                                        <input class="form-control" name="delivery_number" type="text" id="delivery_number">
                                                     </div>
                                                     <div class="col">
                                                         <label for="name" class="col-form-label">Delivery Date</label>
-                                                        <input class="form-control" name="or_date" type="date" value="2011-08-19" id="or_date">
+                                                        <input class="form-control" name="delivery_date" type="date" value="2011-08-19" id="delivery_date">
                                                     </div>
                                                     <div class="col">
                                                         <label for="name" class="col-form-label">PO Order</label>
-                                                        <input class="form-control" name="or_date" type="text" value="" id="or_date" readonly>
+                                                        <input class="form-control" name="po_number" type="text" value="" id="po_number" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,13 +140,13 @@
                                                     </td>
                                                     <td>Paid Amount</td>
                                                     <td colspan="2">
-                                                        <input type="text" class="form-control current_paid_amount" id="current_paid_amount" name="current_paid_amount" value="0">
+                                                        <input type="text" class="form-control current_paid_amount" id="current_paid_amount" name="current_paid_amount" placeholder="0.00">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Payment Status</td>
                                                     <td colspan="3">
-                                                        <select class="form-select select-2" style="width:98%;" name="paid_status_id" aria-label="Default select example" id="paid_status_id">
+                                                        <select class="form-select select-2" style="width:98%;" name="payment_status_id" aria-label="Default select example" id="payment_status_id">
                                                             <option selected disabled>Select Supplier</option>
                                                             <option value="5">Fully Paid</option>
                                                             <option value="6">Pay Due</option>
@@ -155,7 +155,14 @@
                                                     </td>
                                                     <td>Discount</td>
                                                     <td colspan="2">
-                                                        <input type="text" class="form-control discount_amount" id="discount_amount" name="discount_amount" placeholder="0">
+                                                        <input type="text" class="form-control discount_amount" id="discount_amount" name="discount_amount" placeholder="0.00">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4"></td>
+                                                    <td>Due Amount</td>
+                                                    <td colspan="2">
+                                                        <input type="text" class="form-control due_amount" id="due_amount" name="due_amount" value="0" style="background-color:#ddd;" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -205,19 +212,26 @@
 
     <script id="document-template" text="text/x-handlerbars-template">
         <tr class="delete_add_more_item" id="delete_add_more_item">
-            <input type="hidden" name="supplier_id[]" value="@{{ supplier_id }}">
+
+            <input type="hidden" name="supplier_id" value="@{{ supplier_id }}">
             <input type="hidden" name="product_id[]" value="@{{ product_id }}">
+            <input type="hidden" name="or_number" value="@{{ or_number }}">
+            <input type="hidden" name="or_date" value="@{{ or_date }}">
+            <input type="hidden" name="delivery_number" value="@{{ delivery_number }}">
+            <input type="hidden" name="delivery_date" value="@{{ delivery_date }}">
+            <input type="hidden" name="po_number" value="@{{ po_number }}">
+            <input type="hidden" name="current_paid_amount" value="@{{ current_paid_amount }}">
 
             <td>@{{ medicine_name }}</td>
             <td>@{{ generic_name }}</td>
             <td>
-                <input type="number" name="quantity[]" class="form-control quantity text-right" value="@{{ quantity }}" id="quantity" readonly>
+                <input type="number" name="qty[]" class="form-control qty text-right" value="@{{ quantity }}" id="qty" readonly>
             </td>
             <td>
-                <input type="number" name="purchase_cost[]" class="form-control purchase_cost text-right" value="@{{ purchase_cost }}" id="purchase_cost" readonly>
+                <input type="number" name="price[]" class="form-control price text-right" value="@{{ purchase_cost }}" id="price" readonly>
             </td>
             <td>
-                <input type="text" class="form-control subtotal" id="subtotal" name="subtotal" value="0" style="background-color:#ddd;" readonly>
+                <input type="text" class="form-control subtotal" id="subtotal" name="subtotal[]" placeholder="0" value="" style="background-color:#ddd;" readonly>
             </td>
             <td>
                 <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
@@ -229,8 +243,12 @@
             $(document).on('click','.addeventmore', function() {
                 var supplier_id = $('#supplier_id').val();
                 var product_id = $('#product_id').val();
+                var subtotal = $('#subtotal').val();
                 var or_number = $('#or_number').val();
                 var or_date = $('#or_date').val();
+                var delivery_number = $('#delivery_number').val();
+                var delivery_date = $('#delivery_date').val();
+                var po_number = $('#po_number').val();
                 var current_paid_amount = $('#current_paid_amount').val();
                 var medicine_name = $('#product_id').find('option:selected').text();
                 var generic_name = $('#product_id').find('option:selected').text();
@@ -254,12 +272,17 @@
                 var data = {
                     supplier_id:supplier_id,
                     product_id:product_id,
+                    subtotal:subtotal,
                     or_number:or_number,
                     or_date:or_date,
+                    delivery_number:delivery_number,
+                    delivery_date:delivery_date,
+                    po_number:po_number,
+                    current_paid_amount:current_paid_amount,
                     medicine_name:medicine_name,
                     generic_name:generic_name,
-                    quantity:quantity,
                     purchase_cost:purchase_cost,
+                    quantity:quantity,
                 }
 
                 var html = template(data);
@@ -269,14 +292,17 @@
             $(document).on('click','.remove_event_more', function() {
                 $(this).closest(".delete_add_more_item").remove();
                 totalAmountPrice();
+                dueAmount();
             });
 
-            $(document).on('keyup', '#discount_amount', function() {
+            $(document).on('click keyup', '#discount_amount', function() {
                 totalAmountPrice();
+                dueAmount();
             });
 
-            $(document).on('click', '#current_paid_amount', function() {
+            $(document).on('click keyup', '#current_paid_amount', function() {
                 subTotalPrice();
+                dueAmount();
             });
 
             // calculate the total amount
@@ -295,10 +321,20 @@
                 $('.total_amount').val(sum.toFixed(2));
             }
 
+            function dueAmount() {
+                var sum = 0;
+                $(".subtotal").each(function () {
+                    var value = parseFloat($(this).val()) || 0;
+                    sum += value;
+                });
+
+                $('.due_amount').val(sum.toFixed(2));
+            }
+
             function subTotalPrice() {
-                var quantity = $('.quantity').val();
-                var purchase_cost = $('.purchase_cost').val();
-                var subtotal = quantity * purchase_cost;
+                var qty = $('.qty').val();
+                var price = $('.price').val();
+                var subtotal = qty * price;
                 $('.subtotal').val(subtotal);
             }
         });

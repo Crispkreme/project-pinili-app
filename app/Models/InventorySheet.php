@@ -12,7 +12,6 @@ class InventorySheet extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'status_id',
         'distributor_id',
         'invoice_number',
         'po_number',
@@ -24,10 +23,6 @@ class InventorySheet extends Model
         'or_date',
         'description',
     ];
-
-    public function status() {
-        return $this->belongsTo(Status::class, 'status_id');
-    }
 
     public function distributor() {
         return $this->belongsTo(Distributor::class, 'distributor_id');
