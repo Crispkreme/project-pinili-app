@@ -145,8 +145,41 @@ class OrderRepository implements OrderContract {
             'user',
             'supplier',
             'manufacturer',
-            'product',
-            'status'
+            'approve',
+            'order_status',
+            'status',
+            'product' => function ($query) {
+                $query->with([
+                    'category',
+                    'form',
+                ]);
+            }
+        ])
+        ->where('manufacturer_id', $id)
+        ->get();
+    }
+
+    public function getAllSpecificOrderHistoryByUser($id)
+    {
+        return $this->model->with([
+            'user'=> function ($query) {
+                $query->distinct();
+            },
+            'supplier',
+            'approve',
+            'order_status',
+            'status',
+            'product' => function ($query) {
+                $query->with([
+                    'category',
+                    'form',
+                ]);
+            },
+            'manufacturer' => function ($query) {
+                $query->with([
+                    'company',
+                ]);
+            },
         ])
         ->where('manufacturer_id', $id)
         ->get();
