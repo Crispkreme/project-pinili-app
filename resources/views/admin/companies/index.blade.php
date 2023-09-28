@@ -56,12 +56,12 @@
                                             @foreach($userData as $key => $item)
                                                 <tr>
                                                     <td>
-                                                        <a href="{{ route('admin.all.order.history.company', $item->id) }}">
+                                                        <a href="{{ route('admin.all.history.company', $item->id) }}">
                                                             {{ $item->id_number }}
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('admin.all.order.history.company', $item->id) }}">
+                                                        <a href="{{ route('admin.all.history.company', $item->id) }}">
                                                             {{ $item->company_name }}
                                                         </a>
                                                     </td>

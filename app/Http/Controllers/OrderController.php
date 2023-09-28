@@ -256,7 +256,7 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
-    public function getAllOrderHistoryByCompany($id)
+    public function getAllHistoryByCompany($id)
     {
         $companyHistory = $this->orderContract->getAllOrderHistoryByCompany($id);
         $companyId = $id;
@@ -264,6 +264,12 @@ class OrderController extends Controller
             'companyHistory' => $companyHistory,
             'companyId' => $companyId,
         ]);
+    }
+
+    public function getAllOrderHistoryByCompany($id)
+    {
+        $companyHistory = $this->orderContract->getAllOrderHistoryByCompany($id);
+        return response()->json($companyHistory);
     }
 
     public function getAllPaymentHistoryByCompany($id)

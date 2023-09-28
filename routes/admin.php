@@ -88,6 +88,7 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/print/invoice/order/{id}', 'printOrderInvoiceById')->name('print.invoice.user.order');
     Route::get('/daily/order/report', 'getDailyOrderReport')->name('daily.order.report');
     Route::post('/daily/order/report/all', 'getAllDailyOrderReport')->name('daily.order.report.all');
+    Route::get('/all/history/company/{id}', 'getAllHistoryByCompany')->name('all.history.company');
     Route::get('/all/order/history/company/{id}', 'getAllOrderHistoryByCompany')->name('all.order.history.company');
     Route::get('/all/payment/history/company/{id}', 'getAllPaymentHistoryByCompany')->name('all.payment.history.company');
     Route::get('/all/stock/history/company/{id}', 'getAllStockHistoryByCompany')->name('all.stock.history.company');
@@ -108,4 +109,5 @@ Route::group(['controller' => InventorySheetController::class], function () {
     Route::get('/all/inventory/sheet', 'getAllInventorySheet')->name('all.inventory.sheet');
     Route::get('/add/inventory/sheet', 'addInventoryList')->name('add.inventory.sheet');
     Route::post('/store/inventory/sheet', 'storeInventorySheet')->name('store.inventory.sheet');
+    Route::get('/generate/inventory/sheet/{id}', 'generateInventorySheetReport')->name('generate.inventory.sheet');
 });

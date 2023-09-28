@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Contracts\UserContract;
-use App\Contracts\StatusContract;
-use App\Contracts\ProductContract;
-use Illuminate\Support\Facades\DB;
 use App\Contracts\CategoryContract;
 use App\Contracts\DistributorContract;
-use App\Contracts\InventorySheetContract;
-use App\Contracts\RepresentativeContract;
-use App\Contracts\InventoryPaymentContract;
+
 use App\Contracts\InventoryDetailContract;
+use App\Contracts\InventoryPaymentContract;
 use App\Contracts\InventoryPaymentDetailContract;
+use App\Contracts\InventorySheetContract;
 use App\Contracts\OrderContract;
-use App\Http\Requests\StoreInventorySheetRequest;
+use App\Contracts\ProductContract;
+use App\Contracts\RepresentativeContract;
+use App\Contracts\StatusContract;
+use App\Contracts\UserContract;
 use App\Http\Requests\StoreInventoryDetailRequest;
-use App\Http\Requests\StoreInventoryPaymentRequest;
 use App\Http\Requests\StoreInventoryPaymentDetailRequest;
+use App\Http\Requests\StoreInventoryPaymentRequest;
+use App\Http\Requests\StoreInventorySheetRequest;
+use Barryvdh\DomPDF\PDF;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InventorySheetController extends Controller
 {
@@ -35,8 +37,10 @@ class InventorySheetController extends Controller
     protected $inventoryPaymentContract;
     protected $inventoryPaymentDetailContract;
     protected $orderContract;
+    protected $pdf;
 
     public function __construct(
+        PDF $pdf,
         OrderContract $orderContract,
         InventorySheetContract $inventorySheetContract,
         InventoryDetailContract $inventoryDetailContract,
@@ -60,6 +64,7 @@ class InventorySheetController extends Controller
         $this->inventoryPaymentContract = $inventoryPaymentContract;
         $this->inventoryPaymentDetailContract = $inventoryPaymentDetailContract;
         $this->orderContract = $orderContract;
+        $this->pdf = $pdf;
     }
 
     public function getAllInventorySheet()
@@ -184,5 +189,18 @@ class InventorySheetController extends Controller
             return redirect()->back()->with($notification);
 
         }
+    }
+
+    public function generateInventorySheetReport($id)
+    {
+        $companyHistory = $this->orderContract->getAllOrderHistoryByCompany($id);
+
+        $companyHistoryUser = $this->orderContract->getAllSpecificOrderHistoryByUser($id);
+        dd($companyHistoryUser);
+        $pdf = $this->pdf->loadView('pdf.inventory-sheet-invoice-report', [
+            'companyHistory' => $companyHistory,
+            'companyHistoryUser' => $companyHistoryUser,
+        ]);
+        return $pdf->stream('inventory-sheet-invoice-report.pdf');
     }
 }
