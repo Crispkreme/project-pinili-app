@@ -1,5 +1,5 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=public_html/project-pinili-app
+    - export DEPLOYPATH=/home/fish8306/public_html/project-pinili-app
     - mkdir -p $DEPLOYPATH/images
     - cp -R images/* $DEPLOYPATH/images
