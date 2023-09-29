@@ -20,6 +20,7 @@ use App\Contracts\InventorySheetContract;
 use App\Contracts\InventoryDetailContract;
 use App\Contracts\InventoryPaymentContract;
 use App\Contracts\InventoryPaymentDetailContract;
+use App\Contracts\EntityContract;
 
 // REPOSITORY
 use App\Repositories\RoleRepository;
@@ -39,6 +40,7 @@ use App\Repositories\InventorySheetRepository;
 use App\Repositories\InventoryDetailRepository;
 use App\Repositories\InventoryPaymentRepository;
 use App\Repositories\InventoryPaymentDetailRepository;
+use App\Repositories\EntityRepository;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -62,6 +64,7 @@ class RepositoryServiceProvider extends ServiceProvider
         InventoryDetailContract::class => InventoryDetailRepository::class,
         InventoryPaymentContract::class => InventoryPaymentRepository::class,
         InventoryPaymentDetailContract::class => InventoryPaymentDetailRepository::class,
+        EntityContract::class => EntityRepository::class,
     ];
 
     /**

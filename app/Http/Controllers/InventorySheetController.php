@@ -14,6 +14,7 @@ use App\Contracts\ProductContract;
 use App\Contracts\RepresentativeContract;
 use App\Contracts\StatusContract;
 use App\Contracts\UserContract;
+use App\Contracts\EntityContract;
 use App\Http\Requests\StoreInventoryDetailRequest;
 use App\Http\Requests\StoreInventoryPaymentDetailRequest;
 use App\Http\Requests\StoreInventoryPaymentRequest;
@@ -38,6 +39,7 @@ class InventorySheetController extends Controller
     protected $inventoryPaymentDetailContract;
     protected $orderContract;
     protected $pdf;
+    protected $entityContract;
 
     public function __construct(
         PDF $pdf,
@@ -52,6 +54,7 @@ class InventorySheetController extends Controller
         CategoryContract $categoryContract,
         InventoryPaymentContract $inventoryPaymentContract,
         InventoryPaymentDetailContract $inventoryPaymentDetailContract,
+        EntityContract $entityContract,
     ) {
         $this->inventorySheetContract = $inventorySheetContract;
         $this->inventoryDetailContract = $inventoryDetailContract;
@@ -65,6 +68,7 @@ class InventorySheetController extends Controller
         $this->inventoryPaymentDetailContract = $inventoryPaymentDetailContract;
         $this->orderContract = $orderContract;
         $this->pdf = $pdf;
+        $this->entityContract = $entityContract;
     }
 
     public function getAllInventorySheet()
@@ -193,13 +197,22 @@ class InventorySheetController extends Controller
 
     public function generateInventorySheetReport($id)
     {
-        $companyHistory = $this->orderContract->getAllOrderHistoryByCompany($id);
+        $companyHistories = $this->orderContract->getAllOrderHistoryByCompany($id);
 
-        $companyHistoryUser = $this->orderContract->getAllSpecificOrderHistoryByUser($id);
-        dd($companyHistoryUser);
+        foreach ($companyHistories as $data) {
+            $supplierId = $data->supplier_id;
+            $companyId = $data->manufacturer_id;
+        }
+
+        $supplierName = $this->entityContract->getSpecificSupplierName($supplierId);
+
+        $companyName = $this->distributorContract->getSpecificDistributorBySupplierId($companyId);
+        dd($companyName);
+
         $pdf = $this->pdf->loadView('pdf.inventory-sheet-invoice-report', [
             'companyHistory' => $companyHistory,
-            'companyHistoryUser' => $companyHistoryUser,
+            'supplierName' => $supplierName,
+            'companyName' => $companyName,
         ]);
         return $pdf->stream('inventory-sheet-invoice-report.pdf');
     }
