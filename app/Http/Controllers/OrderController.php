@@ -14,6 +14,7 @@ use App\Contracts\CategoryContract;
 use App\Contracts\InventoryContract;
 use Illuminate\Support\Facades\Auth;
 use App\Contracts\DistributorContract;
+use App\Contracts\EntityContract;
 use App\Contracts\RepresentativeContract;
 use App\Http\Requests\AddOrderStoreRequest;
 
@@ -27,6 +28,7 @@ class OrderController extends Controller
     protected $statusContract;
     protected $categoryContract;
     protected $inventoryContract;
+    protected $entityContract;
 
     public function __construct(
         OrderContract $orderContract,
@@ -37,6 +39,7 @@ class OrderController extends Controller
         StatusContract $statusContract,
         CategoryContract $categoryContract,
         InventoryContract $inventoryContract,
+        EntityContract $entityContract
     ) {
         $this->orderContract = $orderContract;
         $this->userContract = $userContract;
@@ -46,6 +49,7 @@ class OrderController extends Controller
         $this->statusContract = $statusContract;
         $this->categoryContract = $categoryContract;
         $this->inventoryContract = $inventoryContract;
+        $this->entityContract = $entityContract;
     }
 
     public function getAllOrder()
@@ -258,11 +262,34 @@ class OrderController extends Controller
 
     public function getAllHistoryByCompany($id)
     {
-        $companyHistory = $this->orderContract->getAllOrderHistoryByCompany($id);
-        $companyId = $id;
+        $companyHistories = $this->orderContract->getAllOrderHistoryByCompany($id);
+
+        foreach ($companyHistories as $data) {
+            $supplierId = $data->supplier_id;
+            $companyId = $data->manufacturer_id;
+            $approveId = $data->approve_id;
+            $recieveId = $data->user_id;
+            $reportId = $data->id;
+        }
+
+        $supplierName = $this->entityContract->getSpecificSupplierName($supplierId);
+
+        $company = $this->distributorContract->getSpecificDistributorBySupplierId($companyId);
+
+        $orderData = $this->orderContract->getAllSpecificOrderHistoryByUser($id);
+
+        $approveBy = $this->userContract->getApprovedByUser($id);
+
+        $recievedBy = $this->userContract->getRecievedByUser($id);
+
         return view('admin.inventories.inventory-sheet', [
-            'companyHistory' => $companyHistory,
-            'companyId' => $companyId,
+            'companyHistories' => $companyHistories,
+            'supplierName' => $supplierName,
+            'company' => $company,
+            'orderData' => $orderData,
+            'approveBy' => $approveBy,
+            'recievedBy' => $recievedBy,
+            'supplierId' => $supplierId,
         ]);
     }
 

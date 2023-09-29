@@ -46,21 +46,20 @@
                                     <h4 class="card-title">Inventory Sheet</h4>
                                     <p class="card-title-desc">Display all company list of history</p>
 
-                                    @foreach($companyHistory as $key => $item)
-                                        <div class="row">
-                                            <div>
-                                                <h4 class="card-title">Company: {{ $item->manufacturer->company->company_name }}</h4>
-                                                <h4 class="card-title">Address: {{ $item->manufacturer->company->address }}</h4>
-                                            </div>
-                                            <div class="mb-2" style="display:flex;justify-content:flex-end;">
-                                                <a href="{{ route('admin.generate.inventory.sheet', $item->id) }}"
-                                                class="btn btn-success waves-effect waves-light"
-                                                target="_blank">
-                                                    <i class="ri-printer-line align-middle me-2"></i> Generate Report
-                                                </a>
-                                            </div>
+                                    <div class="row">
+                                        <div>
+                                            <h4 class="card-title">Company: {{ $company->company->company_name }}</h4>
+                                            <h4 class="card-title">Address: {{ $company->company->address }}</h4>
                                         </div>
-                                    @endforeach
+                                        <div class="mb-2" style="display:flex;justify-content:flex-end;">
+                                            <a href="{{ route('admin.generate.inventory.sheet', $supplierId) }}"
+                                            class="btn btn-success waves-effect waves-light"
+                                            target="_blank">
+                                                <i class="ri-printer-line align-middle me-2"></i> Generate Report
+                                            </a>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -108,7 +107,7 @@
                                                 id="v-pills-company-profile"
                                                 role="tabpanel"
                                                 aria-labelledby="v-pills-company-profile-tab">
-                                                    @foreach($companyHistory as $key => $item)
+                                                    @foreach($companyHistories as $key => $item)
                                                         <div class="row mb-3">
                                                             <label>Representative/Liason</label>
                                                             <div>
@@ -282,7 +281,7 @@
             $('a[data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
                 if (e.target.id === 'v-pills-payment-history-tab') {
                     $.ajax({
-                        url: "{{ route('admin.all.payment.history.company', $companyId) }}",
+                        url: "{{ route('admin.all.payment.history.company', $supplierId) }}",
                         type: 'GET',
                         dataType: 'json',
                         success: function (data) {
@@ -316,7 +315,7 @@
                     });
                 } else if (e.target.id === 'v-pills-stocks-tab') {
                     $.ajax({
-                        url: "{{ route('admin.all.stock.history.company', $companyId) }}",
+                        url: "{{ route('admin.all.stock.history.company', $supplierId) }}",
                         type: 'GET',
                         dataType: 'json',
                         success: function (data) {
@@ -340,7 +339,7 @@
                     });
                 } else if (e.target.id === 'v-pills-order-history-tab') {
                     $.ajax({
-                        url: "{{ route('admin.all.order.history.company', $companyId) }}",
+                        url: "{{ route('admin.all.order.history.company', $supplierId) }}",
                         type: 'GET',
                         dataType: 'json',
                         success: function (data) {
