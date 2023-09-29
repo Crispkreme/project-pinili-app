@@ -17,6 +17,6 @@ class EntityRepository implements EntityContract {
 
     public function getSpecificSupplierName($id)
     {
-        return $this->model->where('id', $id)->get();
+        return $this->model->where('id', $id)->pluck('name')->first();
     }
 }

@@ -66,4 +66,14 @@ class UserRepository implements UserContract {
         ]);
         return $order;
     }
+
+    public function getApprovedByUser($id)
+    {
+        return $this->model->where('id', $id)->pluck('name')->first();
+    }
+
+    public function getRecievedByUser($id)
+    {
+        return $this->model->where('id', $id)->pluck('name')->first();
+    }
 }
