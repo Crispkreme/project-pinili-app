@@ -202,18 +202,30 @@ class InventorySheetController extends Controller
         foreach ($companyHistories as $data) {
             $supplierId = $data->supplier_id;
             $companyId = $data->manufacturer_id;
+            $approveId = $data->approve_id;
+            $recieveId = $data->user_id;
         }
 
         $supplierName = $this->entityContract->getSpecificSupplierName($supplierId);
 
-        $companyName = $this->distributorContract->getSpecificDistributorBySupplierId($companyId);
-        dd($companyName);
+        $company = $this->distributorContract->getSpecificDistributorBySupplierId($companyId);
+
+        $orderData = $this->orderContract->getAllSpecificOrderHistoryByUser($id);
+
+        $approveBy = $this->userContract->getApprovedByUser($id);
+
+        $recievedBy = $this->userContract->getRecievedByUser($id);
 
         $pdf = $this->pdf->loadView('pdf.inventory-sheet-invoice-report', [
-            'companyHistory' => $companyHistory,
+            'companyHistories' => $companyHistories,
             'supplierName' => $supplierName,
-            'companyName' => $companyName,
-        ]);
+            'company' => $company,
+            'orderData' => $orderData,
+            'approveBy' => $approveBy,
+            'recievedBy' => $recievedBy,
+        ])
+        ->setPaper('a4', 'landscape')
+        ->setWarnings(false);
         return $pdf->stream('inventory-sheet-invoice-report.pdf');
     }
 }

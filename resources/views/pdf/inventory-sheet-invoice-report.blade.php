@@ -26,8 +26,8 @@
             flex: 1;
             padding: 10px;
         }
-        h1 { font-size: 15px; }
-        p { font-size: 15px; }
+        h1, p { font-size: 15px; }
+        span { font-size: 12px; }
 
         input {
             width: 100%;
@@ -44,30 +44,57 @@
             border-collapse: collapse;
             font-size: 15px;
         }
+        .alert-pending {
+            color: #997029;
+            background-color: #fff1da;
+            border-color: #ffebc7;
+            border: 1px solid black;
+        }
+        .alert-success {
+            color: #437d52;
+            background-color: #e2f6e7;
+            border-color: #d4f1db;
+            border: 1px solid black;
+        }
+        .alert-primary {
+            color: #005b64;
+            background-color: #cceaed;
+            border-color: #b3e0e5;
+            border: 1px solid black;
+        }
+        .alert-danger {
+            color: #921c32;
+            background-color: #fdd5dd;
+            border-color: #fbc1cb;
+            border: 1px solid black;
+        }
     </style>
 </head>
 <body>
     <div class="container" style="flex-direction:column;">
+        <div style="text-align: left;">
+            <h6>Inventory Sheet Invoice Report</h6>
+        </div>
+        <br>
+        <br>
         <div style="text-align: center;">
-            <h1>Inventory Sheet Invoice Report</h1>
-            <p>Display all company list of history</p>
+            <h1>EDWIN C. PINILI MD.</h1>
+            <p>OCCUPATION AND FAMILY HEALTH PHYSICIAN</p>
+            <span>PINILI CLINIC 2ND RD.</span>
+            <span>BRGY. CALUMPANG</span>
+            <span>GENERAL SANTOS CITY, 9500</span>
         </div>
         <br>
         <br>
         <div>
-            <h1>{{ $companyHistoryUser }}</h1>
-            {{-- @foreach($companyHistory as $item)
-                <h1>Company: {{ $item->manufacturer->company->company_name }}</h1>
-                <h1>Address: {{ $item->manufacturer->company->address }}</h1>
-            @endforeach --}}
+            <h1>Company: {{ $company->company->company_name }}</h1>
+            <h1>Address: {{ $company->company->address }}</h1>
         </div>
         <br>
         <div>
-            {{-- @foreach($companyHistory as $item)
-                <h1>Med Rep: {{ $item->supplier->name }}</h1>
-                <h1>Invoice Number: {{ $item->invoice_number }}</h1>
-                <h1>Date: {{ $item->created_at }}</h1>
-            @endforeach --}}
+            <h1>Med Rep: {{ $supplierName }}</h1>
+            <h1>Invoice Number: {{ $orderData->invoice_number }}</h1>
+            <h1>Date: {{ date("M d Y", strtotime($orderData->created_at)) }}</h1>
         </div>
         <br>
     </div>
@@ -85,7 +112,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($companyHistory as $key => $item)
+            @foreach($companyHistories as $key => $item)
                 <tr>
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $item->product->medicine_name }}</td>
@@ -93,8 +120,16 @@
                     <td>{{ $item->quantity }}</td>
                     <td>{{ $item->product->sold }}</td>
                     <td>{{ $item->product->sku }}</td>
-                    <td>{{ $item->order_status->status }}</td>
-                    <td>{{ $item->created_at }}</td>
+                    @if ($item->order_status->status == 'pending')
+                        <td class="alert-pending">{{ $item->order_status->status }}</td>
+                    @elseif ($item->order_status->status == 'received')
+                        <td class="alert-success">{{ $item->order_status->status }}</td>
+                    @elseif ($item->order_status->status == 'onhand')
+                        <td class="alert-primary">{{ $item->order_status->status }}</td>
+                    @else
+                        <td class="alert-danger">{{ $item->order_status->status }}</td>
+                    @endif
+                    <td>{{ date("M d Y", strtotime($orderData->created_at)) }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -104,7 +139,19 @@
         </div>
         <div class="right-column">
             <div>
-                <h1>Amount Paid: {{ $item->purchase_cost }}</h1>
+                <h1>Amount Paid: {{ $orderData->purchase_cost }}</h1>
+            </div>
+        </div><br><br>
+    </div>
+    <div class="container">
+        <div class="left-column">
+            <div>
+                <h1>Approved by: <span style="border-bottom: 1px solid #000;font-size:15px;">{{ $approveBy }}</span></h1>
+            </div><br><br><br>
+        </div>
+        <div class="right-column">
+            <div>
+                <h1>Recieve by: <span style="border-bottom: 1px solid #000;font-size:15px;">{{ $recievedBy }}</span></h1>
             </div>
         </div>
     </div>

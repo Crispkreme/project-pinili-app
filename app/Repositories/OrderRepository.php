@@ -162,10 +162,9 @@ class OrderRepository implements OrderContract {
     public function getAllSpecificOrderHistoryByUser($id)
     {
         return $this->model->with([
-            'user'=> function ($query) {
-                $query->distinct();
-            },
+            'user',
             'supplier',
+            'manufacturer',
             'approve',
             'order_status',
             'status',
@@ -174,15 +173,10 @@ class OrderRepository implements OrderContract {
                     'category',
                     'form',
                 ]);
-            },
-            'manufacturer' => function ($query) {
-                $query->with([
-                    'company',
-                ]);
-            },
+            }
         ])
         ->where('manufacturer_id', $id)
-        ->get();
+        ->first();
     }
 
     public function updateOrderStatusByInventorySheet($id)

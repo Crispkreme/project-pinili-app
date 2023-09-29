@@ -48,6 +48,6 @@ class DistributorRepository implements DistributorContract {
         return $this->model
         ->with(['entity', 'company'])
         ->where('entity_id', $id)
-        ->get();
+        ->first();
     }
 }

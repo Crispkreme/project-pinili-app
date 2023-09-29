@@ -12,4 +12,6 @@ interface UserContract {
     public function getAllUserData();
     public function updateUserActiveStatus($id);
     public function updateUserNotActiveStatus($id);
+    public function getApprovedByUser($id);
+    public function getRecievedByUser($id);
 }
