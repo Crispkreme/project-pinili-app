@@ -11,3 +11,9 @@ public function getProductData($columns, $purpose)
         })
         ->get()
 }
+
+GIT Command
+Changes repository
+
+git config  user.name "Criskpreme" --replace-all
+git config  user.email "marvinramos.nutnull@gmail.com" --replace-all
