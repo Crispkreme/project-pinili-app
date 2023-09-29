@@ -19,4 +19,5 @@ class Company extends Model
         'email',
         'address',
     ];
+
 }
