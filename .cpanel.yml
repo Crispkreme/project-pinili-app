@@ -1,4 +1,3 @@
-----
 deployment:
   tasks:
     - export DEPLOYPATH=public_html/project-pinili-app
