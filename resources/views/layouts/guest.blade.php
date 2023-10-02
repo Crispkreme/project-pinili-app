@@ -16,7 +16,7 @@
         @vite([
             // Styles
             'resources/css/app.css',
-            'resources/css/toastr.css',
+            'resources/css/toastr.min.css',
 
             // Javascripts
             'resources/js/app.js',
