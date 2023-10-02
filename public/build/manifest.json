@@ -1,0 +1,312 @@
+{
+  "resources/css/app.min.css": {
+    "file": "assets/app.min-96a4fbd2.css",
+    "isEntry": true,
+    "src": "resources/css/app.min.css"
+  },
+  "resources/css/bootstrap.min.css": {
+    "file": "assets/bootstrap.min-63a4e9c3.css",
+    "isEntry": true,
+    "src": "resources/css/bootstrap.min.css"
+  },
+  "resources/css/icons.min.css": {
+    "file": "assets/icons.min-b7531e5d.css",
+    "isEntry": true,
+    "src": "resources/css/icons.min.css"
+  },
+  "resources/css/toastr.min.css": {
+    "file": "assets/toastr.min-b6a82ad0.css",
+    "isEntry": true,
+    "src": "resources/css/toastr.min.css"
+  },
+  "resources/fonts/dripicons-v2.eot": {
+    "file": "assets/dripicons-v2-4551d45f.eot",
+    "src": "resources/fonts/dripicons-v2.eot"
+  },
+  "resources/fonts/dripicons-v2.svg": {
+    "file": "assets/dripicons-v2-2c1ce9e2.svg",
+    "src": "resources/fonts/dripicons-v2.svg"
+  },
+  "resources/fonts/dripicons-v2.ttf": {
+    "file": "assets/dripicons-v2-d8c798b5.ttf",
+    "src": "resources/fonts/dripicons-v2.ttf"
+  },
+  "resources/fonts/dripicons-v2.woff": {
+    "file": "assets/dripicons-v2-e87a09ce.woff",
+    "src": "resources/fonts/dripicons-v2.woff"
+  },
+  "resources/fonts/fa-brands-400.eot": {
+    "file": "assets/fa-brands-400-811e1577.eot",
+    "src": "resources/fonts/fa-brands-400.eot"
+  },
+  "resources/fonts/fa-brands-400.svg": {
+    "file": "assets/fa-brands-400-02340ba1.svg",
+    "src": "resources/fonts/fa-brands-400.svg"
+  },
+  "resources/fonts/fa-brands-400.ttf": {
+    "file": "assets/fa-brands-400-a0c14538.ttf",
+    "src": "resources/fonts/fa-brands-400.ttf"
+  },
+  "resources/fonts/fa-brands-400.woff": {
+    "file": "assets/fa-brands-400-e836c5d5.woff",
+    "src": "resources/fonts/fa-brands-400.woff"
+  },
+  "resources/fonts/fa-brands-400.woff2": {
+    "file": "assets/fa-brands-400-5d919029.woff2",
+    "src": "resources/fonts/fa-brands-400.woff2"
+  },
+  "resources/fonts/fa-regular-400.eot": {
+    "file": "assets/fa-regular-400-01f4416f.eot",
+    "src": "resources/fonts/fa-regular-400.eot"
+  },
+  "resources/fonts/fa-regular-400.svg": {
+    "file": "assets/fa-regular-400-865fd23d.svg",
+    "src": "resources/fonts/fa-regular-400.svg"
+  },
+  "resources/fonts/fa-regular-400.ttf": {
+    "file": "assets/fa-regular-400-f32b94a2.ttf",
+    "src": "resources/fonts/fa-regular-400.ttf"
+  },
+  "resources/fonts/fa-regular-400.woff": {
+    "file": "assets/fa-regular-400-8e2d9619.woff",
+    "src": "resources/fonts/fa-regular-400.woff"
+  },
+  "resources/fonts/fa-regular-400.woff2": {
+    "file": "assets/fa-regular-400-6a8c8e9e.woff2",
+    "src": "resources/fonts/fa-regular-400.woff2"
+  },
+  "resources/fonts/fa-solid-900.eot": {
+    "file": "assets/fa-solid-900-32501727.eot",
+    "src": "resources/fonts/fa-solid-900.eot"
+  },
+  "resources/fonts/fa-solid-900.svg": {
+    "file": "assets/fa-solid-900-e7685398.svg",
+    "src": "resources/fonts/fa-solid-900.svg"
+  },
+  "resources/fonts/fa-solid-900.ttf": {
+    "file": "assets/fa-solid-900-231d68ce.ttf",
+    "src": "resources/fonts/fa-solid-900.ttf"
+  },
+  "resources/fonts/fa-solid-900.woff": {
+    "file": "assets/fa-solid-900-352f8ead.woff",
+    "src": "resources/fonts/fa-solid-900.woff"
+  },
+  "resources/fonts/fa-solid-900.woff2": {
+    "file": "assets/fa-solid-900-7f4d3fd0.woff2",
+    "src": "resources/fonts/fa-solid-900.woff2"
+  },
+  "resources/fonts/inter-bold.woff2": {
+    "file": "assets/inter-bold-6f5e9a23.woff2",
+    "src": "resources/fonts/inter-bold.woff2"
+  },
+  "resources/fonts/inter-light.woff": {
+    "file": "assets/inter-light-38326098.woff",
+    "src": "resources/fonts/inter-light.woff"
+  },
+  "resources/fonts/inter-light.woff2": {
+    "file": "assets/inter-light-0f7dfe72.woff2",
+    "src": "resources/fonts/inter-light.woff2"
+  },
+  "resources/fonts/inter-medium.woff": {
+    "file": "assets/inter-medium-0fc5d904.woff",
+    "src": "resources/fonts/inter-medium.woff"
+  },
+  "resources/fonts/inter-medium.woff2": {
+    "file": "assets/inter-medium-5d308f3d.woff2",
+    "src": "resources/fonts/inter-medium.woff2"
+  },
+  "resources/fonts/inter-regular.woff": {
+    "file": "assets/inter-regular-5b3a854b.woff",
+    "src": "resources/fonts/inter-regular.woff"
+  },
+  "resources/fonts/inter-regular.woff2": {
+    "file": "assets/inter-regular-89d406b0.woff2",
+    "src": "resources/fonts/inter-regular.woff2"
+  },
+  "resources/fonts/materialdesignicons-webfont.eot": {
+    "file": "assets/materialdesignicons-webfont-9bdfaf27.eot",
+    "src": "resources/fonts/materialdesignicons-webfont.eot"
+  },
+  "resources/fonts/materialdesignicons-webfont.ttf": {
+    "file": "assets/materialdesignicons-webfont-c14484cf.ttf",
+    "src": "resources/fonts/materialdesignicons-webfont.ttf"
+  },
+  "resources/fonts/materialdesignicons-webfont.woff": {
+    "file": "assets/materialdesignicons-webfont-8bded8f4.woff",
+    "src": "resources/fonts/materialdesignicons-webfont.woff"
+  },
+  "resources/fonts/materialdesignicons-webfont.woff2": {
+    "file": "assets/materialdesignicons-webfont-da7fba3c.woff2",
+    "src": "resources/fonts/materialdesignicons-webfont.woff2"
+  },
+  "resources/fonts/remixicon.eot": {
+    "file": "assets/remixicon-9cfafdde.eot",
+    "src": "resources/fonts/remixicon.eot"
+  },
+  "resources/fonts/remixicon.svg": {
+    "file": "assets/remixicon-4d3c3477.svg",
+    "src": "resources/fonts/remixicon.svg"
+  },
+  "resources/fonts/remixicon.ttf": {
+    "file": "assets/remixicon-22a1b383.ttf",
+    "src": "resources/fonts/remixicon.ttf"
+  },
+  "resources/fonts/remixicon.woff": {
+    "file": "assets/remixicon-1dc933b2.woff",
+    "src": "resources/fonts/remixicon.woff"
+  },
+  "resources/fonts/remixicon.woff2": {
+    "file": "assets/remixicon-e884be6f.woff2",
+    "src": "resources/fonts/remixicon.woff2"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-6e0eadfb.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/datatables.init.js": {
+    "file": "assets/datatables.init-ba9812b4.js",
+    "isEntry": true,
+    "src": "resources/js/datatables.init.js"
+  },
+  "resources/js/handlebars.js": {
+    "file": "assets/handlebars-3cd61a8e.js",
+    "isEntry": true,
+    "src": "resources/js/handlebars.js"
+  },
+  "resources/js/input-validator.js": {
+    "file": "assets/input-validator-c6076041.js",
+    "isEntry": true,
+    "src": "resources/js/input-validator.js"
+  },
+  "resources/js/main-js.js": {
+    "file": "assets/main-js-334f9dc9.js",
+    "isEntry": true,
+    "src": "resources/js/main-js.js"
+  },
+  "resources/js/notification.js": {
+    "file": "assets/notification-6042b645.js",
+    "isEntry": true,
+    "src": "resources/js/notification.js"
+  },
+  "resources/js/notify.min.js": {
+    "file": "assets/notify.min-73deebd0.js",
+    "isEntry": true,
+    "src": "resources/js/notify.min.js"
+  },
+  "resources/js/pages/dashboard.init.js": {
+    "file": "assets/dashboard.init-f98b2b9f.js",
+    "isEntry": true,
+    "src": "resources/js/pages/dashboard.init.js"
+  },
+  "resources/js/pages/form-advanced.init.js": {
+    "file": "assets/form-advanced.init-938e6f87.js",
+    "isEntry": true,
+    "src": "resources/js/pages/form-advanced.init.js"
+  },
+  "resources/js/toastr.min.js": {
+    "file": "assets/toastr.min-2dac9813.js",
+    "isEntry": true,
+    "src": "resources/js/toastr.min.js"
+  },
+  "resources/js/validate.min.js": {
+    "file": "assets/validate.min-7e2a5e6d.js",
+    "isEntry": true,
+    "src": "resources/js/validate.min.js"
+  },
+  "resources/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css": {
+    "file": "assets/jquery-jvectormap-1.2.2-f88cd739.css",
+    "isEntry": true,
+    "src": "resources/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
+  },
+  "resources/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js": {
+    "file": "assets/jquery-jvectormap-1.2.2.min-6500bd1b.js",
+    "isEntry": true,
+    "src": "resources/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"
+  },
+  "resources/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js": {
+    "file": "assets/jquery-jvectormap-us-merc-en-2dcce3e5.js",
+    "isEntry": true,
+    "src": "resources/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"
+  },
+  "resources/libs/apexcharts/apexcharts.min.js": {
+    "file": "assets/apexcharts.min-3cc4a6db.js",
+    "isEntry": true,
+    "src": "resources/libs/apexcharts/apexcharts.min.js"
+  },
+  "resources/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css": {
+    "file": "assets/bootstrap-datepicker.min-899d976e.css",
+    "isEntry": true,
+    "src": "resources/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+  },
+  "resources/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js": {
+    "file": "assets/bootstrap-datepicker.min-b4a8aa2a.js",
+    "isEntry": true,
+    "src": "resources/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"
+  },
+  "resources/libs/bootstrap/js/bootstrap.bundle.min.js": {
+    "file": "assets/bootstrap.bundle.min-4ee18840.js",
+    "isEntry": true,
+    "src": "resources/libs/bootstrap/js/bootstrap.bundle.min.js"
+  },
+  "resources/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css": {
+    "file": "assets/dataTables.bootstrap4.min-7cab5959.css",
+    "isEntry": true,
+    "src": "resources/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+  },
+  "resources/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js": {
+    "file": "assets/dataTables.bootstrap4.min-32568e35.js",
+    "isEntry": true,
+    "src": "resources/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"
+  },
+  "resources/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css": {
+    "file": "assets/responsive.bootstrap4.min-3c581196.css",
+    "isEntry": true,
+    "src": "resources/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+  },
+  "resources/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js": {
+    "file": "assets/responsive.bootstrap4.min-450f8a54.js",
+    "isEntry": true,
+    "src": "resources/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"
+  },
+  "resources/libs/datatables.net-responsive/js/dataTables.responsive.min.js": {
+    "file": "assets/dataTables.responsive.min-3476268d.js",
+    "isEntry": true,
+    "src": "resources/libs/datatables.net-responsive/js/dataTables.responsive.min.js"
+  },
+  "resources/libs/datatables.net/js/jquery.dataTables.min.js": {
+    "file": "assets/jquery.dataTables.min-c12b4525.js",
+    "isEntry": true,
+    "src": "resources/libs/datatables.net/js/jquery.dataTables.min.js"
+  },
+  "resources/libs/jquery/jquery.min.js": {
+    "file": "assets/jquery.min-f90c37dd.js",
+    "isEntry": true,
+    "src": "resources/libs/jquery/jquery.min.js"
+  },
+  "resources/libs/metismenu/metisMenu.min.js": {
+    "file": "assets/metisMenu.min-ac42e4c2.js",
+    "isEntry": true,
+    "src": "resources/libs/metismenu/metisMenu.min.js"
+  },
+  "resources/libs/node-waves/waves.min.js": {
+    "file": "assets/waves.min-e35a64a6.js",
+    "isEntry": true,
+    "src": "resources/libs/node-waves/waves.min.js"
+  },
+  "resources/libs/select2/css/select2.min.css": {
+    "file": "assets/select2.min-2c9bdbaa.css",
+    "isEntry": true,
+    "src": "resources/libs/select2/css/select2.min.css"
+  },
+  "resources/libs/select2/js/select2.min.js": {
+    "file": "assets/select2.min-a7b7bc49.js",
+    "isEntry": true,
+    "src": "resources/libs/select2/js/select2.min.js"
+  },
+  "resources/libs/simplebar/simplebar.min.js": {
+    "file": "assets/simplebar.min-7c985667.js",
+    "isEntry": true,
+    "src": "resources/libs/simplebar/simplebar.min.js"
+  }
+}

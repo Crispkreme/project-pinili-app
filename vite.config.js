@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css',
                 'resources/css/bootstrap.min.css',
                 'resources/css/icons.min.css',
+                'resources/css/toastr.min.css',
                 'resources/css/app.min.css',
 
                 // Javascripts
