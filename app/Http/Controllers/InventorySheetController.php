@@ -73,7 +73,8 @@ class InventorySheetController extends Controller
 
     public function getAllInventorySheet()
     {
-        $inventorySheets = $this->inventoryDetailContract->getAllInventoryDetail();
+        $inventorySheets = $this->inventorySheetContract->getAllInventorySheet();
+
         return view('admin.inventories.index', ['inventorySheets' => $inventorySheets]);
     }
 
@@ -100,23 +101,37 @@ class InventorySheetController extends Controller
 
         try {
 
+            if($request->product_id == null)
+            {
+                $notification = [
+                    'alert-type' => 'danger',
+                    'message' => 'Select Product to proceed',
+                ];
+
+                return redirect()->back()->with($notification);
+            }
+
             $prefix = "TNX-RCV";
             $transactionNumber = Carbon::now()->format('Ymd-His');
             $invoice_number = $prefix.'-'.$transactionNumber;
+            $po_number = $request->po_number;
+            $delivery_number = $request->delivery_number;
+            $or_number = $request->or_number;
 
             $params = [
                 'invoice_number' => $invoice_number,
-                'po_number' => $request->input('po_number'),
-                'delivery_number' => $request->input('delivery_number'),
+                'po_number' => $po_number,
+                'delivery_number' => $delivery_number,
                 'delivery_date' => $request->input('delivery_date'),
                 'previous_delivery' => "",
                 'present_delivery' => "",
-                'or_number' => $request->input('or_number'),
+                'or_number' => $or_number,
                 'or_date' => $request->input('or_date'),
                 'description' => $request->input('description'),
             ];
 
             $distributors = $this->distributorContract->getSpecificDistributorBySupplierId($request->supplier_id);
+            dd($distributors);
             $companyId = $distributors[0]->company_id;
 
             $params['distributor_id'] = $companyId;
@@ -127,9 +142,11 @@ class InventorySheetController extends Controller
             $allData = [];
 
             for ($i = 0; $i < count($request->product_id); $i++) {
-
                 $data = [
                     'inventory_sheet_id' => $inventorySheets->id,
+                    'po_number' => $po_number,
+                    'delivery_number' => $delivery_number,
+                    'or_number' => $or_number,
                     'product_id' => $request->product_id[$i],
                     'inventory_status_id' => $inventory_status_id,
                     'qty' => $request->qty[$i],
@@ -141,7 +158,7 @@ class InventorySheetController extends Controller
             }
 
             foreach ($allData as $data) {
-                $this->inventoryDetailContract->storeInventoryDetail($data);
+                $usersData = $this->inventoryDetailContract->storeInventoryDetail($data);
             }
 
             $current_paid_amount = $request->current_paid_amount;
@@ -227,5 +244,14 @@ class InventorySheetController extends Controller
         ->setPaper('a4', 'landscape')
         ->setWarnings(false);
         return $pdf->stream('inventory-sheet-invoice-report.pdf');
+    }
+
+    public function editInventorySheet($id)
+    {
+        $inventorySheets = $this->inventorySheetContract->editInventorySheet($id);
+
+        return view('admin.inventories.update-inventory-sheet', [
+            'inventorySheets' => $inventorySheets,
+        ]);
     }
 }

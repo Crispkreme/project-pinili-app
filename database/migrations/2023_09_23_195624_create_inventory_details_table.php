@@ -16,6 +16,15 @@ return new class extends Migration
             $table->unsignedBigInteger('inventory_sheet_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('inventory_status_id'); //ship or not ship
+            $table->string('or_number')
+                  ->nullable()
+                  ->default(null);
+            $table->string('po_number')
+                  ->nullable()
+                  ->default(null);
+            $table->string('delivery_number')
+                  ->nullable()
+                  ->default(null);
             $table->integer('qty')->nullable();
             $table->double('price')->nullable();
             $table->integer('subtotal')->nullable();
