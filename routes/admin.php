@@ -108,6 +108,7 @@ Route::group(['controller' => InventoryController::class], function () {
 Route::group(['controller' => InventorySheetController::class], function () {
     Route::get('/all/inventory/sheet', 'getAllInventorySheet')->name('all.inventory.sheet');
     Route::get('/add/inventory/sheet', 'addInventoryList')->name('add.inventory.sheet');
+    Route::get('/edit/inventory/sheet/{id}', 'editInventorySheet')->name('edit.inventory.sheet');
     Route::post('/store/inventory/sheet', 'storeInventorySheet')->name('store.inventory.sheet');
     Route::get('/generate/inventory/sheet/{id}', 'generateInventorySheetReport')->name('generate.inventory.sheet');
 });

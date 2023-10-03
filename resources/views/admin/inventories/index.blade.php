@@ -44,36 +44,30 @@
                                         <thead>
                                             <tr>
                                                 <th>Invoice Number</th>
-                                                <th>Medicine Name</th>
-                                                <th>Brand Name</th>
-                                                <th>Qty</th>
-                                                <th>Price</th>
+                                                <th>PO Number</th>
                                                 <th>Delivery Number</th>
+                                                <th>New</th>
+                                                <th>Old</th>
+                                                <th>OR Number</th>
+                                                <th>OR Date</th>
                                                 <th>Delivery Date</th>
-                                                <th>Delivery Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($inventorySheets as $key => $item)
                                                 <tr>
                                                     <td>
-                                                        <a href="">
-                                                            {{ $item->inventory_sheet->invoice_number }}
+                                                        <a href="{{ route('admin.edit.inventory.sheet', $item->id) }}">
+                                                            {{ $item->invoice_number }}
                                                         </a>
                                                     </td>
-                                                    <td>{{ $item->product->medicine_name }}</td>
-                                                    <td>{{ $item->product->generic_name }}</td>
-                                                    <td>{{ $item->qty }}</td>
-                                                    <td>{{ $item->price }}</td>
-                                                    <td>{{ $item->inventory_sheet->delivery_number }}</td>
-                                                    <td>{{ date('M, d, Y', strtotime($item->inventory_sheet->delivery_date)) }}</td>
-                                                    <td>
-                                                        @if( $item->inventory_status_id == 7)
-                                                            <span class="badge rounded-pill bg-success" style="font-size:12px;padding:5px;">
-                                                                {{ $item->inventory_status->status }}
-                                                            </span>
-                                                        @endif
-                                                    </td>
+                                                    <td>{{ $item->po_number }}</td>
+                                                    <td>{{ $item->delivery_number }}</td>
+                                                    <td>{{ $item->present_delivery }}</td>
+                                                    <td>{{ $item->previous_delivery }}</td>
+                                                    <td>{{ $item->or_number }}</td>
+                                                    <td>{{ date('M, d, Y', strtotime($item->or_date)) }}</td>
+                                                    <td>{{ date('M, d, Y', strtotime($item->delivery_date)) }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

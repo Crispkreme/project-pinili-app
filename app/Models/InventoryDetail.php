@@ -13,6 +13,9 @@ class InventoryDetail extends Model
 
     protected $fillable = [
         'inventory_sheet_id',
+        'po_number',
+        'or_number',
+        'delivery_number',
         'product_id',
         'inventory_status_id',
         'qty',
