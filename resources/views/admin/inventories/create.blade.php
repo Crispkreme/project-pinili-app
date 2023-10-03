@@ -298,13 +298,15 @@
 
             $(document).on('click','.remove_event_more', function() {
                 $(this).closest(".delete_add_more_item").remove();
+                subTotalPrice();
                 totalAmountPrice();
                 dueAmount();
             });
 
             $(document).on('click keyup', '#discount_amount', function() {
-                totalAmountPrice();
+                subTotalPrice();
                 dueAmount();
+                totalAmountPrice();
             });
 
             $(document).on('click keyup', '#current_paid_amount', function() {
@@ -356,11 +358,20 @@
                 });
 
                 var discount_amount = parseFloat($('#discount_amount').val());
-                if(!isNaN(discount_amount) && discount_amount.length != 0){
-                    sum -= parseFloat(discount_amount);
+                var current_paid_amount = parseFloat($('#current_paid_amount').val());
+                var totalAmount = discount_amount + current_paid_amount;
+
+                if(!isNaN(totalAmount) && totalAmount.length != 0){
+                    sum -= parseFloat(totalAmount);
+                }
+
+                if (sum < 0) {
+                    sum = 0;
                 }
 
                 $('.total_amount').val(sum.toFixed(2));
+
+                $('#balance').val(sum.toFixed(2));
             }
 
             function dueAmount() {

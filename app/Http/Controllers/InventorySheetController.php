@@ -100,6 +100,16 @@ class InventorySheetController extends Controller
 
         try {
 
+            if($request->product_id == null)
+            {
+                $notification = [
+                    'alert-type' => 'danger',
+                    'message' => 'Select Product to proceed',
+                ];
+
+                return redirect()->back()->with($notification);
+            }
+
             $prefix = "TNX-RCV";
             $transactionNumber = Carbon::now()->format('Ymd-His');
             $invoice_number = $prefix.'-'.$transactionNumber;
