@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'PMC') }}</title>
+        <title>{{ config('app.name', 'Pinili Medical Clinic') }}</title>
 
         @include('sweetalert::alert')
 
@@ -49,6 +49,13 @@
             'resources/js/notify.min.js',
         ])
 
+        <link rel="stylesheet" href="http://[::1]:5173/resources/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" />
+        <link rel="stylesheet" href="http://[::1]:5173/resources/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" />
+        <link rel="stylesheet" href="http://[::1]:5173/resources/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" />
+        <link rel="stylesheet" href="http://[::1]:5173/resources/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="http://[::1]:5173/resources/css/icons.min.css" />
+        <link rel="stylesheet" href="http://[::1]:5173/resources/css/app.min.css" />
+
         @stack('styles')
 
     </head>
@@ -57,6 +64,25 @@
         <main>
             {{ $slot }}
         </main>
+
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/metismenu/metisMenu.min.js"></script>
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/simplebar/simplebar.min.js"></script>
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/node-waves/waves.min.js"></script>
+
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/apexcharts/apexcharts.min.js"></script>
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
+
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript" src="http://[::1]:5173/resources/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+        <script type="text/javascript" src="http://[::1]:5173/resources/js/pages/dashboard.init.js"></script>
+        <script type="text/javascript" src="http://[::1]:5173/resources/js/main-js.js"></script>
 
         @stack('scripts')
 

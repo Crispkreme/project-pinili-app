@@ -11,9 +11,10 @@ export default defineConfig({
                 'resources/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css',
                 'resources/libs/select2/css/select2.min.css',
                 'resources/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css',
+                'resources/css/toastr.min.css',
+
                 'resources/css/bootstrap.min.css',
                 'resources/css/icons.min.css',
-                'resources/css/toastr.min.css',
                 'resources/css/app.min.css',
 
                 // Javascripts

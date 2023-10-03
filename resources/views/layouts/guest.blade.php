@@ -15,14 +15,27 @@
         <!-- Scripts -->
         @vite([
             // Styles
-            'resources/css/app.css',
+            'resources/css/bootstrap.min.css',
+            'resources/css/icons.min.css',
+            'resources/css/app.min.css',
             'resources/css/toastr.min.css',
+
+            'resources/libs/jquery/jquery.min.js',
+            'resources/libs/bootstrap/js/bootstrap.bundle.min.js',
+            'resources/libs/metismenu/metisMenu.min.js',
+            'resources/libs/simplebar/simplebar.min.js',
+            'resources/libs/node-waves/waves.min.js',
 
             // Javascripts
             'resources/js/app.js',
             'resources/js/toastr.min.js',
             'resources/js/notification.js',
         ])
+
+        <link rel="stylesheet" href="http://[::1]:5173/resources/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="http://[::1]:5173/resources/css/icons.min.css" />
+        <link rel="stylesheet" href="http://[::1]:5173/resources/css/app.min.css" />
+
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
@@ -36,6 +49,14 @@
                 {{ $slot }}
             </div>
         </div>
+
+        <script src="http://[::1]:5173/resources/libs/jquery/jquery.min.js"></script>
+        <script src="http://[::1]:5173/resources/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="http://[::1]:5173/resources/libs/metismenu/metisMenu.min.js"></script>
+        <script src="http://[::1]:5173/resources/libs/simplebar/simplebar.min.js"></script>
+        <script src="http://[::1]:5173/resources/libs/node-waves/waves.min.js"></script>
+
+        <script src="http://[::1]:5173/resources/js/app.js"></script>
 
         <script>
             var sessionData = {!! json_encode([
