@@ -28,6 +28,7 @@ class Order extends Model
         'remarks',
         'expiry_date',
         'manufacturing_date',
+        'created_at',
     ];
 
     public function user() {

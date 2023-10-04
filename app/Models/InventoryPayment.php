@@ -16,6 +16,7 @@ class InventoryPayment extends Model
         'customer_id',
         'payment_status_id',
         'due_amount',
+        'balance',
         'paid_amount',
         'total_amount',
         'discount_amount',
