@@ -22,6 +22,8 @@ class Order extends Model
         'invoice_number',
         'quantity',
         'purchase_cost',
+        'or_number',
+        'delivery_number',
         'srp',
         'remarks',
         'expiry_date',

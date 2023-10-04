@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('present_delivery')->nullable();
             $table->string('or_number')->nullable();
             $table->string('or_date')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
 
             $table->foreign('distributor_id')
                   ->references('id')
