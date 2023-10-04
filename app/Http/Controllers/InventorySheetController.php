@@ -289,4 +289,20 @@ class InventorySheetController extends Controller
             'inventoryPayment' => $inventoryPayment,
         ]);
     }
+
+    public function generateInventorySheet($id)
+    {
+        $inventorySheet = $this->inventorySheetContract->editInventorySheet($id);
+        $orderData = $this->orderContract->getOrderData($inventorySheet[0]['or_number']);
+        $inventoryPayment = $this->inventoryPaymentContract->getInventoryPaymentDataByOrNumber($inventorySheet[0]['id']);
+
+        $pdf = $this->pdf->loadView('pdf.all-inventory-sheet-invoice-report', [
+            'inventorySheet' => $inventorySheet,
+            'orderData' => $orderData,
+            'inventoryPayment' => $inventoryPayment,
+        ])
+        ->setPaper('a4', 'landscape')
+        ->setWarnings(false);
+        return $pdf->stream('all-inventory-sheet-invoice-report.pdf');
+    }
 }
