@@ -121,6 +121,7 @@
                                         <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
                                             <thead>
                                                 <tr>
+                                                    <th style="width:5%;padding:10px;text-align:center;">ID</th>
                                                     <th style="width:30%;padding:10px;">Medicine Name</th>
                                                     <th style="width:30%;padding:10px;">Generic Name</th>
                                                     <th style="width:10%;padding:10px;text-align:center;">Price</th>
@@ -132,6 +133,9 @@
                                             <tbody>
                                                 @foreach ($orderData as $key => $item)
                                                     <tr>
+                                                        <td style="padding:10px;text-align:center;">
+                                                            {{ $key + 1 }}
+                                                        </td>
                                                         <td style="padding:10px;">
                                                             {{ $item->product->medicine_name }}
                                                         </td>
@@ -155,7 +159,7 @@
                                             </tbody>
                                             <tbody>
                                                 <tr>
-                                                    <td>Remarks</td>
+                                                    <td style="padding:10px;">Remarks</td>
                                                     <td colspan="2">
                                                         <textarea
                                                         placeholder="Remarks"
@@ -176,7 +180,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Payment Status</td>
+                                                    <td style="padding:10px;">Payment Status</td>
                                                     <td colspan="2">
                                                         <select
                                                         class="form-select select-2"
@@ -243,10 +247,10 @@
                                             </tbody>
                                         </table>
                                         <div class="form-group">
-                                            <button class="btn btn-info mt-2" id="storeButton">
+                                            <a href="{{ route('admin.all.generate.inventory.sheet', $inventorySheet[0]['id']) }}" class="btn btn-info mt-2" id="storeButton">
                                                 <i class="ri-printer-line align-middle ms-2"></i>
                                                 Print Delivery Received
-                                            </button>
+                                            </a>
                                         </div>
                                     </form>
                                 </div>
