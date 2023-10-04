@@ -44,29 +44,39 @@
             border-collapse: collapse;
             font-size: 15px;
         }
-        .alert-pending {
-            color: #997029;
-            background-color: #fff1da;
-            border-color: #ffebc7;
-            border: 1px solid black;
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: calc(-1 * 24px);
+            margin-right: calc(-.5 * 0);
+            margin-left: calc(-.5 * 24px);
         }
-        .alert-success {
-            color: #437d52;
-            background-color: #e2f6e7;
-            border-color: #d4f1db;
-            border: 1px solid black;
+        .col-md-4 {
+            -webkit-box-flex:0;
+            -ms-flex:0 0 auto;
+            flex:0 0 auto;
+            width:33.33333333%;
         }
-        .alert-primary {
-            color: #005b64;
-            background-color: #cceaed;
-            border-color: #b3e0e5;
-            border: 1px solid black;
+        .mb-3 {
+            margin-bottom: 1rem!important;
         }
-        .alert-danger {
-            color: #921c32;
-            background-color: #fdd5dd;
-            border-color: #fbc1cb;
-            border: 1px solid black;
+        .col-form-label {
+            padding-top: calc(0.47rem + 1px);
+            padding-bottom: calc(0.47rem + 1px);
+            margin-bottom: 0;
+            font-size: inherit;
+            line-height: 1.5;
+        }
+        .col-md-9{
+            -webkit-box-flex:0;
+            -ms-flex:0 0 auto;
+            flex:0 0 auto;
+            width:75%;
+        }
+        .col{
+            -webkit-box-flex:1;
+            -ms-flex:1 0 0%;
+            flex:1 0 0%;
         }
     </style>
 </head>
@@ -86,17 +96,55 @@
         </div>
         <br>
         <br>
-        <div>
-            <h1>Company: </h1>
-            <h1>Address: </h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row mb-3">
+                    <label for="name" class="col-form-label">Invoice Number</label>
+                    <h5>Invoice Number</h5>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="row mb-3">
+                    <label for="name" class="col-form-label">Date</label>
+                    <h5>Date</h5>
+                </div>
+            </div>
         </div>
-        <br>
-        <div>
-            <h1>Med Rep: </h1>
-            <h1>Invoice Number: </h1>
-            <h1>Date: </h1>
+        <div class="row mb-3" style="display: flex;">
+            <div class="col-md-4">
+                <label for="name" class="col-form-label">Supplier</label>
+                <p>Supplier</p>
+            </div>
+            <div class="col-md-4">
+                <label for="name" class="col-form-label">OR/PR Number</label>
+                <p>OR/PR Number</p>
+            </div>
+            <div class="col-md-4">
+                <label for="name" class="col-form-label">OR/PR Date</label>
+                <p>OR/PR Date</p>
+            </div>
         </div>
-        <br>
+        <div class="row" style="align-items: flex-end;">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="name" class="col-form-label">Delivery Number</label>
+                        <p>Delivery Number</p>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="name" class="col-form-label">Delivery Date</label>
+                        <p>Delivery Date</p>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="name" class="col-form-label">PO Order</label>
+                        <p>PO Order</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+            </div>
+        </div>
     </div>
 
     <table width="100%" style="border-color:#ddd;">
