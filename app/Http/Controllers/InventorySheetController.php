@@ -117,6 +117,13 @@ class InventorySheetController extends Controller
             $po_number = $request->po_number;
             $delivery_number = $request->delivery_number;
             $or_number = $request->or_number;
+            $current_paid_amount = $request->current_paid_amount;
+            $payment_status_id = $request->payment_status_id;
+            $discount_amount = $request->discount_amount;
+            $due_amount = $request->due_amount;
+            $total_amount = $request->total_amount;
+            $balance = $request->balance;
+            $customer_id = auth()->user()->id;
 
             $params = [
                 'invoice_number' => $invoice_number,
@@ -131,18 +138,19 @@ class InventorySheetController extends Controller
             ];
 
             $distributors = $this->distributorContract->getSpecificDistributorBySupplierId($request->supplier_id);
-            dd($distributors);
-            $companyId = $distributors[0]->company_id;
+
+            $companyId = $distributors->company_id;
 
             $params['distributor_id'] = $companyId;
 
             $inventorySheets = $this->inventorySheetContract->storeInventorySheet($params);
             $inventory_status_id = 7;
 
-            $allData = [];
+            $inventoryData = [];
+            $orderData = [];
 
             for ($i = 0; $i < count($request->product_id); $i++) {
-                $data = [
+                $inventory = [
                     'inventory_sheet_id' => $inventorySheets->id,
                     'po_number' => $po_number,
                     'delivery_number' => $delivery_number,
@@ -154,20 +162,25 @@ class InventorySheetController extends Controller
                     'subtotal' => $request->subtotal[$i],
                 ];
 
-                $allData[] = $data;
+                $order = [
+                    'delivery_number' => $delivery_number,
+                    'or_number' => $or_number,
+                    'product_id' => $request->product_id[$i],
+                ];
+
+                $inventoryData[] = $inventory;
+                $orderData[] = $order;
             }
 
-            foreach ($allData as $data) {
-                $usersData = $this->inventoryDetailContract->storeInventoryDetail($data);
+            foreach ($inventoryData as $inventory) {
+               $this->inventoryDetailContract->storeInventoryDetail($inventory);
             }
 
-            $current_paid_amount = $request->current_paid_amount;
-            $payment_status_id = $request->payment_status_id;
-            $discount_amount = $request->discount_amount;
-            $due_amount = $request->due_amount;
-            $total_amount = $request->total_amount;
-            $balance = $request->balance;
-            $customer_id = auth()->user()->id;
+            foreach ($orderData as $order) {
+                $this->orderContract->updateOrDeliveryNumberOrder($order['product_id'], $order);
+            }
+
+            $this->orderContract->updateOrderStatusByInventorySheet($or_number);
 
             $params1 = [
                 'inventory_sheet_id' => $inventorySheets->id,
@@ -189,10 +202,6 @@ class InventorySheetController extends Controller
 
             $this->inventoryPaymentDetailContract->storeInventoryPaymentDetail($params2);
 
-            $orderID = $this->orderContract->getOrderIdByInvoiceNumber($request->input('po_number'));
-
-            $this->orderContract->updateOrderStatusByInventorySheet($orderID->id);
-
             $notification = [
                 'alert-type' => 'success',
                 'message' => 'Ordered successfully delivered!',
@@ -201,7 +210,7 @@ class InventorySheetController extends Controller
             return redirect()->route('admin.all.inventory.sheet')->with($notification);
 
         } catch (Exception $e) {
-
+            dd($e);
             $notification = [
                 'alert-type' => 'danger',
                 'message' => 'Error occurred: ' . $e->getMessage(),

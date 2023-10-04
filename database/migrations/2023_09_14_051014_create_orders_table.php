@@ -24,6 +24,12 @@ return new class extends Migration
             $table->integer('quantity');
             $table->double('purchase_cost');
             $table->double('srp');
+            $table->string('or_number')
+                  ->nullable()
+                  ->default(null);
+            $table->string('delivery_number')
+                  ->nullable()
+                  ->default(null);
             $table->text('remarks')->nullable();
             $table->date('expiry_date')->nullable();
             $table->date('manufacturing_date')->nullable();

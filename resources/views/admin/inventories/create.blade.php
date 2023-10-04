@@ -232,15 +232,35 @@
             <td>@{{ medicine_name }}</td>
             <td>@{{ generic_name }}</td>
             <td>
-                <input type="number" name="qty[]" class="form-control qty text-right" value="@{{ quantity }}" id="qty" readonly>
+                <input
+                type="number"
+                name="qty[]"
+                class="form-control qty text-right"
+                value="@{{ quantity }}"
+                id="qty"
+                readonly>
             </td>
             <td>
-                <input type="number" name="price[]" class="form-control price text-right" value="@{{ purchase_cost }}" id="price" readonly>
+                <input
+                type="number"
+                name="price[]"
+                class="form-control price text-right"
+                value="@{{ purchase_cost }}"
+                id="price"
+                readonly>
             </td>
             <td>
-                <input type="text" class="form-control subtotal" id="subtotal" name="subtotal[]" placeholder="0" value="" style="background-color:#ddd;" readonly>
+                <input
+                type="text"
+                class="form-control subtotal"
+                id="subtotal"
+                name="subtotal[]"
+                placeholder="0"
+                value=""
+                style="background-color:#ddd;"
+                readonly>
             </td>
-            <td>
+            <td style="text-align: center;">
                 <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
             </td>
         </tr>
@@ -298,19 +318,19 @@
 
             $(document).on('click','.remove_event_more', function() {
                 $(this).closest(".delete_add_more_item").remove();
-                subTotalPrice();
+                calculateSubtotalPrice();
                 totalAmountPrice();
                 dueAmount();
             });
 
             $(document).on('click keyup', '#discount_amount', function() {
-                subTotalPrice();
+                calculateSubtotalPrice();
                 dueAmount();
                 totalAmountPrice();
             });
 
             $(document).on('click keyup', '#current_paid_amount', function() {
-                subTotalPrice();
+                calculateSubtotalPrice();
                 dueAmount();
             });
 
@@ -326,7 +346,7 @@
                     }
                 });
 
-                subTotalPrice();
+                calculateSubtotalPrice();
             });
 
             $(document).on('change','#supplier_id', function() {
@@ -346,7 +366,7 @@
                     }
                 });
 
-                subTotalPrice();
+                calculateSubtotalPrice();
             });
 
             // calculate the total amount
@@ -384,12 +404,16 @@
                 $('.due_amount').val(sum.toFixed(2));
             }
 
-            function subTotalPrice() {
-                var qty = $('.qty').val();
-                var price = $('.price').val();
-                var subtotal = qty * price;
-                $('.subtotal').val(subtotal);
+            function calculateSubtotalPrice() {
+                $('.qty').each(function(index) {
+                    var qty = $(this).val();
+                    var price = $('.price').eq(index).val();
+                    var subtotal = qty * price;
+
+                    $('.subtotal').eq(index).val(subtotal);
+                });
             }
+
         });
     </script>
     <script>
