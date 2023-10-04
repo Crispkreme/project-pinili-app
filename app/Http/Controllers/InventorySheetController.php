@@ -99,6 +99,8 @@ class InventorySheetController extends Controller
 
     public function storeInventorySheet(Request $request) {
 
+        DB::beginTransaction();
+
         try {
 
             if($request->product_id == null)
@@ -187,6 +189,7 @@ class InventorySheetController extends Controller
                 'customer_id' => $customer_id,
                 'payment_status_id' => $payment_status_id,
                 'paid_amount' => $current_paid_amount,
+                'balance' => $balance,
                 'due_amount' => $due_amount,
                 'total_amount' => $total_amount,
                 'discount_amount' => $discount_amount,
@@ -202,6 +205,8 @@ class InventorySheetController extends Controller
 
             $this->inventoryPaymentDetailContract->storeInventoryPaymentDetail($params2);
 
+            DB::commit();
+
             $notification = [
                 'alert-type' => 'success',
                 'message' => 'Ordered successfully delivered!',
@@ -210,7 +215,9 @@ class InventorySheetController extends Controller
             return redirect()->route('admin.all.inventory.sheet')->with($notification);
 
         } catch (Exception $e) {
-            dd($e);
+
+            DB::rollback();
+
             $notification = [
                 'alert-type' => 'danger',
                 'message' => 'Error occurred: ' . $e->getMessage(),
@@ -257,10 +264,29 @@ class InventorySheetController extends Controller
 
     public function editInventorySheet($id)
     {
-        $inventorySheets = $this->inventorySheetContract->editInventorySheet($id);
+        $inventorySheet = $this->inventorySheetContract->editInventorySheet($id);
+
+        $orderData = $this->orderContract->getOrderData($inventorySheet[0]['or_number']);
+
+        $inventoryPayment = $this->inventoryPaymentContract->getInventoryPaymentDataByOrNumber($inventorySheet[0]['id']);
+
+        $userData = $this->userContract->getAllUserData();
+        $representativeData = $this->representativeContract->getRepresentativeData();
+        $distributorData = $this->distributorContract->getAllDistributorData();
+        $productData = $this->productContract->getProductData();
+        $statusData = $this->statusContract->getAllStatusData();
+        $categoryData = $this->categoryContract->getCategoryData();
 
         return view('admin.inventories.update-inventory-sheet', [
-            'inventorySheets' => $inventorySheets,
+            'userData' => $userData,
+            'representativeData' => $representativeData,
+            'distributorData' => $distributorData,
+            'productData' => $productData,
+            'statusData' => $statusData,
+            'categoryData' => $categoryData,
+            'inventorySheet' => $inventorySheet,
+            'orderData' => $orderData,
+            'inventoryPayment' => $inventoryPayment,
         ]);
     }
 }

@@ -230,4 +230,9 @@ class OrderRepository implements OrderContract {
         $orderData->update($params);
         return $orderData;
     }
+
+    public function getOrderData($params)
+    {
+        return $this->model->where('or_number', $params)->get();
+    }
 }

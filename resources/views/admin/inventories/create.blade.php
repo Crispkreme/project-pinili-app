@@ -50,29 +50,25 @@
                                             <div class="col-md-4"></div>
                                             <div class="col-md-4"></div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row mb-3">
                                             <div class="col-md-3">
-                                                <div class="row mb-3">
-                                                    <label for="name" class="col-form-label">Supplier</label>
-                                                    <select class="form-select select-2" style="width:98%;" name="supplier_id" aria-label="Default select example" id="supplier_id">
-                                                        <option selected disabled>Select Supplier</option>
-                                                        @if (empty($representativeData))
-                                                            <option value="" disabled>No data found</option>
-                                                        @else
-                                                            @foreach ($representativeData as $representativeDataId => $name)
-                                                                <option value="{{ $representativeDataId }}" style="text-transform: capitalize">{{ $name }}</option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
-                                                </div>
+                                                <label for="name" class="col-form-label">Supplier</label>
+                                                <select class="form-select select-2" style="width:98%;" name="supplier_id" aria-label="Default select example" id="supplier_id">
+                                                    <option selected disabled>Select Supplier</option>
+                                                    @if (empty($representativeData))
+                                                        <option value="" disabled>No data found</option>
+                                                    @else
+                                                        @foreach ($representativeData as $representativeDataId => $name)
+                                                            <option value="{{ $representativeDataId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
                                             </div>
                                             <div class="col-md-3">
-                                                <div class="row mb-3">
-                                                    <label for="name" class="col-form-label">Product</label>
-                                                    <select class="form-select select-2" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
-                                                        <option value="">Select Product Name</option>
-                                                    </select>
-                                                </div>
+                                                <label for="name" class="col-form-label">Product</label>
+                                                <select class="form-select select-2" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
+                                                    <option value="">Select Product Name</option>
+                                                </select>
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">OR/PR Number</label>
@@ -83,7 +79,7 @@
                                                 <input class="form-control" name="or_date" type="date" value="2011-08-19" id="or_date">
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row" style="align-items: flex-end;">
                                             <div class="col-md-9">
                                                 <div class="row">
                                                     <div class="col">

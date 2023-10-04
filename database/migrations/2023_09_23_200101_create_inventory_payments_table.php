@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('inventory_sheet_id');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('payment_status_id'); // paid
+            $table->double('balance')->nullable();
             $table->double('paid_amount')->nullable();
             $table->double('due_amount')->nullable();
             $table->double('total_amount')->nullable();
@@ -36,7 +37,7 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
-        });        
+        });
     }
 
     /**
