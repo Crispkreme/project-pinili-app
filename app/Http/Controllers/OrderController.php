@@ -159,6 +159,7 @@ class OrderController extends Controller
             ];
 
             return redirect()->route('admin.all.order')->with($notification);
+
         } catch (\Exception $e) {
             $notification = [
                 'alert-type' => 'danger',
@@ -360,5 +361,28 @@ class OrderController extends Controller
 
             return redirect()->back()->with($notification);
         }
+    }
+
+    public function editOrderData($id)
+    {
+        $orderData = $this->orderContract->editOrderData($id);
+        $representativeData = $this->representativeContract->getRepresentativeData();
+        $distributorData = $this->distributorContract->getAllDistributorData();
+
+        $invoiceNumber = $orderData->invoice_number;
+        $manufacturingDate = $orderData->manufacturing_date;
+        $expiryDate = $orderData->expiry_date;
+
+        $productData = $this->orderContract->getOrderDataByInvoiceNumber($invoiceNumber);
+
+        return view('admin.orders.edit-order', [
+            'productData' => $productData,
+            'orderData' => $orderData,
+            'invoiceNumber' => $invoiceNumber,
+            'manufacturingDate' => $manufacturingDate,
+            'expiryDate' => $expiryDate,
+            'distributorData' => $distributorData,
+            'representativeData' => $representativeData,
+        ]);
     }
 }

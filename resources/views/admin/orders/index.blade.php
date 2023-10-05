@@ -69,8 +69,24 @@
                                                 @foreach($userData as $key => $item)
                                                     <tr style="vertical-align: middle;">
                                                         <td style="text-align: center;">{{ (int)$key + 1 }}</td>
-                                                        <td>{{ $item->invoice_number }}</td>
-                                                        <td>{{ $item->product->medicine_name }}</td>
+                                                        <td>
+                                                            @if($item->status_id == 1)
+                                                                <a href="{{ route('admin.edit.order.data', $item->id) }}">
+                                                                    {{ $item->invoice_number }}
+                                                                </a>
+                                                            @else
+                                                                {{ $item->invoice_number }}
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if($item->status_id == 1)
+                                                                <a href="{{ route('admin.edit.order.data', $item->id) }}">
+                                                                    {{ $item->product->medicine_name }}
+                                                                </a>
+                                                            @else
+                                                                {{ $item->product->medicine_name }}
+                                                            @endif
+                                                        </td>
                                                         <td>{{ $item->supplier->name }}</td>
                                                         <td>{{ $item->manufacturer->company->company_name }}</td>
                                                         <td>{{ $item->created_at->format('M. j, Y') }}</td>
