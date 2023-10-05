@@ -15,8 +15,10 @@ use App\Contracts\InventoryContract;
 use Illuminate\Support\Facades\Auth;
 use App\Contracts\DistributorContract;
 use App\Contracts\EntityContract;
+use App\Contracts\FormContract;
 use App\Contracts\RepresentativeContract;
 use App\Http\Requests\AddOrderStoreRequest;
+use App\Http\Requests\AddProductStoreRequest;
 
 class OrderController extends Controller
 {
@@ -29,6 +31,7 @@ class OrderController extends Controller
     protected $categoryContract;
     protected $inventoryContract;
     protected $entityContract;
+    protected $formContract;
 
     public function __construct(
         OrderContract $orderContract,
@@ -39,7 +42,8 @@ class OrderController extends Controller
         StatusContract $statusContract,
         CategoryContract $categoryContract,
         InventoryContract $inventoryContract,
-        EntityContract $entityContract
+        EntityContract $entityContract,
+        FormContract $formContract,
     ) {
         $this->orderContract = $orderContract;
         $this->userContract = $userContract;
@@ -50,6 +54,7 @@ class OrderController extends Controller
         $this->categoryContract = $categoryContract;
         $this->inventoryContract = $inventoryContract;
         $this->entityContract = $entityContract;
+        $this->formContract = $formContract;
     }
 
     public function getAllOrder()
@@ -80,6 +85,19 @@ class OrderController extends Controller
             'productData' => $productData,
             'statusData' => $statusData,
             'categoryData' => $categoryData,
+        ]);
+    }
+
+    public function editOrder($id)
+    {
+        $productData = $this->productContract->editProduct($id);
+        $categoryData = $this->categoryContract->getCategory();
+        $formData = $this->formContract->getForm();
+
+        return view('admin.orders.edit', [
+            'productData' => $productData,
+            'categoryData' => $categoryData,
+            'formData' => $formData,
         ]);
     }
 
@@ -141,6 +159,7 @@ class OrderController extends Controller
             ];
 
             return redirect()->route('admin.all.order')->with($notification);
+
         } catch (\Exception $e) {
             $notification = [
                 'alert-type' => 'danger',
@@ -316,5 +335,54 @@ class OrderController extends Controller
         $productId = $request->product_id;
         $orderData = $this->orderContract->getSpecificProduct($productId);
         return response()->json($orderData);
+    }
+
+    public function updateOrder(AddProductStoreRequest $request, $id)
+    {
+        try {
+
+            $params = $request->validated();
+
+            $this->productContract->updateProduct($id, $params);
+
+            $notification = [
+                'alert-type' => 'success',
+                'message' => 'Password updated successfully!',
+            ];
+
+            return redirect()->route('admin.all.order')->with($notification);
+
+        } catch (\Exception $e) {
+
+            $notification = [
+                'alert-type' => 'danger',
+                'message' => 'Error occurred: ' . $e->getMessage(),
+            ];
+
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function editOrderData($id)
+    {
+        $orderData = $this->orderContract->editOrderData($id);
+        $representativeData = $this->representativeContract->getRepresentativeData();
+        $distributorData = $this->distributorContract->getAllDistributorData();
+
+        $invoiceNumber = $orderData->invoice_number;
+        $manufacturingDate = $orderData->manufacturing_date;
+        $expiryDate = $orderData->expiry_date;
+
+        $productData = $this->orderContract->getOrderDataByInvoiceNumber($invoiceNumber);
+
+        return view('admin.orders.edit-order', [
+            'productData' => $productData,
+            'orderData' => $orderData,
+            'invoiceNumber' => $invoiceNumber,
+            'manufacturingDate' => $manufacturingDate,
+            'expiryDate' => $expiryDate,
+            'distributorData' => $distributorData,
+            'representativeData' => $representativeData,
+        ]);
     }
 }

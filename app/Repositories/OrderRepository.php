@@ -22,7 +22,9 @@ class OrderRepository implements OrderContract {
             'manufacturer',
             'product',
             'status'
-        ])->get();
+        ])
+        ->orderBy('id', 'desc')
+        ->get();
     }
 
     public function getAllStockReport()
@@ -234,5 +236,23 @@ class OrderRepository implements OrderContract {
     public function getOrderData($params)
     {
         return $this->model->where('or_number', $params)->get();
+    }
+
+    public function editOrderData($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    public function getOrderDataByInvoiceNumber($params)
+    {
+        return $this->model->with([
+            'user',
+            'supplier',
+            'manufacturer',
+            'product',
+            'status'
+        ])
+        ->where('invoice_number', $params)
+        ->get();
     }
 }

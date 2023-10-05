@@ -18,4 +18,9 @@ class CategoryRepository implements CategoryContract {
     {
         return $this->model->where('classification_id', 1)->pluck('name', 'id')->toArray();
     }
+
+    public function getCategory()
+    {
+        return $this->model->where('classification_id', 1)->get();
+    }
 }

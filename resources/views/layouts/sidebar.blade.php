@@ -151,7 +151,12 @@
                                 ],
                             ],
                         ],[
-                            'list' => 'Inventory Sheet',
+                            'list' => 'Payment Management',
+                            'url' => '',
+                            'icon' => '',
+                            'class' => 'menu-title',
+                        ],[
+                            'list' => 'Payables',
                             'url' => route('admin.all.inventory.sheet'),
                             'icon' => '<i class="ri-list-unordered"></i>',
                             'class' => 'waves-effect',

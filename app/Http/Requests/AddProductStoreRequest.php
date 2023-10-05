@@ -48,6 +48,18 @@ class AddProductStoreRequest extends FormRequest
                 'nullable',
                 'string'
             ],
+            'sku' => [
+                'nullable',
+                'integer'
+            ],
+            'sold' => [
+                'nullable',
+                'integer'
+            ],
+            'available' => [
+                'nullable',
+                'integer'
+            ],
         ];
     }
 }

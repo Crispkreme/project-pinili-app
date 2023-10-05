@@ -82,6 +82,9 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/restore/deleted/order/{id}', 'getRestoreDeletedOrder')->name('restore.deleted.order');
     Route::get('/deleted/order/all', 'getAllDeletedOrder')->name('all.delete.order');
     Route::post('/store/order', 'storeOrder')->name('store.order');
+    Route::get('/edit/order/{id}', 'editOrder')->name('edit.order');
+    Route::get('/edit/order/data/{id}', 'editOrderData')->name('edit.order.data');
+    Route::post('/update/order/{id}', 'updateOrder')->name('update.order');
 
     //Invoice functionality
     Route::get('/print/invoice/order', 'printOrderInvoice')->name('print.invoice.order');

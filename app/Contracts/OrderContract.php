@@ -23,4 +23,6 @@ interface OrderContract {
     public function getOrderIdByInvoiceNumber($params);
     public function getAllSpecificOrderHistoryByUser($id);
     public function getOrderData($params);
+    public function editOrderData($id);
+    public function getOrderDataByInvoiceNumber($params);
 }

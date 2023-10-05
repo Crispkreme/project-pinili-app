@@ -35,7 +35,11 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('admin.add.inventory.sheet') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;"><i class="ri-add-fill" style="margin-right:5px;"></i> Add Inventory Sheet</a><br><br>
+                                    <a href="{{ route('admin.add.inventory.sheet') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">
+                                        <i class="ri-add-fill" style="margin-right:5px;"></i>
+                                        Add Payable
+                                    </a>
+                                    <br><br>
 
                                     <h4 class="card-title">Inventory Sheet List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our inventory sheet.</p>
