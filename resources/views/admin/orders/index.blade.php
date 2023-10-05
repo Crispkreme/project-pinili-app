@@ -41,7 +41,10 @@
                                     @if(request()->routeIs('admin.all.order'))
                                         <a href="{{ route('admin.create.order') }}"
                                         class="btn btn-dark btn-rounded waves-effect waves-light"
-                                        style="float:right;">Add Order</a>
+                                        style="float:right;">
+                                            <i class="ri-add-fill" style="margin-right:5px;"></i>
+                                            Add Order
+                                        </a>
                                         <br><br>
                                     @endif
 
@@ -90,6 +93,9 @@
                                                             @if ($item->status_id == 1)
 
                                                                 @if(request()->routeIs('admin.all.order'))
+                                                                    <a href="{{ route('admin.edit.order', $item->id) }}" class="btn btn-warning waves-light" id="edit_button">
+                                                                        <i class="fas fa-edit"></i>
+                                                                    </a>
                                                                     <a href="{{ route('admin.delete.order', $item->id) }}" class="btn btn-danger waves-light" id="delete_button">
                                                                         <i class="fas fa-trash-alt"></i>
                                                                     </a>

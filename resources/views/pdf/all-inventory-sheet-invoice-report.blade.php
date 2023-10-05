@@ -97,60 +97,43 @@
         <br>
         <br>
         <div class="row">
-            <div class="col-md-4">
-                <div class="row mb-3">
-                    <label for="name" class="col-form-label">Invoice Number</label>
-                    <h5>Invoice Number</h5>
-                </div>
-            </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <div class="row mb-3">
-                    <label for="name" class="col-form-label">Date</label>
-                    <h5>Date</h5>
-                </div>
-            </div>
+            <table style="border:none !important;">
+                <tbody style="border:none !important;">
+                    <tr style="text-align: left;">
+                        <td style="width:10%;border:none !important;">Invoice Number</td>
+                        <td style="width:25%;border:none !important;font-weight:500;">{{ $inventorySheet[0]['invoice_number'] }}</td>
+                        <td style="width:10%;border:none !important;"></td>
+                        <td style="width:25%;border:none !important;"></td>
+                        <td style="width:10%;border:none !important;">Date</td>
+                        <td style="width:20%;border:none !important;font-weight:500;">{{ \Carbon\Carbon::parse($inventorySheet[0]['created_at'])->format('F j, Y') }}</td>
+                    </tr>
+                    <tr style="text-align: left;">
+                        <td style="width:10%;border:none !important;">Supplier</td>
+                        <td style="width:25%;border:none !important;font-weight:500;">{{ $inventorySheet[0]['distributor']['entity']['name'] }}</td>
+                        <td style="width:10%;border:none !important;">OR/PR Number</td>
+                        <td style="width:25%;border:none !important;font-weight:500;">{{ $inventorySheet[0]['or_number'] }}</td>
+                        <td style="width:10%;border:none !important;">OR/PR Date</td>
+                        <td style="width:20%;border:none !important;font-weight:500;">{{ \Carbon\Carbon::parse($inventorySheet[0]['or_date'])->format('F j, Y') }}</td>
+                    </tr>
+                    <tr style="text-align: left;">
+                        <td style="width:10%;border:none !important;">Delivery Number</td>
+                        <td style="width:25%;border:none !important;font-weight:500;">{{ $inventorySheet[0]['delivery_number'] }}</td>
+                        <td style="width:10%;border:none !important;">Delivery Date</td>
+                        <td style="width:25%;border:none !important;font-weight:500;">{{ $inventorySheet[0]['delivery_date'] }}</td>
+                        <td style="width:10%;border:none !important;">PO Order</td>
+                        <td style="width:20%;border:none !important;font-weight:500;">{{ \Carbon\Carbon::parse($inventorySheet[0]['po_number'])->format('F j, Y') }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="row mb-3" style="display: flex;">
-            <div class="col-md-4">
-                <label for="name" class="col-form-label">Supplier</label>
-                <p>Supplier</p>
-            </div>
-            <div class="col-md-4">
-                <label for="name" class="col-form-label">OR/PR Number</label>
-                <p>OR/PR Number</p>
-            </div>
-            <div class="col-md-4">
-                <label for="name" class="col-form-label">OR/PR Date</label>
-                <p>OR/PR Date</p>
-            </div>
-        </div>
-        <div class="row" style="align-items: flex-end;">
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="name" class="col-form-label">Delivery Number</label>
-                        <p>Delivery Number</p>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="name" class="col-form-label">Delivery Date</label>
-                        <p>Delivery Date</p>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="name" class="col-form-label">PO Order</label>
-                        <p>PO Order</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-            </div>
-        </div>
+        <br>
+        <br>
     </div>
 
     <table width="100%" style="border-color:#ddd;">
         <thead>
             <tr>
-                <th style="width:10%;padding:10px;text-align:center;">ID</th>
+                <<th style="width:5%;padding:10px;text-align:center;">ID</th>
                 <th style="width:30%;padding:10px;">Medicine Name</th>
                 <th style="width:30%;padding:10px;">Generic Name</th>
                 <th style="width:10%;padding:10px;text-align:center;">Price</th>
@@ -159,40 +142,54 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>ID</td>
-                <td>Medicine Name</td>
-                <td>Generic Name</td>
-                <td>Price</td>
-                <td>Qty</td>
-                <td>Total Price</td>
-            </tr>
+            @foreach ($orderData as $key => $item)
+                <tr>
+                    <td style="padding:10px;text-align:center;">
+                        {{ $key + 1 }}
+                    </td>
+                    <td style="padding:10px;">
+                        {{ $item->product->medicine_name }}
+                    </td>
+                    <td style="padding:10px;">
+                        {{ $item->product->generic_name }}
+                    </td>
+                    <td style="padding:10px;text-align:center;">
+                        {{ $item->purchase_cost }}
+                    </td>
+                    <td style="padding:10px;text-align:center;">
+                        {{ $item->quantity }}
+                    </td>
+                    <td style="padding:10px;text-align:center;">
+                        {{ $item->purchase_cost * $item->quantity }}
+                    </td>
+                </tr>
+            @endforeach
             <tr>
                 <td>Remarks</td>
-                <td colspan="2">Remarks</td>
+                <td colspan="2">{{ $inventorySheet[0]['description'] }}</td>
                 <td>Paid Amount</td>
-                <td colspan="2">Remarks</td>
+                <td colspan="2">{{ $inventoryPayment[0]['paid_amount'] }}</td>
             </tr>
             <tr>
                 <td>Payment Status</td>
-                <td colspan="2">Payment Status</td>
+                <td colspan="2">{{ $inventoryPayment[0]['payment_status']['status'] }}</td>
                 <td>Discount</td>
-                <td colspan="2">Discount</td>
+                <td colspan="2">{{ $inventoryPayment[0]['discount_amount'] }}</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Due Amount</td>
-                <td colspan="2">Discount</td>
+                <td colspan="2">{{ $inventoryPayment[0]['due_amount'] }}</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Balance</td>
-                <td colspan="2">Balance</td>
+                <td colspan="2">{{ $inventoryPayment[0]['balance'] }}</td>
             </tr>
             <tr>
                 <td colspan="3"></td>
                 <td>Total Amount</td>
-                <td colspan="2">Total Amount</td>
+                <td colspan="2">{{ $inventoryPayment[0]['total_amount'] }}</td>
             </tr>
         </tbody>
     </table>

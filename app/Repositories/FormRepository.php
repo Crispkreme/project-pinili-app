@@ -22,4 +22,9 @@ class FormRepository implements FormContract {
         ->pluck('name', 'id')
         ->toArray();
     }
+
+    public function getForm()
+    {
+        return $this->model->where('classification_id', 2)->get();
+    }
 }

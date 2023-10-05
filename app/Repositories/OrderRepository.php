@@ -22,7 +22,9 @@ class OrderRepository implements OrderContract {
             'manufacturer',
             'product',
             'status'
-        ])->get();
+        ])
+        ->orderBy('id', 'desc')
+        ->get();
     }
 
     public function getAllStockReport()
