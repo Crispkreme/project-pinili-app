@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.app_name') }}</title>
+    <title>{{ env('APP_NAME') }}</title>
 
     @include('sweetalert::alert')
 
     <!-- Define the base URL using a Blade directive -->
     @php
-        $baseURL = config('app.base_url');
+        $baseURL = env('BASE_URL');
     @endphp
 
     <!-- Vite Preload Configuration -->
@@ -24,7 +24,7 @@
         "resources/css/bootstrap.min.css",
         "resources/css/icons.min.css",
         "resources/css/app.min.css",
-        
+
         // JavaScripts
         "resources/js/app.js",
         "resources/libs/jquery/jquery.min.js",
