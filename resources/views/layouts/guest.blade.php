@@ -11,9 +11,6 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
-    <!-- Define the base URL using a Blade directive -->
-    @php $baseURL = env('BASE_URL'); @endphp
-
     <!-- Vite Preload Configuration -->
     @vite([
         // Styles
@@ -32,9 +29,9 @@
         "resources/js/notification.js",
     ])
 
-    <link rel="stylesheet" href="$baseURL/resources/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="$baseURL/resources/css/icons.min.css" />
-    <link rel="stylesheet" href="$baseURL/resources/css/app.min.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/css/icons.min.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/css/app.min.css" />
 
 </head>
 <body class="font-sans text-gray-900 antialiased">
@@ -51,12 +48,12 @@
     </div>
 
     <!-- Preload individual scripts -->
-    <script src="$baseURL/resources/libs/jquery/jquery.min.js"></script>
-    <script src="$baseURL/resources/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="$baseURL/resources/libs/metismenu/metisMenu.min.js"></script>
-    <script src="$baseURL/resources/libs/simplebar/simplebar.min.js"></script>
-    <script src="$baseURL/resources/libs/node-waves/waves.min.js"></script>
-    <script src="$baseURL/resources/js/app.js"></script>
+    <script src="{{ env('BASE_URL') }}/resources/libs/jquery/jquery.min.js"></script>
+    <script src="{{ env('BASE_URL') }}/resources/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ env('BASE_URL') }}/resources/libs/metismenu/metisMenu.min.js"></script>
+    <script src="{{ env('BASE_URL') }}/resources/libs/simplebar/simplebar.min.js"></script>
+    <script src="{{ env('BASE_URL') }}/resources/libs/node-waves/waves.min.js"></script>
+    <script src="{{ env('BASE_URL') }}/resources/js/app.js"></script>
 
     <script>
         var sessionData = {!! json_encode([
