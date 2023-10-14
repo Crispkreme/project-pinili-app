@@ -16,7 +16,6 @@
     <!-- Vite Preload Configuration -->
     @vite([
         // Styles
-        "${baseURL}/resources/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css",
         "${baseURL}/resources/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
         "${baseURL}/resources/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css",
         "${baseURL}/resources/libs/select2/css/select2.min.css",
