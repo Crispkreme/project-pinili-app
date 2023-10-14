@@ -19,19 +19,19 @@
     <!-- Vite Preload Configuration -->
     @vite([
         // Styles
-        "$baseURL/resources/css/bootstrap.min.css",
-        "$baseURL/resources/css/icons.min.css",
-        "$baseURL/resources/css/app.min.css",
-        "$baseURL/resources/css/toastr.min.css",
+        "resources/css/bootstrap.min.css",
+        "resources/css/icons.min.css",
+        "resources/css/app.min.css",
+        "resources/css/toastr.min.css",
         // JavaScripts
-        "$baseURL/resources/libs/jquery/jquery.min.js",
-        "$baseURL/resources/libs/bootstrap/js/bootstrap.bundle.min.js",
-        "$baseURL/resources/libs/metismenu/metisMenu.min.js",
-        "$baseURL/resources/libs/simplebar/simplebar.min.js",
-        "$baseURL/resources/libs/node-waves/waves.min.js",
-        "$baseURL/resources/js/app.js",
-        "$baseURL/resources/js/toastr.min.js",
-        "$baseURL/resources/js/notification.js",
+        "resources/libs/jquery/jquery.min.js",
+        "resources/libs/bootstrap/js/bootstrap.bundle.min.js",
+        "resources/libs/metismenu/metisMenu.min.js",
+        "resources/libs/simplebar/simplebar.min.js",
+        "resources/libs/node-waves/waves.min.js",
+        "resources/js/app.js",
+        "resources/js/toastr.min.js",
+        "resources/js/notification.js",
     ])
 
     <link rel="stylesheet" href="$baseURL/resources/css/bootstrap.min.css" />
