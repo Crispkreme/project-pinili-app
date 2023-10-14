@@ -41,12 +41,14 @@
     ])
 
     <!-- Preload individual stylesheets -->
-    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" />
-    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" />
-    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" />
-    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/css/icons.min.css" />
-    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/css/app.min.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/build/assets/jquery-jvectormap-1.2.2-f88cd739.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/build/assets/dataTables.bootstrap4.min-7cab5959.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/build/assets/responsive.bootstrap4.min-3c581196.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/build/assets/select2.min-2c9bdbaa.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/build/assets/bootstrap-datepicker.min-899d976e.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/build/assets/bootstrap.min-63a4e9c3.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/build/assets/icons.min-b7531e5d.css" />
+    <link rel="stylesheet" href="{{ env('BASE_URL') }}/build/assets/app.min-96a4fbd2.css" />
 
     @stack('styles')
 </head>
@@ -56,20 +58,23 @@
     </main>
 
     <!-- Preload individual scripts -->
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/metismenu/metisMenu.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/simplebar/simplebar.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/node-waves/waves.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/apexcharts/apexcharts.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/js/pages/dashboard.init.js"></script>
-    <script type="text/javascript" src="{{ env('BASE_URL') }}/resources/js/main-js.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/app-6e0eadfb.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/jquery.min-f90c37dd.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/bootstrap.bundle.min-4ee18840.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/metisMenu.min-ac42e4c2.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/simplebar.min-7c985667.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/waves.min-e35a64a6.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/apexcharts.min-3cc4a6db.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/jquery-jvectormap-1.2.2.min-6500bd1b.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/jquery-jvectormap-us-merc-en-2dcce3e5.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/jquery.dataTables.min-c12b4525.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/dataTables.bootstrap4.min-32568e35.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/dataTables.responsive.min-3476268d.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/responsive.bootstrap4.min-450f8a54.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/select2.min-a7b7bc49.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/bootstrap-datepicker.min-b4a8aa2a.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/dashboard.init-f98b2b9f.js"></script>
+    <script type="module" src="{{ env('BASE_URL') }}/build/assets/main-js-334f9dc9.js"></script>
 
     @stack('scripts')
 </body>
