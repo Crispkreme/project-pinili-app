@@ -36,6 +36,14 @@
                 const index = item.getAttribute('data-index');
                 const subMenu = document.querySelector(`#submenu-${index}`);
                 
+                // Remove the "mm-active" and "active" classes from all menu items
+                menuItems.forEach(function(menuItem) {
+                    menuItem.classList.remove('mm-active', 'active');
+                });
+
+                // Add the "mm-active" and "active" classes to the clicked menu item
+                item.classList.add('mm-active', 'active');
+
                 // Toggle the "aria-expanded" attribute
                 const isExpanded = subMenu.getAttribute('aria-expanded') === 'true';
                 subMenu.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
@@ -50,3 +58,4 @@
         });
     });
 </script>
+
