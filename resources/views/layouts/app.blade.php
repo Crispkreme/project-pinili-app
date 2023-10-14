@@ -9,9 +9,7 @@
     @include('sweetalert::alert')
 
     <!-- Define the base URL using a Blade directive -->
-    @php
-        $baseURL = env('BASE_URL');
-    @endphp
+    @php $baseURL = env('BASE_URL'); @endphp
 
     <!-- Vite Preload Configuration -->
     @vite([

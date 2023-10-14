@@ -14,7 +14,7 @@
         "laravel/tinker": "^2.8",
         "laravolt/avatar": "^5.0",
         "realrashid/sweet-alert": "^7.1",
-        "vlucas/phpdotenv": "*"
+        "vlucas/phpdotenv": "^5.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

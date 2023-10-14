@@ -12,9 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
     <!-- Define the base URL using a Blade directive -->
-    @php
-        $baseURL = env('BASE_URL');
-    @endphp
+    @php $baseURL = env('BASE_URL'); @endphp
 
     <!-- Vite Preload Configuration -->
     @vite([
