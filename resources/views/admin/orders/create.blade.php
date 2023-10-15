@@ -1,12 +1,7 @@
 <x-app-layout>
 
     @push('styles')
-    @endpush
-
-    <link rel="stylesheet" href="http://[::1]:5173/resources/libs/select2/css/select2.min.css" />
-    <link rel="stylesheet" href="http://[::1]:5173/resources/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="http://[::1]:5173/resources/css/icons.min.css" />
-    <link rel="stylesheet" href="http://[::1]:5173/resources/css/app.min.css" />
+    @endpush 
 
     <div id="layout-wrapper">
 
@@ -195,19 +190,8 @@
 
     <div class="rightbar-overlay"></div>
 
-    <script src="http://[::1]:5173/resources/libs/jquery/jquery.min.js"></script>
-    <script src="http://[::1]:5173/resources/js/handlebars.js"></script>
-
-    <script src="http://[::1]:5173/resources/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="http://[::1]:5173/resources/libs/metismenu/metisMenu.min.js"></script>
-    <script src="http://[::1]:5173/resources/libs/simplebar/simplebar.min.js"></script>
-    <script src="http://[::1]:5173/resources/libs/node-waves/waves.min.js"></script>
-
-    <script src="http://[::1]:5173/resources/libs/select2/js/select2.min.js"></script>
-    <script src="http://[::1]:5173/resources/js/pages/form-advanced.init.js"></script>
-    <script src="http://[::1]:5173/resources/js/main-js.js"></script>
-
     @push('scripts')
+        <script src="{{ env('BASE_URL') }}/build/assets/jquery.min-f90c37dd.js"></script>
     @endpush
 
     <script id="document-template" text="text/x-handlerbars-template">
@@ -345,7 +329,7 @@
         $(function(){
             $(document).on('change','#category_id', function() {
                 var category_id = $(this).val();
-
+                console.log(category_id);
                 $.ajax({
                     url: "{{ route('admin.get.specific.category') }}",
                     type: "GET",

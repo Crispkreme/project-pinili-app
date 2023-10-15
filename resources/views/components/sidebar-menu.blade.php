@@ -32,30 +32,39 @@
         const menuItems = document.querySelectorAll('[data-index]');
 
         menuItems.forEach(function(item) {
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function(event) {
                 const index = item.getAttribute('data-index');
                 const subMenu = document.querySelector(`#submenu-${index}`);
                 
-                // Remove the "mm-active" and "active" classes from all menu items
-                menuItems.forEach(function(menuItem) {
-                    menuItem.classList.remove('mm-active', 'active');
-                });
-
-                // Add the "mm-active" and "active" classes to the clicked menu item
-                item.classList.add('mm-active', 'active');
+                // Read the state from local storage
+                const isExpanded = localStorage.getItem(`submenu-${index}-expanded`) === 'true';
 
                 // Toggle the "aria-expanded" attribute
-                const isExpanded = subMenu.getAttribute('aria-expanded') === 'true';
-                subMenu.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-
+                subMenu.setAttribute('aria-expanded', !isExpanded);
+                
                 // Toggle the "mm-show" class
-                if (isExpanded) {
-                    subMenu.classList.remove('mm-show');
-                } else {
+                if (!isExpanded) {
                     subMenu.classList.add('mm-show');
+                } else {
+                    subMenu.classList.remove('mm-show');
                 }
+
+                // Store the updated state in local storage
+                localStorage.setItem(`submenu-${index}-expanded`, !isExpanded);
+
+                // If the item was previously expanded, prevent the click event from bubbling up
+                if (isExpanded) {
+                    event.stopPropagation();
+                }
+            });
+        });
+
+        // Add event listeners to <ul> elements to stop event propagation
+        const subMenus = document.querySelectorAll('.sub-menu');
+        subMenus.forEach(function(subMenu) {
+            subMenu.addEventListener('click', function(event) {
+                event.stopPropagation();
             });
         });
     });
 </script>
-
