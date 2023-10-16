@@ -12,6 +12,7 @@ use App\Contracts\StatusContract;
 use App\Contracts\ProductContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\InventoryContract;
+use App\Contracts\TransactionContract;
 use Illuminate\Support\Facades\Auth;
 use App\Contracts\DistributorContract;
 use App\Contracts\EntityContract;
@@ -19,6 +20,7 @@ use App\Contracts\FormContract;
 use App\Contracts\RepresentativeContract;
 use App\Http\Requests\AddOrderStoreRequest;
 use App\Http\Requests\AddProductStoreRequest;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -32,6 +34,7 @@ class OrderController extends Controller
     protected $inventoryContract;
     protected $entityContract;
     protected $formContract;
+    protected $transactionContract;
 
     public function __construct(
         OrderContract $orderContract,
@@ -44,6 +47,7 @@ class OrderController extends Controller
         InventoryContract $inventoryContract,
         EntityContract $entityContract,
         FormContract $formContract,
+        TransactionContract $transactionContract,
     ) {
         $this->orderContract = $orderContract;
         $this->userContract = $userContract;
@@ -55,6 +59,7 @@ class OrderController extends Controller
         $this->inventoryContract = $inventoryContract;
         $this->entityContract = $entityContract;
         $this->formContract = $formContract;
+        $this->transactionContract = $transactionContract;
     }
 
     public function getAllOrder()
@@ -104,6 +109,7 @@ class OrderController extends Controller
     public function getSpecificCategory(Request $request)
     {
         $categoryId = $request->category_id;
+        dd($categoryId);
         $userData = $this->productContract->getSpecificCategory($categoryId);
         return response()->json($userData);
     }
@@ -124,6 +130,8 @@ class OrderController extends Controller
 
     public function storeOrder(AddOrderStoreRequest $request)
     {
+        DB::beginTransaction();
+
         try {
             $prefix = "TNX-ORD";
             $transactionNumber = Carbon::now()->format('Ymd-His');
@@ -153,6 +161,14 @@ class OrderController extends Controller
                 $this->orderContract->storeOrder($data);
             }
 
+            $params['user_id'] = $user_id;
+            $params['status_id'] = $status_id;
+            $params['description'] = "has ordered product with a ". $invoice_number. " ";
+            dd($params);
+            $this->transactionContract->createTransaction($params);
+
+            DB::commit();
+
             $notification = [
                 'alert-type' => 'success',
                 'message' => 'Data saved successfully!',
@@ -161,6 +177,9 @@ class OrderController extends Controller
             return redirect()->route('admin.all.order')->with($notification);
 
         } catch (\Exception $e) {
+
+            DB::rollback();
+
             $notification = [
                 'alert-type' => 'danger',
                 'message' => 'Error occurred: ' . $e->getMessage(),
