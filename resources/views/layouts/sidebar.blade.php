@@ -1,18 +1,5 @@
 <div class="vertical-menu">
 
-    <!-- Role::create([
-        'role_name' => 'admin',
-    ]);
-    Role::create([
-        'role_name' => 'cashier',
-    ]);
-    Role::create([
-        'role_name' => 'checker',
-    ]);
-    Role::create([
-        'role_name' => 'office',
-    ]); -->
-
     <div data-simplebar class="h-100">
 
         <!-- User details -->
