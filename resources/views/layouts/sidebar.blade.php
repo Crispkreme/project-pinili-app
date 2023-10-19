@@ -202,7 +202,7 @@
                             'isMenuTitle' => true,
                         ],[
                             'list' => 'Dashboard',
-                            'url' => route('admin.dashboard'),
+                            'url' => route('manager.dashboard'),
                             'icon' => '<i class="ri-dashboard-line"></i>',
                             'class' => 'waves-effect',
                             'isMenuTitle' => false,
@@ -214,13 +214,8 @@
                             'isMenuTitle' => false,
                             'submenu' => [
                                 [
-                                    'list' => 'Customer',
-                                    'url' => route('admin.all.user'),
-                                    'icon' => '',
-                                    'class' => '',
-                                ],[
                                     'list' => 'Represetative',
-                                    'url' => route('admin.all.representative'),
+                                    'url' => route('manager.all.representative'),
                                     'icon' => '',
                                     'class' => '',
                                 ],
@@ -234,12 +229,12 @@
                             'submenu' => [
                                 [
                                     'list' => 'Company',
-                                    'url' => route('admin.all.company'),
+                                    'url' => route('manager.all.company'),
                                     'icon' => '',
                                     'class' => '',
                                 ],[
                                     'list' => 'Distributor',
-                                    'url' => route('admin.all.distributor'),
+                                    'url' => route('manager.all.distributor'),
                                     'icon' => '',
                                     'class' => '',
                                 ],
@@ -253,12 +248,12 @@
                             'submenu' => [
                                 [
                                     'list' => 'Drug Classification',
-                                    'url' => route('admin.all.drug.class'),
+                                    'url' => route('manager.all.drug.class'),
                                     'icon' => '',
                                     'class' => '',
                                 ],[
                                     'list' => 'Product',
-                                    'url' => route('admin.all.product'),
+                                    'url' => route('manager.all.product'),
                                     'icon' => '',
                                     'class' => '',
                                 ],
