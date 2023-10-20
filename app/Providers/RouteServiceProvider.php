@@ -54,6 +54,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/cashier.php'));
 
+            Route::middleware(['web','auth', 'role:manager'])
+                ->prefix('manager')
+                ->as('manager.')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/manager.php'));
+
             Route::middleware(['web','auth', 'role:admin'])
                 ->prefix('admin')
                 ->as('admin.')

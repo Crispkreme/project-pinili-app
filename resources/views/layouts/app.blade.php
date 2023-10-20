@@ -8,8 +8,6 @@
 
     @include('sweetalert::alert')
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
     <!-- Vite Preload Configuration -->
     @vite([
         // Styles
@@ -62,8 +60,7 @@
     @stack('scripts')
 
     <!-- Preload individual scripts -->
-    
-    <script src="{{ env('BASE_URL') }}/build/assets/app-6e0eadfb.js"></script>
+    <script src="{{ env('BASE_URL') }}/build/assets/jquery.min-f90c37dd.js"></script>
     <script src="{{ env('BASE_URL') }}/build/assets/bootstrap.bundle.min-4ee18840.js"></script>
     <script src="{{ env('BASE_URL') }}/build/assets/metisMenu.min-ac42e4c2.js"></script>
     <script src="{{ env('BASE_URL') }}/build/assets/simplebar.min-7c985667.js"></script>

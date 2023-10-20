@@ -24,13 +24,15 @@ Route::get('/home', function () {
         if (Auth::user()->role_id == 1) {
             return redirect()->route('admin.dashboard');
         } elseif (Auth::user()->role_id == 2) {
-            return redirect()->route('cashier.dashboard');
+            return redirect()->route('manager.dashboard');
         } elseif (Auth::user()->role_id == 3) {
-            return redirect()->route('checker.dashboard');
+            return redirect()->route('clerk.dashboard');
         } elseif (Auth::user()->role_id == 4) {
-            return redirect()->route('office.dashboard');
+            return redirect()->route('labtech.dashboard');
+        } elseif (Auth::user()->role_id == 5) { 
+            return redirect()->route('cashier.dashboard');
         } else {
-            dd('error page');
+            return view('404');
         }
     }
 });
