@@ -229,12 +229,12 @@
                             'submenu' => [
                                 [
                                     'list' => 'Company',
-                                    'url' => route('admin.all.company'),
+                                    'url' => route('manager.all.company'),
                                     'icon' => '',
                                     'class' => '',
                                 ],[
                                     'list' => 'Distributor',
-                                    'url' => route('admin.all.distributor'),
+                                    'url' => route('manager.all.distributor'),
                                     'icon' => '',
                                     'class' => '',
                                 ],
@@ -248,12 +248,12 @@
                             'submenu' => [
                                 [
                                     'list' => 'Drug Classification',
-                                    'url' => route('admin.all.drug.class'),
+                                    'url' => route('manager.all.drug.class'),
                                     'icon' => '',
                                     'class' => '',
                                 ],[
                                     'list' => 'Product',
-                                    'url' => route('admin.all.product'),
+                                    'url' => route('manager.all.product'),
                                     'icon' => '',
                                     'class' => '',
                                 ],
