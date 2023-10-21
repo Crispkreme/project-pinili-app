@@ -38,9 +38,14 @@
                                                 <select class="form-select" name="role_id" aria-label="Default select example" id="role_id">
                                                     <option selected disabled>Select Role</option>
                                                     @foreach ($roles as $roleId => $roleName)
-                                                        <option value="{{ $roleId }}" style="text-transform:capitalize">{{ $roleName }}</option>
+                                                        @if (in_array($roleName, ['admin', 'manager', 'clerk', 'labtech', 'cashier']))
+                                                            <option value="{{ $roleId }}" style="text-transform:capitalize">
+                                                                {{ $roleName }}
+                                                            </option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
+
                                             </div>
                                         </div>
                                         <div class="row mb-3">
