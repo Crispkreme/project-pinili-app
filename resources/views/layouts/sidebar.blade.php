@@ -43,7 +43,7 @@
                             'isMenuTitle' => false,
                             'submenu' => [
                                 [
-                                    'list' => 'Customer',
+                                    'list' => 'Clinic Staff',
                                     'url' => route('admin.all.user'),
                                     'icon' => '',
                                     'class' => '',
