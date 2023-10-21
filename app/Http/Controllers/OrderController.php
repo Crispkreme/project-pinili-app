@@ -109,7 +109,6 @@ class OrderController extends Controller
     public function getSpecificCategory(Request $request)
     {
         $categoryId = $request->category_id;
-        dd($categoryId);
         $userData = $this->productContract->getSpecificCategory($categoryId);
         return response()->json($userData);
     }
