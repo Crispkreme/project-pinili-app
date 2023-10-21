@@ -163,7 +163,7 @@ class OrderController extends Controller
             $params['user_id'] = $user_id;
             $params['status_id'] = $status_id;
             $params['description'] = "has ordered product with a ". $invoice_number. " ";
-            dd($params);
+
             $this->transactionContract->createTransaction($params);
 
             DB::commit();
