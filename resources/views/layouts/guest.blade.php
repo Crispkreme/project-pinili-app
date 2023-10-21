@@ -12,26 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 
     <!-- Vite Preload Configuration -->
-    @vite([
-        // Styles
-        "resources/css/bootstrap.min.css",
-        "resources/css/icons.min.css",
-        "resources/css/app.min.css",
-        "resources/css/toastr.min.css",
-        // JavaScripts
-        "resources/libs/jquery/jquery.min.js",
-        "resources/libs/bootstrap/js/bootstrap.bundle.min.js",
-        "resources/libs/metismenu/metisMenu.min.js",
-        "resources/libs/simplebar/simplebar.min.js",
-        "resources/libs/node-waves/waves.min.js",
-        "resources/js/app.js",
-        "resources/js/toastr.min.js",
-        "resources/js/notification.js",
-    ])
-
-    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/css/icons.min.css" />
-    <link rel="stylesheet" href="{{ env('BASE_URL') }}/resources/css/app.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
 
 </head>
 <body class="font-sans text-gray-900 antialiased">
@@ -48,12 +31,12 @@
     </div>
 
     <!-- Preload individual scripts -->
-    <script src="{{ env('BASE_URL') }}/resources/libs/jquery/jquery.min.js"></script>
-    <script src="{{ env('BASE_URL') }}/resources/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ env('BASE_URL') }}/resources/libs/metismenu/metisMenu.min.js"></script>
-    <script src="{{ env('BASE_URL') }}/resources/libs/simplebar/simplebar.min.js"></script>
-    <script src="{{ env('BASE_URL') }}/resources/libs/node-waves/waves.min.js"></script>
-    <script src="{{ env('BASE_URL') }}/resources/js/app.js"></script>
+    <script src="{{ asset('libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('libs/metismenu/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('libs/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('libs/node-waves/waves.min.js') }}"></script>
+    <script src="{{ asset('js/main-js.js') }}"></script>
 
     <script>
         var sessionData = {!! json_encode([
