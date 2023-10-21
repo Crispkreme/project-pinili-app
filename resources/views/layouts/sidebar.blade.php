@@ -9,7 +9,17 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             @php
+
+                $currentRoute = \Route::currentRouteName();
                 $roleId = Auth::user()->role_id;
+
+                if (str_starts_with($currentRoute, 'admin.')) {
+                    $route = 'admin';
+                } elseif (str_starts_with($currentRoute, 'manager.')) {
+                    $route = 'manager';
+                } else {
+                    $route = route('404'); // Assuming '404' is a named route
+                }
 
                 if($roleId == 1) {
                     $menuLists = [

@@ -24,15 +24,15 @@
         {{ $slot }}
     </main>
 
-    @stack('scripts')
-
     <!-- Preload individual scripts -->
     <script src="{{ asset('libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/handlebars.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('libs/metismenu/metisMenu.min.js') }}"></script>
     <script src="{{ asset('libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('libs/node-waves/waves.min.js') }}"></script>
+
     <script src="{{ asset('libs/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
     <script src="{{ asset('libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-us-merc-en.js') }}"></script>
@@ -43,7 +43,10 @@
     <script src="{{ asset('libs/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('js/pages/dashboard.init.js') }}"></script>
+    <script src="{{ asset('js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ asset('js/main-js.js') }}"></script>
+
+    @stack('scripts')
     
 </body>
 </html>

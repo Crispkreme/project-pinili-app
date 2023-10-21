@@ -9,7 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\StockController;
-use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\DrugClassController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InventorySheetController;
 
@@ -58,6 +58,13 @@ Route::group(['controller' => ProductController::class], function () {
     Route::get('/all/product', 'index')->name('all.product');
     Route::get('/edit/product/{id}', 'editProduct')->name('edit.product');
     Route::post('/update/product/{id}', 'updateProduct')->name('update.product');
+});
+Route::group(['controller' => DrugClassController::class], function () {
+    Route::get('/create/drug/class', 'createDrugClass')->name('create.drug.class');
+    Route::post('/store/drug/class', 'storeDrugClass')->name('store.drug.class');
+    Route::get('/all/drug/class', 'index')->name('all.drug.class');
+    Route::get('/edit/drug/class/{id}', 'editDrugClass')->name('edit.drug.class');
+    Route::post('/update/drug/class/{id}', 'updateDrugClass')->name('update.drug.class');
 });
 Route::group(['controller' => OrderController::class], function () {
     Route::get('/all/order', 'getAllOrder')->name('all.order');

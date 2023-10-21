@@ -1,12 +1,7 @@
 <x-app-layout>
 
-    <style>
-        .order-data th,
-        .order-data td {
-            padding: 5px;
-            text-align: center;
-        }
-    </style>
+    @push('styles')
+    @endpush 
 
     <div id="layout-wrapper">
 
@@ -29,8 +24,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Update Product Information</h4>
-                                    <p class="card-title-desc">You can update here you product information.</p>
+                                    <h4 class="card-title">Add Product Information</h4>
+                                    <p class="card-title-desc">You can add here you product information.</p>
 
                                     @if(count($errors))
                                         @foreach ($errors->all() as $error)
@@ -54,11 +49,10 @@
                                             <div class="col-md-3">
                                                 <div class="row mb-3">
                                                     <label for="name" class="col-form-label">Manufacturer</label>
-                                                    <select class="form-control" style="width:100%;" name="manufacturer_id" aria-label="Default select example" id="manufacturer_id">
+                                                    <select class="form-control" style="width:98%;" name="manufacturer_id" aria-label="Default select example" id="manufacturer_id">
+                                                        <option selected disabled>Select Manufacturer</option>
                                                         @if (empty($distributorData))
-                                                            <option value="{{ $orderData->manufacturer_id }}" disabled>
-                                                                {{ $orderData->manufacturer->company->company_name }}
-                                                            </option>
+                                                            <option value="" disabled>No data found</option>
                                                         @else
                                                             @foreach ($distributorData as $distributorDataId => $name)
                                                                 <option value="{{ $distributorDataId }}" style="text-transform: capitalize">{{ $name }}</option>
@@ -69,11 +63,10 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">Supplier</label>
-                                                <select class="form-select" style="width:100%;" name="supplier_id" aria-label="Default select example" id="supplier_id">
+                                                <select class="form-select" style="width:98%;" name="supplier_id" aria-label="Default select example" id="supplier_id">
+                                                    <option selected disabled>Select Supplier</option>
                                                     @if (empty($representativeData))
-                                                        <option value="{{ $orderData->supplier_id }}" disabled>
-                                                            {{ $orderData->supplier->name }}
-                                                        </option>
+                                                        <option value="" disabled>No data found</option>
                                                     @else
                                                         @foreach ($representativeData as $representativeDataId => $name)
                                                             <option value="{{ $representativeDataId }}" style="text-transform: capitalize">{{ $name }}</option>
@@ -83,11 +76,56 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">Manufacturing Date</label>
-                                                <input class="form-control" name="manufacturing_date" type="date" value="{{ $orderData->manufacturing_date }}" id="manufacturing_date">
+                                                <input class="form-control" name="manufacturing_date" type="date" value="2011-08-19" id="manufacturing_date">
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">Expiry Date</label>
-                                                <input class="form-control" name="expiry_date" type="date" value="{{ $orderData->expiry_date }}" id="expiry_date">
+                                                <input class="form-control" name="expiry_date" type="date" value="2011-08-19" id="expiry_date">
+                                            </div>
+                                        </div>
+                                        <div class="row" style="align-items: flex-end;">
+                                            <div class="col-md-9">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <label for="name" class="col-form-label">Product Category</label>
+                                                            <select class="form-select select-2" style="width:98%;" name="category_id" aria-label="Default select example" id="category_id">
+                                                                <option selected disabled>Select Product Category</option>
+                                                                @if (empty($categoryData))
+                                                                    <option value="" disabled>No data found</option>
+                                                                @else
+                                                                    @foreach ($categoryData as $categoryDataId => $name)
+                                                                        <option value="{{ $categoryDataId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                                    @endforeach
+                                                                @endif
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <label for="name" class="col-form-label">Product Form</label>
+                                                            <select class="form-select select-2" style="width:98%;" name="form_id" aria-label="Default select example" id="form_id">
+                                                                <option value="">Select Product Form</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <label for="name" class="col-form-label">Product</label>
+                                                            <select class="form-select select-2" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
+                                                                <option value="">Select Product Name</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div style="display:flex;justify-content:space-between;">
+                                                    <button type="button" class="btn btn-secondary btn-rounded waves-effect waves-light addeventmore">
+                                                        <i class="ri-add-fill align-middle ms-2" style="margin-right: 1px;"></i>
+                                                        Add More
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -103,34 +141,20 @@
                                         @csrf
                                         <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
                                             <thead>
-                                                <tr class="order-data">
-                                                    <th>ID</th>
-                                                    <th style="text-align:left;">Medicine Name</th>
-                                                    <th style="text-align:left;">Generic Name</th>
+                                                <tr>
+                                                    <th>Medicine Name</th>
+                                                    <th>Generic Name</th>
                                                     <th>Form</th>
                                                     <th>Category</th>
-                                                    <th style="width: 10%;">Unit Price</th>
-                                                    <th style="width: 10%;">Qty</th>
-                                                    <th style="width: 10%;">SRP</th>
-                                                    <th style="width: 10%;">Total Price</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Qty</th>
+                                                    <th>SRP</th>
+                                                    <th>Total Price</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
+                                            <tbody id="addRow" class="addRow"></tbody>
                                             <tbody>
-                                                @foreach ($productData as $key => $item)
-                                                    <tr class="order-data">
-                                                        <td>{{ (int)$key + 1 }}</td>
-                                                        <td style="text-align:left;">{{ $item->product->medicine_name }}</td>
-                                                        <td style="text-align:left;">{{ $item->product->generic_name }}</td>
-                                                        <td>{{ $item->product->form->name }}</td>
-                                                        <td>{{ $item->product->category->name }}</td>
-                                                        <td style="width: 10%;">{{ $item->purchase_cost }}</td>
-                                                        <td style="width: 10%;">{{ $item->quantity }}</td>
-                                                        <td style="width: 10%;">{{ $item->srp }}</td>
-                                                        <td style="width: 10%;">{{ $item->purchase_cost * $item->quantity }}</td>
-                                                        <td><i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i></td>
-                                                    </tr>
-                                                @endforeach
                                                 <tr>
                                                     <td></td>
                                                     <td></td>
@@ -146,10 +170,7 @@
                                             </tbody>
                                         </table>
                                         <div class="form-group">
-                                            <button class="btn btn-info mt-1" id="storeButton">
-                                                <i class="ri-edit-2-line align-middle ms-2" style="margin-right: 1px;"></i>
-                                                Edit Purchase Order
-                                            </button>
+                                            <button class="btn btn-info mt-1" id="storeButton">Purchase Order</button>
                                         </div>
                                     </form>
                                 </div>
@@ -307,7 +328,7 @@
         $(function(){
             $(document).on('change','#category_id', function() {
                 var category_id = $(this).val();
-
+                console.log(category_id);
                 $.ajax({
                     url: "{{ route('admin.get.specific.category') }}",
                     type: "GET",
