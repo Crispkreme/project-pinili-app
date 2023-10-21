@@ -14,12 +14,12 @@ class EntitySeeder extends Seeder
     public function run(): void
     {
         Entity::create([
-            'role_id' => 1,
+            'role_id' => 6,
             'id_number' => 'USER-09060051',
             'name' => 'Marvin Ramos',
             'contact_number' => '',
             'address' => '09255411245',
-            'role' => 'admin',
+            'role' => 'supplier',
             'isActive' => 1,
         ]);
     }
