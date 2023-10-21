@@ -24,9 +24,6 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Product Information</h4>
-                                    <p class="card-title-desc">You can add here you product information.</p>
-
                                     @if(count($errors))
                                         @foreach ($errors->all() as $error)
                                             <p class="alert alert-danger alert-dismissible fade show">

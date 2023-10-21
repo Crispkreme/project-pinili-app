@@ -70,7 +70,7 @@ class OrderController extends Controller
 
     public function printOrderInvoice()
     {
-        $userData = $this->orderContract->printOrderInvoice(2);
+        $userData = $this->orderContract->printOrderInvoice(8);
         return view('admin.orders.print-invoice', ['userData' => $userData]);
     }
 
