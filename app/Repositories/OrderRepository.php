@@ -38,7 +38,7 @@ class OrderRepository implements OrderContract {
             'product',
             'status'
         ])
-        ->where('status_id', 2)
+        ->where('status_id', 8)
         ->get();
     }
 
