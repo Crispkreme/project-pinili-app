@@ -48,7 +48,7 @@
                                     'icon' => '',
                                     'class' => '',
                                 ],[
-                                    'list' => 'Represetative',
+                                    'list' => 'Representative',
                                     'url' => route('admin.all.representative'),
                                     'icon' => '',
                                     'class' => '',
