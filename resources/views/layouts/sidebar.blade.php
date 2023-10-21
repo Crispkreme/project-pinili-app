@@ -111,7 +111,7 @@
                                     'icon' => '',
                                     'class' => '',
                                 ],[
-                                    'list' => 'Pending Approval',
+                                    'list' => 'Product Deliver',
                                     'url' => route('admin.pending.order'),
                                     'icon' => '',
                                     'class' => '',

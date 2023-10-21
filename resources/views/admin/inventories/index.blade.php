@@ -47,6 +47,7 @@
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>Invoice Number</th>
                                                 <th>PO Number</th>
                                                 <th>Delivery Number</th>
@@ -60,6 +61,7 @@
                                         <tbody>
                                             @foreach($inventorySheets as $key => $item)
                                                 <tr>
+                                                    <td style="text-align: center;">{{ (int)$key + 1 }}</td>
                                                     <td>
                                                         <a href="{{ route('admin.edit.inventory.sheet', $item->id) }}">
                                                             {{ $item->invoice_number }}

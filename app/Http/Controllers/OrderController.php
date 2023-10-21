@@ -137,7 +137,7 @@ class OrderController extends Controller
             $invoice_number = $prefix.'-'.$transactionNumber;
 
             $params = $request->validated();
-            $status_id = 1;
+            $status_id = 7;
             $user_id = Auth::user()->id;
             $remarks = "for approval";
 
@@ -238,7 +238,7 @@ class OrderController extends Controller
 
     public function pendingOrder()
     {
-        $userData = $this->orderContract->pendingOrder(1);
+        $userData = $this->orderContract->pendingOrder(7);
         return view('admin.orders.index', ['userData' => $userData]);
     }
 

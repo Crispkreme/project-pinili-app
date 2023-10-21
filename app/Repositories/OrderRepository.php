@@ -98,7 +98,7 @@ class OrderRepository implements OrderContract {
     {
         $order = $this->model->findOrFail($id);
         $order->update([
-            'status_id' => 2,
+            'status_id' => 8,
         ]);
         return $order;
     }
