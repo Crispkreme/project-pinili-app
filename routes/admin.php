@@ -87,6 +87,7 @@ Route::group(['controller' => OrderController::class], function () {
     Route::post('/update/order/{id}', 'updateOrder')->name('update.order');
 
     //Invoice functionality
+    Route::post('/print/order/list/invoice', 'printOrderList')->name('print.order.list.invoice');
     Route::get('/print/invoice/order', 'printOrderInvoice')->name('print.invoice.order');
     Route::get('/print/invoice/order/{id}', 'printOrderInvoiceById')->name('print.invoice.user.order');
     Route::get('/daily/order/report', 'getDailyOrderReport')->name('daily.order.report');
@@ -96,6 +97,7 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/all/payment/history/company/{id}', 'getAllPaymentHistoryByCompany')->name('all.payment.history.company');
     Route::get('/all/stock/history/company/{id}', 'getAllStockHistoryByCompany')->name('all.stock.history.company');
     Route::get('/get/order/transaction', 'getOrderTransaction')->name('get.order.transaction');
+
 });
 Route::group(['controller' => InvoiceController::class], function () {
     Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');

@@ -76,11 +76,11 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">Manufacturing Date</label>
-                                                <input class="form-control" name="manufacturing_date" type="date" value="2011-08-19" id="manufacturing_date">
+                                                <input class="form-control" name="manufacturing_date" type="date" value="{{ date('Y-m-d') }}" id="manufacturing_date">
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">Expiry Date</label>
-                                                <input class="form-control" name="expiry_date" type="date" value="2011-08-19" id="expiry_date">
+                                                <input class="form-control" name="expiry_date" type="date" value="{{ date('Y-m-d') }}" id="expiry_date">
                                             </div>
                                         </div>
                                         <div class="row" style="align-items: flex-end;">

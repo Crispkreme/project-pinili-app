@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use DB;
 use App\Models\Order;
 use App\Contracts\OrderContract;
 
@@ -113,10 +114,14 @@ class OrderRepository implements OrderContract {
 
     public function getAllDailyOrderReport($params)
     {
+        $relationships = ['user', 'supplier', 'manufacturer', 'product', 'status'];
+        $startDate = $params[0];
+        $endDate = $params[1];
+        
         return $this->model
-            ->whereBetween('created_at', $params)
-            ->where('status_id', 2)
-            ->get();
+        ->whereRaw('DATE(created_at) >= ? AND DATE(created_at) <= ?', [$startDate, $endDate])
+        ->where('status_id', 2)
+        ->get();
     }
 
     public function getAllDeletedOrder()
