@@ -32,6 +32,7 @@ class StockController extends Controller
     public function getAllStockReport()
     {
         $userData = $this->orderContract->getAllStockReport();
+
         return view('admin.stocks.index', ['userData' => $userData]);
     }
 
