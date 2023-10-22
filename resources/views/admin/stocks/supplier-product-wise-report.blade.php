@@ -136,6 +136,7 @@
                                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                             <thead>
                                                 <tr>
+                                                    <th>ID</th>
                                                     <th>Invoice Number</th>
                                                     <th>Product Name</th>
                                                     <th>Supplier</th>
@@ -149,6 +150,7 @@
                                                 @if ($userData)
                                                     @foreach($userData as $key => $item)
                                                         <tr style="vertical-align: middle;">
+                                                            <td style="text-align: center;">{{ (int)$key + 1 }}</td>
                                                             <td>{{ $item->id_number }}</td>
                                                             <td>{{ $item->product->medicine_name }}</td>
                                                             <td>{{ $item->supplier->name }}</td>
