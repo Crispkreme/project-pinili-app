@@ -270,19 +270,17 @@ class OrderController extends Controller
 
     public function getAllDailyOrderReport(Request $request)
     {
+
         $startDate = date('Y-m-d', strtotime($request->start_date));
-
-        if (empty($request->end_date)) {
-            $endDate = date('Y-m-d');
-        } else {
-            $endDate = date('Y-m-d', strtotime($request->end_date));
-        }
-
+        $endDate = empty($request->end_date) ? date('Y-m-d') : date('Y-m-d', strtotime($request->end_date));
         $params = [$startDate, $endDate];
 
         $userData = $this->orderContract->getAllDailyOrderReport($params);
-        return view('admin.orders.daily-order-report', ['userData' => $userData]);
-
+        return view('admin.orders.daily-order-report', [
+            'userData' => $userData,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+        ]);
     }
 
     public function getAllDeletedOrder()
@@ -401,6 +399,19 @@ class OrderController extends Controller
             'expiryDate' => $expiryDate,
             'distributorData' => $distributorData,
             'representativeData' => $representativeData,
+        ]);
+    }
+
+    public function printOrderList(Request $request)
+    {
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+        $params = [$startDate, $endDate];
+
+        $userData = $this->orderContract->getAllDailyOrderReport($params);
+
+        return view('pdf.product-order-list-pdf', [
+            'userData' => $userData,
         ]);
     }
 }

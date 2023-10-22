@@ -27,8 +27,8 @@
                                         @csrf
                                         <div style="display:flex;justify-content: space-evenly;">
                                             <div class="input-daterange input-group" id="datepicker6" data-date-format="dd M, yyyy" data-date-autoclose="true" data-provide="datepicker" data-date-container="#datepicker6" style="width: 80%;">
-                                                <input type="text" class="form-control" name="start" placeholder="Start Date" name="start_date" id="start_date">
-                                                <input type="text" class="form-control" name="end" placeholder="End Date" name="end_date" id="end_date">
+                                                <input type="text" class="form-control" name="start_date" placeholder="Start Date" id="start_date">
+                                                <input type="text" class="form-control" name="end_date" placeholder="End Date" id="end_date">
                                             </div>
                                             <button class="btn btn-info" type="submit">
                                                 <span>
@@ -54,12 +54,17 @@
                                                 <p class="card-title-desc">This are the complete list of our filtered data.</p>
                                             </div>
                                             <div>
-                                                <button class="btn btn-success">
-                                                    <span>
-                                                        <i class="ri-printer-line"></i>
-                                                    </span>
-                                                    Generate Invoice
-                                                </button>
+                                                <form method="POST" action="{{ route('admin.print.order.list.invoice') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="start_date" value="{{ $startDate }}">
+                                                    <input type="hidden" name="end_date" value="{{ $endDate }}">
+                                                    <button type="submit" class="btn btn-success">
+                                                        <span>
+                                                            <i class="ri-printer-line"></i>
+                                                        </span>
+                                                        Generate Invoice
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                         <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -121,15 +126,24 @@
 
     <div class="rightbar-overlay"></div>
 
-    <!-- <script>
-        var currentDate = new Date();
-        var year = currentDate.getFullYear();
-        var month = String(currentDate.getMonth() + 1).padStart(2, '0');
-        var day = String(currentDate.getDate()).padStart(2, '0');
-        var formattedDate = year + '-' + month + '-' + day;
-
-        document.getElementById('start_date').value = formattedDate;
-        document.getElementById('end_date').value = formattedDate;
-    </script> -->
-
+    @push('scripts')
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var today = new Date();
+                var formattedDate = today.getDate() + ' ' + today.toLocaleString('default', { month: 'short' }) + ', ' + today.getFullYear();
+                
+                document.getElementById('start_date').value = formattedDate;
+                document.getElementById('end_date').value = formattedDate;
+                
+                document.getElementById('start_date').addEventListener('change', function() {
+                    if (this.value === formattedDate) {
+                        document.getElementById('end_date').value = formattedDate;
+                        document.getElementById('end_date').setAttribute('disabled', 'disabled');
+                    } else {
+                        document.getElementById('end_date').removeAttribute('disabled');
+                    }
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>
