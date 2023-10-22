@@ -72,11 +72,11 @@
                                                         <td>{{ $item->manufacturer->company->company_name }}</td>
                                                         <td>{{ $item->created_at->format('M. j, Y') }}</td>
                                                         <td>
-                                                            @if($item->status_id == 1)
+                                                            @if($item->status_id == 7)
                                                                 <span class="badge rounded-pill bg-warning" style="font-size:12px;padding:5px;">
                                                                     {{ $item->status->status }}
                                                                 </span>
-                                                            @elseif ($item->status_id == 2)
+                                                            @elseif ($item->status_id == 8)
                                                                 <span class="badge rounded-pill bg-success" style="font-size:12px;padding:5px;">
                                                                     {{ $item->status->status }}
                                                                 </span>
