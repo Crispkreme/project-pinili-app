@@ -194,215 +194,214 @@
     <div class="rightbar-overlay"></div>
 
     @push('scripts')
+        <script id="document-template" text="text/x-handlerbars-template">
+            <tr class="delete_add_more_item" id="delete_add_more_item">
+
+                <input type="hidden" name="supplier_id" value="@{{ supplier_id }}">
+                <input type="hidden" name="product_id[]" value="@{{ product_id }}">
+                <input type="hidden" name="or_number" value="@{{ or_number }}">
+                <input type="hidden" name="or_date" value="@{{ or_date }}">
+                <input type="hidden" name="delivery_number" value="@{{ delivery_number }}">
+                <input type="hidden" name="delivery_date" value="@{{ delivery_date }}">
+                <input type="hidden" name="po_number" value="@{{ po_number }}">
+                <input type="hidden" name="current_paid_amount" value="@{{ current_paid_amount }}">
+
+                <td>@{{ medicine_name }}</td>
+                <td>@{{ generic_name }}</td>
+                <td>
+                    <input
+                    type="number"
+                    name="qty[]"
+                    class="form-control qty text-right"
+                    value="@{{ quantity }}"
+                    id="qty"
+                    readonly>
+                </td>
+                <td>
+                    <input
+                    type="number"
+                    name="price[]"
+                    class="form-control price text-right"
+                    value="@{{ purchase_cost }}"
+                    id="price"
+                    readonly>
+                </td>
+                <td>
+                    <input
+                    type="text"
+                    class="form-control subtotal"
+                    id="subtotal"
+                    name="subtotal[]"
+                    placeholder="0"
+                    value=""
+                    style="background-color:#ddd;"
+                    readonly>
+                </td>
+                <td style="text-align: center;">
+                    <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
+                </td>
+            </tr>
+        </script>
+        <script type="text/javascript">
+            $(function(){
+                $(document).on('click','.addeventmore', function() {
+                    var supplier_id = $('#supplier_id').val();
+                    var product_id = $('#product_id').val();
+                    var subtotal = $('#subtotal').val();
+                    var or_number = $('#or_number').val();
+                    var or_date = $('#or_date').val();
+                    var delivery_number = $('#delivery_number').val();
+                    var delivery_date = $('#delivery_date').val();
+                    var po_number = $('#po_number').val();
+                    var current_paid_amount = $('#current_paid_amount').val();
+                    var medicine_name = $('#product_id').find('option:selected').text();
+                    var generic_name = $('#product_id').find('option:selected').text();
+                    var selectedOption = $('#product_id option:selected');
+                    var purchase_cost = selectedOption.data('purchase-cost');
+                    var quantity = selectedOption.data('quantity');
+
+                    if(supplier_id == '')
+                    {
+                        $.notify("Supplier is required", { globalPosition: 'top right', className: 'error'});
+                        return false;
+                    }
+                    if(product_id == '')
+                    {
+                        $.notify("Product is required", { globalPosition: 'top right', className: 'error'});
+                        return false;
+                    }
+
+                    var source = $("#document-template").html();
+                    var template = Handlebars.compile(source);
+                    var data = {
+                        supplier_id:supplier_id,
+                        product_id:product_id,
+                        subtotal:subtotal,
+                        or_number:or_number,
+                        or_date:or_date,
+                        delivery_number:delivery_number,
+                        delivery_date:delivery_date,
+                        po_number:po_number,
+                        current_paid_amount:current_paid_amount,
+                        medicine_name:medicine_name,
+                        generic_name:generic_name,
+                        purchase_cost:purchase_cost,
+                        quantity:quantity,
+                    }
+
+                    var html = template(data);
+                    $("#addRow").append(html);
+                });
+
+                $(document).on('click','.remove_event_more', function() {
+                    $(this).closest(".delete_add_more_item").remove();
+                    calculateSubtotalPrice();
+                    totalAmountPrice();
+                    dueAmount();
+                });
+
+                $(document).on('click keyup', '#discount_amount', function() {
+                    calculateSubtotalPrice();
+                    dueAmount();
+                    totalAmountPrice();
+                });
+
+                $(document).on('click keyup', '#current_paid_amount', function() {
+                    calculateSubtotalPrice();
+                    dueAmount();
+                });
+
+                $(document).on('change','#product_id', function() {
+                    var product_id = $(this).val();
+
+                    $.ajax({
+                        url: "{{ route('admin.get.order.transaction') }}",
+                        type: "GET",
+                        data: { product_id: product_id },
+                        success: function(data) {
+                            $('#po_number').val(data[0].invoice_number);
+                        }
+                    });
+
+                    calculateSubtotalPrice();
+                });
+
+                $(document).on('change','#supplier_id', function() {
+                    var supplier_id = $(this).val();
+
+                    $.ajax({
+                        url: "{{ route('admin.get.specific.product') }}",
+                        type: "GET",
+                        data: { supplier_id: supplier_id },
+                        success: function(data) {
+
+                            var html = '<option value="">Select Product Name</option>';
+                            $.each(data, function(key, v) {
+                                html += '<option value="'+ v.id +'" data-purchase-cost="'+ v.purchase_cost +'" data-quantity="'+ v.quantity +'">'+ v.product.medicine_name +'</option>';
+                            });
+                            $('#product_id').html(html);
+                        }
+                    });
+
+                    calculateSubtotalPrice();
+                });
+
+                // calculate the total amount
+                function totalAmountPrice() {
+                    var sum = 0;
+                    $(".subtotal").each(function () {
+                        var value = parseFloat($(this).val()) || 0;
+                        sum += value;
+                    });
+
+                    var discount_amount = parseFloat($('#discount_amount').val());
+                    var current_paid_amount = parseFloat($('#current_paid_amount').val());
+                    var totalAmount = discount_amount + current_paid_amount;
+
+                    if(!isNaN(totalAmount) && totalAmount.length != 0){
+                        sum -= parseFloat(totalAmount);
+                    }
+
+                    if (sum < 0) {
+                        sum = 0;
+                    }
+
+                    $('.total_amount').val(sum.toFixed(2));
+
+                    $('#balance').val(sum.toFixed(2));
+                }
+
+                function dueAmount() {
+                    var sum = 0;
+                    $(".subtotal").each(function () {
+                        var value = parseFloat($(this).val()) || 0;
+                        sum += value;
+                    });
+
+                    $('.due_amount').val(sum.toFixed(2));
+                }
+
+                function calculateSubtotalPrice() {
+                    $('.qty').each(function(index) {
+                        var qty = $(this).val();
+                        var price = $('.price').eq(index).val();
+                        var subtotal = qty * price;
+
+                        $('.subtotal').eq(index).val(subtotal);
+                    });
+                }
+
+            });
+        </script>
+        <script>
+            function displayCurrentDate() {
+                var currentDate = new Date();
+                var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                var formattedDate = currentDate.toLocaleDateString(undefined, options);
+                document.getElementById("currentDate").textContent = formattedDate;
+            }
+            displayCurrentDate();
+        </script>
     @endpush
-
-    <script id="document-template" text="text/x-handlerbars-template">
-        <tr class="delete_add_more_item" id="delete_add_more_item">
-
-            <input type="hidden" name="supplier_id" value="@{{ supplier_id }}">
-            <input type="hidden" name="product_id[]" value="@{{ product_id }}">
-            <input type="hidden" name="or_number" value="@{{ or_number }}">
-            <input type="hidden" name="or_date" value="@{{ or_date }}">
-            <input type="hidden" name="delivery_number" value="@{{ delivery_number }}">
-            <input type="hidden" name="delivery_date" value="@{{ delivery_date }}">
-            <input type="hidden" name="po_number" value="@{{ po_number }}">
-            <input type="hidden" name="current_paid_amount" value="@{{ current_paid_amount }}">
-
-            <td>@{{ medicine_name }}</td>
-            <td>@{{ generic_name }}</td>
-            <td>
-                <input
-                type="number"
-                name="qty[]"
-                class="form-control qty text-right"
-                value="@{{ quantity }}"
-                id="qty"
-                readonly>
-            </td>
-            <td>
-                <input
-                type="number"
-                name="price[]"
-                class="form-control price text-right"
-                value="@{{ purchase_cost }}"
-                id="price"
-                readonly>
-            </td>
-            <td>
-                <input
-                type="text"
-                class="form-control subtotal"
-                id="subtotal"
-                name="subtotal[]"
-                placeholder="0"
-                value=""
-                style="background-color:#ddd;"
-                readonly>
-            </td>
-            <td style="text-align: center;">
-                <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
-            </td>
-        </tr>
-    </script>
-    <script type="text/javascript">
-        $(function(){
-            $(document).on('click','.addeventmore', function() {
-                var supplier_id = $('#supplier_id').val();
-                var product_id = $('#product_id').val();
-                var subtotal = $('#subtotal').val();
-                var or_number = $('#or_number').val();
-                var or_date = $('#or_date').val();
-                var delivery_number = $('#delivery_number').val();
-                var delivery_date = $('#delivery_date').val();
-                var po_number = $('#po_number').val();
-                var current_paid_amount = $('#current_paid_amount').val();
-                var medicine_name = $('#product_id').find('option:selected').text();
-                var generic_name = $('#product_id').find('option:selected').text();
-                var selectedOption = $('#product_id option:selected');
-                var purchase_cost = selectedOption.data('purchase-cost');
-                var quantity = selectedOption.data('quantity');
-
-                if(supplier_id == '')
-                {
-                    $.notify("Supplier is required", { globalPosition: 'top right', className: 'error'});
-                    return false;
-                }
-                if(product_id == '')
-                {
-                    $.notify("Product is required", { globalPosition: 'top right', className: 'error'});
-                    return false;
-                }
-
-                var source = $("#document-template").html();
-                var template = Handlebars.compile(source);
-                var data = {
-                    supplier_id:supplier_id,
-                    product_id:product_id,
-                    subtotal:subtotal,
-                    or_number:or_number,
-                    or_date:or_date,
-                    delivery_number:delivery_number,
-                    delivery_date:delivery_date,
-                    po_number:po_number,
-                    current_paid_amount:current_paid_amount,
-                    medicine_name:medicine_name,
-                    generic_name:generic_name,
-                    purchase_cost:purchase_cost,
-                    quantity:quantity,
-                }
-
-                var html = template(data);
-                $("#addRow").append(html);
-            });
-
-            $(document).on('click','.remove_event_more', function() {
-                $(this).closest(".delete_add_more_item").remove();
-                calculateSubtotalPrice();
-                totalAmountPrice();
-                dueAmount();
-            });
-
-            $(document).on('click keyup', '#discount_amount', function() {
-                calculateSubtotalPrice();
-                dueAmount();
-                totalAmountPrice();
-            });
-
-            $(document).on('click keyup', '#current_paid_amount', function() {
-                calculateSubtotalPrice();
-                dueAmount();
-            });
-
-            $(document).on('change','#product_id', function() {
-                var product_id = $(this).val();
-
-                $.ajax({
-                    url: "{{ route('admin.get.order.transaction') }}",
-                    type: "GET",
-                    data: { product_id: product_id },
-                    success: function(data) {
-                        $('#po_number').val(data[0].invoice_number);
-                    }
-                });
-
-                calculateSubtotalPrice();
-            });
-
-            $(document).on('change','#supplier_id', function() {
-                var supplier_id = $(this).val();
-
-                $.ajax({
-                    url: "{{ route('admin.get.specific.product') }}",
-                    type: "GET",
-                    data: { supplier_id: supplier_id },
-                    success: function(data) {
-
-                        var html = '<option value="">Select Product Name</option>';
-                        $.each(data, function(key, v) {
-                            html += '<option value="'+ v.id +'" data-purchase-cost="'+ v.purchase_cost +'" data-quantity="'+ v.quantity +'">'+ v.product.medicine_name +'</option>';
-                        });
-                        $('#product_id').html(html);
-                    }
-                });
-
-                calculateSubtotalPrice();
-            });
-
-            // calculate the total amount
-            function totalAmountPrice() {
-                var sum = 0;
-                $(".subtotal").each(function () {
-                    var value = parseFloat($(this).val()) || 0;
-                    sum += value;
-                });
-
-                var discount_amount = parseFloat($('#discount_amount').val());
-                var current_paid_amount = parseFloat($('#current_paid_amount').val());
-                var totalAmount = discount_amount + current_paid_amount;
-
-                if(!isNaN(totalAmount) && totalAmount.length != 0){
-                    sum -= parseFloat(totalAmount);
-                }
-
-                if (sum < 0) {
-                    sum = 0;
-                }
-
-                $('.total_amount').val(sum.toFixed(2));
-
-                $('#balance').val(sum.toFixed(2));
-            }
-
-            function dueAmount() {
-                var sum = 0;
-                $(".subtotal").each(function () {
-                    var value = parseFloat($(this).val()) || 0;
-                    sum += value;
-                });
-
-                $('.due_amount').val(sum.toFixed(2));
-            }
-
-            function calculateSubtotalPrice() {
-                $('.qty').each(function(index) {
-                    var qty = $(this).val();
-                    var price = $('.price').eq(index).val();
-                    var subtotal = qty * price;
-
-                    $('.subtotal').eq(index).val(subtotal);
-                });
-            }
-
-        });
-    </script>
-    <script>
-        function displayCurrentDate() {
-            var currentDate = new Date();
-            var options = { year: 'numeric', month: 'long', day: 'numeric' };
-            var formattedDate = currentDate.toLocaleDateString(undefined, options);
-            document.getElementById("currentDate").textContent = formattedDate;
-        }
-        displayCurrentDate();
-    </script>
 
 </x-app-layout>

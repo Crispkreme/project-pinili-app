@@ -47,7 +47,6 @@
                                             <div class="row">
                                                 <div class="col-6">
                                                     <address>
-                                                        <strong>COMPANY:</strong><br>
                                                         EDWIN C. PINILI MD.<br>
                                                         OCCUPATION AND FAMILY HEALTH PHYSICIAN <br>
                                                         PINILI CLINIC 2ND RD.<br>
@@ -55,11 +54,7 @@
                                                         GENERAL SANTOS CITY, 9500
                                                     </address>
                                                 </div>
-                                                <div class="col-6 text-end">
-                                                    <address>
-                                                        <strong>ORDER BY:</strong><br>
-                                                    </address>
-                                                </div>
+                                                <div class="col-6 text-end"></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6 mt-4">
@@ -79,26 +74,48 @@
                                         <div class="col-12">
                                             <div>
                                                 <div class="p-2">
-                                                    <h3 class="font-size-16"><strong>Order summary</strong></h3>
+                                                    <h3 class="font-size-16"><strong>Order List Summary Report</strong></h3>
                                                 </div>
                                                 <div class="">
                                                     <div class="table-responsive">
-                                                        <table class="table">
+                                                        <table id="table" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                             <thead>
-                                                            <tr>
-                                                                <td><strong>Medicine Name</strong></td>
-                                                                <td><strong>Generic Name</strong></td>
-                                                                <td><strong>Description</strong></td>
-                                                                <td class="text-center"><strong>Price</strong></td>
-                                                                <td class="text-center"><strong>Quantity</strong>
-                                                                </td>
-                                                                <td class="text-end"><strong>Totals</strong></td>
-                                                            </tr>
+                                                                <tr>
+                                                                    <th>ID</th>
+                                                                    <th>Invoice Number</th>
+                                                                    <th>Product Name</th>
+                                                                    <th>Supplier</th>
+                                                                    <th>Manufacturer</th>
+                                                                    <th>Order Date</th>
+                                                                    <th>Status</th>
+                                                                </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                                                                <tr>
-                                                              </tr>
+                                                                @foreach($userData as $key => $item)
+                                                                    <tr>
+                                                                        <td>{{ (int)$key + 1 }}</td>
+                                                                        <td>{{ $item->invoice_number }}</td>
+                                                                        <td>{{ $item->product->medicine_name }}</td>
+                                                                        <td>{{ $item->supplier->name }}</td>
+                                                                        <td>{{ $item->manufacturer->company->company_name }}</td>
+                                                                        <td>{{ $item->created_at->format('M. j, Y') }}</td>
+                                                                        <td>
+                                                                            @if($item->status_id == 1)
+                                                                                <span class="badge rounded-pill bg-warning" style="font-size:12px;padding:5px;">
+                                                                                    {{ $item->status->status }}
+                                                                                </span>
+                                                                            @elseif ($item->status_id == 2)
+                                                                                <span class="badge rounded-pill bg-success" style="font-size:12px;padding:5px;">
+                                                                                    {{ $item->status->status }}
+                                                                                </span>
+                                                                            @else
+                                                                                <span class="badge rounded-pill bg-danger" style="font-size:12px;padding:5px;">
+                                                                                    {{ $item->status->status }}
+                                                                                </span>
+                                                                            @endif
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
