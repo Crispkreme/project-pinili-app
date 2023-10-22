@@ -70,7 +70,7 @@
                                                     <tr style="vertical-align: middle;">
                                                         <td style="text-align: center;">{{ (int)$key + 1 }}</td>
                                                         <td>
-                                                            @if($item->status_id == 1)
+                                                            @if($item->status_id == 7)
                                                                 <a href="{{ route('admin.edit.order.data', $item->id) }}">
                                                                     {{ $item->invoice_number }}
                                                                 </a>
@@ -79,7 +79,7 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            @if($item->status_id == 1)
+                                                            @if($item->status_id == 7)
                                                                 <a href="{{ route('admin.edit.order.data', $item->id) }}">
                                                                     {{ $item->product->medicine_name }}
                                                                 </a>
@@ -91,11 +91,11 @@
                                                         <td>{{ $item->manufacturer->company->company_name }}</td>
                                                         <td>{{ $item->created_at->format('M. j, Y') }}</td>
                                                         <td>
-                                                            @if($item->status_id == 1)
+                                                            @if($item->status_id == 7)
                                                                 <span class="badge rounded-pill bg-warning" style="font-size:12px;padding:5px;">
                                                                     {{ $item->status->status }}
                                                                 </span>
-                                                            @elseif ($item->status_id == 2)
+                                                            @elseif ($item->status_id == 8)
                                                                 <span class="badge rounded-pill bg-success" style="font-size:12px;padding:5px;">
                                                                     {{ $item->status->status }}
                                                                 </span>
@@ -106,7 +106,7 @@
                                                             @endif
                                                         </td>
                                                         <td style="text-align: center;">
-                                                            @if ($item->status_id == 1)
+                                                            @if ($item->status_id == 7)
 
                                                                 @if(request()->routeIs('admin.all.order'))
                                                                     <a href="{{ route('admin.edit.order', $item->id) }}" class="btn btn-warning waves-light" id="edit_button">
