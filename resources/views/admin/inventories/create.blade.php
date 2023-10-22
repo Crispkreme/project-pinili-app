@@ -60,10 +60,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-3">
-                                                <label for="name" class="col-form-label">Product</label>
-                                                <select class="form-select select-2" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
-                                                    <option value="">Select Product Name</option>
-                                                </select>
+                                                <label for="name" class="col-form-label">Invoice Number</label>
+                                                <input class="form-control" name="invoice_number" type="text" id="invoice_number">
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">OR/PR Number</label>
@@ -244,53 +242,9 @@
         </script>
         <script type="text/javascript">
             $(function(){
-                $(document).on('click','.addeventmore', function() {
-                    var supplier_id = $('#supplier_id').val();
-                    var product_id = $('#product_id').val();
-                    var subtotal = $('#subtotal').val();
-                    var or_number = $('#or_number').val();
-                    var or_date = $('#or_date').val();
-                    var delivery_number = $('#delivery_number').val();
-                    var delivery_date = $('#delivery_date').val();
-                    var po_number = $('#po_number').val();
-                    var current_paid_amount = $('#current_paid_amount').val();
-                    var medicine_name = $('#product_id').find('option:selected').text();
-                    var generic_name = $('#product_id').find('option:selected').text();
-                    var selectedOption = $('#product_id option:selected');
-                    var purchase_cost = selectedOption.data('purchase-cost');
-                    var quantity = selectedOption.data('quantity');
-
-                    if(supplier_id == '')
-                    {
-                        $.notify("Supplier is required", { globalPosition: 'top right', className: 'error'});
-                        return false;
-                    }
-                    if(product_id == '')
-                    {
-                        $.notify("Product is required", { globalPosition: 'top right', className: 'error'});
-                        return false;
-                    }
-
-                    var source = $("#document-template").html();
-                    var template = Handlebars.compile(source);
-                    var data = {
-                        supplier_id:supplier_id,
-                        product_id:product_id,
-                        subtotal:subtotal,
-                        or_number:or_number,
-                        or_date:or_date,
-                        delivery_number:delivery_number,
-                        delivery_date:delivery_date,
-                        po_number:po_number,
-                        current_paid_amount:current_paid_amount,
-                        medicine_name:medicine_name,
-                        generic_name:generic_name,
-                        purchase_cost:purchase_cost,
-                        quantity:quantity,
-                    }
-
-                    var html = template(data);
-                    $("#addRow").append(html);
+                $(document).on('click', '.addeventmore', function() {
+                    var invoice_number = $('#invoice_number').val();
+                    loadInvoiceProductData(invoice_number);
                 });
 
                 $(document).on('click','.remove_event_more', function() {
@@ -310,6 +264,49 @@
                     calculateSubtotalPrice();
                     dueAmount();
                 });
+
+                function addRowWithData(data) {
+                    var source = $("#document-template").html();
+                    var template = Handlebars.compile(source);
+
+                    var html = template({
+                        supplier_id: data.supplier_id,
+                        product_id: data.product_id,
+                        subtotal: data.subtotal,
+                        or_number: data.or_number,
+                        or_date: data.or_date,
+                        delivery_number: data.delivery_number,
+                        delivery_date: data.delivery_date,
+                        po_number: data.po_number,
+                        current_paid_amount: data.current_paid_amount,
+                        medicine_name: data.product.medicine_name,
+                        generic_name: data.product.generic_name,
+                        purchase_cost: data.purchase_cost,
+                        quantity: data.quantity,
+                    });
+
+                    $("#addRow").append(html);
+                }
+
+                function loadInvoiceProductData(invoice_number) {
+                    if (invoice_number) {
+                        $.ajax({
+                            url: "{{ route('admin.get.order.invoice.number') }}",
+                            type: "GET",
+                            data: { invoice_number: invoice_number },
+                            success: function (data) {
+                                if (data.length > 0) {
+                                    $('#addRow').empty();
+                                    data.forEach(function (item) {
+                                        addRowWithData(item);
+                                    });
+                                } else {
+                                    alert('No data found for the selected invoice number.');
+                                }
+                            },
+                        });
+                    }
+                }
 
                 $(document).on('change','#product_id', function() {
                     var product_id = $(this).val();

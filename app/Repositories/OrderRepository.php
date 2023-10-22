@@ -260,4 +260,17 @@ class OrderRepository implements OrderContract {
         ->where('invoice_number', $params)
         ->get();
     }
+
+    public function getOrderInvoiceNumber($params)
+    {
+        return $this->model->with([
+            'user',
+            'supplier',
+            'manufacturer',
+            'product',
+            'status'
+        ])
+        ->where('invoice_number', $params)
+        ->get();
+    }
 }
