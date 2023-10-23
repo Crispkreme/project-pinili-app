@@ -138,6 +138,7 @@ class OrderController extends Controller
 
             $params = $request->validated();
             $status_id = 7;
+            $po_number = $transactionNumber;
             $user_id = Auth::user()->id;
             $remarks = "for approval";
 
@@ -152,6 +153,7 @@ class OrderController extends Controller
                     'expiry_date' => $params['expiry_date'][$i],
                     'manufacturing_date' => $params['manufacturing_date'][$i],
                     'status_id' => $status_id,
+                    'po_number' => $po_number,
                     'user_id' => $user_id,
                     'remarks' => $remarks,
                     'invoice_number' => $invoice_number,
@@ -413,5 +415,12 @@ class OrderController extends Controller
         return view('pdf.product-order-list-pdf', [
             'userData' => $userData,
         ]);
+    }
+
+    public function getOrderInvoiceNumber(Request $request)
+    {
+        $invoice_number = $request->invoice_number;
+        $orderData = $this->orderContract->getOrderInvoiceNumber($invoice_number);
+        return response()->json($orderData);
     }
 }

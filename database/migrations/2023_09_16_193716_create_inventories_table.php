@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('purchase_stocks')->nullable();
             $table->double('srp')->nullable();
+            $table->string('po_number')->nullable();
 
             $table->foreign('supplier_id')
                   ->references('id')
