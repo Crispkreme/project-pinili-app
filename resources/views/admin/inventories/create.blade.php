@@ -61,8 +61,12 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">Invoice Number</label>
-                                                <input class="form-control" name="invoice_number" type="text" id="invoice_number">
+                                                <!-- <input class="form-control" name="invoice_number" type="text" id="invoice_number"> -->
+                                                <select class="form-control select2"
+                                                    data-placeholder="Invoice Number" name="invoice_number" id="invoice_number">
+                                                </select>
                                             </div>
+
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">OR/PR Number</label>
                                                 <input class="form-control" name="or_number" type="text" id="or_number">
@@ -331,12 +335,11 @@
                         type: "GET",
                         data: { supplier_id: supplier_id },
                         success: function(data) {
-
-                            var html = '<option value="">Select Product Name</option>';
+                            var html = '<optgroup label="Invoice Number">';
                             $.each(data, function(key, v) {
-                                html += '<option value="'+ v.id +'" data-purchase-cost="'+ v.purchase_cost +'" data-quantity="'+ v.quantity +'">'+ v.product.medicine_name +'</option>';
+                                html += '<option value="'+ v.invoice_number +'">'+ v.invoice_number +'</option></optgroup>';
                             });
-                            $('#product_id').html(html);
+                            $('#invoice_number').html(html);                                                    
                         }
                     });
 

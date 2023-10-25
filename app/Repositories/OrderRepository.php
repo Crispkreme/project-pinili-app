@@ -52,8 +52,8 @@ class OrderRepository implements OrderContract {
             'status'
         ])
         ->where('supplier_id', $id)
-        ->where('status_id', 2)
-        ->where('order_status_id', 1)
+        ->where('status_id', 8)
+        ->where('order_status_id', 7)
         ->get();
     }
 
