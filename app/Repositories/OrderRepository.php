@@ -44,17 +44,13 @@ class OrderRepository implements OrderContract {
 
     public function getSpecificProduct($id)
     {
-        return $this->model->with([
-            'user',
-            'supplier',
-            'manufacturer',
-            'product',
-            'status'
-        ])
-        ->where('supplier_id', $id)
-        ->where('status_id', 8)
-        ->where('order_status_id', 7)
-        ->get();
+        return $this->model->select('invoice_number')
+            ->with(['user', 'supplier', 'manufacturer', 'product', 'status'])
+            ->where('supplier_id', $id)
+            ->where('status_id', 8)
+            ->where('order_status_id', 7)
+            ->distinct()
+            ->pluck('invoice_number');
     }
 
     public function printOrderInvoice($id)
@@ -99,6 +95,7 @@ class OrderRepository implements OrderContract {
         $order = $this->model->findOrFail($id);
         $order->update([
             'status_id' => 8,
+            'order_status_id' => 7,
         ]);
         return $order;
     }
@@ -120,7 +117,7 @@ class OrderRepository implements OrderContract {
         
         return $this->model
         ->whereRaw('DATE(created_at) >= ? AND DATE(created_at) <= ?', [$startDate, $endDate])
-        ->where('status_id', 2)
+        ->where('status_id', 8)
         ->get();
     }
 
@@ -189,14 +186,13 @@ class OrderRepository implements OrderContract {
     public function updateOrderStatusByInventorySheet($or_number)
     {
         $orderStatus = $this->model->where('or_number', $or_number)->get();
-
+        
         $orderStatus->each(function ($order) {
             $order->update([
                 'approve_id' => auth()->user()->id,
-                'order_status_id' => 7,
+                'order_status_id' => 8,
             ]);
         });
-
         return $orderStatus;
     }
 
@@ -271,6 +267,7 @@ class OrderRepository implements OrderContract {
             'status'
         ])
         ->where('invoice_number', $params)
+        ->where('order_status_id', 7)
         ->get();
     }
 }

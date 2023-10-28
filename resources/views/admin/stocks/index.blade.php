@@ -64,7 +64,7 @@
                                                 @foreach($userData as $key => $item)
                                                     <tr style="vertical-align: middle;">
                                                         <td style="text-align: center;">{{ (int)$key + 1 }}</td>
-                                                        <td>{{ $item->product->invoice_number }}</td>
+                                                        <td>{{ $item->invoice_number }}</td>
                                                         <td>{{ $item->product->medicine_name }}</td>
                                                         <td>{{ $item->supplier->name }}</td>
                                                         <td>{{ $item->manufacturer->company->company_name }}</td>

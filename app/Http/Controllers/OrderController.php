@@ -18,6 +18,7 @@ use App\Contracts\DistributorContract;
 use App\Contracts\EntityContract;
 use App\Contracts\FormContract;
 use App\Contracts\RepresentativeContract;
+use App\Contracts\DrugClassContract;
 use App\Http\Requests\AddOrderStoreRequest;
 use App\Http\Requests\AddProductStoreRequest;
 use Illuminate\Support\Facades\DB;
@@ -35,8 +36,10 @@ class OrderController extends Controller
     protected $entityContract;
     protected $formContract;
     protected $transactionContract;
+    protected $drugClassContract;
 
     public function __construct(
+        DrugClassContract $drugClassContract,
         OrderContract $orderContract,
         UserContract $userContract,
         RepresentativeContract $representativeContract,
@@ -60,6 +63,7 @@ class OrderController extends Controller
         $this->entityContract = $entityContract;
         $this->formContract = $formContract;
         $this->transactionContract = $transactionContract;
+        $this->drugClassContract = $drugClassContract;
     }
 
     public function getAllOrder()
@@ -109,8 +113,9 @@ class OrderController extends Controller
     public function getSpecificCategory(Request $request)
     {
         $categoryId = $request->category_id;
-        $userData = $this->productContract->getSpecificCategory($categoryId);
-        return response()->json($userData);
+        $formId = $this->productContract->getSpecificCategory($categoryId);
+        $formData = $this->drugClassContract->getSpecificDrugClassById($formId);
+        return response()->json($formData);
     }
 
     public function getSpecificForm(Request $request)
@@ -278,6 +283,7 @@ class OrderController extends Controller
         $params = [$startDate, $endDate];
 
         $userData = $this->orderContract->getAllDailyOrderReport($params);
+
         return view('admin.orders.daily-order-report', [
             'userData' => $userData,
             'startDate' => $startDate,

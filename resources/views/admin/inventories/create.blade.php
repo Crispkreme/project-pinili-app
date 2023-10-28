@@ -19,22 +19,21 @@
                             <x-breadcrumb />
                         </div>
                     </div>
+                    <form method="POST" action="{{ route('admin.store.inventory.sheet') }}" id="myForm">
+                        @csrf 
+                        <div class="row">      
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Add Product Information</h4>
+                                        <p class="card-title-desc">You can add here you product information.</p>
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Add Product Information</h4>
-                                    <p class="card-title-desc">You can add here you product information.</p>
+                                        @if(count($errors))
+                                            @foreach ($errors->all() as $error)
+                                            <p class="alert alert-danger alert-dismissible fade show"> {{ $error}} </p>
+                                            @endforeach
+                                        @endif
 
-                                    @if(count($errors))
-                                        @foreach ($errors->all() as $error)
-                                        <p class="alert alert-danger alert-dismissible fade show"> {{ $error}} </p>
-                                        @endforeach
-                                    @endif
-
-                                    <form method="POST" action="" enctype="multipart/form-data" id="myForm">
-                                        @csrf
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="row mb-3">
@@ -61,7 +60,6 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">Invoice Number</label>
-                                                <!-- <input class="form-control" name="invoice_number" type="text" id="invoice_number"> -->
                                                 <select class="form-control select2"
                                                     data-placeholder="Invoice Number" name="invoice_number" id="invoice_number">
                                                 </select>
@@ -69,7 +67,7 @@
 
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">OR/PR Number</label>
-                                                <input class="form-control" name="or_number" type="text" id="or_number">
+                                                <input class="form-control" name="or_number" type="text" id="or_number" placeholder="OR/PR Number">
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">OR/PR Date</label>
@@ -81,7 +79,7 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <label for="name" class="col-form-label">Delivery Number</label>
-                                                        <input class="form-control" name="delivery_number" type="text" id="delivery_number">
+                                                        <input class="form-control" name="delivery_number" type="text" id="delivery_number" placeholder="Delivery Number">
                                                     </div>
                                                     <div class="col">
                                                         <label for="name" class="col-form-label">Delivery Date</label>
@@ -102,17 +100,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </div> <!-- end col -->
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form method="POST" action="{{ route('admin.store.inventory.sheet') }}" id="myForm">
-                                        @csrf
+                            </div> <!-- end col -->
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
                                         <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
                                             <thead>
                                                 <tr>
@@ -177,11 +172,11 @@
                                         <div class="form-group">
                                             <button class="btn btn-info mt-1" id="storeButton">Delivery Received</button>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </div> <!-- end col -->
-                    </div>
+                            </div> <!-- end col -->
+                        </div>
+                    </form> 
                 </div>
             </div>
 
@@ -337,7 +332,7 @@
                         success: function(data) {
                             var html = '<optgroup label="Invoice Number">';
                             $.each(data, function(key, v) {
-                                html += '<option value="'+ v.invoice_number +'">'+ v.invoice_number +'</option></optgroup>';
+                                html += '<option value="'+ v +'">'+ v +'</option></optgroup>';
                             });
                             $('#invoice_number').html(html);                                                    
                         }

@@ -32,6 +32,8 @@ class AddOrderStoreRequest extends FormRequest
             'remarks' => 'nullable|string',
             'expiry_date' => 'nullable',
             'manufacturing_date' => 'nullable',
+            'or_number' => 'nullable',
+            'delivery_number' => 'nullable',
         ];
     }
 }

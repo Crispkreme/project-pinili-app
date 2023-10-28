@@ -98,7 +98,6 @@ class InventorySheetController extends Controller
     }
 
     public function storeInventorySheet(Request $request) {
-
         DB::beginTransaction();
 
         try {
@@ -125,16 +124,17 @@ class InventorySheetController extends Controller
             $due_amount = $request->due_amount;
             $total_amount = $request->total_amount;
             $balance = $request->balance;
+            $remarks = $request->description;
             $customer_id = auth()->user()->id;
 
             $params = [
                 'invoice_number' => $invoice_number,
                 'po_number' => $po_number,
-                'delivery_number' => $delivery_number,
+                'delivery_number' => $request->input('delivery_number'),
                 'delivery_date' => $request->input('delivery_date'),
                 'previous_delivery' => "",
                 'present_delivery' => "",
-                'or_number' => $or_number,
+                'or_number' => $request->input('or_number'),
                 'or_date' => $request->input('or_date'),
                 'description' => $request->input('description'),
             ];
@@ -155,8 +155,8 @@ class InventorySheetController extends Controller
                 $inventory = [
                     'inventory_sheet_id' => $inventorySheets->id,
                     'po_number' => $po_number,
-                    'delivery_number' => $delivery_number,
-                    'or_number' => $or_number,
+                    'delivery_number' => $request->input('delivery_number'),
+                    'or_number' => $request->input('or_number'),
                     'product_id' => $request->product_id[$i],
                     'inventory_status_id' => $inventory_status_id,
                     'qty' => $request->qty[$i],
@@ -166,8 +166,11 @@ class InventorySheetController extends Controller
 
                 $order = [
                     'delivery_number' => $delivery_number,
-                    'or_number' => $or_number,
+                    'or_number' => $request->input('or_number'),
                     'product_id' => $request->product_id[$i],
+                    'remarks' => $remarks,
+                    'or_number' => $request->input('or_number'),
+                    'delivery_number' => $request->input('delivery_number'),
                 ];
 
                 $inventoryData[] = $inventory;
