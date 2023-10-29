@@ -25,6 +25,11 @@ class DrugClassRepository implements DrugClassContract {
         return $this->model->get();
     }
 
+    public function getSpecificDrugClassById($id)
+    {
+        return $this->model->where('id', $id)->first();
+    }
+
     public function editDrugClass($id)
     {
         return $this->model->with(['classification'])->find($id);

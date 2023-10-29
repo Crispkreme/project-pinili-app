@@ -323,21 +323,20 @@
             });
         </script>
         <script type="text/javascript">
-            $(function(){
-                $(document).on('change','#category_id', function() {
-                    var category_id = $(this).val();
-                    $.ajax({
-                        url: "{{ route('admin.get.specific.category') }}",
-                        type: "GET",
-                        data: { category_id: category_id },
-                        success: function(data){
-                            var html = '<option value="">Select Product Form</option>';
-                            $.each(data, function(key, v) {
-                                html += '<option value="'+ v.form_id +'">'+ v.form.name +'</option>';
-                            });
-                            $('#form_id').html(html);
+            $(document).on('change', '#category_id', function() {
+                var category_id = $(this).val();
+                $.ajax({
+                    url: "{{ route('admin.get.specific.category') }}",
+                    type: "GET",
+                    data: { category_id: category_id },
+                    success: function(data) {
+                        console.log(data);
+                        var html = '<option value="">Select Product Form</option>';
+                        if (data && data.name) {
+                            html += '<option value="' + data.id + '">' + data.name + '</option>';
                         }
-                    });
+                        $('#form_id').html(html);
+                    }
                 });
             });
         </script>

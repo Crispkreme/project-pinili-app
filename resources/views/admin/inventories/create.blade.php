@@ -60,7 +60,6 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label for="name" class="col-form-label">Invoice Number</label>
-                                                <!-- <input class="form-control" name="invoice_number" type="text" id="invoice_number"> -->
                                                 <select class="form-control select2"
                                                     data-placeholder="Invoice Number" name="invoice_number" id="invoice_number">
                                                 </select>
@@ -333,7 +332,7 @@
                         success: function(data) {
                             var html = '<optgroup label="Invoice Number">';
                             $.each(data, function(key, v) {
-                                html += '<option value="'+ v.invoice_number +'">'+ v.invoice_number +'</option></optgroup>';
+                                html += '<option value="'+ v +'">'+ v +'</option></optgroup>';
                             });
                             $('#invoice_number').html(html);                                                    
                         }

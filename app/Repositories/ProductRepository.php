@@ -44,10 +44,11 @@ class ProductRepository implements ProductContract {
 
     public function getSpecificCategory($id)
     {
-        return $this->model
-        ->with(['category', 'form'])
-        ->where('category_id', $id)
-        ->get();
+        return $this->model->select('form_id')
+            ->with(['category', 'form'])
+            ->where('category_id', $id)
+            ->distinct()
+            ->pluck('form_id');
     }
 
     public function getSpecificForm($id)

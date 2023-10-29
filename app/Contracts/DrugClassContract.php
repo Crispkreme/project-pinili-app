@@ -7,5 +7,6 @@ interface DrugClassContract {
     public function storeDrugClass($params);
     public function getAllDrugClass();
     public function editDrugClass($id);
+    public function getSpecificDrugClassById($id);
     public function updateDrugClass($id, $params);
 }
