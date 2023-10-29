@@ -283,6 +283,7 @@ class OrderController extends Controller
         $params = [$startDate, $endDate];
 
         $userData = $this->orderContract->getAllDailyOrderReport($params);
+
         return view('admin.orders.daily-order-report', [
             'userData' => $userData,
             'startDate' => $startDate,

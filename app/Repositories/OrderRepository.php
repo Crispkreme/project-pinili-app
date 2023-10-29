@@ -117,7 +117,7 @@ class OrderRepository implements OrderContract {
         
         return $this->model
         ->whereRaw('DATE(created_at) >= ? AND DATE(created_at) <= ?', [$startDate, $endDate])
-        ->where('status_id', 2)
+        ->where('status_id', 8)
         ->get();
     }
 
