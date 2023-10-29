@@ -99,6 +99,7 @@ class OrderRepository implements OrderContract {
         $order = $this->model->findOrFail($id);
         $order->update([
             'status_id' => 8,
+            'order_status_id' => 7,
         ]);
         return $order;
     }
@@ -189,14 +190,13 @@ class OrderRepository implements OrderContract {
     public function updateOrderStatusByInventorySheet($or_number)
     {
         $orderStatus = $this->model->where('or_number', $or_number)->get();
-
+        
         $orderStatus->each(function ($order) {
             $order->update([
                 'approve_id' => auth()->user()->id,
-                'order_status_id' => 7,
+                'order_status_id' => 8,
             ]);
         });
-
         return $orderStatus;
     }
 
@@ -271,6 +271,7 @@ class OrderRepository implements OrderContract {
             'status'
         ])
         ->where('invoice_number', $params)
+        ->where('order_status_id', 7)
         ->get();
     }
 }
