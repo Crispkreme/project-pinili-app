@@ -22,6 +22,10 @@ use App\Contracts\InventoryPaymentContract;
 use App\Contracts\InventoryPaymentDetailContract;
 use App\Contracts\EntityContract;
 use App\Contracts\TransactionContract;
+use App\Contracts\PatientContract;
+use App\Contracts\PatientBmiContract;
+use App\Contracts\PatientCheckupContract;
+use App\Contracts\PatientCheckupImageContract;
 
 // REPOSITORY
 use App\Repositories\RoleRepository;
@@ -43,6 +47,10 @@ use App\Repositories\InventoryPaymentRepository;
 use App\Repositories\InventoryPaymentDetailRepository;
 use App\Repositories\EntityRepository;
 use App\Repositories\TransactionRepository;
+use App\Repositories\PatientRepository;
+use App\Repositories\PatientBmiRepository;
+use App\Repositories\PatientCheckupRepository;
+use App\Repositories\PatientCheckupImageRepository;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -68,6 +76,10 @@ class RepositoryServiceProvider extends ServiceProvider
         InventoryPaymentDetailContract::class => InventoryPaymentDetailRepository::class,
         EntityContract::class => EntityRepository::class,
         TransactionContract::class => TransactionRepository::class,
+        PatientContract::class => PatientRepository::class,
+        PatientBmiContract::class => PatientBmiRepository::class,
+        PatientCheckupContract::class => PatientCheckupRepository::class,
+        PatientCheckupImageContract::class => PatientCheckupImageRepository::class,
     ];
 
     /**

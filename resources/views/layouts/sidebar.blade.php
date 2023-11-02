@@ -368,107 +368,22 @@
                             'class' => 'waves-effect',
                             'isMenuTitle' => false,
                         ],[
-                            'list' => 'Manage Distributions',
+                            'list' => 'Manage Patients',
                             'url' => 'javascript: void(0);',
-                            'icon' => '<i class="ri-store-2-line"></i>',
+                            'icon' => '<i class="ri-user-search-line"></i>',
                             'class' => 'has-arrow waves-effect',
                             'isMenuTitle' => false,
                             'submenu' => [
                                 [
-                                    'list' => 'Company',
-                                    'url' => route('admin.all.company'),
+                                    'list' => 'Patient',
+                                    'url' => route('clerk.all.patient'),
                                     'icon' => '',
                                     'class' => '',
                                 ],[
-                                    'list' => 'Distributor',
-                                    'url' => route('admin.all.distributor'),
+                                    'list' => 'Checkup',
+                                    'url' => route('clerk.all.patient.checkup'),
                                     'icon' => '',
                                     'class' => '',
-                                ],
-                            ],
-                        ],[
-                            'list' => 'Manage Products',
-                            'url' => 'javascript: void(0);',
-                            'icon' => '<i class="ri-handbag-line"></i>',
-                            'class' => 'has-arrow waves-effect',
-                            'isMenuTitle' => false,
-                            'submenu' => [
-                                [
-                                    'list' => 'Drug Classification',
-                                    'url' => route('admin.all.drug.class'),
-                                    'icon' => '',
-                                    'class' => '',
-                                ],[
-                                    'list' => 'Product',
-                                    'url' => route('admin.all.product'),
-                                    'icon' => '',
-                                    'class' => '',
-                                ],
-                            ],
-                        ],[
-                            'list' => 'Inventory Management',
-                            'url' => '',
-                            'icon' => '',
-                            'class' => 'menu-title',
-                            'isMenuTitle' => true,
-                        ],[
-                            'list' => 'Manage Purchase',
-                            'url' => 'javascript: void(0);',
-                            'icon' => '<i class="ri-shopping-basket-2-line"></i>',
-                            'class' => 'has-arrow waves-effect',
-                            'isMenuTitle' => false,
-                            'submenu' => [
-                                [
-                                    'list' => 'Product Order',
-                                    'url' => route('admin.all.order'),
-                                    'icon' => '',
-                                    'class' => '',
-                                ],[
-                                    'list' => 'Print Invoice',
-                                    'url' => route('admin.print.invoice.order'),
-                                    'icon' => '',
-                                    'class' => '',
-                                ]
-                            ],
-                        ],[
-                            'list' => 'Manage Invoice',
-                            'url' => 'javascript: void(0);',
-                            'icon' => '<i class="ri-survey-line"></i>',
-                            'class' => 'has-arrow waves-effect',
-                            'isMenuTitle' => false,
-                            'submenu' => [
-                                [
-                                    'list' => 'Daily Invoice Report',
-                                    'url' => route('admin.daily.order.report'),
-                                    'icon' => '',
-                                    'class' => '',
-                                ],
-                            ],
-                        ],[
-                            'list' => 'Point of Sale',
-                            'url' => '',
-                            'icon' => '',
-                            'class' => 'menu-title',
-                        ],[
-                            'list' => 'Sample Page',
-                            'url' => 'javascript: void(0);',
-                            'icon' => '<i class="ri-account-circle-line"></i>',
-                            'class' => 'has-arrow waves-effect',
-                            'isMenuTitle' => false,
-                            'submenu' => [
-                                [
-                                    'list' => 'Vertical',
-                                    'url' => 'javascript: void(0);',
-                                    'icon' => '',
-                                    'class' => 'has-arrow',
-                                    'submenu' => [
-                                        [
-                                            'list' => 'Dark Sidebar',
-                                            'url' => 'layouts-dark-sidebar.html',
-                                            'icon' => '',
-                                            'class' => '',
-                                        ],
-                                    ],
                                 ],
                             ],
                         ],

@@ -17,5 +17,7 @@ class PatientCheckup extends Model
         'patient_bmi_id',
         'status', 
         'remarks',
+        'isNew',
+        'isFollowUp',
     ];
 }
