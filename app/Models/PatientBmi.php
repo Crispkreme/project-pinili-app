@@ -19,4 +19,8 @@ class PatientBmi extends Model
         'weight',
         'symptoms',
     ];
+
+    public function patient() {
+        return $this->belongsTo(Patient::class, 'patient_id');
+    }
 }

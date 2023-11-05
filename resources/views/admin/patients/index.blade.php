@@ -35,6 +35,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+                                    <a href="{{ route('clerk.create.patient') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Patient</a><br><br>
+
                                     <h4 class="card-title">Patients List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our users.</p>
 
@@ -42,30 +44,33 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Checkup No.</th>
+                                                <th>Patient No.</th>
                                                 <th>Name</th>
                                                 <th>Age</th>
-                                                <th>Checkup Date</th>
-                                                <th>Followup Date</th>
-                                                <th>Status</th>
+                                                <th>Contact Number</th>
+                                                <th>Address</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($patientCheckupData as $key => $item)
+                                            @foreach($patientData as $key => $item)
                                                 <tr>
-                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $key+1}}</td>
                                                     <td>{{ $item->id_number }}</td>
-                                                    <td>{{ $item->patientBmi->patient->firstname }} {{ $item->patientBmi->patient->mi }} {{ $item->patientBmi->patient->lastname }}</td>
-                                                    <td>{{ $item->patientBmi->patient->age }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
-                                                    <td>Followup Date</td>
-                                                    <td>{{ $item->statuses->status }}</td>
+                                                    <td>{{ $item->firstname }} {{ $item->mi }} {{ $item->lastname }}</td>
+                                                    <td>{{ $item->age }}</td>
+                                                    <td>{{ $item->contact_number }}</td>
+                                                    <td>{{ $item->address }}</td>
                                                     <td>
+                                                        <a href="{{ route('admin.edit.user', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="" class="btn btn-danger sm" title="Delete Data" id="delete">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach
-
                                         </tbody>
                                     </table>
                                 </div>

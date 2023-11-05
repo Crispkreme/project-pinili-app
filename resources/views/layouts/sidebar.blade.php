@@ -172,31 +172,28 @@
                             'class' => 'waves-effect',
                             'isMenuTitle' => false,
                         ],[
-                            'list' => 'Point of Sale',
+                            'list' => 'Patient Management',
                             'url' => '',
                             'icon' => '',
                             'class' => 'menu-title',
                         ],[
-                            'list' => 'Sample Page',
+                            'list' => 'Patient',
                             'url' => 'javascript: void(0);',
                             'icon' => '<i class="ri-account-circle-line"></i>',
                             'class' => 'has-arrow waves-effect',
                             'isMenuTitle' => false,
                             'submenu' => [
                                 [
-                                    'list' => 'Vertical',
-                                    'url' => 'javascript: void(0);',
+                                    'list' => 'Patient',
+                                    'url' => route('admin.all.patient'),
                                     'icon' => '',
-                                    'class' => 'has-arrow',
-                                    'submenu' => [
-                                        [
-                                            'list' => 'Dark Sidebar',
-                                            'url' => 'layouts-dark-sidebar.html',
-                                            'icon' => '',
-                                            'class' => '',
-                                        ],
-                                    ],
-                                ],
+                                    'class' => '',
+                                ],[
+                                    'list' => 'Checkup',
+                                    'url' => route('admin.all.patient.checkup'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ]
                             ],
                         ],
                     ];
@@ -328,26 +325,23 @@
                             'icon' => '',
                             'class' => 'menu-title',
                         ],[
-                            'list' => 'Sample Page',
+                            'list' => 'Patient Management',
                             'url' => 'javascript: void(0);',
                             'icon' => '<i class="ri-account-circle-line"></i>',
                             'class' => 'has-arrow waves-effect',
                             'isMenuTitle' => false,
                             'submenu' => [
                                 [
-                                    'list' => 'Vertical',
-                                    'url' => 'javascript: void(0);',
+                                    'list' => 'Patient',
+                                    'url' => route('admin.all.patient'),
                                     'icon' => '',
-                                    'class' => 'has-arrow',
-                                    'submenu' => [
-                                        [
-                                            'list' => 'Dark Sidebar',
-                                            'url' => 'layouts-dark-sidebar.html',
-                                            'icon' => '',
-                                            'class' => '',
-                                        ],
-                                    ],
-                                ],
+                                    'class' => '',
+                                ],[
+                                    'list' => 'Checkup',
+                                    'url' => route('admin.all.patient.checkup'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ]
                             ],
                         ],
                     ];
