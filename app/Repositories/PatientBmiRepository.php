@@ -16,7 +16,7 @@ class PatientBmiRepository implements PatientBmiContract {
 
     public function allPatientBmi()
     {
-        return $this->model->get();
+        return $this->model->with(["patient"])->get();
     }
 
     public function storePatientBmi($params)

@@ -13,11 +13,18 @@ class PatientCheckup extends Model
 
     protected $fillable = [
         'id_number',
-        'patient_id',
         'patient_bmi_id',
-        'status', 
+        'status_id', 
         'remarks',
         'isNew',
         'isFollowUp',
     ];
+
+    public function patientBmi() {
+        return $this->belongsTo(PatientBmi::class, 'patient_bmi_id');
+    }
+
+    public function statuses() {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
 }

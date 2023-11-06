@@ -21,4 +21,8 @@ class Patient extends Model
         'contact_number',
         'address',
     ];
+
+    public function gender() {
+        return $this->belongsTo(Gender::class, 'gender_id');
+    }
 }

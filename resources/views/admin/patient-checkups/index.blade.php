@@ -62,6 +62,12 @@
                                                     <td>Followup Date</td>
                                                     <td>{{ $item->statuses->status }}</td>
                                                     <td>
+                                                        <a href="{{ route('admin.edit.user', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="{{ route('admin.create.checkup', $item->id) }}" class="btn btn-warning sm" title="Edit Data">
+                                                            <i class="ri-user-heart-line"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach

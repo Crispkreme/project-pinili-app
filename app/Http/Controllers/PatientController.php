@@ -12,6 +12,7 @@ use App\Http\Requests\StorePatientBmiRequest;
 use App\Http\Requests\StorePatientRequest;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
 {
@@ -30,7 +31,18 @@ class PatientController extends Controller
     public function getPatient()
     {
         $patientData = $this->patientContract->allPatient();
-        return view('clerk.patients.index', ['patientData' => $patientData]);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.patients.index', ['patientData' => $patientData]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.patients.index', ['patientData' => $patientData]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.patients.index', ['patientData' => $patientData]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function addPatient()
@@ -76,7 +88,6 @@ class PatientController extends Controller
 
             $patientCheckupParams = [
                 'id_number' => 'CHKP-'.$transactionNumber,
-                'patient_id' => $patientID,
                 'patient_bmi_id' => $patientBmiID,
                 'status' => 1, 
                 'remarks' => "for checkup",
@@ -91,7 +102,7 @@ class PatientController extends Controller
 
             if ($request->hasFile('checkup_image')) {
                 $images = $request->file('checkup_image');
-                $imageCount = count($images); // Get the number of uploaded images
+                $imageCount = count($images);
 
                 foreach ($images as $image) {
                     $imageName = Str::random(10) . '.' . $image->getClientOriginalExtension();
@@ -120,7 +131,17 @@ class PatientController extends Controller
                 'message' => 'Patient data saved successfully.',
             ];
 
-            return redirect()->route('clerk.all.patient')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.patient')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.patient')->with($notification);
+                } elseif (Auth::user()->role_id == 3) {
+                    return redirect()->route('clerk.all.patient')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (Exception $e) {
             DB::rollback();
