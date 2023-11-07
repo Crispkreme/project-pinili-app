@@ -49,20 +49,20 @@
                                                 <th>Age</th>
                                                 <th>Contact Number</th>
                                                 <th>Address</th>
-                                                <th>Action</th>
+                                                <th style="text-align: center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($patientData as $key => $item)
-                                                <tr>
+                                                <tr style="vertical-align: baseline;">
                                                     <td>{{ $key+1}}</td>
                                                     <td>{{ $item->id_number }}</td>
                                                     <td>{{ $item->firstname }} {{ $item->mi }} {{ $item->lastname }}</td>
                                                     <td>{{ $item->age }}</td>
                                                     <td>{{ $item->contact_number }}</td>
                                                     <td>{{ $item->address }}</td>
-                                                    <td>
-                                                        <a href="{{ route('admin.edit.user', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                    <td style="text-align: center;">
+                                                        <a href="{{ route('clerk.edit.patient', $item->id) }}" class="btn btn-info sm" title="Edit Data">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     </td>

@@ -16,12 +16,16 @@ return new class extends Migration
             $table->string('id_number');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('patient_bmi_id');
-            $table->string('status');
+            $table->unsignedBigInteger('status_id');
             $table->string('remarks');
-            
+
             $table->foreign('patient_id')
                   ->references('id')
                   ->on('patients')
+                  ->onDelete('cascade');
+            $table->foreign('status_id')
+                  ->references('id')
+                  ->on('statuses')
                   ->onDelete('cascade');
             $table->foreign('patient_bmi_id')
                   ->references('id')

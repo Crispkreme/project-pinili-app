@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Contracts\PatientContract;
-use App\Contracts\PatientBmiContract;
-use App\Contracts\PatientCheckupContract;
-use App\Contracts\PatientCheckupImageContract;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\StorePatientBmiRequest;
-use App\Http\Requests\StorePatientRequest;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Contracts\PatientBmiContract;
+use Illuminate\Support\Facades\Storage;
+use App\Contracts\PatientCheckupContract;
+use App\Http\Requests\StorePatientRequest;
+use App\Http\Requests\StorePatientBmiRequest;
+use App\Contracts\PatientCheckupImageContract;
 
 class PatientController extends Controller
 {
@@ -89,7 +90,7 @@ class PatientController extends Controller
             $patientCheckupParams = [
                 'id_number' => 'CHKP-'.$transactionNumber,
                 'patient_bmi_id' => $patientBmiID,
-                'status' => 1, 
+                'status_id' => 1,
                 'remarks' => "for checkup",
                 'isNew' => 1,
                 'isFollowUp' => 0,
@@ -106,7 +107,8 @@ class PatientController extends Controller
 
                 foreach ($images as $image) {
                     $imageName = Str::random(10) . '.' . $image->getClientOriginalExtension();
-                    $image->move(public_path('uploads'), $imageName);
+                    // $image->move(public_path('uploads'), $imageName);
+                    Storage::disk('app')->put($imageName, file_get_contents($image));
                     $imagePaths[] = 'uploads/' . $imageName;
                 }
 
@@ -152,6 +154,44 @@ class PatientController extends Controller
             ];
 
             return redirect()->back()->with($notification);
+        }
+    }
+
+    public function editPatient($id)
+    {
+        $patientCheckups = $this->patientCheckupContract->getPatientCheckupByPatientId($id);
+
+        if ($patientCheckups->isNotEmpty()) {
+
+            $firstPatientCheckup = $patientCheckups->first();
+            $patientBmiID = $firstPatientCheckup->patient_bmi_id;
+
+            $patientBmi = $this->patientBmiContract->getPatientBmiByPatientId($patientBmiID);
+            $patientID = $patientBmi->patient_id;
+
+            $patientCheckupImage = $this->patientCheckupImageContract->getPatientCheckupImageById($id);
+            dd($patientCheckupImage);
+            $patient = $this->patientContract->getPatientById($patientID);
+
+            return view('clerk.patients.edit', [
+                'patient' => $patient,
+                'patientBmi' => $patientBmi,
+            ]);
+        }
+
+        $patientData = $this->patientContract->allPatient();
+
+        if (Auth::check()) {
+            switch (Auth::user()->role_id) {
+                case 1:
+                    return view('admin.patients.index', ['patientData' => $patientData]);
+                case 2:
+                    return view('manager.patients.index', ['patientData' => $patientData]);
+                case 3:
+                    return view('clerk.patients.index', ['patientData' => $patientData]);
+                default:
+                    return view('404');
+            }
         }
     }
 }

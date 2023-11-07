@@ -23,6 +23,8 @@ Route::group(['controller' => PatientController::class], function () {
     Route::get('/patient', 'getPatient')->name('all.patient');
     Route::get('/create/patient', 'addPatient')->name('create.patient');
     Route::post('/store/patient', 'storePatient')->name('store.patient');
+    Route::get('/edit/patient/{id}', 'editPatient')->name('edit.patient');
+    Route::post('/update/patient/{id}', 'updatePatient')->name('update.patient');
 });
 
 Route::group(['controller' => PatientCheckupController::class], function () {
