@@ -298,4 +298,9 @@ class PatientController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function createPatientCheckup($id)
+    {
+        dd($id);
+    }
 }

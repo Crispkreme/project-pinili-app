@@ -14,6 +14,9 @@ class ClassificationSeeder extends Seeder
     public function run(): void
     {
         Classification::create([
+            'classification' => 'N/A',
+        ]);
+        Classification::create([
             'classification' => 'Category',
         ]);
         Classification::create([

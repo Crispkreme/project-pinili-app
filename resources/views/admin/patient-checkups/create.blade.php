@@ -89,61 +89,32 @@
                                         <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
                                             <thead>
                                                 <tr>
+                                                    <th>ID</th>
                                                     <th>Medicine Name</th>
-                                                    <th>Generic Name</th>
-                                                    <th>Price</th>
                                                     <th>Qty</th>
-                                                    <th>Total Price</th>
+                                                    <th>Diagnosis</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="addRow" class="addRow"></tbody>
                                             <tbody>
                                                 <tr>
-                                                    <td>Remarks</td>
-                                                    <td colspan="3">
-                                                        <textarea placeholder="Remarks" class="form-control" rows="2" name="description" id="description"></textarea>
-                                                    </td>
-                                                    <td>Paid Amount</td>
-                                                    <td colspan="2">
-                                                        <input type="text" class="form-control current_paid_amount" id="current_paid_amount" name="current_paid_amount" placeholder="0.00">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Payment Status</td>
-                                                    <td colspan="3">
-                                                        <select class="form-select select-2" style="width:98%;" name="payment_status_id" aria-label="Default select example" id="payment_status_id">
-                                                            <option selected disabled>Select Supplier</option>
-                                                            <option value="5">Fully Paid</option>
-                                                            <option value="6">Pay Due</option>
-                                                            <option value="4">Partial Payment</option>
+                                                    <td>1</td>
+                                                    <td>
+                                                        <select class="select2" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
+                                                            <option selected disabled>Medicine Name</option>
+                                                            @if (empty($distributorData))
+                                                                <option value="" disabled>No data found</option>
+                                                            @else
+                                                                @foreach ($distributorData as $distributorDataId => $name)
+                                                                    <option value="{{ $distributorDataId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                                @endforeach
+                                                            @endif
                                                         </select>
                                                     </td>
-                                                    <td>Discount</td>
-                                                    <td colspan="2">
-                                                        <input type="text" class="form-control discount_amount" id="discount_amount" name="discount_amount" placeholder="0.00">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4"></td>
-                                                    <td>Due Amount</td>
-                                                    <td colspan="2">
-                                                        <input type="text" class="form-control due_amount" id="due_amount" name="due_amount" value="0" style="background-color:#ddd;" readonly>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4"></td>
-                                                    <td>Balance</td>
-                                                    <td colspan="2">
-                                                        <input type="text" class="form-control balance" id="balance" name="balance" value="0" style="background-color:#ddd;" readonly>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4"></td>
-                                                    <td>Total Amount</td>
-                                                    <td colspan="2">
-                                                        <input type="text" class="form-control total_amount" id="total_amount" name="total_amount" value="0" style="background-color:#ddd;" readonly>
-                                                    </td>
+                                                    <td>5</td>
+                                                    <td>Diagnosis</td>
+                                                    <td>Action</td>
                                                 </tr>
                                             </tbody>
                                         </table>
