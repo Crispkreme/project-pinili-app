@@ -280,22 +280,22 @@
                             'submenu' => [
                                 [
                                     'list' => 'Product Order',
-                                    'url' => route('admin.all.order'),
+                                    'url' => route('manager.all.order'),
                                     'icon' => '',
                                     'class' => '',
                                 ],[
                                     'list' => 'Pending Approval',
-                                    'url' => route('admin.pending.order'),
+                                    'url' => route('manager.pending.order'),
                                     'icon' => '',
                                     'class' => '',
                                 ],[
                                     'list' => 'Deleted Order',
-                                    'url' => route('admin.all.delete.order'),
+                                    'url' => route('manager.all.delete.order'),
                                     'icon' => '',
                                     'class' => '',
                                 ],[
                                     'list' => 'Print Invoice',
-                                    'url' => route('admin.print.invoice.order'),
+                                    'url' => route('manager.print.invoice.order'),
                                     'icon' => '',
                                     'class' => '',
                                 ]
@@ -309,12 +309,12 @@
                             'submenu' => [
                                 [
                                     'list' => 'Daily Invoice Report',
-                                    'url' => route('admin.daily.order.report'),
+                                    'url' => route('manager.daily.order.report'),
                                     'icon' => '',
                                     'class' => '',
                                 ],[
                                     'list' => 'Approve Invoice',
-                                    'url' => route('admin.pending.order'),
+                                    'url' => route('manager.pending.order'),
                                     'icon' => '',
                                     'class' => '',
                                 ],
@@ -333,12 +333,12 @@
                             'submenu' => [
                                 [
                                     'list' => 'Patient',
-                                    'url' => route('admin.all.patient'),
+                                    'url' => route('manager.all.patient'),
                                     'icon' => '',
                                     'class' => '',
                                 ],[
                                     'list' => 'Checkup',
-                                    'url' => route('admin.all.patient.checkup'),
+                                    'url' => route('manager.all.patient.checkup'),
                                     'icon' => '',
                                     'class' => '',
                                 ]
