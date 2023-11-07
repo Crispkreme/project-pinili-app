@@ -6,4 +6,5 @@ interface PatientCheckupImageContract {
 
     public function allPatientCheckupImage();
     public function storePatientCheckupImage($params);
+    public function getPatientCheckupImageById($id);
 }

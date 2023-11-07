@@ -23,4 +23,9 @@ class PatientRepository implements PatientContract {
     {
         return $this->model->create($params);
     }
+
+    public function getPatientById($id)
+    {
+        return $this->model->where('id', $id)->first();
+    }
 }

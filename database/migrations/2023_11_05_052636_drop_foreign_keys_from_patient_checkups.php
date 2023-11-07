@@ -7,17 +7,18 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migration.
      */
     public function up(): void
     {
         Schema::table('patient_checkups', function (Blueprint $table) {
             $table->dropForeign(['patient_id']);
+            $table->dropColumn('patient_id');
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migration.
      */
     public function down(): void
     {

@@ -34,7 +34,7 @@
                     <div class="row">
                         <form method="POST" action="{{ route('clerk.store.patient') }}" enctype="multipart/form-data">
                         	@csrf
-                        	<input type="hidden" name="patientID[]" value="{{ $patient->id }}">
+
                         	<div class="col-12">
 	                            <div class="card">
 	                                <div class="card-body">

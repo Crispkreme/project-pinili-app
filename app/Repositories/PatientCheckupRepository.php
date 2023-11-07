@@ -31,4 +31,14 @@ class PatientCheckupRepository implements PatientCheckupContract {
         ->where('id', $id)
         ->get();
     }
+
+    public function getPatientCheckupByPatientId($id)
+    {
+        return $this->model
+        ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
+        ->whereHas('patientBmi.patient', function ($query) use ($id) {
+            $query->where('id', $id);
+        })
+        ->get();
+    }
 }

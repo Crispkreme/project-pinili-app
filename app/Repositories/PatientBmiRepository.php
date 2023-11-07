@@ -23,4 +23,14 @@ class PatientBmiRepository implements PatientBmiContract {
     {
         return $this->model->create($params);
     }
+
+    public function getPatientBmiByPatientId($id)
+    {
+        return $this->model
+        ->with(['patient'])
+        ->whereHas('patient', function ($query) use ($id) {
+            $query->where('id', $id);
+        })
+        ->first();
+    }
 }
