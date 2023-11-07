@@ -28,4 +28,11 @@ class PatientRepository implements PatientContract {
     {
         return $this->model->where('id', $id)->first();
     }
+
+    public function updatePatient($id, $params)
+    {
+        $patient = $this->model->findOrFail($id);
+        $patient->update($params);
+        return $patient;
+    }
 }

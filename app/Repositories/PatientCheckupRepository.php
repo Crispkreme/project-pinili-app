@@ -29,7 +29,7 @@ class PatientCheckupRepository implements PatientCheckupContract {
         return $this->model
         ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
         ->where('id', $id)
-        ->get();
+        ->first();
     }
 
     public function getPatientCheckupByPatientId($id)
@@ -40,5 +40,15 @@ class PatientCheckupRepository implements PatientCheckupContract {
             $query->where('id', $id);
         })
         ->get();
+    }
+
+    public function getPatientCheckupByBmiId($id)
+    {
+        return $this->model
+        ->with(['patientBmi', 'patientBmi', 'statuses'])
+        ->whereHas('patientBmi', function ($query) use ($id) {
+            $query->where('id', $id);
+        })
+        ->first();
     }
 }

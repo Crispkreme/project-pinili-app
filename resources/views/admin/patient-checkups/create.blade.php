@@ -47,15 +47,15 @@
                                         <div class="row mb-3">
                                             <div class="col-md-5">
                                                 <label for="name" class="col-form-label">Firstname</label>
-                                                <input class="form-control" name="or_number" type="text" id="or_number" placeholder="OR/PR Number">
+                                                <input class="form-control" name="firstname" type="text" id="firstname" value="{{ $patientCheckupData->patientBmi->patient->firstname }}" placeholder="Firstname" readonly>
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="name" class="col-form-label">M.I.</label>
-                                                <input class="form-control" name="or_number" type="text" id="or_number" placeholder="OR/PR Number">
+                                                <input class="form-control" name="mi" type="text" id="mi" placeholder="M.I." value="{{ $patientCheckupData->patientBmi->patient->mi }}" readonly>
                                             </div>
                                             <div class="col-md-5">
                                                 <label for="name" class="col-form-label">Lastname</label>
-                                                <input class="form-control" name="or_number" type="text" id="or_number" placeholder="OR/PR Number">
+                                                <input class="form-control" name="lastname" type="text" id="lastname" placeholder="M.I." value="{{ $patientCheckupData->patientBmi->patient->lastname }}" readonly>
                                             </div>
                                         </div>
                                         <div class="row" style="align-items: flex-end;">
@@ -63,25 +63,19 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <label for="name" class="col-form-label">Age</label>
-                                                        <input class="form-control" name="or_number" type="text" id="or_number" placeholder="OR/PR Number">
+                                                        <input class="form-control" name="age" type="text" id="age" placeholder="M.I." value="{{ $patientCheckupData->patientBmi->patient->age }}" readonly>
                                                     </div>
                                                     <div class="col">
                                                         <label for="name" class="col-form-label">Check up Status</label>
-                                                        <input class="form-control" name="or_number" type="text" id="or_number" placeholder="OR/PR Number">
+                                                        <input class="form-control" name="age" type="text" id="age" placeholder="M.I." value="{{ $patientCheckupData->statuses->status }}" readonly>
                                                     </div>
                                                     <div class="col">
                                                         <label for="name" class="col-form-label">Follow up Date</label>
-                                                        <input class="form-control" name="or_number" type="text" id="or_number" placeholder="OR/PR Number">
+                                                        <input class="form-control" name="follow_up_date" type="date" id="follow_up_date" placeholder="">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <div style="display:flex;justify-content: flex-end;">
-                                                    <button type="button" class="btn btn-secondary btn-rounded waves-effect waves-light addeventmore">
-                                                        <i class="ri-add-fill align-middle ms-2" style="margin-right: 1px;"></i>
-                                                        Add More
-                                                    </button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
