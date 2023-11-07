@@ -26,9 +26,8 @@ class PatientCheckupImageRepository implements PatientCheckupImageContract {
 
     public function getPatientCheckupImageById($id)
     {
-        $data = $this->model
+        return $this->model
         ->where('patient_checkup_id', $id)
         ->get();
-        dd($data);
     }
 }

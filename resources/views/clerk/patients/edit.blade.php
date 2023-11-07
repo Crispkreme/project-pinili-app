@@ -32,7 +32,7 @@
                     <!-- end page title -->
 
                     <div class="row">
-                        <form method="POST" action="{{ route('clerk.update.patient', $patient->id) }}" enctype="multipart/form-data">
+                        <form method="POST" action="" enctype="multipart/form-data">
                         	@csrf
 
                         	<div class="col-12">

@@ -170,7 +170,7 @@ class PatientController extends Controller
             $patientID = $patientBmi->patient_id;
 
             $patientCheckupImage = $this->patientCheckupImageContract->getPatientCheckupImageById($id);
-            dd($patientCheckupImage);
+
             $patient = $this->patientContract->getPatientById($patientID);
 
             return view('clerk.patients.edit', [
