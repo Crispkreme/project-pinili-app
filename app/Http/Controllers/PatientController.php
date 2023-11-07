@@ -48,7 +48,19 @@ class PatientController extends Controller
 
     public function addPatient()
     {
-        return view('clerk.patients.create');
+        $patientData = $this->patientContract->allPatient();
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.patients.create', ['patientData' => $patientData]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.patients.create', ['patientData' => $patientData]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.patients.create', ['patientData' => $patientData]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function storePatient(Request $request) {
