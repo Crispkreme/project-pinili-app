@@ -62,11 +62,8 @@
                                                     <td>{{ $item->contact_number }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td>
-                                                        <a href="{{ route('admin.edit.user', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                        <a href="{{ route('admin.edit.patient', $item->id) }}" class="btn btn-info sm" title="Edit Data">
                                                             <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        <a href="" class="btn btn-danger sm" title="Delete Data" id="delete">
-                                                            <i class="fas fa-trash-alt"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
