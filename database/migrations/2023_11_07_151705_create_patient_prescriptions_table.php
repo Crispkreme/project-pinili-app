@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('patient_prescriptions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id')->default(1);
             $table->unsignedBigInteger('patient_checkup_id');
+            $table->unsignedBigInteger('laboratory_id')->default(1);
             $table->unsignedBigInteger('status_id');
             $table->string('invoice_number');
             $table->string('remarks');
@@ -26,6 +27,10 @@ return new class extends Migration
             $table->foreign('patient_checkup_id')
                   ->references('id')
                   ->on('patient_checkups')
+                  ->onDelete('cascade');
+            $table->foreign('laboratory_id')
+                  ->references('id')
+                  ->on('laboratories')
                   ->onDelete('cascade');
             $table->foreign('status_id')
                   ->references('id')

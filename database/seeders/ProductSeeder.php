@@ -14,6 +14,15 @@ class ProductSeeder extends Seeder
     public function run(): void
     {
         Product::create([
+            'category_id' => 1,
+            'form_id' => 1,
+            'barcode' => '',
+            'serial_number' => '',
+            'medicine_name' => 'N/A',
+            'generic_name' => 'N/A',
+            'description' => 'N/A',
+        ]);
+        Product::create([
             'category_id' => 14,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',

@@ -35,7 +35,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Patients List Data</h4>
+                                    <h4 class="card-title">Patient Checkup List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our users.</p>
 
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -48,7 +48,7 @@
                                                 <th>Checkup Date</th>
                                                 <th>Followup Date</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                <th style="text-align: center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -61,12 +61,9 @@
                                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
                                                     <td>Followup Date</td>
                                                     <td>{{ $item->statuses->status }}</td>
-                                                    <td>
-                                                        <a href="{{ route('admin.edit.user', $item->id) }}" class="btn btn-info sm" title="Edit Data">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        <a href="{{ route('admin.create.checkup', $item->id) }}" class="btn btn-warning sm" title="Edit Data">
-                                                            <i class="ri-user-heart-line"></i>
+                                                    <td style="text-align: center;">
+                                                        <a href="{{ route('admin.create.patient.checkup', $item->id) }}" class="btn btn-warning sm" title="Checkup Patient">
+                                                            <i class="ri-hospital-line"></i>
                                                         </a>
                                                     </td>
                                                 </tr>

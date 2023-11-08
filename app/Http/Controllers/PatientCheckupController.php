@@ -35,17 +35,12 @@ class PatientCheckupController extends Controller
         }
     }
 
-    public function createCheckup($id)
+    public function createPatientCheckup($id)
     {
         $patientCheckupData = $this->patientCheckupContract->getPatientCheckupById($id);
 
         return view('admin.patient-checkups.create', [
             'patientCheckupData' => $patientCheckupData
         ]);
-    }
-
-    public function getPatientCheckupByBmiId($id)
-    {
-        dd($id);
     }
 }

@@ -14,6 +14,12 @@ class DrugClassSeeder extends Seeder
     public function run(): void
     {
         DrugClass::create([
+            'classification_id' => 1,
+            'id_number' => '',
+            'name' => 'N/A',
+            'description' => 'N/A',
+        ]);
+        DrugClass::create([
             'classification_id' => 2,
             'id_number' => 'DRG-06283253',
             'name' => 'Tablet',
