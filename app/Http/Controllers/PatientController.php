@@ -206,4 +206,96 @@ class PatientController extends Controller
             }
         }
     }
+
+    public function updatePatient($id, Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $patientParams = [
+                'gender_id' => $request->gender_id,
+                'firstname' => $request->firstname,
+                'mi' => $request->mi,
+                'lastname' => $request->lastname,
+                'age' => $request->age,
+                'contact_number' => $request->contact_number,
+                'address' => $request->address,
+            ];
+
+            $this->patientContract->updatePatient($id, $patientParams);
+
+            $patientBmiParams = [
+                'blood_pressure' => $request->blood_pressure,
+                'heart_rate' => $request->heart_rate,
+                'temperature' => $request->temperature,
+                'weight' => $request->weight,
+                'symptoms' => $request->symptoms,
+            ];
+
+            $patientBmi = $this->patientBmiContract->getPatientBmiByPatientId($id);
+            $bmiID = $patientBmi->id;
+
+            $this->patientBmiContract->updatePatientBmi($bmiID, $patientBmiParams);
+
+            $checkup = $this->patientCheckupContract->getPatientCheckupByBmiId($bmiID);
+            $checkupId = $checkup->id;
+
+            $imagePaths = [];
+            $patientCheckupImageData = [];
+
+            if ($request->hasFile('checkup_image')) {
+                $images = $request->file('checkup_image');
+                $imageCount = count($images);
+
+                foreach ($images as $image) {
+                    $imageName = Str::random(10) . '.' . $image->getClientOriginalExtension();
+                    // $image->move(public_path('uploads'), $imageName);
+                    $imagePaths[] = 'uploads/' . $imageName;
+                }
+
+                for ($i = 0; $i < $imageCount; $i++) {
+                    $patientCheckupImage = [
+                        'patient_checkup_id' => $checkupId,
+                        'checkup_image' => $imagePaths[$i],
+                    ];
+                    $patientCheckupImageData[] = $patientCheckupImage;
+                }
+            }
+
+            foreach ($patientCheckupImageData as $patientCheckupImage) {
+               $this->patientCheckupImageContract->storePatientCheckupImage($patientCheckupImage);
+            }
+
+
+            DB::commit();
+
+            $notification = [
+                'alert-type' => 'success',
+                'message' => 'Patient data updated successfully.',
+            ];
+
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.patient')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.patient')->with($notification);
+                } elseif (Auth::user()->role_id == 3) {
+                    return redirect()->route('clerk.all.patient')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
+
+        } catch (Exception $e) {
+            DB::rollback();
+
+            $notification = [
+                'alert-type' => 'danger',
+                'message' => 'Error occurred: ' . $e->getMessage(),
+            ];
+
+            return redirect()->back()->with($notification);
+        }
+    }
 }

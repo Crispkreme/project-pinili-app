@@ -33,4 +33,11 @@ class PatientBmiRepository implements PatientBmiContract {
         })
         ->first();
     }
+
+    public function updatePatientBmi($id, $params)
+    {
+        $patientBmi = $this->model->findOrFail($id);
+        $patientBmi->update($params);
+        return $patientBmi;
+    }
 }
