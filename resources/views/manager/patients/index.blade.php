@@ -35,7 +35,6 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('clerk.create.patient') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Patient</a><br><br>
 
                                     <h4 class="card-title">Patients List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our users.</p>
@@ -62,7 +61,7 @@
                                                     <td>{{ $item->contact_number }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td>
-                                                        <a href="{{ route('admin.create.checkup', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                        <a href="{{ route('manager.edit.patient', $item->id) }}" class="btn btn-info sm" title="Edit Data">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     </td>
