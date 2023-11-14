@@ -65,4 +65,18 @@ class ProductRepository implements ProductContract {
         $inventory->update($params);
         return $inventory;
     }
+
+    public function getAllProductWithActiveStatus()
+    {
+        // return $this->model
+        // ->with(['category', 'form'])
+        // ->where('isActive', 0)
+        // ->get();
+
+        return $this->model
+        ->with(['category', 'form'])
+        ->pluck('medicine_name', 'id')
+        ->where('isActive', 0)
+        ->toArray();
+    }
 }

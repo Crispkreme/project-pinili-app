@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contracts\PatientCheckupContract;
+use App\Contracts\ProductContract;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePatientBmiRequest;
 use App\Http\Requests\StorePatientRequest;
@@ -14,8 +15,10 @@ class PatientCheckupController extends Controller
 {
     public function __construct(
         PatientCheckupContract $patientCheckupContract,
+        ProductContract $productContract,
     ) {
         $this->patientCheckupContract = $patientCheckupContract;
+        $this->productContract = $productContract;
     }
 
     public function getAllPatientCheckup()
@@ -39,8 +42,11 @@ class PatientCheckupController extends Controller
     {
         $patientCheckupData = $this->patientCheckupContract->getPatientCheckupById($id);
 
+        $products = $this->productContract->getAllProductWithActiveStatus();
+
         return view('admin.patient-checkups.create', [
-            'patientCheckupData' => $patientCheckupData
+            'patientCheckupData' => $patientCheckupData,
+            'products' => $products,
         ]);
     }
 }

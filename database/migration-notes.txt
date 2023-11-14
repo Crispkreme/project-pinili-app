@@ -1,0 +1,19 @@
+=====================================================
+Adding new column in an existing table in laravel cli
+=====================================================
+CMD:
+ - php artisan make:migration add_columnname_to_tablename_table --table=tablename
+
+ 	migration-schema-sample
+	public function up()
+	{
+	    Schema::table('users', function (Blueprint $table) {
+	        $table->datatype('column_name')->nullable();
+	    });
+	}
+	public function down()
+	{
+	    Schema::table('users', function (Blueprint $table) {
+	        $table->dropColumn('column_name');
+	    });
+	}
