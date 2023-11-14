@@ -195,6 +195,20 @@
                                     'class' => '',
                                 ]
                             ],
+                        ],[
+                            'list' => 'Prescription',
+                            'url' => 'javascript: void(0);',
+                            'icon' => '<i class="ri-account-circle-line"></i>',
+                            'class' => 'has-arrow waves-effect',
+                            'isMenuTitle' => false,
+                            'submenu' => [
+                                [
+                                    'list' => 'Prescription',
+                                    'url' => route('admin.all.patient'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ],
+                            ],
                         ],
                     ];
                 }
@@ -325,7 +339,7 @@
                             'icon' => '',
                             'class' => 'menu-title',
                         ],[
-                            'list' => 'Patient Management',
+                            'list' => 'Patient',
                             'url' => 'javascript: void(0);',
                             'icon' => '<i class="ri-account-circle-line"></i>',
                             'class' => 'has-arrow waves-effect',
@@ -342,6 +356,20 @@
                                     'icon' => '',
                                     'class' => '',
                                 ]
+                            ],
+                        ],[
+                            'list' => 'Cashier',
+                            'url' => 'javascript: void(0);',
+                            'icon' => '<i class="ri-account-circle-line"></i>',
+                            'class' => 'has-arrow waves-effect',
+                            'isMenuTitle' => false,
+                            'submenu' => [
+                                [
+                                    'list' => 'Cashier',
+                                    'url' => route('manager.cashier'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ],
                             ],
                         ],
                     ];
