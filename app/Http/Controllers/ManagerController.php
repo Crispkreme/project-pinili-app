@@ -18,4 +18,9 @@ class ManagerController extends Controller
     {
         return view('manager.dashboard');
     }
+
+    public function cashier()
+    {
+        return view('manager.cashiers.index');
+    }
 }

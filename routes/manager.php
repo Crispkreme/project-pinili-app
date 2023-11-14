@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DistributorController;
@@ -27,6 +28,10 @@ use App\Http\Controllers\PatientCheckupController;
 */
 Route::group(['controller' => AdminController::class], function () {
     Route::get('/dashboard', 'index')->name('dashboard');
+});
+
+Route::group(['controller' => ManagerController::class], function () {
+    Route::get('/cashier', 'cashier')->name('cashier');
 });
 
 Route::group(['controller' => EntityController::class], function () {
