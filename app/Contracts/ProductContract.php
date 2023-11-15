@@ -6,6 +6,7 @@ interface ProductContract {
 
     public function storeProduct($params);
     public function getAllProduct();
+    public function getAllProductWithActiveStatus();
     public function getSpecificCategory($id);
     public function getSpecificForm($id);
     public function getProductData();

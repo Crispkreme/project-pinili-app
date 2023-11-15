@@ -89,32 +89,38 @@
                                         <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
+                                                    <th style="text-align: center;">ID</th>
                                                     <th>Medicine Name</th>
                                                     <th>Qty</th>
                                                     <th>Diagnosis</th>
-                                                    <th>Action</th>
+                                                    <th style="text-align: center;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="addRow" class="addRow"></tbody>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>
+                                                <tr style="vertical-align: baseline;">
+                                                    <td width="5%" style="text-align: center;">1</td>
+                                                    <td width="30%">
                                                         <select class="select2" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
                                                             <option selected disabled>Medicine Name</option>
-                                                            @if (empty($distributorData))
+                                                            @if (empty($products))
                                                                 <option value="" disabled>No data found</option>
                                                             @else
-                                                                @foreach ($distributorData as $distributorDataId => $name)
-                                                                    <option value="{{ $distributorDataId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                                @foreach ($products as $productId => $name)
+                                                                    <option value="{{ $productId }}" style="text-transform: capitalize">{{ $name }}</option>
                                                                 @endforeach
                                                             @endif
                                                         </select>
+                                                    </td col="1">
+                                                    <td width="10%">
+                                                        <input class="form-control" type="text" name="qty">
                                                     </td>
-                                                    <td>5</td>
-                                                    <td>Diagnosis</td>
-                                                    <td>Action</td>
+                                                    <td col>
+                                                        <textarea class="form-control" name="remarks" rows="1" cols="50"></textarea>
+                                                    </td>
+                                                    <td width="5%" style="text-align: center;">
+                                                        <a href=""><i class="ri-add-line"></i></a>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
