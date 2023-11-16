@@ -19,37 +19,6 @@
                             <x-breadcrumb />
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Add Product Information</h4>
-                                    <p class="card-title-desc">You can add here you product information.</p>
-
-                                    @if(count($errors))
-                                        @foreach ($errors->all() as $error)
-                                        <p class="alert alert-danger alert-dismissible fade show"> {{ $error}} </p>
-                                        @endforeach
-                                    @endif
-
-                                    <form method="POST" action="" enctype="multipart/form-data" id="myForm">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="row mb-3">
-                                                    <label for="name" class="col-form-label">Date</label>
-                                                    <h5 id="currentDate"></h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4"></div>
-                                            <div class="col-md-4"></div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div> <!-- end col -->
-                    </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <form>
@@ -59,28 +28,28 @@
                                         <div id="progrss-wizard" class="twitter-bs-wizard">
                                             <ul class="twitter-bs-wizard-nav nav-justified">
                                                 <li class="nav-item">
-                                                    <a href="#progress-seller-details" class="nav-link" data-toggle="tab">
+                                                    <a href="#progress-patient-details" class="nav-link" data-toggle="tab">
                                                         <span class="step-number">01</span>
-                                                        <span class="step-title">Seller Details</span>
+                                                        <span class="step-title">Patient Details</span>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#progress-company-document" class="nav-link" data-toggle="tab">
+                                                    <a href="#progress-medicine-details" class="nav-link" data-toggle="tab">
                                                         <span class="step-number">02</span>
-                                                        <span class="step-title">Company Document</span>
+                                                        <span class="step-title">Medicine Prescription</span>
                                                     </a>
                                                 </li>
 
                                                 <li class="nav-item">
-                                                    <a href="#progress-bank-detail" class="nav-link" data-toggle="tab">
+                                                    <a href="#progress-laboratories" class="nav-link" data-toggle="tab">
                                                         <span class="step-number">03</span>
-                                                        <span class="step-title">Bank Details</span>
+                                                        <span class="step-title">Laboratories</span>
                                                     </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="#progress-confirm-detail" class="nav-link" data-toggle="tab">
+                                                    <a href="#progress-purchase-products" class="nav-link" data-toggle="tab">
                                                         <span class="step-number">04</span>
-                                                        <span class="step-title">Confirm Detail</span>
+                                                        <span class="step-title">Purchase Product</span>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -89,8 +58,9 @@
                                                 <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
                                             </div>
                                             <div class="tab-content twitter-bs-wizard-tab-content">
-                                                <div class="tab-pane" id="progress-seller-details">
-                                                    <form>
+                                                <div class="tab-pane" id="progress-patient-details">
+                                                    <form method="POST" action="">
+                                                        @csrf
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <div class="mb-3">
@@ -123,116 +93,116 @@
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-address-input">Address</label>
+                                                                    <label class="form-label" for="progress-basicpill-address-input">Description</label>
                                                                     <textarea id="progress-basicpill-address-input" class="form-control" rows="2"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <div class="tab-pane" id="progress-company-document">
-                                                <div>
-                                                    <form>
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-pancard-input">PAN Card</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-pancard-input">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-vatno-input">VAT/TIN No.</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-vatno-input">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-cstno-input">CST No.</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-cstno-input">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-servicetax-input">Service Tax No.</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-servicetax-input">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-companyuin-input">Company UIN</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-companyuin-input">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-declaration-input">Declaration</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-declaration-input">
+                                                <div class="tab-pane" id="progress-medicine-details">
+                                                    <div class="row">
+                                                        <div class="col-9">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Medicine Name</th>
+                                                                                <th>Unit Price</th>
+                                                                                <th>Qty</th>
+                                                                                <th>SRP</th>
+                                                                                <th>Total Price</th>
+                                                                                <th>Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="addRow" class="addRow"></tbody>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td>Total Amount</td>
+                                                                                <td colspan="2">
+                                                                                    <input type="text" class="form-control total_amount" id="total_amount" name="total_amount" value="0" style="background-color:#ddd;" readonly>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                                </div>
-                                                <div class="tab-pane" id="progress-bank-detail">
-                                                    <div>
-                                                    <form>
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-namecard-input">Name on Card</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-namecard-input">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label>Credit Card Type</label>
-                                                                    <select class="form-select">
-                                                                            <option selected>Select Card Type</option>
-                                                                            <option value="AE">American Express</option>
-                                                                            <option value="VI">Visa</option>
-                                                                            <option value="MC">MasterCard</option>
-                                                                            <option value="DI">Discover</option>
-                                                                    </select>
+                                                        <div class="col-3">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="progress-basicpill-email-input">Medicine Name</label>
+                                                                        <input type="email" class="form-control" id="progress-basicpill-email-input">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="progress-basicpill-email-input">Generic Name</label>
+                                                                        <input type="email" class="form-control" id="progress-basicpill-email-input" readonly>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="progress-basicpill-address-input">Description</label>
+                                                                        <textarea id="progress-basicpill-address-input" class="form-control" rows="2" readonly></textarea>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-cardno-input">Credit Card Number</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-cardno-input">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-card-verification-input">Card Verification Number</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-card-verification-input">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-expiration-input">Expiration Date</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-expiration-input">
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </form>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="progress-confirm-detail">
+                                                <div class="tab-pane" id="progress-laboratories">
+                                                    <div class="row">
+                                                        <div class="col-9">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Laboratory</th>
+                                                                                <th>Qty</th>
+                                                                                <th>SRP</th>
+                                                                                <th>Total Price</th>
+                                                                                <th>Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="addRow" class="addRow"></tbody>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td>Total Amount</td>
+                                                                                <td colspan="2">
+                                                                                    <input type="text" class="form-control total_amount" id="total_amount" name="total_amount" value="0" style="background-color:#ddd;" readonly>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="progress-basicpill-email-input">Laboratory</label>
+                                                                        <input type="email" class="form-control" id="progress-basicpill-email-input">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label" for="progress-basicpill-address-input">Description</label>
+                                                                        <textarea id="progress-basicpill-address-input" class="form-control" rows="2" readonly></textarea>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" id="progress-purchase-products">
                                                     <div class="row justify-content-center">
                                                         <div class="col-lg-6">
                                                             <div class="text-center">
@@ -250,7 +220,7 @@
                                             </div>
                                             <ul class="pager wizard twitter-bs-wizard-pager-link">
                                                 <li class="previous"><a href="javascript: void(0);">Previous</a></li>
-                                                <li class="next"><a href="javascript: void(0);">Next</a></li>
+                                                <li class="next"><a href="javascript: void(0);">Proceed</a></li>
                                             </ul>
                                         </div>
                                     </div>
