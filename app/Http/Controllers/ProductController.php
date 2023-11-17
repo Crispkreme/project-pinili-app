@@ -111,4 +111,11 @@ class ProductController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function searchProductByMedicineName(Request $request)
+    {
+        // $this->productContract->searchProductByMedicineName($request->medicineName);
+        $result = $this->productContract->searchProductByMedicineName($request->medicineName);
+        return response()->json($result);
+    }
 }

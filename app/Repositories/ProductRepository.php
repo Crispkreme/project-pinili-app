@@ -68,15 +68,24 @@ class ProductRepository implements ProductContract {
 
     public function getAllProductWithActiveStatus()
     {
-        // return $this->model
-        // ->with(['category', 'form'])
-        // ->where('isActive', 0)
-        // ->get();
-
         return $this->model
         ->with(['category', 'form'])
         ->pluck('medicine_name', 'id')
         ->where('isActive', 0)
         ->toArray();
+    }
+
+    public function searchProductByMedicineName($params)
+    {
+        // return $this->model
+        // ->with(['category', 'form'])
+        // ->where('medicine_name', $params)
+        // ->first();
+
+        return $this->model
+        ->with(['category', 'form'])
+        ->where('medicine_name', 'like', '%' . $params . '%')
+        ->take(5)
+        ->get();
     }
 }

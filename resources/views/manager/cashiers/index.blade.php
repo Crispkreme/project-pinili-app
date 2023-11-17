@@ -137,7 +137,7 @@
                                                                 <div class="card-body">
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="progress-basicpill-email-input">Medicine Name</label>
-                                                                        <input type="email" class="form-control" id="progress-basicpill-email-input">
+                                                                        <input type="text" class="form-control" id="medicine_name" name="medicine_name">
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="progress-basicpill-email-input">Generic Name</label>
@@ -147,7 +147,12 @@
                                                                         <label class="form-label" for="progress-basicpill-address-input">Description</label>
                                                                         <textarea id="progress-basicpill-address-input" class="form-control" rows="2" readonly></textarea>
                                                                     </div>
+                                                                    <div id="results-container"></div>
                                                                     <div class="mb-3">
+                                                                        <button type="button" class="btn btn-secondary btn-rounded waves-effect waves-light addeventmore">
+                                                                            <i class="ri-add-fill align-middle ms-2" style="margin-right: 1px;"></i>
+                                                                            Add More
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -419,6 +424,30 @@
                 document.getElementById("currentDate").textContent = formattedDate;
             }
             displayCurrentDate();
+        </script>
+
+        <!-- cashier page js scripts -->
+        <script type="text/javascript">
+            $(function(){
+                $(document).on('keyup','#medicine_name', function() {
+                    var medicineName = $(this).val();
+
+                    $.ajax({
+                        url: "{{ route('manager.search.product') }}",
+                        type: "GET",
+                        data: { medicineName: medicineName },
+                        success: function(data){
+                            // var html = '<option value="">Select Product Name</option>';
+                            // $.each(data, function(key, v) {
+                            //     html += '<option value="'+ v.id +'">'+ v.medicine_name +'</option>';
+                            // });
+                            // $('#product_id').html(html);
+
+                            console.log("data", data);
+                        }
+                    });
+                });
+            });
         </script>
     @endpush
 

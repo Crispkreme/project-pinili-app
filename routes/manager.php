@@ -65,6 +65,7 @@ Route::group(['controller' => ProductController::class], function () {
     Route::get('/all/product', 'index')->name('all.product');
     Route::get('/edit/product/{id}', 'editProduct')->name('edit.product');
     Route::post('/update/product/{id}', 'updateProduct')->name('update.product');
+    Route::get('/search/product', 'searchProductByMedicineName')->name('search.product');
 });
 Route::group(['controller' => DrugClassController::class], function () {
     Route::get('/create/drug/class', 'createDrugClass')->name('create.drug.class');
