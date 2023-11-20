@@ -41,4 +41,37 @@ class InventoryRepository implements InventoryContract {
         ->with(['user','product','supplier'])
         ->get();
     }
+
+    public function getSpecificInventoryByProductID($id)
+    {
+        return $this->model
+            ->join('products', 'inventories.product_id', '=', 'products.id')
+            ->with(['user', 'supplier'])
+            ->where('products.isActive', 0)
+            ->where('inventories.product_id', $id)
+            ->select([
+                'products.medicine_name',
+                'products.generic_name',
+                'products.description',
+                'inventories.srp',
+            ])
+            ->get()
+            ->toArray();
+    }
+
+    public function getProductDataByInventory()
+    {
+        // $data = $this->model
+        //     ->where('products.isActive', 0)
+        //     ->select([
+        //             'products.medicine_name',
+        //             'products.generic_name',
+        //             'products.description',
+        //             'inventories.srp',
+        //         ])
+        //     ->get()
+        //     ->toArray();
+
+        return $this->model->get();
+    }
 }

@@ -66,6 +66,8 @@ Route::group(['controller' => ProductController::class], function () {
     Route::get('/edit/product/{id}', 'editProduct')->name('edit.product');
     Route::post('/update/product/{id}', 'updateProduct')->name('update.product');
     Route::get('/search/product', 'searchProductByMedicineName')->name('search.product');
+    Route::get('/get/product/data/{id}', 'getSpecificProductData')->name('get.specific.product.data');
+    Route::get('/get/laboratory/data/{id}', 'getSpecificLaboratoryData')->name('get.specific.laboratory.data');
 });
 Route::group(['controller' => DrugClassController::class], function () {
     Route::get('/create/drug/class', 'createDrugClass')->name('create.drug.class');

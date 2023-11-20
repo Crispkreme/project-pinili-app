@@ -8,4 +8,6 @@ interface InventoryContract {
     public function getProductWiseReport($id);
     public function getSupplierWiseReport($id);
     public function getAllInventory();
+    public function getSpecificInventoryByProductID($id);
+    public function getProductDataByInventory();
 }

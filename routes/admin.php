@@ -75,7 +75,7 @@ Route::group(['controller' => ProductController::class], function () {
 Route::group(['controller' => OrderController::class], function () {
     Route::get('/all/order', 'getAllOrder')->name('all.order');
     Route::get('/create/order', 'createOrder')->name('create.order');
-    Route::get('/get/specific/category', 'getSpecificCategory')->name('get.specific.category');
+    Route::get('/get/specific/category/{id}', 'getSpecificCategory')->name('get.specific.category');
     Route::get('/get/specific/form', 'getSpecificForm')->name('get.specific.form');
     Route::get('/get/specific/product', 'getSpecificProduct')->name('get.specific.product');
     Route::get('/pending/order', 'pendingOrder')->name('pending.order');

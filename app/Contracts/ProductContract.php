@@ -14,4 +14,5 @@ interface ProductContract {
     public function updateProduct($id, $params);
     public function updateInventoryData($id, $params);
     public function searchProductByMedicineName($params);
+    public function getSpecificProductData($id);
 }

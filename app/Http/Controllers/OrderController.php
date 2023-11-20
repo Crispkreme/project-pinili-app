@@ -110,10 +110,9 @@ class OrderController extends Controller
         ]);
     }
 
-    public function getSpecificCategory(Request $request)
+    public function getSpecificCategory(Request $request, $id)
     {
-        $categoryId = $request->category_id;
-        $formId = $this->productContract->getSpecificCategory($categoryId);
+        $formId = $this->productContract->getSpecificCategory($id);
         $formData = $this->drugClassContract->getSpecificDrugClassById($formId);
         return response()->json($formData);
     }

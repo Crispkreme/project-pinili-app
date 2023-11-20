@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Contracts\FormContract;
 use App\Contracts\ProductContract;
 use App\Contracts\CategoryContract;
+use App\Contracts\InventoryContract;
+use App\Contracts\LaboratoryContract;
 use App\Http\Requests\AddProductStoreRequest;
 
 class ProductController extends Controller
@@ -14,15 +16,21 @@ class ProductController extends Controller
     protected $productContract;
     protected $formContract;
     protected $categoryContract;
+    protected $inventoryContract;
+    protected $laboratoryContract;
 
     public function __construct(
         ProductContract $productContract,
         FormContract $formContract,
-        CategoryContract $categoryContract
+        CategoryContract $categoryContract,
+        InventoryContract $inventoryContract,
+        LaboratoryContract $laboratoryContract
     ) {
         $this->productContract = $productContract;
         $this->formContract = $formContract;
         $this->categoryContract = $categoryContract;
+        $this->inventoryContract = $inventoryContract;
+        $this->laboratoryContract = $laboratoryContract;
     }
 
     public function index()
@@ -112,10 +120,15 @@ class ProductController extends Controller
         }
     }
 
-    public function searchProductByMedicineName(Request $request)
+    public function getSpecificProductData($id)
     {
-        // $this->productContract->searchProductByMedicineName($request->medicineName);
-        $result = $this->productContract->searchProductByMedicineName($request->medicineName);
-        return response()->json($result);
+        $products = $this->inventoryContract->getSpecificInventoryByProductID($id);
+        return response()->json($products);
+    }
+
+    public function getSpecificLaboratoryData($id)
+    {
+        $laboratories = $this->laboratoryContract->getSpecificLaboratoryByID($id);
+        return response()->json($laboratories);
     }
 }

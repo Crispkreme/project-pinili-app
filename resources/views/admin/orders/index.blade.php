@@ -54,14 +54,14 @@
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Purchase Order Number</th>
+                                                <th style="width: 5%;">ID</th>
+                                                <th style="width: 15%;">Purchase Order Number</th>
                                                 <th>Product Name</th>
-                                                <th>Supplier</th>
+                                                <th style="width: 15%;">Supplier</th>
                                                 <th>Manufacturer</th>
-                                                <th>Order Date</th>
+                                                <th style="width: 15%;">Order Date</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                <th style="width: 15%;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

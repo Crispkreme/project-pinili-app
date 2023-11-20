@@ -20,6 +20,7 @@ class Inventory extends Model
         'purchase_stocks',
         'srp',
         'po_number',
+        'isActive',
     ];
 
     public function user() {

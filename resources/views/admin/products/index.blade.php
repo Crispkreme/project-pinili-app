@@ -43,13 +43,13 @@
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th style="width:15%;">ID</th>
                                                 <th>Medicine Name</th>
                                                 <th>Generic Name</th>
                                                 <th>Description</th>
                                                 <th>Category</th>
                                                 <th>Form</th>
-                                                <th>Action</th>
+                                                <th style="width:15%;text-align:center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

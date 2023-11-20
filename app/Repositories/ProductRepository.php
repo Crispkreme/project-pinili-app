@@ -44,7 +44,8 @@ class ProductRepository implements ProductContract {
 
     public function getSpecificCategory($id)
     {
-        return $this->model->select('form_id')
+        return $this->model
+            ->select('form_id')
             ->with(['category', 'form'])
             ->where('category_id', $id)
             ->distinct()
@@ -77,15 +78,20 @@ class ProductRepository implements ProductContract {
 
     public function searchProductByMedicineName($params)
     {
-        // return $this->model
-        // ->with(['category', 'form'])
-        // ->where('medicine_name', $params)
-        // ->first();
-
         return $this->model
         ->with(['category', 'form'])
         ->where('medicine_name', 'like', '%' . $params . '%')
         ->take(5)
         ->get();
+    }
+
+    public function getSpecificProductData($id)
+    {
+        return $this->model
+            ->with(['category', 'form'])
+            ->where('isActive', 0)
+            ->where('id', $id)
+            ->get(['medicine_name', 'generic_name', 'description', 'id'])
+            ->toArray();
     }
 }

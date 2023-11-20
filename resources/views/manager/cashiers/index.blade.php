@@ -108,15 +108,15 @@
                                                                     <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>Medicine Name</th>
-                                                                                <th>Unit Price</th>
-                                                                                <th>Qty</th>
-                                                                                <th>SRP</th>
-                                                                                <th>Total Price</th>
-                                                                                <th>Action</th>
+                                                                                <th style="width:25%;">Medicine Name</th>
+                                                                                <th style="width:25%;">Generic Name</th>
+                                                                                <th style="width:10%;">Qty</th>
+                                                                                <th style="width:15%;">SRP</th>
+                                                                                <th style="width:15%;">Subtotal</th>
+                                                                                <th style="width:10%;">Action</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody id="addRow" class="addRow"></tbody>
+                                                                        <tbody id="medicineRow" class="medicineRow"></tbody>
                                                                         <tbody>
                                                                             <tr>
                                                                                 <td></td>
@@ -137,21 +137,23 @@
                                                                 <div class="card-body">
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="progress-basicpill-email-input">Medicine Name</label>
-                                                                        <input type="text" class="form-control" id="medicine_name" name="medicine_name">
+                                                                        <select class="form-control select2"
+                                                                            data-placeholder="Invoice Number" name="product_id" id="product_id">
+                                                                            <option selected disabled>Medicine Name</option>
+                                                                            @if (empty($products))
+                                                                                <option value="" disabled>No data found</option>
+                                                                            @else
+                                                                                @foreach ($products as $productId => $name)
+                                                                                    <option value="{{ $productId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                                                @endforeach
+                                                                            @endif
+                                                                        </select>
                                                                     </div>
+                                                                    <div class="mb-3" id="generic_name" class="generic_name"></div>
+                                                                    <div class="mb-3" id="medicine_description" name="medicine_description"></div>
                                                                     <div class="mb-3">
-                                                                        <label class="form-label" for="progress-basicpill-email-input">Generic Name</label>
-                                                                        <input type="email" class="form-control" id="progress-basicpill-email-input" readonly>
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label" for="progress-basicpill-address-input">Description</label>
-                                                                        <textarea id="progress-basicpill-address-input" class="form-control" rows="2" readonly></textarea>
-                                                                    </div>
-                                                                    <div id="results-container"></div>
-                                                                    <div class="mb-3">
-                                                                        <button type="button" class="btn btn-secondary btn-rounded waves-effect waves-light addeventmore">
-                                                                            <i class="ri-add-fill align-middle ms-2" style="margin-right: 1px;"></i>
-                                                                            Add More
+                                                                        <button type="button" class="btn btn-success waves-effect waves-light addEventMoreMedicine" style="width:100%;display:flex;justify-content:center;">
+                                                                            <i class="ri-add-fill align-middle me-2"></i> Add More
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -168,13 +170,14 @@
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>Laboratory</th>
-                                                                                <th>Qty</th>
-                                                                                <th>SRP</th>
-                                                                                <th>Total Price</th>
-                                                                                <th>Action</th>
+                                                                                <th>Description</th>
+                                                                                <th style="width: 15%;">Qty</th>
+                                                                                <th style="width: 15%;">SRP</th>
+                                                                                <th style="width: 15%;">Total Price</th>
+                                                                                <th style="width: 10%;">Action</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody id="addRow" class="addRow"></tbody>
+                                                                        <tbody id="laboratoryRow" class="laboratoryRow"></tbody>
                                                                         <tbody>
                                                                             <tr>
                                                                                 <td></td>
@@ -194,13 +197,23 @@
                                                                 <div class="card-body">
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="progress-basicpill-email-input">Laboratory</label>
-                                                                        <input type="email" class="form-control" id="progress-basicpill-email-input">
+                                                                        <select class="form-control select2"
+                                                                            data-placeholder="Invoice Number" name="laboratory_id" id="laboratory_id">
+                                                                            <option selected disabled>Laboratory</option>
+                                                                            @if (empty($laboratories))
+                                                                                <option value="" disabled>No data found</option>
+                                                                            @else
+                                                                                @foreach ($laboratories as $laboratoryId => $name)
+                                                                                    <option value="{{ $laboratoryId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                                                @endforeach
+                                                                            @endif
+                                                                        </select>
                                                                     </div>
+                                                                    <div class="mb-3" id="laboratory_description" name="laboratory_description"></div>
                                                                     <div class="mb-3">
-                                                                        <label class="form-label" for="progress-basicpill-address-input">Description</label>
-                                                                        <textarea id="progress-basicpill-address-input" class="form-control" rows="2" readonly></textarea>
-                                                                    </div>
-                                                                    <div class="mb-3">
+                                                                        <button type="button" class="btn btn-success waves-effect waves-light addEventMoreLaboratory" style="width:100%;display:flex;justify-content:center;">
+                                                                            <i class="ri-add-fill align-middle me-2"></i> Add More
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -247,205 +260,184 @@
     <div class="rightbar-overlay"></div>
 
     @push('scripts')
-        <script id="document-template" text="text/x-handlerbars-template">
-            <tr class="delete_add_more_item" id="delete_add_more_item">
-                <input type="hidden" name="manufacturer_id[]" value="@{{ manufacturer_id }}">
-                <input type="hidden" name="supplier_id[]" value="@{{ supplier_id }}">
-                <input type="hidden" name="manufacturing_date[]" value="@{{ manufacturing_date }}">
-                <input type="hidden" name="expiry_date[]" value="@{{ expiry_date }}">
+        <script id="document-template-medicine" type="text/x-handlerbars-template">
+            <tr class="delete_add_more_item_medicine" id="delete_add_more_item_medicine">
                 <input type="hidden" name="product_id[]" value="@{{ product_id }}">
-                <input type="hidden" name="form_id[]" value="@{{ form_id }}">
-                <input type="hidden" name="category_id[]" value="@{{ category_id }}">
 
+                <td>@{{ medicine_name }}</td>
+                <td>@{{ generic_name }}</td>
                 <td>
-                    @{{ medicine_name }}
+                    <input
+                    type="text"
+                    class="form-control subtotal"
+                    id="subtotal"
+                    name="subtotal[]"
+                    placeholder="0">
                 </td>
                 <td>
-                    @{{ generic_name }}
+                    <input
+                    type="text"
+                    name="price[]"
+                    class="form-control price text-right"
+                    value="@{{ purchase_cost }}"
+                    id="price">
                 </td>
                 <td>
-                    @{{ form_name }}
+                    <input
+                    type="text"
+                    class="form-control subtotal"
+                    id="subtotal"
+                    name="subtotal[]"
+                    placeholder="0">
                 </td>
-                <td>
-                    @{{ category_name }}
-                </td>
-                <td>
-                    <input type="number" name="purchase_cost[]" class="form-control purchase_cost text-right" value="">
-                </td>
-                <td>
-                    <input type="number" name="quantity[]" min="1" class="form-control quantity text-right" value="">
-                </td>
-                <td>
-                    <input type="number" name="srp[]" class="form-control srp text-right" value="">
-                </td>
-                <td>
-                    <input type="text" class="form-control subtotal" id="subtotal" name="subtotal" value="0" style="background-color:#ddd;" readonly>
-                </td>
-                <td>
-                    <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
+                <td style="text-align: center;">
+                    <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more_medicine"></i>
                 </td>
             </tr>
         </script>
+
+        <!-- medicine -->
         <script type="text/javascript">
             $(function(){
-                $(document).on('click','.addeventmore', function() {
-                    var manufacturer_id = $('#manufacturer_id').val();
-                    var supplier_id = $('#supplier_id').val();
-                    var manufacturing_date = $('#manufacturing_date').val();
-                    var expiry_date = $('#expiry_date').val();
-                    var category_id = $('#category_id').val();
-                    var form_id = $('#form_id').val();
+                $(document).on('change', '#product_id', function () {
+                    var product_id = $(this).val();
+
+                    $.ajax({
+                        url: "{{ url('manager/get/product/data/') }}/" + product_id,
+                        type: "GET",
+                        success: function (data) {
+                            console.log(data);
+                            var html_generic = '<div class="mb-3">';
+                            var html_medicine_description = '<div class="mb-3">';
+
+                            $.each(data, function (key, v) {
+                                html_generic += '<label class="form-label" for="progress-basicpill-email-input">Generic Name</label><input type="text" class="form-control" value="' + v.medicine_name + '" readonly></div>';
+                            });
+
+                            $('#generic_name').html(html_generic);
+
+                            $.each(data, function (key, v) {
+                                html_medicine_description += '<label class="form-label" for="progress-basicpill-address-input">Description</label><textarea class="form-control" rows="2" readonly>' + v.medicine_name + '</textarea>';
+                            });
+
+                            $('#medicine_description').html(html_medicine_description);
+                        }
+                    });
+                });
+
+                $(document).on('click','.addEventMoreMedicine', function() {
                     var product_id = $('#product_id').val();
-                    var category_name = $('#category_id').find('option:selected').text();
-                    var form_name = $('#form_id').find('option:selected').text();
                     var medicine_name = $('#product_id').find('option:selected').text();
                     var generic_name = $('#product_id').find('option:selected').text();
-                    var description = $('#product_id').find('option:selected').text();
-                    var quantity = $('#quantity').val();
-                    var purchase_cost = $('#purchase_cost').val();
                     var srp = $('#srp').val();
 
-                    if(manufacturer_id == '')
-                    {
-                        $.notify("Manufacturer is required", { globalPosition: 'top right', className: 'error'});
-                        return false;
-                    }
-                    if(supplier_id == '')
-                    {
-                        $.notify("Supplier is required", { globalPosition: 'top right', className: 'error'});
-                        return false;
-                    }
-                    if(category_id == '')
-                    {
-                        $.notify("Category is required", { globalPosition: 'top right', className: 'error'});
-                        return false;
-                    }
-                    if(form_id == '')
-                    {
-                        $.notify("Category is required", { globalPosition: 'top right', className: 'error'});
-                        return false;
-                    }
                     if(product_id == '')
                     {
                         $.notify("Product is required", { globalPosition: 'top right', className: 'error'});
                         return false;
                     }
 
-                    var source = $("#document-template").html();
+                    var source = $("#document-template-medicine").html();
                     var template = Handlebars.compile(source);
                     var data = {
-                        supplier_id:supplier_id,
-                        manufacturer_id:manufacturer_id,
-                        product_id:product_id,
-                        quantity:quantity,
-                        purchase_cost:purchase_cost,
-                        srp:srp,
-                        expiry_date:expiry_date,
-                        manufacturing_date:manufacturing_date,
-                        category_id:category_id,
-                        form_id:form_id,
-                        category_name:category_name,
-                        form_name:form_name,
-                        medicine_name:medicine_name,
-                        generic_name:generic_name,
-                        description:description,
+                        product_id: product_id,
+                        medicine_name: medicine_name,
+                        generic_name: generic_name,
                     }
                     var html = template(data);
-                    $("#addRow").append(html);
+                    console.log(html);
+                    $("#medicineRow").append(html);
                 });
 
-                $(document).on('click','.remove_event_more', function() {
-                    $(this).closest(".delete_add_more_item").remove();
-                    totalAmountPrice();
-                });
-
-                $(document).on('keyup click','.purchase_cost, .quantity', function() {
-                    var purchase_cost = $(this).closest("tr").find("input.purchase_cost").val();
-                    var quantity = $(this).closest("tr").find("input.quantity").val();
-                    var subtotal = purchase_cost * quantity;
-                    $(this).closest("tr").find("input.subtotal").val(subtotal);
-                    totalAmountPrice();
-                });
-
-                // calculate the total amount
-                function totalAmountPrice() {
-                    var sum = 0;
-                    $(".subtotal").each(function () {
-                        var value = parseFloat($(this).val()) || 0;
-                        sum += value;
-                    });
-                    $('.total_amount').val(sum.toFixed(2));
-                }
-            });
-        </script>
-        <script type="text/javascript">
-            $(document).on('change', '#category_id', function() {
-                var category_id = $(this).val();
-                $.ajax({
-                    url: "{{ route('admin.get.specific.category') }}",
-                    type: "GET",
-                    data: { category_id: category_id },
-                    success: function(data) {
-                        console.log(data);
-                        var html = '<option value="">Select Product Form</option>';
-                        if (data && data.name) {
-                            html += '<option value="' + data.id + '">' + data.name + '</option>';
-                        }
-                        $('#form_id').html(html);
-                    }
+                $(document).on('click','.remove_event_more_medicine', function() {
+                    $(this).closest(".delete_add_more_item_medicine").remove();
                 });
             });
         </script>
+
+        <script id="document-template-laboratory" type="text/x-handlebars-template">
+            <tr class="delete_add_more_item_laboratory" id="delete_add_more_item_laboratory">
+                <input type="hidden" name="laboratory_id[]" value="@{{ laboratory_id }}">
+                <td>@{{ laboratory }}</td>
+                <td>@{{ description }}</td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control qty"
+                        id="qty"
+                        name="qty[]"
+                        value="1"
+                        readonly>
+                </td>
+                <td>
+                    <input
+                        type="text"
+                        name="price[]"
+                        class="form-control price text-right"
+                        value="@{{ price }}"
+                        id="price">
+                </td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control subtotal"
+                        id="subtotal"
+                        name="subtotal[]"
+                        placeholder="0">
+                </td>
+                <td style="text-align: center;">
+                    <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more_laboratory"></i>
+                </td>
+            </tr>
+        </script>
+
+        <!-- laboratory -->
         <script type="text/javascript">
             $(function(){
-                $(document).on('change','#form_id', function() {
-                    var form_id = $(this).val();
+                $(document).on('change', '#laboratory_id', function () {
+                    var laboratory_id = $(this).val();
 
                     $.ajax({
-                        url: "{{ route('admin.get.specific.form') }}",
+                        url: "{{ url('manager/get/laboratory/data/') }}/" + laboratory_id,
                         type: "GET",
-                        data: { form_id: form_id },
-                        success: function(data){
-                            var html = '<option value="">Select Product Name</option>';
-                            $.each(data, function(key, v) {
-                                html += '<option value="'+ v.id +'">'+ v.medicine_name +'</option>';
+                        success: function (data) {
+                            var html_laboratory_description = '<div class="mb-3">';
+
+                            $.each(data, function (key, v) {
+                                html_laboratory_description += '<label class="form-label" for="progress-basicpill-address-input">Description</label><textarea class="form-control" rows="2" readonly>' + v.laboratory + '</textarea>';
                             });
-                            $('#product_id').html(html);
+
+                            $('#laboratory_description').html(html_laboratory_description);
                         }
                     });
                 });
-            });
-        </script>
-        <script>
-            function displayCurrentDate() {
-                var currentDate = new Date();
-                var options = { year: 'numeric', month: 'long', day: 'numeric' };
-                var formattedDate = currentDate.toLocaleDateString(undefined, options);
-                document.getElementById("currentDate").textContent = formattedDate;
-            }
-            displayCurrentDate();
-        </script>
 
-        <!-- cashier page js scripts -->
-        <script type="text/javascript">
-            $(function(){
-                $(document).on('keyup','#medicine_name', function() {
-                    var medicineName = $(this).val();
+                $(document).on('click','.addEventMoreLaboratory', function() {
+                    var laboratory_id = $('#laboratory_id').val();
+                    var laboratory = $('#laboratory_id').find('option:selected').text();
+                    var description = $('#laboratory_id').find('option:selected').text();
+                    var price = $('#laboratory_id').find('option:selected').text();
 
-                    $.ajax({
-                        url: "{{ route('manager.search.product') }}",
-                        type: "GET",
-                        data: { medicineName: medicineName },
-                        success: function(data){
-                            // var html = '<option value="">Select Product Name</option>';
-                            // $.each(data, function(key, v) {
-                            //     html += '<option value="'+ v.id +'">'+ v.medicine_name +'</option>';
-                            // });
-                            // $('#product_id').html(html);
+                    if(laboratory_id == '')
+                    {
+                        $.notify("Product is required", { globalPosition: 'top right', className: 'error'});
+                        return false;
+                    }
 
-                            console.log("data", data);
-                        }
-                    });
+                    var source = $("#document-template-laboratory").html();
+                    var template = Handlebars.compile(source);
+                    var data = {
+                        laboratory_id: laboratory_id,
+                        laboratory: laboratory,
+                        description: description,
+                        price: price,
+                    }
+                    var html = template(data);
+                    $("#laboratoryRow").append(html);
+                });
+
+                $(document).on('click','.remove_event_more_laboratory', function() {
+                    $(this).closest(".delete_add_more_item_laboratory").remove();
                 });
             });
         </script>

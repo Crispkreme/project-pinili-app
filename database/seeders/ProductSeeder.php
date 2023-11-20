@@ -23,7 +23,7 @@ class ProductSeeder extends Seeder
             'description' => 'N/A',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -32,7 +32,7 @@ class ProductSeeder extends Seeder
             'description' => 'For Flu',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -41,7 +41,7 @@ class ProductSeeder extends Seeder
             'description' => 'ACECLOFENAC 100MG',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -50,7 +50,7 @@ class ProductSeeder extends Seeder
             'description' => 'ACICLOVIR 200MG',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -59,7 +59,7 @@ class ProductSeeder extends Seeder
             'description' => 'ACETYLCYSTEINE 600MG',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -68,7 +68,7 @@ class ProductSeeder extends Seeder
             'description' => 'ALLUMINUM MAGNESIUN LIQUID SACHET',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -77,7 +77,7 @@ class ProductSeeder extends Seeder
             'description' => 'ALLUMINUM MAGNESIUN TABLET',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -86,7 +86,7 @@ class ProductSeeder extends Seeder
             'description' => 'AMBROXOL 30MG TABLET',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -95,7 +95,7 @@ class ProductSeeder extends Seeder
             'description' => 'AMLODIPINE + LOSARTAN TAB 50MG/5MG',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -104,7 +104,7 @@ class ProductSeeder extends Seeder
             'description' => 'ATORVASTATI + AMLODIPINE 10MG/5MG TAB',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -113,7 +113,7 @@ class ProductSeeder extends Seeder
             'description' => 'AZITHROMYCIN 500MG TAB',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -122,7 +122,7 @@ class ProductSeeder extends Seeder
             'description' => 'CHLORAMPHENICOL 500MG CAP',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -131,7 +131,7 @@ class ProductSeeder extends Seeder
             'description' => 'COTRIMOXAZOLE800MG TAB',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -140,7 +140,7 @@ class ProductSeeder extends Seeder
             'description' => 'LEVOCETIRIZINE+ MONTELUKAST TAB 10MG',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -149,7 +149,7 @@ class ProductSeeder extends Seeder
             'description' => 'LEVOCETIRIZINE+BETHAMETASONE TAB 10MG',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',
@@ -158,7 +158,7 @@ class ProductSeeder extends Seeder
             'description' => 'POTASSIUM CHLORIDE 750MG TAB',
         ]);
         Product::create([
-            'category_id' => 14,
+            'category_id' => 15,
             'form_id' => 2,
             'barcode' => 'PRD-20230222-083223',
             'serial_number' => '',

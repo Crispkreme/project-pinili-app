@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <div class="row mb-3">
+                                                <div class="mb-3">
                                                     <label for="name" class="col-form-label">Manufacturer</label>
                                                     <select class="form-control" style="width:98%;" name="manufacturer_id" aria-label="Default select example" id="manufacturer_id">
                                                         <option selected disabled>Select Manufacturer</option>
@@ -87,39 +87,33 @@
                                             <div class="col-md-9">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <div class="row">
-                                                            <label for="name" class="col-form-label">Product Category</label>
-                                                            <select class="form-select select-2" style="width:98%;" name="category_id" aria-label="Default select example" id="category_id">
-                                                                <option selected disabled>Select Product Category</option>
-                                                                @if (empty($categoryData))
-                                                                    <option value="" disabled>No data found</option>
-                                                                @else
-                                                                    @foreach ($categoryData as $categoryDataId => $name)
-                                                                        <option value="{{ $categoryDataId }}" style="text-transform: capitalize">{{ $name }}</option>
-                                                                    @endforeach
-                                                                @endif
-                                                            </select>
-                                                        </div>
+                                                        <label for="name" class="col-form-label">Product Category</label>
+                                                        <select class="form-select select-2" style="width:98%;" name="category_id" aria-label="Default select example" id="category_id">
+                                                            <option selected disabled>Select Product Category</option>
+                                                            @if (empty($categoryData))
+                                                                <option value="" disabled>No data found</option>
+                                                            @else
+                                                                @foreach ($categoryData as $categoryDataId => $name)
+                                                                    <option value="{{ $categoryDataId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                                @endforeach
+                                                            @endif
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <div class="row">
-                                                            <label for="name" class="col-form-label">Product Form</label>
-                                                            <select class="form-select select-2" style="width:98%;" name="form_id" aria-label="Default select example" id="form_id">
-                                                                <option value="">Select Product Form</option>
-                                                            </select>
-                                                        </div>
+                                                        <label for="name" class="col-form-label">Product Form</label>
+                                                        <select class="form-select select-2" style="width:98%;" name="form_id" aria-label="Default select example" id="form_id">
+                                                            <option value="">Select Product Form</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <div class="row">
-                                                            <label for="name" class="col-form-label">Product</label>
-                                                            <select class="form-select select-2" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
-                                                                <option value="">Select Product Name</option>
-                                                            </select>
-                                                        </div>
+                                                        <label for="name" class="col-form-label">Product</label>
+                                                        <select class="form-select select-2" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
+                                                            <option value="">Select Product Name</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col">
+                                            <div class="col-md-3">
                                                 <div style="display:flex;justify-content:space-between;">
                                                     <button type="button" class="btn btn-secondary btn-rounded waves-effect waves-light addeventmore">
                                                         <i class="ri-add-fill align-middle ms-2" style="margin-right: 1px;"></i>
@@ -144,13 +138,13 @@
                                                 <tr>
                                                     <th>Medicine Name</th>
                                                     <th>Generic Name</th>
-                                                    <th>Form</th>
-                                                    <th>Category</th>
-                                                    <th>Unit Price</th>
-                                                    <th>Qty</th>
-                                                    <th>SRP</th>
-                                                    <th>Total Price</th>
-                                                    <th>Action</th>
+                                                    <th style="width: 6%;">Form</th>
+                                                    <th style="width: 9%;">Category</th>
+                                                    <th style="width: 10%;">Unit Price</th>
+                                                    <th style="width: 10%;">Qty</th>
+                                                    <th style="width: 10%;">SRP</th>
+                                                    <th style="width: 10%;">Total Price</th>
+                                                    <th style="width: 5%;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="addRow" class="addRow"></tbody>
@@ -311,7 +305,6 @@
                     totalAmountPrice();
                 });
 
-                // calculate the total amount
                 function totalAmountPrice() {
                     var sum = 0;
                     $(".subtotal").each(function () {
@@ -326,11 +319,11 @@
             $(document).on('change', '#category_id', function() {
                 var category_id = $(this).val();
                 $.ajax({
-                    url: "{{ route('admin.get.specific.category') }}",
+                    url: "{{ url('admin/get/specific/category/') }}/" + category_id,
                     type: "GET",
                     data: { category_id: category_id },
                     success: function(data) {
-                        console.log(data);
+                        console.log("data", data);
                         var html = '<option value="">Select Product Form</option>';
                         if (data && data.name) {
                             html += '<option value="' + data.id + '">' + data.name + '</option>';
