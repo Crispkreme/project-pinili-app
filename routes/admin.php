@@ -14,6 +14,7 @@ use App\Http\Controllers\DistributorController;
 use App\Http\Controllers\InventorySheetController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientCheckupController;
+use App\Http\Controllers\PatientPrescriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -132,4 +133,8 @@ Route::group(['controller' => PatientController::class], function () {
 Route::group(['controller' => PatientCheckupController::class], function () {
     Route::get('/patient/checkup', 'getAllPatientCheckup')->name('all.patient.checkup');
     Route::get('/patient/create/checkup/{id}', 'createPatientCheckup')->name('create.patient.checkup');
+});
+
+Route::group(['controller' => PatientPrescriptionController::class], function () {
+    Route::get('/patient/all/prescription', 'getPatientPrescription')->name('all.patient.prescription');
 });

@@ -20,8 +20,8 @@
                         </div>
                     </div>
                     <form method="POST" action="{{ route('admin.store.inventory.sheet') }}" id="myForm">
-                        @csrf 
-                        <div class="row">      
+                        @csrf
+                        <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -44,35 +44,15 @@
                                             <div class="col-md-4"></div>
                                             <div class="col-md-4"></div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-5">
-                                                <label for="name" class="col-form-label">Firstname</label>
-                                                <input class="form-control" name="firstname" type="text" id="firstname" value="{{ $patientCheckupData->patientBmi->patient->firstname }}" placeholder="Firstname" readonly>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="name" class="col-form-label">M.I.</label>
-                                                <input class="form-control" name="mi" type="text" id="mi" placeholder="M.I." value="{{ $patientCheckupData->patientBmi->patient->mi }}" readonly>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label for="name" class="col-form-label">Lastname</label>
-                                                <input class="form-control" name="lastname" type="text" id="lastname" placeholder="M.I." value="{{ $patientCheckupData->patientBmi->patient->lastname }}" readonly>
-                                            </div>
-                                        </div>
                                         <div class="row" style="align-items: flex-end;">
                                             <div class="col-md-9">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <label for="name" class="col-form-label">Age</label>
-                                                        <input class="form-control" name="age" type="text" id="age" placeholder="M.I." value="{{ $patientCheckupData->patientBmi->patient->age }}" readonly>
-                                                    </div>
-                                                    <div class="col">
-                                                        <label for="name" class="col-form-label">Check up Status</label>
-                                                        <input class="form-control" name="age" type="text" id="age" placeholder="M.I." value="{{ $patientCheckupData->statuses->status }}" readonly>
-                                                    </div>
-                                                    <div class="col">
                                                         <label for="name" class="col-form-label">Follow up Date</label>
                                                         <input class="form-control" name="follow_up_date" type="date" id="follow_up_date" placeholder="">
                                                     </div>
+                                                    <div class="col"></div>
+                                                    <div class="col"></div>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -86,52 +66,174 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
-                                            <thead>
-                                                <tr>
-                                                    <th style="text-align: center;">ID</th>
-                                                    <th>Medicine Name</th>
-                                                    <th>Qty</th>
-                                                    <th>Diagnosis</th>
-                                                    <th style="text-align: center;">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="addRow" class="addRow"></tbody>
-                                            <tbody>
-                                                <tr style="vertical-align: baseline;">
-                                                    <td width="5%" style="text-align: center;">1</td>
-                                                    <td width="30%">
-                                                        <select class="select2" style="width:98%;" name="product_id" aria-label="Default select example" id="product_id">
-                                                            <option selected disabled>Medicine Name</option>
-                                                            @if (empty($products))
-                                                                <option value="" disabled>No data found</option>
-                                                            @else
-                                                                @foreach ($products as $productId => $name)
-                                                                    <option value="{{ $productId }}" style="text-transform: capitalize">{{ $name }}</option>
-                                                                @endforeach
-                                                            @endif
-                                                        </select>
-                                                    </td col="1">
-                                                    <td width="10%">
-                                                        <input class="form-control" type="text" name="qty">
-                                                    </td>
-                                                    <td col>
-                                                        <textarea class="form-control" name="remarks" rows="1" cols="50"></textarea>
-                                                    </td>
-                                                    <td width="5%" style="text-align: center;">
-                                                        <a href=""><i class="ri-add-line"></i></a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="form-group">
-                                            <button class="btn btn-info mt-1" id="storeButton">Delivery Received</button>
+                                        <h4 class="card-title mb-4">Patient Prescription</h4>
+
+                                        <div id="progrss-wizard" class="twitter-bs-wizard">
+                                            <ul class="twitter-bs-wizard-nav nav-justified nav nav-pills">
+                                                <li class="nav-item">
+                                                    <a href="#progress-patient-details" class="nav-link active" data-toggle="tab">
+                                                        <span class="step-number">01</span>
+                                                        <span class="step-title">Patient Details</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#progress-company-document" class="nav-link" data-toggle="tab">
+                                                        <span class="step-number">02</span>
+                                                        <span class="step-title">Prescribe Medicine</span>
+                                                    </a>
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a href="#progress-bank-detail" class="nav-link" data-toggle="tab">
+                                                        <span class="step-number">03</span>
+                                                        <span class="step-title">Prescribe Laboratory</span>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#progress-confirm-detail" class="nav-link" data-toggle="tab">
+                                                        <span class="step-number">04</span>
+                                                        <span class="step-title">Confirm Detail</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                            <div id="bar" class="progress mt-4">
+                                                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 25%;"></div>
+                                            </div>
+                                            <div class="tab-content twitter-bs-wizard-tab-content">
+                                                <div class="tab-pane active" id="progress-patient-details">
+                                                    <div class="row">
+                                                        <div class="col-lg-5">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-firstname-input">First name</label>
+                                                                <input type="text" class="form-control" id="progress-basicpill-firstname-input" value="{{ $patientCheckupData->patientBmi->patient->firstname }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-5">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-lastname-input">Last name</label>
+                                                                <input type="text" class="form-control" id="progress-basicpill-lastname-input" value="{{ $patientCheckupData->patientBmi->patient->lastname }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-mi-input">MI.:</label>
+                                                                <input type="text" class="form-control" id="progress-basicpill-mi-input" value="{{ $patientCheckupData->patientBmi->patient->mi }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-phoneno-input">Phone</label>
+                                                                <input type="text" class="form-control" id="progress-basicpill-phoneno-input" value="{{ $patientCheckupData->patientBmi->patient->contact_number }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-email-input">Age</label>
+                                                                <input type="text" class="form-control" id="progress-basicpill-email-input" value="{{ $patientCheckupData->patientBmi->patient->age }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-email-input">Gender</label>
+                                                                <input type="text" class="form-control" id="progress-basicpill-email-input" value="{{ $patientCheckupData->patientBmi->patient->gender->gender }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-address-input">Address</label>
+                                                                <textarea id="progress-basicpill-address-input" class="form-control" rows="2" readonly>{{ $patientCheckupData->patientBmi->patient->address }}</textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" id="progress-company-document">
+                                                  <div>
+
+                                                  </div>
+                                                </div>
+                                                <div class="tab-pane" id="progress-bank-detail">
+                                                    <div>
+                                                      <form>
+                                                          <div class="row">
+                                                              <div class="col-lg-6">
+                                                                  <div class="mb-3">
+                                                                      <label class="form-label" for="progress-basicpill-namecard-input">Name on Card</label>
+                                                                      <input type="text" class="form-control" id="progress-basicpill-namecard-input">
+                                                                  </div>
+                                                              </div>
+
+                                                              <div class="col-lg-6">
+                                                                  <div class="mb-3">
+                                                                      <label>Credit Card Type</label>
+                                                                      <select class="form-select">
+                                                                            <option selected="">Select Card Type</option>
+                                                                            <option value="AE">American Express</option>
+                                                                            <option value="VI">Visa</option>
+                                                                            <option value="MC">MasterCard</option>
+                                                                            <option value="DI">Discover</option>
+                                                                      </select>
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-lg-6">
+                                                                  <div class="mb-3">
+                                                                      <label class="form-label" for="progress-basicpill-cardno-input">Credit Card Number</label>
+                                                                      <input type="text" class="form-control" id="progress-basicpill-cardno-input">
+                                                                  </div>
+                                                              </div>
+
+                                                              <div class="col-lg-6">
+                                                                  <div class="mb-3">
+                                                                      <label class="form-label" for="progress-basicpill-card-verification-input">Card Verification Number</label>
+                                                                      <input type="text" class="form-control" id="progress-basicpill-card-verification-input">
+                                                                  </div>
+                                                              </div>
+                                                          </div>
+                                                          <div class="row">
+                                                              <div class="col-lg-6">
+                                                                  <div class="mb-3">
+                                                                      <label class="form-label" for="progress-basicpill-expiration-input">Expiration Date</label>
+                                                                      <input type="text" class="form-control" id="progress-basicpill-expiration-input">
+                                                                  </div>
+                                                              </div>
+
+                                                          </div>
+                                                      </form>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" id="progress-confirm-detail">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-lg-6">
+                                                            <div class="text-center">
+                                                                <div class="mb-4">
+                                                                    <i class="mdi mdi-check-circle-outline text-success display-4"></i>
+                                                                </div>
+                                                                <div>
+                                                                    <h5>Confirm Detail</h5>
+                                                                    <p class="text-muted">If several languages coalesce, the grammar of the resulting</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ul class="pager wizard twitter-bs-wizard-pager-link">
+                                                <li class="previous disabled"><a href="javascript: void(0);">Previous</a></li>
+                                                <li class="next"><a href="javascript: void(0);">Next</a></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div> <!-- end col -->
                         </div>
-                    </form> 
+                    </form>
                 </div>
             </div>
 
@@ -289,7 +391,7 @@
                             $.each(data, function(key, v) {
                                 html += '<option value="'+ v +'">'+ v +'</option></optgroup>';
                             });
-                            $('#invoice_number').html(html);                                                    
+                            $('#invoice_number').html(html);
                         }
                     });
 

@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 
 class PatientCheckupController extends Controller
 {
+    protected $productContract;
+    protected $patientCheckupContract;
+
     public function __construct(
         PatientCheckupContract $patientCheckupContract,
         ProductContract $productContract,

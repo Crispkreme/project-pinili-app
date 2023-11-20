@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -11,22 +12,31 @@ use Illuminate\Support\Facades\Auth;
 use App\Contracts\PatientBmiContract;
 use Illuminate\Support\Facades\Storage;
 use App\Contracts\PatientCheckupContract;
+use App\Contracts\PrescriptionContract;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\StorePatientBmiRequest;
 use App\Contracts\PatientCheckupImageContract;
 
 class PatientController extends Controller
 {
+    protected $patientContract;
+    protected $prescriptionContract;
+    protected $patientBmiContract;
+    protected $patientCheckupContract;
+    protected $patientCheckupImageContract;
+
     public function __construct(
         PatientContract $patientContract,
         PatientBmiContract $patientBmiContract,
         PatientCheckupContract $patientCheckupContract,
-        PatientCheckupImageContract $patientCheckupImageContract
+        PatientCheckupImageContract $patientCheckupImageContract,
+        PrescriptionContract $prescriptionContract
     ) {
         $this->patientContract = $patientContract;
         $this->patientBmiContract = $patientBmiContract;
         $this->patientCheckupContract = $patientCheckupContract;
         $this->patientCheckupImageContract = $patientCheckupImageContract;
+        $this->prescriptionContract = $prescriptionContract;
     }
 
     public function getPatient()
@@ -107,7 +117,6 @@ class PatientController extends Controller
                 'isNew' => 1,
                 'isFollowUp' => 0,
             ];
-
             $patientCheckup = $this->patientCheckupContract->storePatientCheckup($patientCheckupParams);
 
             $imagePaths = [];
@@ -137,6 +146,16 @@ class PatientController extends Controller
                $this->patientCheckupImageContract->storePatientCheckupImage($patientCheckupImage);
             }
 
+            $patientPrescriptionParams = [
+                'product_id' => 1,
+                'patient_checkup_id' => $patientCheckup->id,
+                'laboratory_id' => 1,
+                'status_id' => 1,
+                'invoice_number' => "",
+                'remarks' => "pending",
+                'isActive' => 1,
+            ];
+            $this->prescriptionContract->storePrescription($patientPrescriptionParams);
 
             DB::commit();
 
@@ -158,6 +177,7 @@ class PatientController extends Controller
             }
 
         } catch (Exception $e) {
+
             DB::rollback();
 
             $notification = [
@@ -181,7 +201,7 @@ class PatientController extends Controller
             $patientBmi = $this->patientBmiContract->getPatientBmiByPatientId($patientBmiID);
             $patientID = $patientBmi->patient_id;
 
-            $patientCheckupImage = $this->patientCheckupImageContract->getPatientCheckupImageById($id);
+            $this->patientCheckupImageContract->getPatientCheckupImageById($id);
 
             $patient = $this->patientContract->getPatientById($patientID);
 

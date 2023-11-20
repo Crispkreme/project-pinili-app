@@ -17,3 +17,8 @@ CMD:
 	        $table->dropColumn('column_name');
 	    });
 	}
+
+=====================================================
+Database command
+=====================================================
+php artisan make:migration add_is_active_to_patient_prescription_table --table=patient_prescriptions

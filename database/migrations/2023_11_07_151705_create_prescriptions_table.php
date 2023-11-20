@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patient_prescriptions', function (Blueprint $table) {
+        Schema::create('prescriptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id')->default(1);
             $table->unsignedBigInteger('patient_checkup_id');
@@ -19,6 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('status_id');
             $table->string('invoice_number');
             $table->string('remarks');
+            $table->integer('qty')->default(0);
+            $table->boolean('isActive')->default(0);
 
             $table->foreign('product_id')
                   ->references('id')
@@ -45,6 +47,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patient_prescriptions');
+        Schema::dropIfExists('prescriptions');
     }
 };

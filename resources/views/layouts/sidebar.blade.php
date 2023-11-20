@@ -204,7 +204,7 @@
                             'submenu' => [
                                 [
                                     'list' => 'Prescription',
-                                    'url' => route('admin.all.patient'),
+                                    'url' => route('admin.all.patient.prescription'),
                                     'icon' => '',
                                     'class' => '',
                                 ],

@@ -27,7 +27,7 @@ use App\Contracts\PatientBmiContract;
 use App\Contracts\PatientCheckupContract;
 use App\Contracts\PatientCheckupImageContract;
 use App\Contracts\LaboratoryContract;
-
+use App\Contracts\PrescriptionContract;
 // REPOSITORY
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
@@ -53,6 +53,7 @@ use App\Repositories\PatientBmiRepository;
 use App\Repositories\PatientCheckupRepository;
 use App\Repositories\PatientCheckupImageRepository;
 use App\Repositories\LaboratoryRepository;
+use App\Repositories\PrescriptionRepository;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -83,6 +84,7 @@ class RepositoryServiceProvider extends ServiceProvider
         PatientCheckupContract::class => PatientCheckupRepository::class,
         PatientCheckupImageContract::class => PatientCheckupImageRepository::class,
         LaboratoryContract::class => LaboratoryRepository::class,
+        PrescriptionContract::class => PrescriptionRepository::class,
     ];
 
     /**
