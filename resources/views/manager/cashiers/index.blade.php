@@ -124,7 +124,7 @@
                                                                                 <td></td>
                                                                                 <td>Total Amount</td>
                                                                                 <td colspan="2">
-                                                                                    <input type="text" class="form-control total_amount" id="total_amount" name="total_amount" value="0" style="background-color:#ddd;" readonly>
+                                                                                    <input type="text" class="form-control total_amount_medicine" id="total_amount_medicine" name="total_amount_medicine" value="0" style="background-color:#ddd;" readonly>
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
@@ -184,7 +184,7 @@
                                                                                 <td></td>
                                                                                 <td>Total Amount</td>
                                                                                 <td colspan="2">
-                                                                                    <input type="text" class="form-control total_amount" id="total_amount" name="total_amount" value="0" style="background-color:#ddd;" readonly>
+                                                                                    <input type="text" class="form-control total_amount_laboratory" id="total_amount_laboratory" name="total_amount_laboratory" value="0" style="background-color:#ddd;" readonly>
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
@@ -269,25 +269,26 @@
                 <td>
                     <input
                     type="text"
-                    class="form-control subtotal"
-                    id="subtotal"
-                    name="subtotal[]"
+                    class="form-control qty_medicine"
+                    id="qty_medicine"
+                    name="qty_medicine[]"
                     placeholder="0">
                 </td>
                 <td>
                     <input
                     type="text"
-                    name="price[]"
-                    class="form-control price text-right"
-                    value="@{{ purchase_cost }}"
-                    id="price">
+                    name="srp_medicine[]"
+                    class="form-control srp_medicine text-right"
+                    value="@{{ srp }}"
+                    id="srp_medicine"
+                    readonly>
                 </td>
                 <td>
                     <input
                     type="text"
-                    class="form-control subtotal"
-                    id="subtotal"
-                    name="subtotal[]"
+                    class="form-control medicine_subtotal"
+                    id="medicine_subtotal"
+                    name="medicine_subtotal[]"
                     placeholder="0">
                 </td>
                 <td style="text-align: center;">
@@ -303,38 +304,43 @@
                     var product_id = $(this).val();
 
                     $.ajax({
-                        url: "{{ url('manager/get/product/data/') }}/" + product_id,
+                        url: "{{ url('admin/get/product/data/') }}/" + product_id,
                         type: "GET",
                         success: function (data) {
-                            console.log(data);
+                            selectedMedicineData = data;
                             var html_generic = '<div class="mb-3">';
                             var html_medicine_description = '<div class="mb-3">';
 
                             $.each(data, function (key, v) {
                                 html_generic += '<label class="form-label" for="progress-basicpill-email-input">Generic Name</label><input type="text" class="form-control" value="' + v.medicine_name + '" readonly></div>';
-                            });
-
-                            $('#generic_name').html(html_generic);
-
-                            $.each(data, function (key, v) {
                                 html_medicine_description += '<label class="form-label" for="progress-basicpill-address-input">Description</label><textarea class="form-control" rows="2" readonly>' + v.medicine_name + '</textarea>';
                             });
 
+                            $('#generic_name').html(html_generic);
                             $('#medicine_description').html(html_medicine_description);
                         }
+
                     });
                 });
 
                 $(document).on('click','.addEventMoreMedicine', function() {
                     var product_id = $('#product_id').val();
-                    var medicine_name = $('#product_id').find('option:selected').text();
-                    var generic_name = $('#product_id').find('option:selected').text();
-                    var srp = $('#srp').val();
+                    var medicine_name;
+                    var generic_name;
+                    var description;
+                    var srp;
 
                     if(product_id == '')
                     {
                         $.notify("Product is required", { globalPosition: 'top right', className: 'error'});
                         return false;
+                    }
+
+                    if (selectedMedicineData) {
+                        medicine_name = selectedMedicineData[0].medicine_name;
+                        generic_name = selectedMedicineData[0].generic_name;
+                        description = selectedMedicineData[0].description;
+                        srp = selectedMedicineData[0].srp;
                     }
 
                     var source = $("#document-template-medicine").html();
@@ -343,15 +349,35 @@
                         product_id: product_id,
                         medicine_name: medicine_name,
                         generic_name: generic_name,
+                        description: description,
+                        srp: srp,
                     }
                     var html = template(data);
-                    console.log(html);
+
                     $("#medicineRow").append(html);
                 });
 
                 $(document).on('click','.remove_event_more_medicine', function() {
                     $(this).closest(".delete_add_more_item_medicine").remove();
+                    totalAmountPrice();
                 });
+
+                $(document).on('keyup click','.srp_medicine, .qty_medicine', function() {
+                    var srp_medicine = $(this).closest("tr").find("input.srp_medicine").val();
+                    var qty_medicine = $(this).closest("tr").find("input.qty_medicine").val();
+                    var medicine_subtotal = srp_medicine * qty_medicine;
+                    $(this).closest("tr").find("input.medicine_subtotal").val(medicine_subtotal);
+                    totalAmountPrice();
+                });
+
+                function totalAmountPrice() {
+                    var sum = 0;
+                    $(".medicine_subtotal").each(function () {
+                        var value = parseFloat($(this).val()) || 0;
+                        sum += value;
+                    });
+                    $('.total_amount_medicine').val(sum.toFixed(2));
+                }
             });
         </script>
 
@@ -363,26 +389,26 @@
                 <td>
                     <input
                         type="text"
-                        class="form-control qty"
-                        id="qty"
-                        name="qty[]"
+                        class="form-control qty_laboratory"
+                        id="qty_laboratory"
+                        name="qty_laboratory[]"
                         value="1"
                         readonly>
                 </td>
                 <td>
                     <input
                         type="text"
-                        name="price[]"
-                        class="form-control price text-right"
+                        name="price_laboratory[]"
+                        class="form-control price_laboratory text-right"
                         value="@{{ price }}"
-                        id="price">
+                        id="price_laboratory">
                 </td>
                 <td>
                     <input
                         type="text"
-                        class="form-control subtotal"
-                        id="subtotal"
-                        name="subtotal[]"
+                        class="form-control subtotal_laboratory"
+                        id="subtotal_laboratory"
+                        name="subtotal_laboratory[]"
                         placeholder="0">
                 </td>
                 <td style="text-align: center;">
@@ -398,11 +424,11 @@
                     var laboratory_id = $(this).val();
 
                     $.ajax({
-                        url: "{{ url('manager/get/laboratory/data/') }}/" + laboratory_id,
+                        url: "{{ url('admin/get/laboratory/data/') }}/" + laboratory_id,
                         type: "GET",
                         success: function (data) {
                             var html_laboratory_description = '<div class="mb-3">';
-
+                            selectedLaboratoryData = data;
                             $.each(data, function (key, v) {
                                 html_laboratory_description += '<label class="form-label" for="progress-basicpill-address-input">Description</label><textarea class="form-control" rows="2" readonly>' + v.laboratory + '</textarea>';
                             });
@@ -416,12 +442,16 @@
                     var laboratory_id = $('#laboratory_id').val();
                     var laboratory = $('#laboratory_id').find('option:selected').text();
                     var description = $('#laboratory_id').find('option:selected').text();
-                    var price = $('#laboratory_id').find('option:selected').text();
+                    var price;
 
                     if(laboratory_id == '')
                     {
                         $.notify("Product is required", { globalPosition: 'top right', className: 'error'});
                         return false;
+                    }
+
+                    if (selectedLaboratoryData) {
+                        price = selectedLaboratoryData[0].price;
                     }
 
                     var source = $("#document-template-laboratory").html();
@@ -438,8 +468,27 @@
 
                 $(document).on('click','.remove_event_more_laboratory', function() {
                     $(this).closest(".delete_add_more_item_laboratory").remove();
+                    totalAmountPrice();
                 });
+
+                $(document).on('keyup click','.price_laboratory, .qty_laboratory, .subtotal_laboratory', function() {
+                    var price_laboratory = $(this).closest("tr").find("input.price_laboratory").val();
+                    var qty_laboratory = $(this).closest("tr").find("input.qty_laboratory").val();
+                    var subtotal_laboratory = price_laboratory * qty_laboratory;
+                    $(this).closest("tr").find("input.subtotal_laboratory").val(subtotal_laboratory);
+                    totalAmountPrice();
+                });
+
+                function totalAmountPrice() {
+                    var sum = 0;
+                    $(".subtotal_laboratory").each(function () {
+                        var value = parseFloat($(this).val()) || 0;
+                        sum += value;
+                    });
+                    $('.total_amount_laboratory').val(sum.toFixed(2));
+                }
             });
+
         </script>
     @endpush
 

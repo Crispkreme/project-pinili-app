@@ -212,6 +212,7 @@ class OrderController extends Controller
                 'srp' => $updatedOrder->srp,
                 'user_id' => Auth::user()->id,
                 'price' => $updatedOrder->purchase_cost,
+                'isActive' => 1,
             ];
 
             $this->inventoryContract->storeInventory($params);

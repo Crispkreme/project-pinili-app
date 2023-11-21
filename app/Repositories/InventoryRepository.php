@@ -35,7 +35,7 @@ class InventoryRepository implements InventoryContract {
         ->get();
     }
 
-    public function getAllInventory() 
+    public function getAllInventory()
     {
         return $this->model
         ->with(['user','product','supplier'])
@@ -45,33 +45,24 @@ class InventoryRepository implements InventoryContract {
     public function getSpecificInventoryByProductID($id)
     {
         return $this->model
-            ->join('products', 'inventories.product_id', '=', 'products.id')
-            ->with(['user', 'supplier'])
-            ->where('products.isActive', 0)
-            ->where('inventories.product_id', $id)
-            ->select([
-                'products.medicine_name',
-                'products.generic_name',
-                'products.description',
-                'inventories.srp',
-            ])
-            ->get()
-            ->toArray();
+        ->join('products', 'inventories.product_id', '=', 'products.id')
+        ->where('inventories.isActive', 1)
+        ->where('inventories.product_id', $id)
+        ->get([
+            'products.medicine_name',
+            'products.generic_name',
+            'products.description',
+            'inventories.srp',
+            'inventories.product_id',
+        ])
+        ->toArray();
     }
 
     public function getProductDataByInventory()
     {
-        // $data = $this->model
-        //     ->where('products.isActive', 0)
-        //     ->select([
-        //             'products.medicine_name',
-        //             'products.generic_name',
-        //             'products.description',
-        //             'inventories.srp',
-        //         ])
-        //     ->get()
-        //     ->toArray();
-
-        return $this->model->get();
+        return $this->model
+            ->join('products', 'inventories.product_id', '=', 'products.id')
+            ->where('inventories.isActive', 1)
+            ->pluck('products.medicine_name', 'inventories.product_id');
     }
 }

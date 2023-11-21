@@ -72,6 +72,8 @@ Route::group(['controller' => ProductController::class], function () {
     Route::get('/all/product', 'index')->name('all.product');
     Route::get('/edit/product/{id}', 'editProduct')->name('edit.product');
     Route::post('/update/product/{id}', 'updateProduct')->name('update.product');
+    Route::get('/get/product/data/{id}', 'getSpecificProductData')->name('get.specific.product.data');
+    Route::get('/get/laboratory/data/{id}', 'getSpecificLaboratoryData')->name('get.specific.laboratory.data');
 });
 Route::group(['controller' => OrderController::class], function () {
     Route::get('/all/order', 'getAllOrder')->name('all.order');
