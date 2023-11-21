@@ -30,10 +30,8 @@ class ManagerController extends Controller
 
     public function cashier()
     {
-        // $inventories = $this->inventoryContract->getProductDataByInventory();
-        // dd($inventories);
-        $products = $this->productContract->getProductData();
         $laboratories = $this->laboratoryContract->getLaboratoryData();
+        $products = $this->inventoryContract->getProductDataByInventory();
         return view('manager.cashiers.index', [
             'products' => $products,
             'laboratories' => $laboratories,

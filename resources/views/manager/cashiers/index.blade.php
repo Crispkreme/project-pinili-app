@@ -59,46 +59,43 @@
                                             </div>
                                             <div class="tab-content twitter-bs-wizard-tab-content">
                                                 <div class="tab-pane" id="progress-patient-details">
-                                                    <form method="POST" action="">
-                                                        @csrf
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-firstname-input">First name</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-firstname-input">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-lastname-input">Last name</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-lastname-input">
-                                                                </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-firstname-input">First name</label>
+                                                                <input type="text" class="form-control" id="progress-basicpill-firstname-input">
                                                             </div>
                                                         </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-lastname-input">Last name</label>
+                                                                <input type="text" class="form-control" id="progress-basicpill-lastname-input">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-phoneno-input">Phone</label>
-                                                                    <input type="text" class="form-control" id="progress-basicpill-phoneno-input">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-email-input">Email</label>
-                                                                    <input type="email" class="form-control" id="progress-basicpill-email-input">
-                                                                </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-phoneno-input">Phone</label>
+                                                                <input type="text" class="form-control" id="progress-basicpill-phoneno-input">
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-12">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="progress-basicpill-address-input">Description</label>
-                                                                    <textarea id="progress-basicpill-address-input" class="form-control" rows="2"></textarea>
-                                                                </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-email-input">Email</label>
+                                                                <input type="email" class="form-control" id="progress-basicpill-email-input">
                                                             </div>
                                                         </div>
-                                                    </form>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <label class="form-label" for="progress-basicpill-address-input">Description</label>
+                                                                <textarea id="progress-basicpill-address-input" class="form-control" rows="2"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="tab-pane" id="progress-medicine-details">
                                                     <div class="row">
@@ -230,6 +227,11 @@
                                                                 <div>
                                                                     <h5>Confirm Detail</h5>
                                                                     <p class="text-muted">If several languages coalesce, the grammar of the resulting</p>
+                                                                    <div style="width:100%;display:flex;justify-content:center;">
+                                                                        <button type="button" class="btn btn-success waves-effect waves-light addEventMoreLaboratory">
+                                                                            <i class="ri-add-fill align-middle me-2"></i> Confirm Prescription
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -237,9 +239,10 @@
                                                 </div>
                                             </div>
                                             <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                                <li class="previous"><a href="javascript: void(0);">Previous</a></li>
-                                                <li class="next"><a href="javascript: void(0);">Proceed</a></li>
+                                                <li class="previous"><a href="javascript: void(0);">Back</a></li>
+                                                <li class="next"><a href="javascript: void(0);">Next</a></li>
                                             </ul>
+
                                         </div>
                                     </div>
                                 </div>

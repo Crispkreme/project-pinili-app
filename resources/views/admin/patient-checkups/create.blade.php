@@ -282,6 +282,11 @@
                                                                 <div>
                                                                     <h5>Confirm Detail</h5>
                                                                     <p class="text-muted">If several languages coalesce, the grammar of the resulting</p>
+                                                                    <div style="width:100%;display:flex;justify-content:center;">
+                                                                        <button type="button" class="btn btn-success waves-effect waves-light addEventMoreLaboratory">
+                                                                            <i class="ri-add-fill align-middle me-2"></i> Confirm Prescription
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -289,8 +294,8 @@
                                                 </div>
                                             </div>
                                             <ul class="pager wizard twitter-bs-wizard-pager-link">
-                                                <li class="previous"><a href="javascript: void(0);">Previous</a></li>
-                                                <li class="next"><a href="javascript: void(0);">Proceed</a></li>
+                                                <li class="previous"><a href="javascript: void(0);">Back</a></li>
+                                                <li class="next"><a href="javascript: void(0);">Next</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -312,6 +317,7 @@
     <div class="rightbar-overlay"></div>
 
     @push('scripts')
+        <!-- medicine -->
         <script id="document-template-medicine" type="text/x-handlerbars-template">
             <tr class="delete_add_more_item_medicine" id="delete_add_more_item_medicine">
                 <input type="hidden" name="product_id[]" value="@{{ product_id }}">
@@ -348,8 +354,6 @@
                 </td>
             </tr>
         </script>
-
-        <!-- medicine -->
         <script type="text/javascript">
             $(function(){
                 $(document).on('change', '#product_id', function () {
@@ -433,6 +437,7 @@
             });
         </script>
 
+        <!-- laboratory -->
         <script id="document-template-laboratory" type="text/x-handlebars-template">
             <tr class="delete_add_more_item_laboratory" id="delete_add_more_item_laboratory">
                 <input type="hidden" name="laboratory_id[]" value="@{{ laboratory_id }}">
@@ -468,8 +473,6 @@
                 </td>
             </tr>
         </script>
-
-        <!-- laboratory -->
         <script type="text/javascript">
             $(function(){
                 $(document).on('change', '#laboratory_id', function () {
