@@ -139,4 +139,5 @@ Route::group(['controller' => PatientCheckupController::class], function () {
 
 Route::group(['controller' => PatientPrescriptionController::class], function () {
     Route::get('/patient/all/prescription', 'getPatientPrescription')->name('all.patient.prescription');
+    Route::post('/create/patient/prescription', 'storePatientPrescription')->name('store.patient.prescription');
 });

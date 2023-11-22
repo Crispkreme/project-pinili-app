@@ -28,6 +28,9 @@ use App\Contracts\PatientCheckupContract;
 use App\Contracts\PatientCheckupImageContract;
 use App\Contracts\LaboratoryContract;
 use App\Contracts\PrescriptionContract;
+use App\Contracts\PrescribeLaboratoryContract;
+use App\Contracts\PrescribeMedicineContract;
+
 // REPOSITORY
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
@@ -85,6 +88,8 @@ class RepositoryServiceProvider extends ServiceProvider
         PatientCheckupImageContract::class => PatientCheckupImageRepository::class,
         LaboratoryContract::class => LaboratoryRepository::class,
         PrescriptionContract::class => PrescriptionRepository::class,
+        PrescribeMedicineContract::class => PrescribeMedicineRepository::class,
+        PrescribeLaboratoryContract::class => PrescribeLaboratoryRepository::class,
     ];
 
     /**

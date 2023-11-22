@@ -307,7 +307,7 @@
                     var product_id = $(this).val();
 
                     $.ajax({
-                        url: "{{ url('admin/get/product/data/') }}/" + product_id,
+                        url: "{{ url('manager/get/product/data/') }}/" + product_id,
                         type: "GET",
                         success: function (data) {
                             selectedMedicineData = data;
@@ -427,7 +427,7 @@
                     var laboratory_id = $(this).val();
 
                     $.ajax({
-                        url: "{{ url('admin/get/laboratory/data/') }}/" + laboratory_id,
+                        url: "{{ url('manager/get/laboratory/data/') }}/" + laboratory_id,
                         type: "GET",
                         success: function (data) {
                             var html_laboratory_description = '<div class="mb-3">';

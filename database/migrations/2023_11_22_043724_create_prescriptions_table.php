@@ -13,26 +13,26 @@ return new class extends Migration
     {
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id')->default(1);
             $table->unsignedBigInteger('patient_checkup_id');
-            $table->unsignedBigInteger('laboratory_id')->default(1);
+            $table->unsignedBigInteger('prescribe_laboratory_id')->default(1);
+            $table->unsignedBigInteger('prescribe_medicine_id')->default(1);
             $table->unsignedBigInteger('status_id');
             $table->string('invoice_number');
             $table->string('remarks');
             $table->integer('qty')->default(0);
             $table->boolean('isActive')->default(0);
 
-            $table->foreign('product_id')
+            $table->foreign('prescribe_laboratory_id')
                   ->references('id')
-                  ->on('products')
+                  ->on('prescribe_laboratories')
                   ->onDelete('cascade');
             $table->foreign('patient_checkup_id')
                   ->references('id')
                   ->on('patient_checkups')
                   ->onDelete('cascade');
-            $table->foreign('laboratory_id')
+            $table->foreign('prescribe_medicine_id')
                   ->references('id')
-                  ->on('laboratories')
+                  ->on('prescribe_medicines')
                   ->onDelete('cascade');
             $table->foreign('status_id')
                   ->references('id')

@@ -12,9 +12,9 @@ class Prescription extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'product_id',
         'patient_checkup_id',
-        'laboratory_id',
+        'prescribe_laboratory_id',
+        'prescribe_medicine_id',
         'status_id',
         'invoice_number',
         'remarks',
@@ -22,16 +22,16 @@ class Prescription extends Model
         'isActive',
     ];
 
-    public function product() {
-        return $this->belongsTo(Product::class, 'product_id');
+    public function prescribe_medicine() {
+        return $this->belongsTo(PrescribeMedicine::class, 'prescribe_medicine_id');
     }
 
     public function patientCheckup() {
         return $this->belongsTo(PatientCheckup::class, 'patient_checkup_id');
     }
 
-    public function laboratory() {
-        return $this->belongsTo(Laboratory::class, 'laboratory_id');
+    public function prescribe_laboratory() {
+        return $this->belongsTo(PrescribeLaboratory::class, 'prescribe_laboratory_id');
     }
 
     public function status() {

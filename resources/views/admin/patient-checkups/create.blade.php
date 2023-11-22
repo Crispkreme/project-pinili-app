@@ -19,7 +19,7 @@
                             <x-breadcrumb />
                         </div>
                     </div>
-                    <form method="POST" action="{{ route('admin.store.inventory.sheet') }}" id="myForm">
+                    <form method="POST" action="{{ route('admin.store.patient.prescription') }}" id="myForm">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -100,6 +100,7 @@
                                             <div id="bar" class="progress mt-4">
                                                 <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
                                             </div>
+
                                             <div class="tab-content twitter-bs-wizard-tab-content">
                                                 <div class="tab-pane active" id="progress-patient-details">
                                                     <div class="row">
@@ -163,23 +164,11 @@
                                                                                 <th style="width:25%;">Medicine Name</th>
                                                                                 <th style="width:25%;">Generic Name</th>
                                                                                 <th style="width:10%;">Qty</th>
-                                                                                <th style="width:15%;">SRP</th>
-                                                                                <th style="width:15%;">Subtotal</th>
+                                                                                <th>Remarks</th>
                                                                                 <th style="width:10%;">Action</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody id="medicineRow" class="medicineRow"></tbody>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td>Total Amount</td>
-                                                                                <td colspan="2">
-                                                                                    <input type="text" class="form-control total_amount_medicine" id="total_amount_medicine" name="total_amount_medicine" value="0" style="background-color:#ddd;" readonly>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
                                                                     </table>
                                                                 </div>
                                                             </div>
@@ -224,22 +213,11 @@
                                                                                 <th>Laboratory</th>
                                                                                 <th>Description</th>
                                                                                 <th style="width: 15%;">Qty</th>
-                                                                                <th style="width: 15%;">SRP</th>
-                                                                                <th style="width: 15%;">Total Price</th>
+                                                                                <th>Remarks</th>
                                                                                 <th style="width: 10%;">Action</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody id="laboratoryRow" class="laboratoryRow"></tbody>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td>Total Amount</td>
-                                                                                <td colspan="2">
-                                                                                    <input type="text" class="form-control total_amount_laboratory" id="total_amount_laboratory" name="total_amount_laboratory" value="0" style="background-color:#ddd;" readonly>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
                                                                     </table>
                                                                 </div>
                                                             </div>
@@ -283,7 +261,7 @@
                                                                     <h5>Confirm Detail</h5>
                                                                     <p class="text-muted">If several languages coalesce, the grammar of the resulting</p>
                                                                     <div style="width:100%;display:flex;justify-content:center;">
-                                                                        <button type="button" class="btn btn-success waves-effect waves-light addEventMoreLaboratory">
+                                                                        <button type="submit" class="btn btn-success waves-effect waves-light addEventMoreLaboratory">
                                                                             <i class="ri-add-fill align-middle me-2"></i> Confirm Prescription
                                                                         </button>
                                                                     </div>
@@ -333,21 +311,11 @@
                     placeholder="0">
                 </td>
                 <td>
-                    <input
-                    type="text"
-                    name="srp_medicine[]"
-                    class="form-control srp_medicine text-right"
-                    value="@{{ srp }}"
-                    id="srp_medicine"
-                    readonly>
-                </td>
-                <td>
-                    <input
-                    type="text"
-                    class="form-control medicine_subtotal"
-                    id="medicine_subtotal"
-                    name="medicine_subtotal[]"
-                    placeholder="0">
+                    <textarea
+                    id="remarks"
+                    class="form-control remarks"
+                    rows="2"
+                    name="remarks[]"></textarea>
                 </td>
                 <td style="text-align: center;">
                     <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more_medicine"></i>
@@ -417,23 +385,6 @@
                     $(this).closest(".delete_add_more_item_medicine").remove();
                     totalAmountPrice();
                 });
-
-                $(document).on('keyup click','.srp_medicine, .qty_medicine', function() {
-                    var srp_medicine = $(this).closest("tr").find("input.srp_medicine").val();
-                    var qty_medicine = $(this).closest("tr").find("input.qty_medicine").val();
-                    var medicine_subtotal = srp_medicine * qty_medicine;
-                    $(this).closest("tr").find("input.medicine_subtotal").val(medicine_subtotal);
-                    totalAmountPrice();
-                });
-
-                function totalAmountPrice() {
-                    var sum = 0;
-                    $(".medicine_subtotal").each(function () {
-                        var value = parseFloat($(this).val()) || 0;
-                        sum += value;
-                    });
-                    $('.total_amount_medicine').val(sum.toFixed(2));
-                }
             });
         </script>
 
@@ -450,23 +401,15 @@
                         id="qty_laboratory"
                         name="qty_laboratory[]"
                         value="1"
+                        style="width: 10%;"
                         readonly>
                 </td>
                 <td>
-                    <input
-                        type="text"
-                        name="price_laboratory[]"
-                        class="form-control price_laboratory text-right"
-                        value="@{{ price }}"
-                        id="price_laboratory">
-                </td>
-                <td>
-                    <input
-                        type="text"
-                        class="form-control subtotal_laboratory"
-                        id="subtotal_laboratory"
-                        name="subtotal_laboratory[]"
-                        placeholder="0">
+                    <textarea
+                    id="remarks"
+                    class="form-control remarks"
+                    rows="2"
+                    name="remarks[]"></textarea>
                 </td>
                 <td style="text-align: center;">
                     <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more_laboratory"></i>
@@ -525,23 +468,6 @@
                     $(this).closest(".delete_add_more_item_laboratory").remove();
                     totalAmountPrice();
                 });
-
-                $(document).on('keyup click','.price_laboratory, .qty_laboratory, .subtotal_laboratory', function() {
-                    var price_laboratory = $(this).closest("tr").find("input.price_laboratory").val();
-                    var qty_laboratory = $(this).closest("tr").find("input.qty_laboratory").val();
-                    var subtotal_laboratory = price_laboratory * qty_laboratory;
-                    $(this).closest("tr").find("input.subtotal_laboratory").val(subtotal_laboratory);
-                    totalAmountPrice();
-                });
-
-                function totalAmountPrice() {
-                    var sum = 0;
-                    $(".subtotal_laboratory").each(function () {
-                        var value = parseFloat($(this).val()) || 0;
-                        sum += value;
-                    });
-                    $('.total_amount_laboratory').val(sum.toFixed(2));
-                }
             });
 
         </script>
