@@ -25,7 +25,7 @@ class PatientPrescriptionController extends Controller
         ]);
     }
 
-    public function storeOrstorePatientPrescriptionder(AddOrderStoreRequest $request)
+    public function storeOrstorePatientPrescriptionder(AddPatientPrescriptionRequest $request)
     {
         DB::beginTransaction();
 
@@ -35,10 +35,20 @@ class PatientPrescriptionController extends Controller
             $invoice_number = $prefix.'-'.$transactionNumber;
 
             $params = $request->validated();
-            $status_id = 7;
-            $po_number = $transactionNumber;
-            $user_id = Auth::user()->id;
-            $remarks = "for approval";
+            $status_id = 1;
+            $remarks = "for checkup";
+            $isActive = 1;
+
+            // if()
+
+            // 'patient_checkup_id',
+            // 'prescribe_laboratory_id',
+            // 'prescribe_medicine_id',
+            // 'status_id',
+            // 'invoice_number',
+            // 'remarks',
+            // 'qty',
+            // 'isActive',
 
             for ($i = 0; $i < count($params['supplier_id']); $i++) {
                 $data = [

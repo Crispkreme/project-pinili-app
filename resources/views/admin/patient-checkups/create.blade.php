@@ -21,6 +21,7 @@
                     </div>
                     <form method="POST" action="{{ route('admin.store.patient.prescription') }}" id="myForm">
                         @csrf
+                        <input type="hidden" value="{{ $patientCheckupData->id }}" />
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
