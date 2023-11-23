@@ -14,9 +14,9 @@ class PatientRepository implements PatientContract {
         $this->model = $model;
     }
 
-    public function allPatient()
+    public function allPatient($perPage = 10)
     {
-        return $this->model->get();
+        return $this->model->paginate($perPage);
     }
 
     public function storePatient($params)

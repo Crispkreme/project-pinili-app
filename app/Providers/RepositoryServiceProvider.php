@@ -55,6 +55,8 @@ use App\Repositories\PatientRepository;
 use App\Repositories\PatientBmiRepository;
 use App\Repositories\PatientCheckupRepository;
 use App\Repositories\PatientCheckupImageRepository;
+use App\Repositories\PrescribeMedicineRepository;
+use App\Repositories\PrescribeLaboratoryRepository;
 use App\Repositories\LaboratoryRepository;
 use App\Repositories\PrescriptionRepository;
 

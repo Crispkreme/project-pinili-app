@@ -2,18 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\PatientContract;
-use App\Http\Requests\AddPatientPrescriptionRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Contracts\PatientContract;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Contracts\PrescriptionContract;
+use Illuminate\Validation\Rules\Exists;
+use App\Contracts\PrescribeMedicineContract;
+use App\Contracts\PrescribeLaboratoryContract;
+use App\Http\Requests\AddPatientPrescriptionRequest;
 
 class PatientPrescriptionController extends Controller
 {
     protected $patientContract;
+    protected $prescribeMedicineContract;
+    protected $prescribeLaboratoryContract;
+    protected $prescriptionContract;
 
     public function __construct(
-        PatientContract $patientContract
+        PatientContract $patientContract,
+        PrescribeMedicineContract $prescribeMedicineContract,
+        PrescribeLaboratoryContract $prescribeLaboratoryContract,
+        PrescriptionContract $prescriptionContract,
     ){
         $this->patientContract = $patientContract;
+        $this->prescribeMedicineContract = $prescribeMedicineContract;
+        $this->prescribeLaboratoryContract = $prescribeLaboratoryContract;
+        $this->prescriptionContract = $prescriptionContract;
     }
 
     public function getPatientPrescription()
@@ -25,56 +41,74 @@ class PatientPrescriptionController extends Controller
         ]);
     }
 
-    public function storeOrstorePatientPrescriptionder(AddPatientPrescriptionRequest $request)
+    public function storePatientPrescription(AddPatientPrescriptionRequest $request)
     {
         DB::beginTransaction();
 
         try {
-            $prefix = "TNX-ORD";
+            $prefix = "TNX-PRS";
             $transactionNumber = Carbon::now()->format('Ymd-His');
-            $invoice_number = $prefix.'-'.$transactionNumber;
+            $invoiceNumber = $prefix . '-' . $transactionNumber;
 
             $params = $request->validated();
-            $status_id = 1;
+            $statusId = 1;
             $remarks = "for checkup";
             $isActive = 1;
 
-            // if()
+            $medicineId = [];
+            $laboratoryId = [];
 
-            // 'patient_checkup_id',
-            // 'prescribe_laboratory_id',
-            // 'prescribe_medicine_id',
-            // 'status_id',
-            // 'invoice_number',
-            // 'remarks',
-            // 'qty',
-            // 'isActive',
+            // Prescribe Medicine
+            if (!empty($params['product_id'])) {
+                foreach ($params['product_id'] as $key => $productId) {
+                    $prescribeMedicine = $this->prescribeMedicineContract->storePrescribeMedicine([
+                        'product_id' => $productId,
+                        'srp' => $params['srp'][$key],
+                        'quantity' => $params['quantity'][$key],
+                        'remarks' => $remarks,
+                        'isActive' => $isActive,
+                    ]);
 
-            for ($i = 0; $i < count($params['supplier_id']); $i++) {
-                $data = [
-                    'supplier_id' => $params['supplier_id'][$i],
-                    'manufacturer_id' => $params['manufacturer_id'][$i],
-                    'product_id' => $params['product_id'][$i],
-                    'quantity' => $params['quantity'][$i],
-                    'purchase_cost' => $params['purchase_cost'][$i],
-                    'srp' => $params['srp'][$i],
-                    'expiry_date' => $params['expiry_date'][$i],
-                    'manufacturing_date' => $params['manufacturing_date'][$i],
-                    'status_id' => $status_id,
-                    'po_number' => $po_number,
-                    'user_id' => $user_id,
-                    'remarks' => $remarks,
-                    'invoice_number' => $invoice_number,
-                ];
-
-                $this->orderContract->storeOrder($data);
+                    $medicineId[] = $prescribeMedicine->id;
+                }
+            } else {
+                $medicineId[] = 1;
             }
 
-            $params['user_id'] = $user_id;
-            $params['status_id'] = $status_id;
-            $params['description'] = "has ordered product with a ". $invoice_number. " ";
+            // Prescribe Laboratory
+            if (!empty($params['laboratory_id'])) {
+                foreach ($params['laboratory_id'] as $key => $laboratoryId) {
+                    $prescribeLaboratory = $this->prescribeLaboratoryContract->storePrescribeLaboratory([
+                        'laboratory_id' => $laboratoryId,
+                        'quantity' => $params['quantity'][$key],
+                        'remarks' => $remarks,
+                        'isActive' => $isActive,
+                    ]);
 
-            $this->transactionContract->createTransaction($params);
+                    $laboratoryId[] = $prescribeLaboratory->id;
+                }
+            } else {
+                $laboratoryId[] = 1;
+            }
+
+            // Determine which array to use based on the counts
+            $prescribeIds = (count($medicineId) >= count($laboratoryId)) ? $medicineId : $laboratoryId;
+
+            // Create Transactions
+            foreach ($prescribeIds as $key => $prescribeId) {
+                $data = [
+                    'supplier_id' => $params['supplier_id'][$key],
+                    'patient_checkup_id' => $params['patient_checkup_id'][$key],
+                    'prescribe_laboratory_id' => $laboratoryId[$key],
+                    'prescribe_medicine_id' => $medicineId[$key],
+                    'status_id' => $statusId,
+                    'invoice_number' => $invoiceNumber,
+                    'remarks' => $remarks,
+                    'isActive' => $isActive,
+                ];
+
+                $this->prescriptionContract->storePrescription($data);
+            }
 
             DB::commit();
 
@@ -83,10 +117,18 @@ class PatientPrescriptionController extends Controller
                 'message' => 'Data saved successfully!',
             ];
 
-            return redirect()->route('admin.all.order')->with($notification);
+            return redirect()->route('admin.')->with($notification);
 
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.patient.prescription')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.patient.prescription')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
         } catch (\Exception $e) {
-
             DB::rollback();
 
             $notification = [
@@ -94,7 +136,15 @@ class PatientPrescriptionController extends Controller
                 'message' => 'Error occurred: ' . $e->getMessage(),
             ];
 
-            return redirect()->route('admin.all.order')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.patient.prescription')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.patient.prescription')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
         }
     }
 }
