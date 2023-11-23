@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Route;
 use App\Contracts\RepresentativeContract;
 use App\Contracts\RoleContract;
 use App\Http\Requests\AddRepresentativeStoreRequest;
 use App\Models\Entity;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Route;
 
 class EntityController extends Controller
 {
@@ -26,7 +26,7 @@ class EntityController extends Controller
     {
         $userData = $this->representativeContract->getAllRepresentative();
 
-        $currentRoute = \Route::currentRouteName();
+        $currentRoute = Route::currentRouteName();
         if (str_starts_with($currentRoute, 'admin.')) {
             return view('admin.representatives.index', [
                 'userData' => $userData
@@ -37,21 +37,21 @@ class EntityController extends Controller
             ]);
         } else {
             return view('404');
-        } 
+        }
     }
 
     public function createRepresentative()
     {
         $roles = $this->roleContract->getRoles();
 
-        $currentRoute = \Route::currentRouteName();
+        $currentRoute = Route::currentRouteName();
         if (str_starts_with($currentRoute, 'admin.')) {
             return view('admin.representatives.create', ['roles' => $roles]);
         } elseif (str_starts_with($currentRoute, 'manager.')) {
             return view('manager.representatives.create', ['roles' => $roles]);
         } else {
             return view('404');
-        } 
+        }
     }
 
     public function storeRepresentative(AddRepresentativeStoreRequest $request)

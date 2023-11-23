@@ -15,11 +15,11 @@ class InventorySheetRepository implements InventorySheetContract {
         $this->model = $model;
     }
 
-    public function getAllInventorySheet()
+    public function getAllInventorySheet($perPage = 10)
     {
         return $this->model->orderBy('created_at','desc')
         ->orderBy('id', 'desc')
-        ->get();
+        ->paginate($perPage);
     }
 
     public function storeInventorySheet($params)

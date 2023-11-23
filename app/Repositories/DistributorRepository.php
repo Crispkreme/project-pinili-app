@@ -20,9 +20,11 @@ class DistributorRepository implements DistributorContract {
         return $this->model->create($params);
     }
 
-    public function getAllDistributor()
+    public function getAllDistributor($perPage = 10)
     {
-        return $this->model->with(['entity', 'company'])->get();
+        return $this->model
+        ->with(['entity', 'company'])
+        ->paginate($perPage);
     }
 
     public function editDistributor($id)

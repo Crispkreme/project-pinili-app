@@ -20,9 +20,9 @@ class CompanyRepository implements CompanyContract {
         return $this->model->create($params);
     }
 
-    public function getAllCompany()
+    public function getAllCompany($perPage = 10)
     {
-        return $this->model->get();
+        return $this->model->paginate($perPage);
     }
 
     public function getCompanyData()

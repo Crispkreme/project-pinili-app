@@ -15,7 +15,7 @@ class OrderRepository implements OrderContract {
         $this->model = $model;
     }
 
-    public function getAllOrder()
+    public function getAllOrder($perPage = 10)
     {
         return $this->model->with([
             'user',
@@ -25,10 +25,10 @@ class OrderRepository implements OrderContract {
             'status'
         ])
         ->orderBy('id', 'desc')
-        ->get();
+        ->paginate($perPage);
     }
 
-    public function getAllStockReport()
+    public function getAllStockReport($perPage = 10)
     {
         return $this->model
         ->with([
@@ -39,7 +39,7 @@ class OrderRepository implements OrderContract {
             'status'
         ])
         ->where('status_id', 8)
-        ->get();
+        ->paginate($perPage);
     }
 
     public function getSpecificProduct($id)
@@ -53,7 +53,7 @@ class OrderRepository implements OrderContract {
             ->pluck('invoice_number');
     }
 
-    public function printOrderInvoice($id)
+    public function printOrderInvoice($id, $perPage = 10)
     {
         return $this->model->with([
             'user',
@@ -63,20 +63,20 @@ class OrderRepository implements OrderContract {
             'status'
         ])
         ->where('status_id', $id)
-        ->get();
+        ->paginate($perPage);
     }
 
     public function storeOrder($params) {
         return $this->model->create($params);
     }
 
-    public function pendingOrder($id)
+    public function pendingOrder($id, $perPage = 10)
     {
         $relationships = ['user', 'supplier', 'manufacturer', 'product', 'status'];
         $pendingOrders = $this->model
             ->with($relationships)
             ->where('status_id', $id)
-            ->get();
+            ->paginate($perPage);
         return $pendingOrders;
     }
 
@@ -114,16 +114,16 @@ class OrderRepository implements OrderContract {
         $relationships = ['user', 'supplier', 'manufacturer', 'product', 'status'];
         $startDate = $params[0];
         $endDate = $params[1];
-        
+
         return $this->model
         ->whereRaw('DATE(created_at) >= ? AND DATE(created_at) <= ?', [$startDate, $endDate])
         ->where('status_id', 8)
         ->get();
     }
 
-    public function getAllDeletedOrder()
+    public function getAllDeletedOrder($perPage = 10)
     {
-        $deletedOrders = $this->model->onlyTrashed()->get();
+        $deletedOrders = $this->model->onlyTrashed()->paginate($perPage);
         return $deletedOrders;
     }
 
@@ -186,7 +186,7 @@ class OrderRepository implements OrderContract {
     public function updateOrderStatusByInventorySheet($or_number)
     {
         $orderStatus = $this->model->where('or_number', $or_number)->get();
-        
+
         $orderStatus->each(function ($order) {
             $order->update([
                 'approve_id' => auth()->user()->id,

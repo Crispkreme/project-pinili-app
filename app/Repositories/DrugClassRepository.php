@@ -20,9 +20,11 @@ class DrugClassRepository implements DrugClassContract {
         return $this->model->create($params);
     }
 
-    public function getAllDrugClass()
+    public function getAllDrugClass($perPage = 10)
     {
-        return $this->model->get();
+        return $this->model
+        ->where('id', '!=', 1)
+        ->paginate($perPage);
     }
 
     public function getSpecificDrugClassById($id)

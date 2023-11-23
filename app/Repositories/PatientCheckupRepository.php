@@ -14,9 +14,11 @@ class PatientCheckupRepository implements PatientCheckupContract {
         $this->model = $model;
     }
 
-    public function allPatientCheckup()
+    public function allPatientCheckup($perPage = 10)
     {
-        return $this->model->with(['patientBmi', 'patientBmi.patient', 'statuses'])->get();
+        return $this->model
+        ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
+        ->paginate($perPage);;
     }
 
     public function storePatientCheckup($params)

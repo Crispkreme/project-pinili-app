@@ -20,9 +20,9 @@ class RepresentativeRepository implements RepresentativeContract {
         return $this->model->create($params);
     }
 
-    public function getAllRepresentative()
+    public function getAllRepresentative($perPage = 10)
     {
-        return $this->model->get();
+        return $this->model->paginate($perPage);
     }
 
     public function getRepresentativeData()
