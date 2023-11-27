@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('laboratory_id');
             $table->integer('quantity');
-            $table->text('remarks');
+            $table->string('remarks');
             $table->boolean('isActive')->default(1);
 
             $table->foreign('laboratory_id')

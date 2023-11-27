@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('srp');
             $table->integer('quantity');
-            $table->text('remarks');
+            $table->string('remarks');
             $table->boolean('isActive')->default(1);
 
             $table->foreign('product_id')

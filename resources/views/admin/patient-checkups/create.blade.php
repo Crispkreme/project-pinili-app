@@ -21,7 +21,7 @@
                     </div>
                     <form method="POST" action="{{ route('admin.store.patient.prescription') }}" id="myForm">
                         @csrf
-                        <input type="hidden" value="{{ $patientCheckupData->id }}" />
+                        <input type="hidden" name="patient_checkup_id" value="{{ $patientCheckupData->id }}" />
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
@@ -50,7 +50,7 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <label for="name" class="col-form-label">Follow up Date</label>
-                                                        <input class="form-control" name="follow_up_date" type="date" id="follow_up_date" placeholder="">
+                                                        <input class="form-control" name="follow_up_date" type="date" id="follow_up_date" value="{{ now()->format('Y-m-d') }}">
                                                     </div>
                                                     <div class="col"></div>
                                                     <div class="col"></div>
@@ -180,7 +180,7 @@
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="progress-basicpill-email-input">Medicine Name</label>
                                                                         <select class="form-control select2"
-                                                                            data-placeholder="Invoice Number" name="product_id" id="product_id">
+                                                                            data-placeholder="Invoice Number" id="product_id">
                                                                             <option selected disabled>Medicine Name</option>
                                                                             @if (empty($products))
                                                                                 <option value="" disabled>No data found</option>
@@ -229,7 +229,7 @@
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="progress-basicpill-email-input">Laboratory</label>
                                                                         <select class="form-control select2"
-                                                                            data-placeholder="Invoice Number" name="laboratory_id" id="laboratory_id">
+                                                                            data-placeholder="Invoice Number" id="laboratory_id">
                                                                             <option selected disabled>Laboratory</option>
                                                                             @if (empty($laboratories))
                                                                                 <option value="" disabled>No data found</option>
@@ -262,7 +262,7 @@
                                                                     <h5>Confirm Detail</h5>
                                                                     <p class="text-muted">If several languages coalesce, the grammar of the resulting</p>
                                                                     <div style="width:100%;display:flex;justify-content:center;">
-                                                                        <button type="submit" class="btn btn-success waves-effect waves-light addEventMoreLaboratory">
+                                                                        <button type="submit" class="btn btn-success waves-effect waves-light">
                                                                             <i class="ri-add-fill align-middle me-2"></i> Confirm Prescription
                                                                         </button>
                                                                     </div>
@@ -300,6 +300,7 @@
         <script id="document-template-medicine" type="text/x-handlerbars-template">
             <tr class="delete_add_more_item_medicine" id="delete_add_more_item_medicine">
                 <input type="hidden" name="product_id[]" value="@{{ product_id }}">
+                <input type="hidden" name="srp[]" value="@{{ srp }}">
 
                 <td>@{{ medicine_name }}</td>
                 <td>@{{ generic_name }}</td>
@@ -309,6 +310,7 @@
                     class="form-control qty_medicine"
                     id="qty_medicine"
                     name="qty_medicine[]"
+                    value="@{{ quantity }}"
                     placeholder="0">
                 </td>
                 <td>
@@ -316,7 +318,7 @@
                     id="remarks"
                     class="form-control remarks"
                     rows="2"
-                    name="remarks[]"></textarea>
+                    name="remark_medicine[]">@{{ remarks }}</textarea>
                 </td>
                 <td style="text-align: center;">
                     <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more_medicine"></i>
@@ -395,14 +397,14 @@
                 <input type="hidden" name="laboratory_id[]" value="@{{ laboratory_id }}">
                 <td>@{{ laboratory }}</td>
                 <td>@{{ description }}</td>
-                <td>
+                <td style="width: 10%;">
                     <input
                         type="text"
                         class="form-control qty_laboratory"
                         id="qty_laboratory"
                         name="qty_laboratory[]"
                         value="1"
-                        style="width: 10%;"
+                        style="text-align:center"
                         readonly>
                 </td>
                 <td>
@@ -410,7 +412,7 @@
                     id="remarks"
                     class="form-control remarks"
                     rows="2"
-                    name="remarks[]"></textarea>
+                    name="remark_laboratory[]">@{{ remarks }}</textarea>
                 </td>
                 <td style="text-align: center;">
                     <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more_laboratory"></i>

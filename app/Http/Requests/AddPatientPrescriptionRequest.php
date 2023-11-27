@@ -22,13 +22,12 @@ class AddPatientPrescriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => 'string',
             'patient_checkup_id' => 'string',
-            'laboratory_id' => 'string',
+            'prescribe_laboratory_id' => 'string',
+            'prescribe_medicine_id' => 'string',
             'status_id' => 'string',
             'invoice_number' => 'string',
-            'remarks' => 'string',
-            'qty' => 'numeric',
+            'remarks' => 'string|nullable',
             'qty' => 'numeric',
             'isActive' => 'numeric',
         ];
