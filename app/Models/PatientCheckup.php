@@ -14,10 +14,11 @@ class PatientCheckup extends Model
     protected $fillable = [
         'id_number',
         'patient_bmi_id',
-        'status_id', 
+        'status_id',
         'remarks',
         'isNew',
         'isFollowUp',
+        'follow_up_date',
     ];
 
     public function patientBmi() {

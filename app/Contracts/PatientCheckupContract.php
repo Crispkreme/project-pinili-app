@@ -8,4 +8,5 @@ interface PatientCheckupContract {
     public function storePatientCheckup($params);
     public function getPatientCheckupById($id);
     public function getPatientCheckupByBmiId($id);
+    public function updateFollowUpCheckupDate($id, $params);
 }

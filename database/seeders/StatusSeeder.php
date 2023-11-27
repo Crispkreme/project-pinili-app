@@ -40,5 +40,11 @@ class StatusSeeder extends Seeder
         Status::create([
             'status' => 'onhand',
         ]);
+        Status::create([
+            'status' => 'for follow up',
+        ]);
+        Status::create([
+            'status' => 'for checkup',
+        ]);
     }
 }

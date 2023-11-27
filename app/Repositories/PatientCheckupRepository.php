@@ -53,4 +53,16 @@ class PatientCheckupRepository implements PatientCheckupContract {
         })
         ->first();
     }
+
+    public function updateFollowUpCheckupDate($id, $params)
+    {
+        $followup = $params;
+        $patientCheckup = $this->model->findOrFail($id);
+        $patientCheckup->update([
+            'follow_up_date' => $followup,
+            'remarks' => "for follow up",
+        ]);
+
+        return $patientCheckup;
+    }
 }

@@ -11,6 +11,7 @@ use App\Contracts\PrescriptionContract;
 use Illuminate\Validation\Rules\Exists;
 use App\Contracts\PrescribeMedicineContract;
 use App\Contracts\PrescribeLaboratoryContract;
+use App\Contracts\PatientCheckupContract;
 use App\Http\Requests\AddPatientPrescriptionRequest;
 
 class PatientPrescriptionController extends Controller
@@ -19,9 +20,11 @@ class PatientPrescriptionController extends Controller
     protected $prescribeMedicineContract;
     protected $prescribeLaboratoryContract;
     protected $prescriptionContract;
+    protected $patientCheckupContract;
 
     public function __construct(
         PatientContract $patientContract,
+        PatientCheckupContract $patientCheckupContract,
         PrescribeMedicineContract $prescribeMedicineContract,
         PrescribeLaboratoryContract $prescribeLaboratoryContract,
         PrescriptionContract $prescriptionContract,
@@ -30,6 +33,7 @@ class PatientPrescriptionController extends Controller
         $this->prescribeMedicineContract = $prescribeMedicineContract;
         $this->prescribeLaboratoryContract = $prescribeLaboratoryContract;
         $this->prescriptionContract = $prescriptionContract;
+        $this->patientCheckupContract = $patientCheckupContract;
     }
 
     private function getRedirectRoute()
@@ -124,32 +128,6 @@ class PatientPrescriptionController extends Controller
                     $laboratoryId[] = 1;
                 }
 
-                // Determine which array to use based on the counts
-                // $prescribeIds = (count($medicineId) >= count($laboratoryId)) ? $medicineId : $laboratoryId;
-                // $maxIterations = max(count($prescribeIds), count($medicineId), count($laboratoryId));
-
-                // for ($i = 0; $i < $maxIterations; $i++) {
-
-                //     $prescription = [
-                //         'patient_checkup_id' => $request->patient_checkup_id,
-                //         'prescribe_medicine_id' => $medicineId[$i],
-                //         'prescribe_laboratory_id' => $laboratoryId[$i],
-                //         'status_id' => $statusId,
-                //         'invoice_number' => $invoiceNumber,
-                //         'remarks' => $remarks,
-                //         'qty' => $qty,
-                //         'isActive' => $isActive,
-                //     ];
-
-                //     $prescriptionData[] = $prescription;
-                //     dd($prescriptionData);
-                // }
-
-                // foreach ($prescriptionData as $prescription) {
-
-                //     $this->prescriptionContract->storePrescription($prescription);
-                // }
-
                 $prescribeIds = (count($medicineId) >= count($laboratoryId)) ? $medicineId : $laboratoryId;
                 $maxIterations = max(count($medicineId), count($laboratoryId));
 
@@ -169,8 +147,10 @@ class PatientPrescriptionController extends Controller
                 }
 
                 foreach ($prescriptionData as $prescription) {
-                    $data = $this->prescriptionContract->storePrescription($prescription);
+                    $this->prescriptionContract->storePrescription($prescription);
                 }
+
+                $this->patientCheckupContract->updateFollowUpCheckupDate($request->patient_checkup_id, $request->follow_up_date);
 
                 DB::commit();
 

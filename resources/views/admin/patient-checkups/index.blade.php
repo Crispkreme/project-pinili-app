@@ -48,6 +48,7 @@
                                                 <th>Checkup Date</th>
                                                 <th>Followup Date</th>
                                                 <th>Status</th>
+                                                <th>Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -58,8 +59,13 @@
                                                     <td>{{ $item->patientBmi->patient->firstname }} {{ $item->patientBmi->patient->mi }} {{ $item->patientBmi->patient->lastname }}</td>
                                                     <td>{{ $item->patientBmi->patient->age }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
-                                                    <td>Followup Date</td>
+                                                    @if($item->follow_up_date === "1900-01-01")
+                                                        <td>None</td>
+                                                    @else
+                                                        <td>{{ \Carbon\Carbon::parse($item->follow_up_date)->format('M d, Y') }}</td>
+                                                    @endif
                                                     <td>{{ $item->statuses->status }}</td>
+                                                    <td>{{ $item->remarks }}</td>
                                                 </tr>
                                             @endforeach
 
