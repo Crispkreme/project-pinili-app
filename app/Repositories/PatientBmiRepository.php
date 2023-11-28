@@ -40,4 +40,10 @@ class PatientBmiRepository implements PatientBmiContract {
         $patientBmi->update($params);
         return $patientBmi;
     }
+
+    public function getPatientBMIByCheckupId($id)
+    {
+        $patientBmi = $this->model->findOrFail($id);
+        return $patientBmi;
+    }
 }

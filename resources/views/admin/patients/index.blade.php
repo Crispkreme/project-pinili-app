@@ -57,7 +57,7 @@
                                                 <tr>
                                                     <td>{{ $key+1}}</td>
                                                     <td>
-                                                        <a href="">
+                                                        <a href="{{ route('admin.patient.history', $item->id) }}">
                                                             {{ $item->id_number }}
                                                         </a>
                                                     </td>

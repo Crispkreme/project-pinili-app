@@ -319,8 +319,12 @@ class PatientController extends Controller
         }
     }
 
-    public function createPatientCheckup($id)
+    public function patientHistory($id)
     {
-        dd($id);
+        $patientCheckupData = $this->patientCheckupContract->getPatientCheckupDataById($id);
+        return view('admin.patients.history', [
+            'patientCheckupData' => $patientCheckupData,
+            'patientID' => $id,
+        ]);
     }
 }

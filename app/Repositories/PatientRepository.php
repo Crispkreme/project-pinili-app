@@ -35,4 +35,10 @@ class PatientRepository implements PatientContract {
         $patient->update($params);
         return $patient;
     }
+
+    public function getPatientDataByBmiId($id)
+    {
+        $patient = $this->model->findOrFail($id);
+        return $patient;
+    }
 }
