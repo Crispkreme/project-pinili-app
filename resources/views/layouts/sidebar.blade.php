@@ -408,6 +408,25 @@
                                     'class' => '',
                                 ],
                             ],
+                        ],[
+                            'list' => 'Manage Products',
+                            'url' => 'javascript: void(0);',
+                            'icon' => '<i class="ri-handbag-line"></i>',
+                            'class' => 'has-arrow waves-effect',
+                            'isMenuTitle' => false,
+                            'submenu' => [
+                                [
+                                    'list' => 'Drug Classification',
+                                    'url' => route('clerk.all.drug.class'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ],[
+                                    'list' => 'Product',
+                                    'url' => route('clerk.all.product'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ],
+                            ],
                         ],
                     ];
                 }

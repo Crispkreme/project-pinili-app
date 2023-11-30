@@ -8,6 +8,7 @@ use App\Contracts\FormContract;
 use App\Contracts\ProductContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\InventoryContract;
+use Illuminate\Support\Facades\Auth;
 use App\Contracts\LaboratoryContract;
 use App\Http\Requests\AddProductStoreRequest;
 
@@ -36,7 +37,18 @@ class ProductController extends Controller
     public function index()
     {
         $userData = $this->productContract->getAllProduct();
-        return view('admin.products.index', ['userData' => $userData]);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.products.index', ['userData' => $userData]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.products.index', ['userData' => $userData]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.products.index', ['userData' => $userData]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function createProduct()
@@ -44,10 +56,26 @@ class ProductController extends Controller
         $forms = $this->formContract->getFormData();
         $categories = $this->categoryContract->getCategoryData();
 
-        return view('admin.products.create', [
-            'forms' => $forms,
-            'categories' => $categories,
-        ]);
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.products.create', [
+                    'forms' => $forms,
+                    'categories' => $categories,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.products.create', [
+                    'forms' => $forms,
+                    'categories' => $categories,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.products.create', [
+                    'forms' => $forms,
+                    'categories' => $categories,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function storeProduct(AddProductStoreRequest $request)
@@ -68,7 +96,17 @@ class ProductController extends Controller
                 'message' => 'Password updated successfully!',
             ];
 
-            return redirect()->route('admin.all.product')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.product')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.product')->with($notification);
+                } elseif (Auth::user()->role_id == 3) {
+                    return redirect()->route('clerk.all.product')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (\Exception $e) {
 
@@ -87,11 +125,29 @@ class ProductController extends Controller
         $forms = $this->formContract->getFormData();
         $categories = $this->categoryContract->getCategoryData();
 
-        return view('admin.products.edit', [
-            'product' => $product,
-            'forms' => $forms,
-            'categories' => $categories,
-        ]);
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.products.edit', [
+                    'product' => $product,
+                    'forms' => $forms,
+                    'categories' => $categories,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.products.edit', [
+                    'product' => $product,
+                    'forms' => $forms,
+                    'categories' => $categories,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.products.edit', [
+                    'product' => $product,
+                    'forms' => $forms,
+                    'categories' => $categories,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function updateProduct(AddProductStoreRequest $request, $id)
@@ -107,7 +163,17 @@ class ProductController extends Controller
                 'message' => 'Password updated successfully!',
             ];
 
-            return redirect()->route('admin.all.product')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.product')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.product')->with($notification);
+                } elseif (Auth::user()->role_id == 3) {
+                    return redirect()->route('clerk.all.product')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (\Exception $e) {
 

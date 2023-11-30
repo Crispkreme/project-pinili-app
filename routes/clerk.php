@@ -3,6 +3,8 @@
 use App\Http\Controllers\Clerk\ClerkController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientCheckupController;
+use App\Http\Controllers\DrugClassController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +31,22 @@ Route::group(['controller' => PatientController::class], function () {
 
 Route::group(['controller' => PatientCheckupController::class], function () {
     Route::get('/patient/checkup', 'getAllPatientCheckup')->name('all.patient.checkup');
+});
+
+Route::group(['controller' => DrugClassController::class], function () {
+    Route::get('/create/drug/class', 'createDrugClass')->name('create.drug.class');
+    Route::post('/store/drug/class', 'storeDrugClass')->name('store.drug.class');
+    Route::get('/all/drug/class', 'index')->name('all.drug.class');
+    Route::get('/edit/drug/class/{id}', 'editDrugClass')->name('edit.drug.class');
+    Route::post('/update/drug/class/{id}', 'updateDrugClass')->name('update.drug.class');
+});
+
+Route::group(['controller' => ProductController::class], function () {
+    Route::get('/create/product', 'createProduct')->name('create.product');
+    Route::post('/store/product', 'storeProduct')->name('store.product');
+    Route::get('/all/product', 'index')->name('all.product');
+    Route::get('/edit/product/{id}', 'editProduct')->name('edit.product');
+    Route::post('/update/product/{id}', 'updateProduct')->name('update.product');
+    Route::get('/get/product/data/{id}', 'getSpecificProductData')->name('get.specific.product.data');
+    Route::get('/get/laboratory/data/{id}', 'getSpecificLaboratoryData')->name('get.specific.laboratory.data');
 });

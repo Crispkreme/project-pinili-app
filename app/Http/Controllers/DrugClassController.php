@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Contracts\DrugClassContract;
+use Illuminate\Support\Facades\Auth;
 use App\Contracts\ClassificationContract;
 use App\Http\Requests\AddDrugClassStoreRequest;
 
@@ -24,16 +25,41 @@ class DrugClassController extends Controller
     public function index()
     {
         $userData = $this->drugClassContract->getAllDrugClass();
-        return view('admin.drugclasses.index', ['userData' => $userData]);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.drugclasses.index', ['userData' => $userData]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.drugclasses.index', ['userData' => $userData]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.drugclasses.index', ['userData' => $userData]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function createDrugClass()
     {
         $classifications = $this->classificationContract->getAllClassification();
 
-        return view('admin.drugclasses.create', [
-            'classifications' => $classifications,
-        ]);
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.drugclasses.create', [
+                    'classifications' => $classifications,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.drugclasses.create', [
+                    'classifications' => $classifications,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.drugclasses.create', [
+                    'classifications' => $classifications,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function storeDrugClass(AddDrugClassStoreRequest $request)
@@ -53,7 +79,17 @@ class DrugClassController extends Controller
                 'message' => 'Password updated successfully!',
             ];
 
-            return redirect()->route('admin.all.drug.class')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.drug.class')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.drug.class')->with($notification);
+                } elseif (Auth::user()->role_id == 3) {
+                    return redirect()->route('clerk.all.drug.class')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (\Exception $e) {
 
@@ -62,7 +98,17 @@ class DrugClassController extends Controller
                 'message' => 'Error occurred: ' . $e->getMessage(),
             ];
 
-            return redirect()->route('admin.all.drug.class')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.drug.class')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.drug.class')->with($notification);
+                } elseif (Auth::user()->role_id == 3) {
+                    return redirect()->route('clerk.all.drug.class')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
         }
     }
 
@@ -71,10 +117,26 @@ class DrugClassController extends Controller
         $drugclass = $this->drugClassContract->editDrugClass($id);
         $classifications = $this->classificationContract->getAllClassification();
 
-        return view('admin.drugclasses.edit', [
-            'drugclass' => $drugclass,
-            'classifications' => $classifications,
-        ]);
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.drugclasses.edit', [
+                    'drugclass' => $drugclass,
+                    'classifications' => $classifications,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.drugclasses.edit', [
+                    'drugclass' => $drugclass,
+                    'classifications' => $classifications,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.drugclasses.edit', [
+                    'drugclass' => $drugclass,
+                    'classifications' => $classifications,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function updateDrugClass(AddDrugClassStoreRequest $request, $id)
@@ -90,7 +152,17 @@ class DrugClassController extends Controller
                 'message' => 'Password updated successfully!',
             ];
 
-            return redirect()->route('admin.all.drug.class')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.drug.class')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.drug.class')->with($notification);
+                } elseif (Auth::user()->role_id == 3) {
+                    return redirect()->route('clerk.all.drug.class')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (\Exception $e) {
 
