@@ -41,11 +41,11 @@
                                             <p class="card-title-desc">This are the complete list of our users.</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <a href="{{ route('admin.create.patient.followup.checkup', $patientID) }}" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;margin-left:5px;">
-                                                Follow-up Checkup
+                                            <a href="{{ route('admin.all.patient.checkup') }}" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;margin-left:5px;">
+                                                Checkup
                                             </a>
                                             <a href="{{ route('admin.patient.prescription.history', $patientID) }}" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;">
-                                                Prescription
+                                                Add Prescription
                                             </a>
                                         </div>
                                     </div>

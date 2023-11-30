@@ -327,4 +327,13 @@ class PatientController extends Controller
             'patientID' => $id,
         ]);
     }
+
+    public function patientPrescriptionHistory($id)
+    {
+        $patientCheckupData = $this->prescriptionContract->getPatientPrescription($id);
+        return view('admin.prescriptions.history', [
+            'patientCheckupData' => $patientCheckupData,
+            'patientID' => $id,
+        ]);
+    }
 }

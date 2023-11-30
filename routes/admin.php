@@ -131,6 +131,7 @@ Route::group(['controller' => PatientController::class], function () {
     Route::get('/edit/patient/{id}', 'editPatient')->name('edit.patient');
     Route::post('/update/patient/{id}', 'updatePatient')->name('update.patient');
     Route::get('/patient/history/{id}', 'patientHistory')->name('patient.history');
+    Route::get('/patient/prescription/history/{id}', 'patientPrescriptionHistory')->name('patient.prescription.history');
 });
 
 Route::group(['controller' => PatientCheckupController::class], function () {
