@@ -18,6 +18,7 @@ class PatientBmi extends Model
         'temperature',
         'weight',
         'symptoms',
+        'diagnosis',
     ];
 
     public function patient() {

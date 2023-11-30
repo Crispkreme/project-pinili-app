@@ -9,4 +9,5 @@ interface PatientBmiContract {
     public function getPatientBmiByPatientId($id);
     public function updatePatientBmi($id, $params);
     public function getPatientBMIByCheckupId($id);
+    public function addPatientDiagnosis($id, $params);
 }

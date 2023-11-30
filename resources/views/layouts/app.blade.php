@@ -45,9 +45,13 @@
     <script src="{{ asset('libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('libs/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('libs/tinymce/tinymce.min.js') }}"></script>
+
     <script src="{{ asset('js/pages/dashboard.init.js') }}"></script>
     <script src="{{ asset('js/pages/form-wizard.init.js') }}"></script>
     <script src="{{ asset('js/pages/form-advanced.init.js') }}"></script>
+    <script src="{{ asset('js/pages/form-editor.init.js') }}"></script>
+
     <script src="{{ asset('js/main-js.js') }}"></script>
 
     @stack('scripts')

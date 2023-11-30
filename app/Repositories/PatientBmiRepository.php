@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\PatientBmi;
 use App\Contracts\PatientBmiContract;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PatientBmiRepository implements PatientBmiContract {
 
@@ -45,5 +46,18 @@ class PatientBmiRepository implements PatientBmiContract {
     {
         $patientBmi = $this->model->findOrFail($id);
         return $patientBmi;
+    }
+
+    public function addPatientDiagnosis($id, $params)
+    {
+        try {
+            $bmi = $this->model->findOrFail($id);
+            $bmi->update([
+                'diagnosis' => $params['diagnosis'],
+            ]);
+            return $bmi;
+        } catch (ModelNotFoundException $exception) {
+            return null;
+        }
     }
 }

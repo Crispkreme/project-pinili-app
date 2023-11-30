@@ -4,18 +4,24 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Carbon\Carbon;
+use App\Models\PatientBmi;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Contracts\PatientContract;
 use Illuminate\Support\Facades\DB;
+
+use App\Contracts\InventoryContract;
 use Illuminate\Support\Facades\Auth;
+
+use App\Contracts\LaboratoryContract;
 use App\Contracts\PatientBmiContract;
+use App\Contracts\PrescriptionContract;
 use Illuminate\Support\Facades\Storage;
 use App\Contracts\PatientCheckupContract;
-use App\Contracts\PrescriptionContract;
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\StorePatientBmiRequest;
 use App\Contracts\PatientCheckupImageContract;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PatientController extends Controller
 {
@@ -24,19 +30,25 @@ class PatientController extends Controller
     protected $patientBmiContract;
     protected $patientCheckupContract;
     protected $patientCheckupImageContract;
+    protected $laboratoryContract;
+    protected $inventoryContract;
 
     public function __construct(
         PatientContract $patientContract,
         PatientBmiContract $patientBmiContract,
         PatientCheckupContract $patientCheckupContract,
         PatientCheckupImageContract $patientCheckupImageContract,
-        PrescriptionContract $prescriptionContract
+        PrescriptionContract $prescriptionContract,
+        LaboratoryContract $laboratoryContract,
+        InventoryContract $inventoryContract,
     ) {
         $this->patientContract = $patientContract;
         $this->patientBmiContract = $patientBmiContract;
         $this->patientCheckupContract = $patientCheckupContract;
         $this->patientCheckupImageContract = $patientCheckupImageContract;
         $this->prescriptionContract = $prescriptionContract;
+        $this->laboratoryContract = $laboratoryContract;
+        $this->inventoryContract = $inventoryContract;
     }
 
     public function getPatient()
@@ -401,5 +413,43 @@ class PatientController extends Controller
                 return view('404');
             }
         }
+    }
+
+    public function patientDiagnosis($id)
+    {
+        $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
+        $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->id);
+        $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.follow-up-checkups.create', [
+                    'patientData' => $patientData,
+                    'bmiData' => $bmiData,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.follow-up-checkups.create', [
+                    'patientData' => $patientData,
+                    'bmiData' => $bmiData,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.follow-up-checkups.create', [
+                    'patientData' => $patientData,
+                    'bmiData' => $bmiData,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
+    }
+
+    public function storePatientDiagnosis($id, Request $request)
+    {
+        $bmiParams = [
+            'diagnosis' => $request->diagnosis,
+        ];
+
+        $this->patientBmiContract->addPatientDiagnosis($id, $bmiParams);
+        return redirect()->back()->with('success', 'Diagnosis added successfully.');
     }
 }

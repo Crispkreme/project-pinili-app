@@ -106,35 +106,37 @@
 	                                        <div class="row mb-3">
 	                                            <label for="example-text-input" class="col-sm-4 col-form-label">Blood Pressure</label>
 	                                            <div class="col-sm-8">
-	                                                <input class="form-control" type="text" placeholder="xxx/xxmmHg" id="example-text-input" name="blood_pressure">
+	                                                <input class="form-control" type="text" placeholder="{{ $bmiData->blood_pressure }} mmHg" name="blood_pressure">
 	                                            </div>
 	                                        </div>
 	                                        <div class="row mb-3">
 	                                            <label for="example-text-input" class="col-sm-4 col-form-label">Heart Rate</label>
 	                                            <div class="col-sm-8">
-	                                                <input class="form-control" type="text" placeholder="xx bpm" name="heart_rate" id="example-text-input">
+	                                                <input class="form-control" type="text" placeholder="{{ $bmiData->heart_rate }} bpm" name="heart_rate">
 	                                            </div>
 	                                        </div>
 	                                        <div class="row mb-3">
 	                                            <label for="example-text-input" class="col-sm-4 col-form-label">Weight</label>
 	                                            <div class="col-sm-8">
-	                                                <input class="form-control" type="text" placeholder="xx kg" name="weight" id="example-text-input">
+	                                                <input class="form-control" type="text" placeholder="{{ $bmiData->weight }} kg" name="weight">
 	                                            </div>
 	                                        </div>
 	                                        <div class="row mb-3">
 	                                            <label for="example-text-input" class="col-sm-4 col-form-label">Temperature</label>
 	                                            <div class="col-sm-8">
-	                                                <input class="form-control" type="text" placeholder="xx deg" name="temperature" id="example-text-input">
+	                                                <input class="form-control" type="text" placeholder="{{ $bmiData->temperature }} deg" name="temperature">
 	                                            </div>
 	                                        </div>
 	                                        <div class="row mb-3">
                                                 <label class="col-sm-4 col-form-label">Symptom</label>
                                                 <div class="col-sm-8">
-                                                    <textarea required="" placeholder="Diagnosis" class="form-control" name="symptoms" rows="6"></textarea>
+                                                    <textarea required="" placeholder="{{ $bmiData->symptoms }}" class="form-control" name="symptoms" rows="5"></textarea>
                                                 </div>
                                             </div>
-
-                                            <button type="submit" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;">Follow-up Checkup</button>
+                                            <div>
+                                                <button type="submit" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;margin-left:5px;">Follow-up Checkup</button>
+                                                <button type="button" class="btn btn-warning btn-rounded waves-effect waves-light mb-3" style="float:right;" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center">Add Diagnosis</button>
+                                            </div>
                         				</div>
                         			</div>
                         		</div>
@@ -144,6 +146,25 @@
                 </div>
             </div>
             <!-- End Page-content -->
+
+            {{-- Modal content --}}
+            <div class="modal fade bs-example-modal-center" id="diagnosis-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add Patient Diagnosis</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="{{ route('admin.store.patient.diagnosis', $bmiData->id) }}">
+                                @csrf
+                                <textarea id="elm1" name="diagnosis"></textarea>
+                                <button type="submit" class="btn btn-dark btn-rounded waves-effect waves-light mt-2" style="float: right;">Add Diagnosis</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <x-footer />
 

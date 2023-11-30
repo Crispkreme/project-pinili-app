@@ -32,7 +32,7 @@
                     <!-- end page title -->
 
                     <div class="row">
-                        <form method="POST" action="{{ route('admin.store.patient.followup.checkup') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('clerk.store.patient.followup.checkup') }}" enctype="multipart/form-data">
                         	@csrf
                             <input type="hidden" name="patient_id" value="{{ $patientData->id }}" readonly>
                         	<div class="col-12">

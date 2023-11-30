@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\Patient;
 use App\Models\Prescription;
 use App\Contracts\PrescriptionContract;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PrescriptionRepository implements PrescriptionContract {
 
@@ -21,21 +23,21 @@ class PrescriptionRepository implements PrescriptionContract {
 
     public function getPatientPrescription($id, $perPage = 10)
     {
-        // return $this->model
-        //     ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
-        //     ->whereHas('patientBmi', function ($query) use ($id) {
-        //         $query->where('patient_id', $id);
-        //     })
-        //     ->paginate($perPage);
+        try {
+            $patient = Patient::findOrFail($id);
 
-        $data = $this->model
-            ->with(['patientCheckup', 'prescribe_medicine', 'prescribe_laboratory', 'status'])
-            ->whereHas('patientCheckup', function ($query1) {
-                $query1->whereHas('patientBmi', function ($query2) {
-                    $query2->where('patient_id', $id);
-                });
-            })
-            ->paginate($perPage);
-        dd($data);
+            return $this->model
+                ->with(['patientCheckup', 'prescribe_medicine', 'prescribe_laboratory', 'status'])
+                ->when($patient, function ($query) use ($id) {
+                    $query->whereHas('patientCheckup', function ($query) use ($id) {
+                        $query->whereHas('patientBmi', function ($query) use ($id) {
+                            $query->where('patient_id', $id);
+                        });
+                    });
+                })
+                ->paginate($perPage);
+        } catch (ModelNotFoundException $exception) {
+            dd("Patient not found");
+        }
     }
 }
