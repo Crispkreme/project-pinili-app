@@ -56,7 +56,7 @@
                                                 <tr style="vertical-align: middle;">
                                                     <td class="text-center">{{ $key+1}}</td>
                                                     <td>
-                                                        <a href="{{ route('admin.create.patient.checkup', $item->id) }}">
+                                                        <a href="{{ route('manager.create.patient.checkup', $item->id) }}">
                                                             {{ $item->id_number }}
                                                         </a>
                                                     </td>
@@ -65,7 +65,7 @@
                                                     <td class="text-center">{{ $item->contact_number }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td style="text-align: center;">
-                                                        <a href="{{ route('admin.create.patient.checkup', $item->id) }}" class="btn btn-warning sm" title="Checkup Patient">
+                                                        <a href="{{ route('manager.create.patient.checkup', $item->id) }}" class="btn btn-warning sm" title="Checkup Patient">
                                                             <i class="ri-hospital-line"></i>
                                                         </a>
                                                     </td>

@@ -32,7 +32,7 @@
                     <!-- end page title -->
 
                     <div class="row">
-                        <form method="POST" action="{{ route('admin.store.patient.followup.checkup') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('manager.store.patient.followup.checkup') }}" enctype="multipart/form-data">
                         	@csrf
                             <input type="hidden" name="patient_id" value="{{ $patientData->id }}" readonly>
                         	<div class="col-12">
@@ -164,7 +164,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ route('admin.store.patient.diagnosis', $bmiData->id) }}">
+                            <form method="post" action="{{ route('manager.store.patient.diagnosis', $bmiData->id) }}">
                                 @csrf
                                 <textarea id="elm1" name="diagnosis"></textarea>
                                 <button type="submit" class="btn btn-dark btn-rounded waves-effect waves-light mt-2" style="float: right;">Add Diagnosis</button>

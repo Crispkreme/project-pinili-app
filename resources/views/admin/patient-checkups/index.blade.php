@@ -41,31 +41,31 @@
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th class="text-center">ID</th>
                                                 <th>Checkup No.</th>
                                                 <th>Name</th>
-                                                <th>Age</th>
+                                                <th class="text-center">Age</th>
                                                 <th>Checkup Date</th>
                                                 <th>Followup Date</th>
-                                                <th>Status</th>
-                                                <th>Remarks</th>
+                                                <th class="text-center">Status</th>
+                                                <th class="text-center">Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($patientCheckupData as $key => $item)
                                                 <tr>
-                                                    <td>{{ $key + 1 }}</td>
+                                                    <td class="text-center">{{ $key + 1 }}</td>
                                                     <td>{{ $item->id_number }}</td>
                                                     <td>{{ $item->patientBmi->patient->firstname }} {{ $item->patientBmi->patient->mi }} {{ $item->patientBmi->patient->lastname }}</td>
-                                                    <td>{{ $item->patientBmi->patient->age }}</td>
+                                                    <td class="text-center">{{ $item->patientBmi->patient->age }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
                                                     @if($item->follow_up_date === "1900-01-01")
                                                         <td>None</td>
                                                     @else
                                                         <td>{{ \Carbon\Carbon::parse($item->follow_up_date)->format('M d, Y') }}</td>
                                                     @endif
-                                                    <td>{{ $item->statuses->status }}</td>
-                                                    <td>{{ $item->remarks }}</td>
+                                                    <td class="text-center">{{ $item->statuses->status }}</td>
+                                                    <td class="text-center">{{ $item->remarks }}</td>
                                                 </tr>
                                             @endforeach
 

@@ -69,11 +69,30 @@ class PatientCheckupController extends Controller
         $patientCheckupData = $this->patientCheckupContract->getPatientCheckupById($id);
         $laboratories = $this->laboratoryContract->getLaboratoryData();
         $products = $this->inventoryContract->getProductDataByInventory();
-        return view('admin.patient-checkups.create', [
-            'patientCheckupData' => $patientCheckupData,
-            'products' => $products,
-            'laboratories' => $laboratories,
-        ]);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.patient-checkups.create', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'products' => $products,
+                    'laboratories' => $laboratories,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.patient-checkups.create', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'products' => $products,
+                    'laboratories' => $laboratories,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.patient-checkups.create', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'products' => $products,
+                    'laboratories' => $laboratories,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function createPatientFollowupCheckup($id)

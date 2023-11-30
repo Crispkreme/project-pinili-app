@@ -55,7 +55,11 @@
                                             @foreach($patientData as $key => $item)
                                                 <tr>
                                                     <td>{{ $key+1}}</td>
-                                                    <td>{{ $item->id_number }}</td>
+                                                    <td>
+                                                        <a href="{{ route('manager.patient.history', $item->id) }}">
+                                                            {{ $item->id_number }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $item->firstname }} {{ $item->mi }} {{ $item->lastname }}</td>
                                                     <td>{{ $item->age }}</td>
                                                     <td>{{ $item->contact_number }}</td>

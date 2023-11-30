@@ -41,11 +41,11 @@
                                             <p class="card-title-desc">This are the complete list of our users.</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <a href="{{ route('admin.all.patient.checkup') }}" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;margin-left:5px;">
-                                                Checkup
+                                            <a href="{{ route('manager.create.patient.followup.checkup', $patientID) }}" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;margin-left:5px;">
+                                                Follow-up Checkup
                                             </a>
-                                            <a href="{{ route('admin.create.patient.checkup', $patientID) }}" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;">
-                                                Add Prescription
+                                            <a href="{{ route('manager.patient.prescription.history', $patientID) }}" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;">
+                                                Prescription
                                             </a>
                                         </div>
                                     </div>
@@ -67,7 +67,11 @@
                                             @foreach ($patientCheckupData as $key => $item)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
-                                                    <td>{{ $item->id_number }}</td>
+                                                    <td>
+                                                        <a href="{{ route('manager.patient.diagnosis', $item->id) }}">
+                                                            {{ $item->id_number }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $item->patientBmi->patient->firstname }} {{ $item->patientBmi->patient->mi }} {{ $item->patientBmi->patient->lastname }}</td>
                                                     <td>{{ $item->patientBmi->patient->age }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>

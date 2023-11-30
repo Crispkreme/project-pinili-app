@@ -44,9 +44,6 @@
                                             <a href="{{ route('clerk.create.patient.followup.checkup', $patientID) }}" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;margin-left:5px;">
                                                 Follow-up Checkup
                                             </a>
-                                            <a href="{{ route('clerk.patient.prescription.history', $patientID) }}" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;">
-                                                Prescription
-                                            </a>
                                         </div>
                                     </div>
 

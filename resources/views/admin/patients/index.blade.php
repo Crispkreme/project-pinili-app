@@ -43,11 +43,11 @@
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th class="text-center">ID</th>
                                                 <th>Patient No.</th>
                                                 <th>Name</th>
-                                                <th>Age</th>
-                                                <th>Contact Number</th>
+                                                <th class="text-center">Age</th>
+                                                <th class="text-center">Contact Number</th>
                                                 <th>Address</th>
                                                 <th style="text-align: center;">Action</th>
                                             </tr>
@@ -55,15 +55,15 @@
                                         <tbody>
                                             @foreach($patientData as $key => $item)
                                                 <tr>
-                                                    <td>{{ $key+1}}</td>
+                                                    <td class="text-center">{{ $key+1}}</td>
                                                     <td>
                                                         <a href="{{ route('admin.patient.history', $item->id) }}">
                                                             {{ $item->id_number }}
                                                         </a>
                                                     </td>
                                                     <td>{{ $item->firstname }} {{ $item->mi }} {{ $item->lastname }}</td>
-                                                    <td>{{ $item->age }}</td>
-                                                    <td>{{ $item->contact_number }}</td>
+                                                    <td class="text-center">{{ $item->age }}</td>
+                                                    <td class="text-center">{{ $item->contact_number }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td style="text-align: center;">
                                                         <a href="{{ route('admin.edit.patient', $item->id) }}" class="btn btn-info sm" title="Edit Data">
