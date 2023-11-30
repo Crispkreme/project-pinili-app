@@ -50,10 +50,10 @@
                                         </div>
                                     </div>
 
-                                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th class="text-center">ID</th>
                                                 <th>Checkup No.</th>
                                                 <th>Name</th>
                                                 <th>Age</th>
@@ -87,10 +87,6 @@
 
                                         </tbody>
                                     </table>
-
-                                    <div class="d-flex justify-content-center">
-                                        {{ $patientCheckupData->links('pagination::bootstrap-4') }}
-                                    </div>
                                 </div>
                             </div>
                         </div>

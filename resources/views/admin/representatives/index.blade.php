@@ -40,10 +40,11 @@
                                     <h4 class="card-title">Representative List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our representative.</p>
 
-                                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th class="text-center">ID</th>
+                                                <th>Representative No.</th>
                                                 <th>Name</th>
                                                 <th>Contact Number</th>
                                                 <th>Role</th>
@@ -54,7 +55,8 @@
                                         </thead>
                                         <tbody>
                                             @foreach($userData as $key => $item)
-                                                <tr>
+                                                <tr style="vertical-align: middle;">
+                                                    <td class="text-center">{{ $key+1}}</td>
                                                     <td>{{ $item->id_number }}</td>
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->contact_number }}</td>
@@ -82,10 +84,6 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-
-                                    <div class="d-flex justify-content-center">
-                                        {{ $userData->links('pagination::bootstrap-4') }}
-                                    </div>
                                 </div>
                             </div>
                         </div>

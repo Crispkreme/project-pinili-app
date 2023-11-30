@@ -48,10 +48,10 @@
                                     <h4 class="card-title">Product List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our product.</p>
 
-                                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th class="text-center">ID</th>
                                                 <th>Invoice Number</th>
                                                 <th>Product Name</th>
                                                 <th>Supplier</th>
@@ -145,10 +145,10 @@
                     //         'success'
                     //       )
                     //     }
-                    // }) 
+                    // })
                 });
             });
         </script>
     @endpush
-    
+
 </x-app-layout>

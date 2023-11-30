@@ -67,10 +67,10 @@
                                                 </form>
                                             </div>
                                         </div>
-                                        <table id="table" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
+                                                    <th class="text-center">ID</th>
                                                     <th>Invoice Number</th>
                                                     <th>Product Name</th>
                                                     <th>Supplier</th>
@@ -131,10 +131,10 @@
             document.addEventListener("DOMContentLoaded", function() {
                 var today = new Date();
                 var formattedDate = today.getDate() + ' ' + today.toLocaleString('default', { month: 'short' }) + ', ' + today.getFullYear();
-                
+
                 document.getElementById('start_date').value = formattedDate;
                 document.getElementById('end_date').value = formattedDate;
-                
+
                 document.getElementById('start_date').addEventListener('change', function() {
                     if (this.value === formattedDate) {
                         document.getElementById('end_date').value = formattedDate;

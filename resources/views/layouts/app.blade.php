@@ -10,6 +10,8 @@
 
     <link rel="stylesheet" href="{{ asset('libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('libs/datatables.net-select-bs4/css//select.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/twitter-bootstrap-wizard/prettify.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/select2/css/select2.min.css') }}">
@@ -42,15 +44,26 @@
     <script src="{{ asset('libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+
     <script src="{{ asset('libs/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('libs/tinymce/tinymce.min.js') }}"></script>
+
+    <script src="{{ asset('libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+
+    <script src="{{ asset('libs/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+    <script src="{{ asset('libs/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
     <script src="{{ asset('js/pages/dashboard.init.js') }}"></script>
     <script src="{{ asset('js/pages/form-wizard.init.js') }}"></script>
     <script src="{{ asset('js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ asset('js/pages/form-editor.init.js') }}"></script>
+    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
 
     <script src="{{ asset('js/main-js.js') }}"></script>
 

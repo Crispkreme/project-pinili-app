@@ -104,7 +104,7 @@
                                         <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
                                             <thead>
                                                 <tr class="order-data">
-                                                    <th>ID</th>
+                                                    <th class="text-center">ID</th>
                                                     <th style="text-align:left;">Medicine Name</th>
                                                     <th style="text-align:left;">Generic Name</th>
                                                     <th>Form</th>

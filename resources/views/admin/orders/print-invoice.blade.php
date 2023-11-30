@@ -51,7 +51,7 @@
                                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th class="text-center">ID</th>
                                                 <th>Invoice Number</th>
                                                 <th>Product Name</th>
                                                 <th>Supplier</th>
@@ -145,10 +145,10 @@
                     //         'success'
                     //       )
                     //     }
-                    // }) 
+                    // })
                 });
             });
         </script>
     @endpush
-    
+
 </x-app-layout>

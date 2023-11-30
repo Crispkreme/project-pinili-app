@@ -101,7 +101,7 @@
     <table>
         <thead>
             <tr>
-            <th>ID</th>
+            <th class="text-center">ID</th>
             <th>Medicine Name</th>
             <th>Generic Name</th>
             <th>Stock Deliver</th>

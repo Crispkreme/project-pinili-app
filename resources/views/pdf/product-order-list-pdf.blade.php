@@ -35,7 +35,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-    
+
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="invoice-title">
@@ -69,7 +69,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="row">
                                         <div class="col-12">
                                             <div>
@@ -81,7 +81,7 @@
                                                         <table id="table" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>ID</th>
+                                                                    <th class="text-center">ID</th>
                                                                     <th>Invoice Number</th>
                                                                     <th>Product Name</th>
                                                                     <th>Supplier</th>
@@ -119,7 +119,7 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
-    
+
                                                     <div class="d-print-none">
                                                         <div class="" style="display:flex;justify-content:flex-end;">
                                                             <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i> <span style="margin-left:5px;"> Print Invoice</span></a>
@@ -127,10 +127,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-    
+
                                         </div>
                                     </div> <!-- end row -->
-    
+
                                 </div>
                             </div>
                         </div> <!-- end col -->
@@ -139,7 +139,7 @@
                 </div> <!-- container-fluid -->
             </div>
             <!-- End Page-content -->
-            
+
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row">
@@ -153,7 +153,7 @@
                         </div>
                     </div>
                 </div>
-            </footer> 
+            </footer>
         </div>
         <!-- end main content-->
 
@@ -169,5 +169,5 @@
 
     @push('scripts')
     @endpush
-    
+
 </x-app-layout>

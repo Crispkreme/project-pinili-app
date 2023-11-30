@@ -176,9 +176,7 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="v-pills-order-history" role="tabpanel" aria-labelledby="v-pills-order-history-tab">
                                                     <div id="order-history-content">
-                                                        <table id="datatable"
-                                                        class="table table-bordered dt-responsive nowrap"
-                                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Invoice Number</th>
@@ -196,9 +194,7 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="v-pills-payment-history" role="tabpanel" aria-labelledby="v-pills-payment-history-tab">
                                                     <div id="payment-history-content">
-                                                        <table id="datatable"
-                                                        class="table table-bordered dt-responsive nowrap"
-                                                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                        <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Invoice Number</th>

@@ -40,7 +40,7 @@
                                     <h4 class="card-title">Drug Classes List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our drug classes.</p>
 
-                                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
                                         <thead>
                                             <tr>
                                                 <th style="width:15%;">ID</th>
@@ -69,10 +69,6 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-
-                                    <div class="d-flex justify-content-center">
-                                        {{ $userData->links('pagination::bootstrap-4') }}
-                                    </div>
                                 </div>
                             </div>
                         </div>

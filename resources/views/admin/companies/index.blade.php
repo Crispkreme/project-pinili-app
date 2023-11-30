@@ -40,10 +40,11 @@
                                     <h4 class="card-title">Representative List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our representative.</p>
 
-                                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th class="text-center">ID</th>
+                                                <th>Company No.</th>
                                                 <th>Company Name</th>
                                                 <th>Contact Number</th>
                                                 <th>Landline</th>
@@ -55,6 +56,7 @@
                                         <tbody>
                                             @foreach($userData as $key => $item)
                                                 <tr>
+                                                    <td class="text-center">{{ $key+1}}</td>
                                                     <td>
                                                         <a href="{{ route('admin.all.history.company', $item->id) }}">
                                                             {{ $item->id_number }}
@@ -81,10 +83,6 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-
-                                    <div class="d-flex justify-content-center">
-                                        {{ $userData->links('pagination::bootstrap-4') }}
-                                    </div>
                                 </div>
                             </div>
                         </div>
