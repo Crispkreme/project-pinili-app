@@ -18,6 +18,7 @@ class PatientCheckupRepository implements PatientCheckupContract {
     {
         return $this->model
         ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
+        ->where('status_id', 1)
         ->paginate($perPage);
     }
 

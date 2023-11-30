@@ -48,7 +48,7 @@
                                                 <th>Checkup Date</th>
                                                 <th>Followup Date</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                <th>Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -61,8 +61,7 @@
                                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
                                                     <td>Followup Date</td>
                                                     <td>{{ $item->statuses->status }}</td>
-                                                    <td>
-                                                    </td>
+                                                    <td>{{ $item->remarks }}</td>
                                                 </tr>
                                             @endforeach
 
