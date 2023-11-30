@@ -45,11 +45,17 @@ class PatientController extends Controller
 
         if (Auth::check()) {
             if (Auth::user()->role_id == 1) {
-                return view('admin.patients.index', ['patientData' => $patientData]);
+                return view('admin.patients.index', [
+                    'patientData' => $patientData
+                ]);
             } elseif (Auth::user()->role_id == 2) {
-                return view('manager.patients.index', ['patientData' => $patientData]);
+                return view('manager.patients.index', [
+                    'patientData' => $patientData
+                ]);
             } elseif (Auth::user()->role_id == 3) {
-                return view('clerk.patients.index', ['patientData' => $patientData]);
+                return view('clerk.patients.index', [
+                    'patientData' => $patientData
+                ]);
             } else {
                 return view('404');
             }
@@ -62,11 +68,17 @@ class PatientController extends Controller
 
         if (Auth::check()) {
             if (Auth::user()->role_id == 1) {
-                return view('admin.patients.create', ['patientData' => $patientData]);
+                return view('admin.patients.create', [
+                    'patientData' => $patientData
+                ]);
             } elseif (Auth::user()->role_id == 2) {
-                return view('manager.patients.create', ['patientData' => $patientData]);
+                return view('manager.patients.create', [
+                    'patientData' => $patientData
+                ]);
             } elseif (Auth::user()->role_id == 3) {
-                return view('clerk.patients.create', ['patientData' => $patientData]);
+                return view('clerk.patients.create', [
+                    'patientData' => $patientData
+                ]);
             } else {
                 return view('404');
             }
@@ -166,11 +178,17 @@ class PatientController extends Controller
 
             if (Auth::check()) {
                 if (Auth::user()->role_id == 1) {
-                    return redirect()->route('admin.all.patient')->with($notification);
+                    return redirect()
+                        ->route('admin.all.patient')
+                        ->with($notification);
                 } elseif (Auth::user()->role_id == 2) {
-                    return redirect()->route('manager.all.patient')->with($notification);
+                    return redirect()
+                        ->route('manager.all.patient')
+                        ->with($notification);
                 } elseif (Auth::user()->role_id == 3) {
-                    return redirect()->route('clerk.all.patient')->with($notification);
+                    return redirect()
+                        ->route('clerk.all.patient')
+                        ->with($notification);
                 } else {
                     return view('404');
                 }
@@ -185,7 +203,8 @@ class PatientController extends Controller
                 'message' => 'Error occurred: ' . $e->getMessage(),
             ];
 
-            return redirect()->back()->with($notification);
+            return redirect()->back()
+            ->with($notification);
         }
     }
 
@@ -216,11 +235,17 @@ class PatientController extends Controller
         if (Auth::check()) {
             switch (Auth::user()->role_id) {
                 case 1:
-                    return view('admin.patients.index', ['patientData' => $patientData]);
+                    return view('admin.patients.index', [
+                        'patientData' => $patientData
+                    ]);
                 case 2:
-                    return view('manager.patients.index', ['patientData' => $patientData]);
+                    return view('manager.patients.index', [
+                        'patientData' => $patientData
+                    ]);
                 case 3:
-                    return view('clerk.patients.index', ['patientData' => $patientData]);
+                    return view('clerk.patients.index', [
+                        'patientData' => $patientData
+                    ]);
                 default:
                     return view('404');
             }
@@ -297,11 +322,17 @@ class PatientController extends Controller
 
             if (Auth::check()) {
                 if (Auth::user()->role_id == 1) {
-                    return redirect()->route('admin.all.patient')->with($notification);
+                    return redirect()
+                        ->route('admin.all.patient')
+                        ->with($notification);
                 } elseif (Auth::user()->role_id == 2) {
-                    return redirect()->route('manager.all.patient')->with($notification);
+                    return redirect()
+                        ->route('manager.all.patient')
+                        ->with($notification);
                 } elseif (Auth::user()->role_id == 3) {
-                    return redirect()->route('clerk.all.patient')->with($notification);
+                    return redirect()
+                        ->route('clerk.all.patient')
+                        ->with($notification);
                 } else {
                     return view('404');
                 }
@@ -315,25 +346,60 @@ class PatientController extends Controller
                 'message' => 'Error occurred: ' . $e->getMessage(),
             ];
 
-            return redirect()->back()->with($notification);
+            return redirect()->back()
+            ->with($notification);
         }
     }
 
     public function patientHistory($id)
     {
         $patientCheckupData = $this->patientCheckupContract->getPatientCheckupDataById($id);
-        return view('admin.patients.history', [
-            'patientCheckupData' => $patientCheckupData,
-            'patientID' => $id,
-        ]);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.patients.history', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'patientID' => $id,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.patients.history', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'patientID' => $id,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.patients.history', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'patientID' => $id,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function patientPrescriptionHistory($id)
     {
         $patientCheckupData = $this->prescriptionContract->getPatientPrescription($id);
-        return view('admin.prescriptions.history', [
-            'patientCheckupData' => $patientCheckupData,
-            'patientID' => $id,
-        ]);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.prescriptions.history', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'patientID' => $id,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.prescriptions.history', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'patientID' => $id,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.prescriptions.history', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'patientID' => $id,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 }

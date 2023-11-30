@@ -35,7 +35,6 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('clerk.create.patient') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Patient</a><br><br>
 
                                     <h4 class="card-title">Patients List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our users.</p>
@@ -54,10 +53,10 @@
                                         </thead>
                                         <tbody>
                                             @foreach($patientData as $key => $item)
-                                                <tr style="vertical-align: baseline;">
+                                                <tr style="vertical-align: middle;">
                                                     <td>{{ $key+1}}</td>
                                                     <td>
-                                                        <a href="{{ route('clerk.patient.history', $item->id) }}">
+                                                        <a href="">
                                                             {{ $item->id_number }}
                                                         </a>
                                                     </td>
@@ -66,8 +65,8 @@
                                                     <td>{{ $item->contact_number }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td style="text-align: center;">
-                                                        <a href="{{ route('clerk.edit.patient', $item->id) }}" class="btn btn-info sm" title="Edit Data">
-                                                            <i class="fas fa-edit"></i>
+                                                        <a href="{{ route('admin.create.patient.checkup', $item->id) }}" class="btn btn-warning sm" title="Checkup Patient">
+                                                            <i class="ri-hospital-line"></i>
                                                         </a>
                                                     </td>
                                                 </tr>

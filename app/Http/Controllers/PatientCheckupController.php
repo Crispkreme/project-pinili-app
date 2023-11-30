@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Contracts\PatientCheckupContract;
-use App\Contracts\LaboratoryContract;
-use App\Contracts\InventoryContract;
+use App\Contracts\PatientContract;
 use App\Contracts\ProductContract;
+use Illuminate\Support\Facades\DB;
+use App\Contracts\InventoryContract;
+use Illuminate\Support\Facades\Auth;
+use App\Contracts\LaboratoryContract;
 use App\Contracts\PatientBmiContract;
 use App\Contracts\PrescriptionContract;
-use App\Contracts\PatientContract;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\StorePatientBmiRequest;
+use Illuminate\Support\Facades\Storage;
+use App\Contracts\PatientCheckupContract;
 use App\Http\Requests\StorePatientRequest;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StorePatientBmiRequest;
 
 class PatientCheckupController extends Controller
 {
@@ -79,10 +82,26 @@ class PatientCheckupController extends Controller
         $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->id);
         $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
 
-        return view('admin.follow-up-checkups.create', [
-            'patientData' => $patientData,
-            'bmiData' => $bmiData,
-        ]);
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.follow-up-checkups.create', [
+                    'patientData' => $patientData,
+                    'bmiData' => $bmiData,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.follow-up-checkups.create', [
+                    'patientData' => $patientData,
+                    'bmiData' => $bmiData,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.follow-up-checkups.create', [
+                    'patientData' => $patientData,
+                    'bmiData' => $bmiData,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function storePatientFollowupCheckup(Request $request) {
@@ -183,6 +202,32 @@ class PatientCheckupController extends Controller
             ];
 
             return redirect()->back()->with($notification);
+        }
+    }
+
+    public function patientHistory($id)
+    {
+        $patientCheckupData = $this->patientCheckupContract->getPatientCheckupDataById($id);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.patients.history', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'patientID' => $id,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.patients.history', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'patientID' => $id,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.patients.history', [
+                    'patientCheckupData' => $patientCheckupData,
+                    'patientID' => $id,
+                ]);
+            } else {
+                return view('404');
+            }
         }
     }
 }

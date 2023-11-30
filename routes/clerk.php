@@ -27,10 +27,13 @@ Route::group(['controller' => PatientController::class], function () {
     Route::post('/store/patient', 'storePatient')->name('store.patient');
     Route::get('/edit/patient/{id}', 'editPatient')->name('edit.patient');
     Route::post('/update/patient/{id}', 'updatePatient')->name('update.patient');
+    Route::get('/patient/prescription/history/{id}', 'patientPrescriptionHistory')->name('patient.prescription.history');
 });
 
 Route::group(['controller' => PatientCheckupController::class], function () {
     Route::get('/patient/checkup', 'getAllPatientCheckup')->name('all.patient.checkup');
+    Route::get('/patient/history/{id}', 'patientHistory')->name('patient.history');
+    Route::post('/store/patient/followup/checkup', 'storePatientFollowupCheckup')->name('store.patient.followup.checkup');
 });
 
 Route::group(['controller' => DrugClassController::class], function () {
@@ -49,4 +52,8 @@ Route::group(['controller' => ProductController::class], function () {
     Route::post('/update/product/{id}', 'updateProduct')->name('update.product');
     Route::get('/get/product/data/{id}', 'getSpecificProductData')->name('get.specific.product.data');
     Route::get('/get/laboratory/data/{id}', 'getSpecificLaboratoryData')->name('get.specific.laboratory.data');
+});
+
+Route::group(['controller' => PatientCheckupController::class], function () {
+    Route::get('/patient/followup/checkup/{id}', 'createPatientFollowupCheckup')->name('create.patient.followup.checkup');
 });
