@@ -32,14 +32,16 @@
                     <!-- end page title -->
 
                     <div class="row">
-                        <form method="POST" action="{{ route('clerk.store.patient.followup.checkup') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('clerk.update.checkup.status', $checkupID) }}" enctype="multipart/form-data">
                         	@csrf
-                            <input type="hidden" name="patient_id" value="{{ $patientData->id }}" readonly>
+                            <input type="hidden" name="patient_id" value="{{ $patientData->id }}">
                         	<div class="col-12">
 	                            <div class="card">
 	                                <div class="card-body">
 	                                    <h4 class="card-title">Follow up Checkup</h4>
 	                                    <p class="card-title-desc">This are the complete list of our users.</p>
+
+                                        <h4 class="card-title">Checkup Status: <span style="text-transform: uppercase;">{{ $checkupData->statuses->status }}</span></h4>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -112,38 +114,48 @@
 	                                        <div class="row mb-3">
 	                                            <label for="example-text-input" class="col-sm-4 col-form-label">Heart Rate</label>
 	                                            <div class="col-sm-8">
-	                                                <input class="form-control" type="text" placeholder="{{ $bmiData->heart_rate }} bpm" name="heart_rate">
+	                                                <input class="form-control" type="text" placeholder="{{ $bmiData->heart_rate }} bpm" name="heart_rate" readonly>
 	                                            </div>
 	                                        </div>
 	                                        <div class="row mb-3">
 	                                            <label for="example-text-input" class="col-sm-4 col-form-label">Weight</label>
 	                                            <div class="col-sm-8">
-	                                                <input class="form-control" type="text" placeholder="{{ $bmiData->weight }} kg" name="weight">
+	                                                <input class="form-control" type="text" placeholder="{{ $bmiData->weight }} kg" name="weight" readonly>
 	                                            </div>
 	                                        </div>
 	                                        <div class="row mb-3">
 	                                            <label for="example-text-input" class="col-sm-4 col-form-label">Temperature</label>
 	                                            <div class="col-sm-8">
-	                                                <input class="form-control" type="text" placeholder="{{ $bmiData->temperature }} deg" name="temperature">
+	                                                <input class="form-control" type="text" placeholder="{{ $bmiData->temperature }} deg" name="temperature" readonly>
 	                                            </div>
 	                                        </div>
 	                                        <div class="row mb-3">
                                                 <label class="col-sm-4 col-form-label">Symptom</label>
                                                 <div class="col-sm-8">
-                                                    <textarea required="" placeholder="{{ $bmiData->symptoms }}" class="form-control" name="symptoms" rows="6"></textarea>
+                                                    <textarea required="" placeholder="{{ $bmiData->symptoms }}" class="form-control" name="symptoms" rows="6" readonly></textarea>
                                                 </div>
                                             </div>
                                             @if ($bmiData->diagnosis !== "")
                                                 <div class="row mb-3">
                                                     <label class="col-sm-4 col-form-label">Diagnosis</label>
                                                     <div class="col-sm-8">
-                                                        <textarea required="" placeholder="{{ strip_tags($bmiData->diagnosis) }}" class="form-control" name="symptoms" rows="6"></textarea>
+                                                        <textarea required="" placeholder="{{ strip_tags($bmiData->diagnosis) }}" class="form-control" name="symptoms" rows="6" readonly></textarea>
                                                     </div>
                                                 </div>
                                             @endif
-                                            <div>
-                                                <button type="submit" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;margin-left:5px;">Follow-up Checkup</button>
-                                            </div>
+
+                                            @if ($checkupData->status_id === 2)
+                                                <div>
+                                                    <a href="{{ route('clerk.all.patient') }}" class="btn btn-warning btn-rounded waves-effect waves-light" style="float:right;margin-left:5px;">
+                                                        Back
+                                                    </a>
+                                                </div>
+                                            @else
+                                                <div>
+                                                    <button type="submit" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;margin-left:5px;">Done Checkup</button>
+                                                </div>
+                                            @endif
+
                         				</div>
                         			</div>
                         		</div>

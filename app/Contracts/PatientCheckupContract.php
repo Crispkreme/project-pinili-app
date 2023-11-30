@@ -10,4 +10,5 @@ interface PatientCheckupContract {
     public function getPatientCheckupByBmiId($id);
     public function updateFollowUpCheckupDate($id, $params);
     public function getPatientCheckupDataById($id);
+    public function updatePatientCheckupStatus($id);
 }

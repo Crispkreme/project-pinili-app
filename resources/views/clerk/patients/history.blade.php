@@ -64,7 +64,11 @@
                                             @foreach ($patientCheckupData as $key => $item)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
-                                                    <td>{{ $item->id_number }}</td>
+                                                    <td>
+                                                        <a href="{{ route('clerk.patient.update.checkup.status', $item->id) }}">
+                                                            {{ $item->id_number }}
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $item->patientBmi->patient->firstname }} {{ $item->patientBmi->patient->mi }} {{ $item->patientBmi->patient->lastname }}</td>
                                                     <td>{{ $item->patientBmi->patient->age }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>

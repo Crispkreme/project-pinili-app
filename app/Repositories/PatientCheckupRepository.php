@@ -75,4 +75,15 @@ class PatientCheckupRepository implements PatientCheckupContract {
             })
             ->paginate($perPage);
     }
+
+    public function updatePatientCheckupStatus($id)
+    {
+        $patientCheckup = $this->model->findOrFail($id);
+        $patientCheckup->update([
+            'status_id' => 2,
+            'remarks' => "done checkup",
+        ]);
+
+        return $patientCheckup;
+    }
 }

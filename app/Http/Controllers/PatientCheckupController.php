@@ -249,4 +249,25 @@ class PatientCheckupController extends Controller
             }
         }
     }
+
+    public function updatePatientCheckupStatus($id)
+    {
+        $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
+        $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->id);
+        $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
+
+        return view('clerk.patient-checkups.update-checkup-status', [
+            'checkupData' => $checkupData,
+            'patientData' => $patientData,
+            'bmiData' => $bmiData,
+            'checkupID' => $id,
+        ]);
+    }
+
+    public function updateCheckupStatus($id)
+    {
+        $this->patientCheckupContract->updatePatientCheckupStatus($id);
+
+        return redirect()->back()->with('success', 'Checkup updated successfully.');
+    }
 }
