@@ -68,7 +68,7 @@
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>
-                                                        <a href="{{ route('manager.patient.diagnosis', $item->id) }}">
+                                                        <a href="{{ route('manager.patient.update.checkup.status', $item->id) }}">
                                                             {{ $item->id_number }}
                                                         </a>
                                                     </td>

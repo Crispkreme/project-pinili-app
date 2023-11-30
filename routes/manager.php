@@ -136,6 +136,8 @@ Route::group(['controller' => PatientController::class], function () {
 });
 
 Route::group(['controller' => PatientCheckupController::class], function () {
+    Route::post('/update/checkup/status/{id}', 'updateCheckupStatus')->name('update.checkup.status');
+    Route::get('/patient/update/checkup/status/{id}', 'updatePatientCheckupStatus')->name('patient.update.checkup.status');
     Route::get('/patient/checkup', 'getAllPatientCheckup')->name('all.patient.checkup');
     Route::post('/store/patient/followup/checkup', 'storePatientFollowupCheckup')->name('store.patient.followup.checkup');
     Route::get('/patient/create/checkup/{id}', 'createPatientCheckup')->name('create.patient.checkup');
