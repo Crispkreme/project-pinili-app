@@ -41,7 +41,9 @@ class UserRepository implements UserContract {
 
     public function getAllUser($perPage = 10)
     {
-        return $this->model->paginate($perPage);
+        return $this->model
+            ->orderBy('id','desc')
+            ->paginate($perPage);
     }
 
     public function getAllUserData()

@@ -22,6 +22,8 @@ class InventoryPaymentRepository implements InventoryPaymentContract {
 
     public function getInventoryPaymentDataByOrNumber($id)
     {
-        return $this->model->where('inventory_sheet_id', $id)->get();
+        return $this->model
+        ->where('inventory_sheet_id', $id)
+        ->get();
     }
 }

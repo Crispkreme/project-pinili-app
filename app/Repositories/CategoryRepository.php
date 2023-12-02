@@ -16,11 +16,16 @@ class CategoryRepository implements CategoryContract {
 
     public function getCategoryData()
     {
-        return $this->model->where('classification_id', 2)->pluck('name', 'id')->toArray();
+        return $this->model
+        ->where('classification_id', 2)
+        ->pluck('name', 'id')
+        ->toArray();
     }
 
     public function getCategory()
     {
-        return $this->model->where('classification_id', 2)->get();
+        return $this->model
+        ->where('classification_id', 2)
+        ->get();
     }
 }

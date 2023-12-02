@@ -35,6 +35,7 @@ class PrescriptionRepository implements PrescriptionContract {
                         });
                     });
                 })
+                ->orderBy('id','desc')
                 ->paginate($perPage);
         } catch (ModelNotFoundException $exception) {
             dd("Patient not found");

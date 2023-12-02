@@ -26,6 +26,7 @@ class InventoryDetailRepository implements InventoryDetailContract {
             'inventory_status',
             'product',
         ])
+        ->orderBy('id','desc')
         ->get();
     }
 }

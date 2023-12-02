@@ -24,6 +24,7 @@ class DrugClassRepository implements DrugClassContract {
     {
         return $this->model
         ->where('id', '!=', 1)
+        ->orderBy('id','desc')
         ->paginate($perPage);
     }
 

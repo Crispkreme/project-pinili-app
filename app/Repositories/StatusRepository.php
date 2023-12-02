@@ -17,6 +17,8 @@ class StatusRepository implements StatusContract {
 
     public function getAllStatusData()
     {
-        return $this->model->pluck('status', 'id')->toArray();
+        return $this->model
+        ->pluck('status', 'id')
+        ->toArray();
     }
 }

@@ -39,6 +39,7 @@ class OrderRepository implements OrderContract {
             'status'
         ])
         ->where('status_id', 8)
+        ->orderBy('id','desc')
         ->paginate($perPage);
     }
 
@@ -63,6 +64,7 @@ class OrderRepository implements OrderContract {
             'status'
         ])
         ->where('status_id', $id)
+        ->orderBy('id','desc')
         ->paginate($perPage);
     }
 

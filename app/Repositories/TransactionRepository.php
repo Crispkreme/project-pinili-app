@@ -17,10 +17,12 @@ class TransactionRepository implements TransactionContract {
 
     public function createTransaction($params)
     {
-        return $this->model->create($params);
+        return $this->model
+        ->create($params);
     }
     public function getAllTransaction()
     {
-        return $this->model->get();
+        return $this->model
+        ->get();
     }
 }

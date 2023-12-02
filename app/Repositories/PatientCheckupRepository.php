@@ -74,6 +74,7 @@ class PatientCheckupRepository implements PatientCheckupContract {
             ->whereHas('patientBmi', function ($query) use ($id) {
                 $query->where('patient_id', $id);
             })
+            ->orderBy('id','desc')
             ->paginate($perPage);
     }
 

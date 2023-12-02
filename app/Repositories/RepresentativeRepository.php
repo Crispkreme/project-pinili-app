@@ -22,7 +22,9 @@ class RepresentativeRepository implements RepresentativeContract {
 
     public function getAllRepresentative($perPage = 10)
     {
-        return $this->model->paginate($perPage);
+        return $this->model
+            ->orderBy('id','desc')
+            ->paginate($perPage);
     }
 
     public function getRepresentativeData()

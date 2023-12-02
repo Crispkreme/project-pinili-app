@@ -17,6 +17,8 @@ class ClassificationRepository implements ClassificationContract {
 
     public function getAllClassification()
     {
-        return $this->model->pluck('classification', 'id')->toArray();
+        return $this->model
+        ->pluck('classification', 'id')
+        ->toArray();
     }
 }

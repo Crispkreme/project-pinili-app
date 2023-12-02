@@ -25,6 +25,7 @@ class ProductRepository implements ProductContract {
         return $this->model
         ->with(['category', 'form'])
         ->where('id', '!=', 1)
+        ->orderBy('id','desc')
         ->paginate($perPage);
     }
 

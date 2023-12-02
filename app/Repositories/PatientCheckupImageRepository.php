@@ -16,12 +16,14 @@ class PatientCheckupImageRepository implements PatientCheckupImageContract {
 
     public function allPatientCheckupImage()
     {
-        return $this->model->get();
+        return $this->model
+        ->get();
     }
 
     public function storePatientCheckupImage($params)
     {
-        return $this->model->create($params);
+        return $this->model
+        ->create($params);
     }
 
     public function getPatientCheckupImageById($id)

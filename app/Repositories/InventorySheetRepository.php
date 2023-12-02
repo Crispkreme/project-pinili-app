@@ -29,6 +29,8 @@ class InventorySheetRepository implements InventorySheetContract {
 
     public function editInventorySheet($id)
     {
-        return $this->model->where('id', $id)->get();
+        return $this->model
+        ->where('id', $id)
+        ->get();
     }
 }

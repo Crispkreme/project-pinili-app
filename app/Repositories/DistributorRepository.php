@@ -24,6 +24,7 @@ class DistributorRepository implements DistributorContract {
     {
         return $this->model
         ->with(['entity', 'company'])
+        ->orderBy('id','desc')
         ->paginate($perPage);
     }
 
