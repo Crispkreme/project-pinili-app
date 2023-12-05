@@ -5,6 +5,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientCheckupController;
 use App\Http\Controllers\DrugClassController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PettyCashController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,4 +56,10 @@ Route::group(['controller' => ProductController::class], function () {
     Route::post('/update/product/{id}', 'updateProduct')->name('update.product');
     Route::get('/get/product/data/{id}', 'getSpecificProductData')->name('get.specific.product.data');
     Route::get('/get/laboratory/data/{id}', 'getSpecificLaboratoryData')->name('get.specific.laboratory.data');
+});
+
+Route::group(['controller' => PettyCashController::class], function () {
+    Route::get('/petty/cash', 'index')->name('petty.cash');
+    Route::get('create/petty/cash', 'createPettyCash')->name('create.petty.cash');
+    Route::post('store/petty/cash', 'storePettyCash')->name('store.petty.cash');
 });

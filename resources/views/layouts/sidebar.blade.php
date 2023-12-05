@@ -390,6 +390,12 @@
                             'class' => 'waves-effect',
                             'isMenuTitle' => false,
                         ],[
+                            'list' => 'Patient Management',
+                            'url' => '',
+                            'icon' => '',
+                            'class' => 'menu-title',
+                            'isMenuTitle' => true,
+                        ],[
                             'list' => 'Manage Patients',
                             'url' => 'javascript: void(0);',
                             'icon' => '<i class="ri-user-search-line"></i>',
@@ -409,6 +415,12 @@
                                 ],
                             ],
                         ],[
+                            'list' => 'Product Management',
+                            'url' => '',
+                            'icon' => '',
+                            'class' => 'menu-title',
+                            'isMenuTitle' => true,
+                        ],[
                             'list' => 'Manage Products',
                             'url' => 'javascript: void(0);',
                             'icon' => '<i class="ri-handbag-line"></i>',
@@ -427,7 +439,27 @@
                                     'class' => '',
                                 ],
                             ],
-                        ],
+                        ],[
+                            'list' => 'Inventory Management',
+                            'url' => '',
+                            'icon' => '',
+                            'class' => 'menu-title',
+                            'isMenuTitle' => true,
+                        ],[
+                            'list' => 'Manage Inventory',
+                            'url' => 'javascript: void(0);',
+                            'icon' => '<i class="ri-handbag-line"></i>',
+                            'class' => 'has-arrow waves-effect',
+                            'isMenuTitle' => false,
+                            'submenu' => [
+                                [
+                                    'list' => 'Petty Cash',
+                                    'url' => route('clerk.petty.cash'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ],
+                            ],
+                        ]
                     ];
                 }
             @endphp
