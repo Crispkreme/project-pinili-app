@@ -62,4 +62,6 @@ Route::group(['controller' => PettyCashController::class], function () {
     Route::get('/petty/cash', 'index')->name('petty.cash');
     Route::get('create/petty/cash', 'createPettyCash')->name('create.petty.cash');
     Route::post('store/petty/cash', 'storePettyCash')->name('store.petty.cash');
+    Route::get('edit/petty/cash/{id}', 'editPettyCash')->name('edit.petty.cash');
+    Route::post('update/petty/cash/{id}', 'updatePettyCash')->name('update.petty.cash');
 });

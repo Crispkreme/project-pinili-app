@@ -15,21 +15,21 @@ class PettyCash extends Model
         "user_id",
         "petty_cash_status_id",
         "invoice_number",
-        "purchase_item",
         "amount",
-        "subtotal",
-        "qty",
         "file_date",
         "remarks",
         "paid_amount",
         "discount",
         "total_amount",
-        "purchase_remarks",
         "change",
         "isApprove",
     ];
 
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function petty_cash_status() {
+        return $this->belongsTo(Status::class, 'petty_cash_status_id');
     }
 }

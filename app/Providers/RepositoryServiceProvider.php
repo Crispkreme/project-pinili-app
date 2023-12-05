@@ -31,6 +31,7 @@ use App\Contracts\PrescriptionContract;
 use App\Contracts\PrescribeLaboratoryContract;
 use App\Contracts\PrescribeMedicineContract;
 use App\Contracts\PettyCashContract;
+use App\Contracts\PurchaseItemContract;
 
 // REPOSITORY
 use App\Repositories\RoleRepository;
@@ -61,6 +62,7 @@ use App\Repositories\PrescribeLaboratoryRepository;
 use App\Repositories\LaboratoryRepository;
 use App\Repositories\PrescriptionRepository;
 use App\Repositories\PettyCashRepository;
+use App\Repositories\PurchaseItemRepository;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -95,6 +97,7 @@ class RepositoryServiceProvider extends ServiceProvider
         PrescribeMedicineContract::class => PrescribeMedicineRepository::class,
         PrescribeLaboratoryContract::class => PrescribeLaboratoryRepository::class,
         PettyCashContract::class => PettyCashRepository::class,
+        PurchaseItemContract::class => PurchaseItemRepository::class,
     ];
 
     /**

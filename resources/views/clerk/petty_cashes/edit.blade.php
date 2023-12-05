@@ -19,14 +19,14 @@
                             <x-breadcrumb />
                         </div>
                     </div>
-                    <form method="POST" action="{{ route('clerk.store.petty.cash') }}" id="myForm">
+                    <form method="POST" action="{{ route('clerk.update.petty.cash', $pettyCashId) }}" id="myForm">
                         @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Add Petty Cash Information</h4>
-                                        <p class="card-title-desc">You can add here you product information.</p>
+                                        <h4 class="card-title">Update Petty Cash Information</h4>
+                                        <p class="card-title-desc">You can add here you petty cash information.</p>
 
                                         @if(count($errors))
                                             @foreach ($errors->all() as $error)
@@ -47,12 +47,14 @@
                                         <div class="row" style="align-items: flex-end;">
                                             <div class="col-md-9">
                                                 <div class="row">
-                                                    <label for="purchase_item" class="col-form-label">Purchase Item</label>
-                                                    <input class="form-control" name="" type="text" id="purchase_item" placeholder="Purchase Item">
-                                                </div>
-                                                <div class="row">
-                                                    <label for="purchase_remarks" class="col-form-label">Remarks</label>
+                                                    <div class="col-md-12">
+                                                        <label for="purchase_item" class="col-form-label">Purchase Item</label>
+                                                        <input class="form-control" name="" type="text" id="purchase_item" placeholder="Purchase Item">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="purchase_remarks" class="col-form-label">Remarks</label>
                                                     <textarea class="form-control" name="" id="purchase_remarks" cols="30" rows="2" placeholder="Remarks"></textarea>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -181,8 +183,68 @@
                 </td>
             </tr>
         </script>
+        <script id="load-data-document-template" text="text/x-handlerbars-template">
+            <tr class="delete_add_more_item" id="delete_add_more_item">
+
+                <input type="hidden" name="id[]" value="@{{ id }}">
+
+                <td>
+                    <input
+                    type="text"
+                    name="purchase_item[]"
+                    class="form-control purchase_item text-right"
+                    value="@{{ purchase_item }}"
+                    id="purchase_item">
+                </td>
+                <td>
+                    <input
+                    type="text"
+                    name="purchase_remarks[]"
+                    class="form-control purchase_remarks text-right"
+                    value="@{{ purchase_remarks }}"
+                    id="purchase_remarks">
+                </td>
+                <td>
+                    <input
+                    type="text"
+                    name="qty[]"
+                    class="form-control qty text-right"
+                    value="@{{ qty }}"
+                    id="qty">
+                </td>
+                <td>
+                    <input
+                    type="text"
+                    name="price[]"
+                    class="form-control price text-right"
+                    value="@{{ price }}"
+                    id="price">
+                </td>
+                <td>
+                    <input
+                    type="text"
+                    class="form-control subtotal"
+                    id="subtotal"
+                    name="subtotal[]"
+                    placeholder="0"
+                    value=""
+                    style="background-color:#ddd;">
+                </td>
+                <td style="text-align: center;">
+                    <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
+                </td>
+            </tr>
+        </script>
         <script type="text/javascript">
             $(function(){
+                $(document).ready(function() {
+                    var currentRoute = "{{ Route::currentRouteName() }}";
+                    if (currentRoute === 'clerk.edit.petty.cash') {
+                        executeCodeForClerkEditPettyCash(@json($purchaseItem));
+                        calculateSubtotalPrice();
+                        totalAmountPrice();
+                    }
+                });
                 $(document).on('click', '.addeventmore', function() {
                     var purchase_item = $('.row #purchase_item').val();
                     var purchase_remarks = $('.row #purchase_remarks').val();
@@ -205,12 +267,27 @@
                     calculateSubtotalPrice();
                     totalAmountPrice();
                 });
-
                 $(document).on('click keyup', '#qty, #price, #discount_amount, #paid_amount', function() {
                     calculateSubtotalPrice();
                     totalAmountPrice();
                 });
 
+                function executeCodeForClerkEditPettyCash(data) {
+                    var source = $("#load-data-document-template").html();
+                    var template = Handlebars.compile(source);
+
+                    for (var i = 0; i < data.length; i++) {
+                        var html = template({
+                            id: data[i].id,
+                            price: data[i].price,
+                            qty: data[i].qty,
+                            purchase_item: data[i].purchase_item,
+                            purchase_remarks: data[i].purchase_remarks,
+                        });
+
+                        $("#addRow").append(html);
+                    }
+                }
                 function calculateSubtotalPrice() {
                     $('.qty').each(function(index) {
                         var qty = $(this).val();
@@ -220,8 +297,6 @@
                         $('.subtotal').eq(index).val(subtotal);
                     });
                 }
-
-                // calculate the total amount
                 function totalAmountPrice() {
                     var sum = 0;
                     $(".subtotal").each(function () {

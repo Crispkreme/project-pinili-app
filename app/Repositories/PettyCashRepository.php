@@ -17,11 +17,28 @@ class PettyCashRepository implements PettyCashContract {
     public function getPettyCash()
     {
         return $this->model
+        ->orderBy('id', 'desc')
         ->get();
     }
 
     public function storePettyCash($params)
     {
         return $this->model->create($params);
+    }
+
+    public function getPettyCashInvoiceNumber($id)
+    {
+        return $this->model->with([
+            "user",
+            "petty_cash_status",
+        ])
+        ->findOrFail($id);
+    }
+
+    public function updatePettyCash($params, $id)
+    {
+        $pettyCashData = $this->model->findOrFail($id);
+        $pettyCashData->update($params);
+        return $pettyCashData;
     }
 }

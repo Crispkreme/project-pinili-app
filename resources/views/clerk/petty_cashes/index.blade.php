@@ -49,33 +49,44 @@
                                             <tr>
                                                 <th class="text-center">ID</th>
                                                 <th>Invoice Number</th>
-                                                <th>Amount</th>
-                                                <th>Paid Amount</th>
-                                                <th>Discount</th>
+                                                <th>Amount Paid</th>
                                                 <th>Total Amount</th>
-                                                <th>Change</th>
-                                                <th>Status</th>
+                                                <th>Discount</th>
+                                                <th>Requestor</th>
+                                                <th style="width: 20%;">Remarks</th>
                                                 <th>Date</th>
+                                                <th style="width: 10%;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach($inventorySheets as $key => $item)
-                                                <tr>
-                                                    <td style="text-align: center;">{{ (int)$key + 1 }}</td>
+                                            @foreach($pettyCash as $key => $item)
+                                                <tr style="vertical-align:baseline;">
+                                                    <td style="text-align: center;">
+                                                        {{ (int)$key + 1 }}
+                                                    </td>
                                                     <td>
-                                                        <a href="{{ route('admin.edit.inventory.sheet', $item->id) }}">
+                                                        <a href="{{ route('clerk.edit.petty.cash', $item->id) }}">
                                                             {{ $item->invoice_number }}
                                                         </a>
+                                                    <td>{{ $item->paid_amount }}</td>
+                                                    <td>{{ $item->total_amount }}</td>
+                                                    <td>{{ $item->discount }}</td>
+                                                    <td>{{ $item->user->name }}</td>
+                                                    <td>{{ $item->remarks }}</td>
+                                                    <td>{{ date('M, d, Y', strtotime($item->file_date)) }}</td>
+                                                    <td>
+                                                        @if($item->petty_cash_status_id === 1)
+                                                            <a href="{{ route('clerk.edit.petty.cash', $item->id) }}" type="button" class="btn btn-warning waves-effect waves-light">
+                                                                <i class="ri-error-warning-line align-middle me-2"></i> Pending
+                                                            </a>
+                                                        @else
+                                                            <button type="button" class="btn btn-success waves-effect waves-light" disabled>
+                                                                <i class="ri-check-line align-middle me-2"></i> Approved
+                                                            </button>
+                                                        @endif
                                                     </td>
-                                                    <td>{{ $item->po_number }}</td>
-                                                    <td>{{ $item->delivery_number }}</td>
-                                                    <td>{{ $item->present_delivery }}</td>
-                                                    <td>{{ $item->previous_delivery }}</td>
-                                                    <td>{{ $item->or_number }}</td>
-                                                    <td>{{ date('M, d, Y', strtotime($item->or_date)) }}</td>
-                                                    <td>{{ date('M, d, Y', strtotime($item->delivery_date)) }}</td>
                                                 </tr>
-                                            @endforeach --}}
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
