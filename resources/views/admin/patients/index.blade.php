@@ -4,9 +4,11 @@
         input[switch]+label {
             width: 80px !important;
         }
+
         input[switch]:checked+label:after {
             left: 58px !important;
         }
+
         select {
             width: 60px !important;
         }
@@ -38,7 +40,8 @@
                                     <h4 class="card-title">Patients List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our users.</p>
 
-                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
+                                    <table class="table activate-select dt-responsive nowrap w-100"
+                                        id="state-saving-datatable">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ID</th>
@@ -51,20 +54,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($patientData as $key => $item)
-                                                <tr>
-                                                    <td class="text-center">{{ $key+1}}</td>
+                                            @foreach ($patientData as $key => $item)
+                                                <tr style="vertical-align: middle;">
+                                                    <td class="text-center">{{ $key + 1 }}</td>
                                                     <td>
                                                         <a href="{{ route('admin.patient.history', $item->id) }}">
                                                             {{ $item->id_number }}
                                                         </a>
                                                     </td>
-                                                    <td>{{ $item->firstname }} {{ $item->mi }} {{ $item->lastname }}</td>
+                                                    <td>{{ $item->firstname }} {{ $item->mi }} {{ $item->lastname }}
+                                                    </td>
                                                     <td class="text-center">{{ $item->age }}</td>
                                                     <td class="text-center">{{ $item->contact_number }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td style="text-align: center;">
-                                                        <a href="{{ route('admin.edit.patient', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                        <a class="btn btn-info sm"
+                                                            href="{{ route('admin.edit.patient', $item->id) }}"
+                                                            title="Edit Data">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
                                                     </td>

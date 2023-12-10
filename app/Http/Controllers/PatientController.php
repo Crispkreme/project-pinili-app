@@ -53,47 +53,55 @@ class PatientController extends Controller
 
     public function getPatient()
     {
-        $patientData = $this->patientContract->allPatient();
+        try {
+            $patientData = $this->patientContract->allPatient();
 
-        if (Auth::check()) {
-            if (Auth::user()->role_id == 1) {
-                return view('admin.patients.index', [
-                    'patientData' => $patientData
-                ]);
-            } elseif (Auth::user()->role_id == 2) {
-                return view('manager.patients.index', [
-                    'patientData' => $patientData
-                ]);
-            } elseif (Auth::user()->role_id == 3) {
-                return view('clerk.patients.index', [
-                    'patientData' => $patientData
-                ]);
-            } else {
-                return view('404');
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.patients.index', [
+                        'patientData' => $patientData
+                    ]);
+                } elseif (Auth::user()->role_id == 2) {
+                    return view('manager.patients.index', [
+                        'patientData' => $patientData
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.patients.index', [
+                        'patientData' => $patientData
+                    ]);
+                } else {
+                    return view('404');
+                }
             }
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 
     public function addPatient()
     {
-        $patientData = $this->patientContract->allPatient();
+        try {
+            $patientData = $this->patientContract->allPatient();
 
-        if (Auth::check()) {
-            if (Auth::user()->role_id == 1) {
-                return view('admin.patients.create', [
-                    'patientData' => $patientData
-                ]);
-            } elseif (Auth::user()->role_id == 2) {
-                return view('manager.patients.create', [
-                    'patientData' => $patientData
-                ]);
-            } elseif (Auth::user()->role_id == 3) {
-                return view('clerk.patients.create', [
-                    'patientData' => $patientData
-                ]);
-            } else {
-                return view('404');
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.patients.create', [
+                        'patientData' => $patientData
+                    ]);
+                } elseif (Auth::user()->role_id == 2) {
+                    return view('manager.patients.create', [
+                        'patientData' => $patientData
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.patients.create', [
+                        'patientData' => $patientData
+                    ]);
+                } else {
+                    return view('404');
+                }
             }
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 
@@ -222,45 +230,50 @@ class PatientController extends Controller
 
     public function editPatient($id)
     {
-        $patientCheckups = $this->patientCheckupContract->getPatientCheckupByPatientId($id);
 
-        if ($patientCheckups->isNotEmpty()) {
+        try {
+            $patientCheckups = $this->patientCheckupContract->getPatientCheckupByPatientId($id);
 
-            $firstPatientCheckup = $patientCheckups->first();
-            $patientBmiID = $firstPatientCheckup->patient_bmi_id;
+            if ($patientCheckups->isNotEmpty()) {
 
-            $patientBmi = $this->patientBmiContract->getPatientBmiByPatientId($patientBmiID);
-            $patientID = $patientBmi->patient_id;
+                $firstPatientCheckup = $patientCheckups->first();
+                $patientBmiID = $firstPatientCheckup->patient_bmi_id;
 
-            $this->patientCheckupImageContract->getPatientCheckupImageById($id);
+                $patientBmi = $this->patientBmiContract->getPatientBmiByPatientId($patientBmiID);
+                $patientID = $patientBmi->patient_id;
 
-            $patient = $this->patientContract->getPatientById($patientID);
+                $this->patientCheckupImageContract->getPatientCheckupImageById($id);
 
-            return view('clerk.patients.edit', [
-                'patient' => $patient,
-                'patientBmi' => $patientBmi,
-            ]);
-        }
+                $patient = $this->patientContract->getPatientById($patientID);
 
-        $patientData = $this->patientContract->allPatient();
-
-        if (Auth::check()) {
-            switch (Auth::user()->role_id) {
-                case 1:
-                    return view('admin.patients.index', [
-                        'patientData' => $patientData
-                    ]);
-                case 2:
-                    return view('manager.patients.index', [
-                        'patientData' => $patientData
-                    ]);
-                case 3:
-                    return view('clerk.patients.index', [
-                        'patientData' => $patientData
-                    ]);
-                default:
-                    return view('404');
+                return view('clerk.patients.edit', [
+                    'patient' => $patient,
+                    'patientBmi' => $patientBmi,
+                ]);
             }
+
+            $patientData = $this->patientContract->allPatient();
+
+            if (Auth::check()) {
+                switch (Auth::user()->role_id) {
+                    case 1:
+                        return view('admin.patients.index', [
+                            'patientData' => $patientData
+                        ]);
+                    case 2:
+                        return view('manager.patients.index', [
+                            'patientData' => $patientData
+                        ]);
+                    case 3:
+                        return view('clerk.patients.index', [
+                            'patientData' => $patientData
+                        ]);
+                    default:
+                        return view('404');
+                }
+            }
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 
@@ -365,91 +378,113 @@ class PatientController extends Controller
 
     public function patientHistory($id)
     {
-        $patientCheckupData = $this->patientCheckupContract->getPatientCheckupDataById($id);
+        try {
+            $patientCheckupData = $this->patientCheckupContract->getPatientCheckupDataById($id);
 
-        if (Auth::check()) {
-            if (Auth::user()->role_id == 1) {
-                return view('admin.patients.history', [
-                    'patientCheckupData' => $patientCheckupData,
-                    'patientID' => $id,
-                ]);
-            } elseif (Auth::user()->role_id == 2) {
-                return view('manager.patients.history', [
-                    'patientCheckupData' => $patientCheckupData,
-                    'patientID' => $id,
-                ]);
-            } elseif (Auth::user()->role_id == 3) {
-                return view('clerk.patients.history', [
-                    'patientCheckupData' => $patientCheckupData,
-                    'patientID' => $id,
-                ]);
-            } else {
-                return view('404');
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.patients.history', [
+                        'patientCheckupData' => $patientCheckupData,
+                        'patientID' => $id,
+                    ]);
+                } elseif (Auth::user()->role_id == 2) {
+                    return view('manager.patients.history', [
+                        'patientCheckupData' => $patientCheckupData,
+                        'patientID' => $id,
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.patients.history', [
+                        'patientCheckupData' => $patientCheckupData,
+                        'patientID' => $id,
+                    ]);
+                } else {
+                    return view('404');
+                }
             }
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 
     public function patientPrescriptionHistory($id)
     {
-        $patientCheckupData = $this->prescriptionContract->getPatientPrescription($id);
+        try {
+            $patientCheckupData = $this->prescriptionContract->getPatientPrescription($id);
 
-        if (Auth::check()) {
-            if (Auth::user()->role_id == 1) {
-                return view('admin.prescriptions.history', [
-                    'patientCheckupData' => $patientCheckupData,
-                    'patientID' => $id,
-                ]);
-            } elseif (Auth::user()->role_id == 2) {
-                return view('manager.prescriptions.history', [
-                    'patientCheckupData' => $patientCheckupData,
-                    'patientID' => $id,
-                ]);
-            } elseif (Auth::user()->role_id == 3) {
-                return view('clerk.prescriptions.history', [
-                    'patientCheckupData' => $patientCheckupData,
-                    'patientID' => $id,
-                ]);
-            } else {
-                return view('404');
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.prescriptions.history', [
+                        'patientCheckupData' => $patientCheckupData,
+                        'patientID' => $id,
+                    ]);
+                } elseif (Auth::user()->role_id == 2) {
+                    return view('manager.prescriptions.history', [
+                        'patientCheckupData' => $patientCheckupData,
+                        'patientID' => $id,
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.prescriptions.history', [
+                        'patientCheckupData' => $patientCheckupData,
+                        'patientID' => $id,
+                    ]);
+                } else {
+                    return view('404');
+                }
             }
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 
     public function patientDiagnosis($id)
     {
-        $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
-        $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->id);
-        $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
+        try {
+            $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
+            $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->id);
+            $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
 
-        if (Auth::check()) {
-            if (Auth::user()->role_id == 1) {
-                return view('admin.follow-up-checkups.create', [
-                    'patientData' => $patientData,
-                    'bmiData' => $bmiData,
-                ]);
-            } elseif (Auth::user()->role_id == 2) {
-                return view('manager.follow-up-checkups.create', [
-                    'patientData' => $patientData,
-                    'bmiData' => $bmiData,
-                ]);
-            } elseif (Auth::user()->role_id == 3) {
-                return view('clerk.follow-up-checkups.create', [
-                    'patientData' => $patientData,
-                    'bmiData' => $bmiData,
-                ]);
-            } else {
-                return view('404');
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.follow-up-checkups.create', [
+                        'patientData' => $patientData,
+                        'checkupData' => $checkupData,
+                        'bmiData' => $bmiData,
+                    ]);
+                } elseif (Auth::user()->role_id == 2) {
+                    return view('manager.follow-up-checkups.create', [
+                        'patientData' => $patientData,
+                        'checkupData' => $checkupData,
+                        'bmiData' => $bmiData,
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.follow-up-checkups.create', [
+                        'patientData' => $patientData,
+                        'checkupData' => $checkupData,
+                        'bmiData' => $bmiData,
+                    ]);
+                } else {
+                    return view('404');
+                }
             }
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 
     public function storePatientDiagnosis($id, Request $request)
     {
-        $bmiParams = [
-            'diagnosis' => $request->diagnosis,
-        ];
+        try {
+            $bmiParams = [
+                'diagnosis' => $request->diagnosis,
+                'symptoms' => $request->symptoms,
+            ];
 
-        $this->patientBmiContract->addPatientDiagnosis($id, $bmiParams);
-        return redirect()->back()->with('success', 'Diagnosis added successfully.');
+            $this->patientBmiContract->addPatientDiagnosis($id, $bmiParams);
+            return redirect()
+            ->back()
+            ->with('success', 'Recommendation added successfully.');
+        } catch (Exception $e) {
+            dd($e);
+        }
     }
 }

@@ -252,35 +252,82 @@ class PatientCheckupController extends Controller
 
     public function updatePatientCheckupStatus($id)
     {
-        $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
-        $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->id);
-        $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
+        try {
 
-        if (Auth::check()) {
-            if (Auth::user()->role_id == 2) {
-                return view('manager.patient-checkups.update-checkup-status', [
-                    'checkupData' => $checkupData,
-                    'patientData' => $patientData,
-                    'bmiData' => $bmiData,
-                    'checkupID' => $id,
-                ]);
-            } elseif (Auth::user()->role_id == 3) {
-                return view('clerk.patient-checkups.update-checkup-status', [
-                    'checkupData' => $checkupData,
-                    'patientData' => $patientData,
-                    'bmiData' => $bmiData,
-                    'checkupID' => $id,
-                ]);
-            } else {
-                return view('404');
+            $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
+            $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->id);
+            $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
+
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 2) {
+                    return view('manager.patient-checkups.update-checkup-status', [
+                        'checkupData' => $checkupData,
+                        'patientData' => $patientData,
+                        'bmiData' => $bmiData,
+                        'checkupID' => $id,
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.patient-checkups.update-checkup-status', [
+                        'checkupData' => $checkupData,
+                        'patientData' => $patientData,
+                        'bmiData' => $bmiData,
+                        'checkupID' => $id,
+                    ]);
+                } else {
+                    return view('404');
+                }
             }
+
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 
     public function updateCheckupStatus($id)
     {
-        $this->patientCheckupContract->updatePatientCheckupStatus($id);
+        try {
 
-        return redirect()->back()->with('success', 'Checkup updated successfully.');
+            $this->patientCheckupContract->updatePatientCheckupStatus($id);
+
+            return redirect()
+                ->back()
+                ->with('success', 'Checkup updated successfully.');
+
+        } catch (Exception $e) {
+            dd($e);
+        }
+
+    }
+
+    public function patientCheckupPdf($id)
+    {
+        try {
+
+            $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
+            $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->id);
+            $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
+
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 2) {
+                    return view('clerk.patient-checkups.medical-certificate', [
+                        'checkupData' => $checkupData,
+                        'patientData' => $patientData,
+                        'bmiData' => $bmiData,
+                        'checkupID' => $id,
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.patient-checkups.medical-certificate', [
+                        'checkupData' => $checkupData,
+                        'patientData' => $patientData,
+                        'bmiData' => $bmiData,
+                        'checkupID' => $id,
+                    ]);
+                } else {
+                    return view('404');
+                }
+            }
+        } catch (Exception $e) {
+            dd($e);
+        }
     }
 }

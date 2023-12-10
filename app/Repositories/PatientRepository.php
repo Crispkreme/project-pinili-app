@@ -43,4 +43,9 @@ class PatientRepository implements PatientContract {
         $patient = $this->model->findOrFail($id);
         return $patient;
     }
+
+    public function getTotalPatientPerMonth()
+    {
+        dd('asdasd');
+    }
 }

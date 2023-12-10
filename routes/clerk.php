@@ -32,6 +32,7 @@ Route::group(['controller' => PatientController::class], function () {
 });
 
 Route::group(['controller' => PatientCheckupController::class], function () {
+    Route::get('/patient/checkup/print/{id}', 'patientCheckupPdf')->name('patient.checkup.print');
     Route::get('/patient/checkup', 'getAllPatientCheckup')->name('all.patient.checkup');
     Route::get('/patient/history/{id}', 'patientHistory')->name('patient.history');
     Route::get('/patient/update/checkup/status/{id}', 'updatePatientCheckupStatus')->name('patient.update.checkup.status');
