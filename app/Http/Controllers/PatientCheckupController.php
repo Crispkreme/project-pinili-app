@@ -69,6 +69,8 @@ class PatientCheckupController extends Controller
         $patientCheckupData = $this->patientCheckupContract->getPatientCheckupById($id);
         $laboratories = $this->laboratoryContract->getLaboratoryData();
         $products = $this->inventoryContract->getProductDataByInventory();
+        $firstTab = 'progress-medicine-details';
+        $lastTab = 'progress-purchase-products';
 
         if (Auth::check()) {
             if (Auth::user()->role_id == 1) {
@@ -76,18 +78,24 @@ class PatientCheckupController extends Controller
                     'patientCheckupData' => $patientCheckupData,
                     'products' => $products,
                     'laboratories' => $laboratories,
+                    'firstTab' => $firstTab,
+                    'lastTab' => $lastTab,
                 ]);
             } elseif (Auth::user()->role_id == 2) {
                 return view('manager.patient-checkups.create', [
                     'patientCheckupData' => $patientCheckupData,
                     'products' => $products,
                     'laboratories' => $laboratories,
+                    'firstTab' => $firstTab,
+                    'lastTab' => $lastTab,
                 ]);
             } elseif (Auth::user()->role_id == 3) {
                 return view('clerk.patient-checkups.create', [
                     'patientCheckupData' => $patientCheckupData,
                     'products' => $products,
                     'laboratories' => $laboratories,
+                    'firstTab' => $firstTab,
+                    'lastTab' => $lastTab,
                 ]);
             } else {
                 return view('404');
@@ -308,7 +316,14 @@ class PatientCheckupController extends Controller
             $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
 
             if (Auth::check()) {
-                if (Auth::user()->role_id == 2) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.patient-checkups.medical-certificate', [
+                        'checkupData' => $checkupData,
+                        'patientData' => $patientData,
+                        'bmiData' => $bmiData,
+                        'checkupID' => $id,
+                    ]);
+                } elseif (Auth::user()->role_id == 2) {
                     return view('clerk.patient-checkups.medical-certificate', [
                         'checkupData' => $checkupData,
                         'patientData' => $patientData,

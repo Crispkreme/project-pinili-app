@@ -43,6 +43,16 @@
                                     <div class="card-body">
                                         <h4 class="card-title">Follow up Checkup</h4>
                                         <p class="card-title-desc">This are the complete list of our users.</p>
+
+                                        @if ($checkupData->status_id === 2)
+                                            <div class="mt-2" style="width:15%;">
+                                                <a class="btn btn-success waves-effect waves-light"
+                                                    href='{{ route('admin.patient.checkup.print', $checkupData->id) }}'>
+                                                    <i class="ri-printer-line align-middle me-2"></i>
+                                                    Print Certificate
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -153,42 +163,39 @@
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <label class="col-sm-4 col-form-label">Diagnosis</label>
+                                                <label class="col-sm-4 col-form-label">Symptom</label>
                                                 <div class="col-sm-8">
                                                     <textarea class="form-control" name="symptoms" required="" placeholder="{{ $bmiData->symptoms }}"
-                                                        rows="6"></textarea>
+                                                        rows="6" readonly></textarea>
                                                 </div>
                                             </div>
                                             @if ($bmiData->diagnosis !== '')
                                                 <div class="row mb-3">
-                                                    <label class="col-sm-4 col-form-label">Recommendation</label>
+                                                    <label class="col-sm-4 col-form-label">Diagnosis</label>
                                                     <div class="col-sm-8">
                                                         <textarea class="form-control" name="symptoms" required="" placeholder="{{ strip_tags($bmiData->diagnosis) }}"
-                                                            rows="6"></textarea>
+                                                            rows="6" readonly></textarea>
                                                     </div>
                                                 </div>
                                             @endif
-                                            <div>
-                                                @if ($checkupData->status_id === 2)
-                                                    <a class="btn btn-dark btn-rounded waves-effect waves-light"
-                                                        type="submit" href="{{ route('admin.all.patient') }}"
+
+                                            @if ($checkupData->status_id === 2)
+                                                <div>
+                                                    <a class="btn btn-warning btn-rounded waves-effect waves-light"
+                                                        href="{{ route('clerk.all.patient') }}"
                                                         style="float:right;margin-left:5px;">
                                                         Back
                                                     </a>
-                                                @else
+                                                </div>
+                                            @else
+                                                <div>
                                                     <button class="btn btn-dark btn-rounded waves-effect waves-light"
                                                         type="submit" style="float:right;margin-left:5px;">
-                                                        Follow-up Checkup
+                                                        Done Checkup
                                                     </button>
-                                                    <button
-                                                        class="btn btn-warning btn-rounded waves-effect waves-light mb-3"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target=".bs-example-modal-center" type="button"
-                                                        style="float:right;">
-                                                        Add Recommendation
-                                                    </button>
-                                                @endif
-                                            </div>
+                                                </div>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>
