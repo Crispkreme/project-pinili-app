@@ -110,6 +110,7 @@ class PatientController extends Controller
         DB::beginTransaction();
 
         try {
+
             $prefix = "PNT";
             $transactionNumber = Carbon::now()->format('mHis');
             $id_number = $prefix.'-'.$transactionNumber;
@@ -177,17 +178,6 @@ class PatientController extends Controller
             foreach ($patientCheckupImageData as $patientCheckupImage) {
                $this->patientCheckupImageContract->storePatientCheckupImage($patientCheckupImage);
             }
-
-            $patientPrescriptionParams = [
-                'product_id' => 1,
-                'patient_checkup_id' => $patientCheckup->id,
-                'laboratory_id' => 1,
-                'status_id' => 1,
-                'invoice_number' => "",
-                'remarks' => "pending",
-                'isActive' => 1,
-            ];
-            $this->prescriptionContract->storePrescription($patientPrescriptionParams);
 
             DB::commit();
 
