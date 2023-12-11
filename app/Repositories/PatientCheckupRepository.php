@@ -29,9 +29,10 @@ class PatientCheckupRepository implements PatientCheckupContract {
 
     public function getPatientCheckupById($id)
     {
+
         return $this->model
         ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
-        ->where('id', $id)
+        ->where('patient_bmi_id', $id)
         ->first();
     }
 
@@ -78,9 +79,20 @@ class PatientCheckupRepository implements PatientCheckupContract {
             ->paginate($perPage);
     }
 
+    public function getPatientCheckupIdById($id)
+    {
+        return $this->model
+            ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
+            ->whereHas('patientBmi', function ($query) use ($id) {
+                $query->where('patient_id', $id);
+            })
+            ->first();
+    }
+
     public function updatePatientCheckupStatus($id)
     {
-        $patientCheckup = $this->model->findOrFail($id);
+        $bmiData = $this->model->where('patient_bmi_id', $id)->first();
+        $patientCheckup = $this->model->findOrFail($bmiData->id);
         $patientCheckup->update([
             'status_id' => 2,
             'remarks' => "done checkup",

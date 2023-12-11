@@ -51,7 +51,7 @@
                                                 </span>
                                             </h4>
 
-                                            @if ($checkupData->status_id === 2)
+                                            @if ($checkupData->status_id == 2)
                                                 <div class="mt-2" style="width:15%;">
                                                     <a class="btn btn-success waves-effect waves-light"
                                                         href='{{ route('clerk.patient.checkup.print', $checkupData->id) }}'>
@@ -60,6 +60,7 @@
                                                     </a>
                                                 </div>
                                             @endif
+
                                         </div>
                                     </div>
                                 </div>
@@ -187,7 +188,7 @@
                                                 </div>
                                             @endif
 
-                                            @if ($checkupData->status_id === 2)
+                                            @if ($checkupData->status_id == 2)
                                                 <div>
                                                     <a class="btn btn-warning btn-rounded waves-effect waves-light"
                                                         href="{{ route('clerk.all.patient') }}"

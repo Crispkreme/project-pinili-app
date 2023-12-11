@@ -63,4 +63,13 @@ class PatientBmiRepository implements PatientBmiContract {
             return null;
         }
     }
+
+    public function getPatientIdByPatientBmi($id)
+    {
+        try {
+            return $this->model->findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            return null;
+        }
+    }
 }

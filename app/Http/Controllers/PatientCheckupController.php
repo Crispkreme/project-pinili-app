@@ -234,6 +234,7 @@ class PatientCheckupController extends Controller
 
     public function patientHistory($id)
     {
+
         $patientCheckupData = $this->patientCheckupContract->getPatientCheckupDataById($id);
 
         if (Auth::check()) {
@@ -263,7 +264,9 @@ class PatientCheckupController extends Controller
         try {
 
             $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
-            $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->id);
+
+            $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->patient_bmi_id);
+
             $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
 
             if (Auth::check()) {
@@ -295,7 +298,8 @@ class PatientCheckupController extends Controller
     {
         try {
 
-            $this->patientCheckupContract->updatePatientCheckupStatus($id);
+            $bmiData = $this->patientBmiContract->getPatientIdByPatientBmi($id);
+            $data = $this->patientCheckupContract->updatePatientCheckupStatus($bmiData->id);
 
             return redirect()
                 ->back()

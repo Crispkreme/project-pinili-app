@@ -4,9 +4,11 @@
         input[switch]+label {
             width: 80px !important;
         }
+
         input[switch]:checked+label:after {
             left: 58px !important;
         }
+
         select {
             width: 60px !important;
         }
@@ -41,13 +43,16 @@
                                             <p class="card-title-desc">This are the complete list of our users.</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <a href="{{ route('clerk.create.patient.followup.checkup', $patientID) }}" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;margin-left:5px;">
+                                            <a class="btn btn-dark btn-rounded waves-effect waves-light mb-3"
+                                                href="{{ route('clerk.create.patient.followup.checkup', $patientID) }}"
+                                                style="float:right;margin-left:5px;">
                                                 Follow-up Checkup
                                             </a>
                                         </div>
                                     </div>
 
-                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
+                                    <table class="table activate-select dt-responsive nowrap w-100"
+                                        id="state-saving-datatable">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ID</th>
@@ -65,17 +70,22 @@
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>
-                                                        <a href="{{ route('clerk.patient.update.checkup.status', $item->id) }}">
+                                                        <a
+                                                            href="{{ route('clerk.patient.update.checkup.status', $item->patient_bmi_id) }}">
                                                             {{ $item->id_number }}
                                                         </a>
                                                     </td>
-                                                    <td>{{ $item->patientBmi->patient->firstname }} {{ $item->patientBmi->patient->mi }} {{ $item->patientBmi->patient->lastname }}</td>
+                                                    <td>{{ $item->patientBmi->patient->firstname }}
+                                                        {{ $item->patientBmi->patient->mi }}
+                                                        {{ $item->patientBmi->patient->lastname }}</td>
                                                     <td>{{ $item->patientBmi->patient->age }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
-                                                    @if($item->follow_up_date === "1900-01-01")
+                                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}
+                                                    </td>
+                                                    @if ($item->follow_up_date === '1900-01-01')
                                                         <td>None</td>
                                                     @else
-                                                        <td>{{ \Carbon\Carbon::parse($item->follow_up_date)->format('M d, Y') }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($item->follow_up_date)->format('M d, Y') }}
+                                                        </td>
                                                     @endif
                                                     <td>{{ $item->statuses->status }}</td>
                                                     <td>{{ $item->remarks }}</td>

@@ -44,7 +44,13 @@
                                         <h4 class="card-title">Follow up Checkup</h4>
                                         <p class="card-title-desc">This are the complete list of our users.</p>
 
-                                        @if ($checkupData->status_id === 2)
+                                        <h4 class="card-title">Checkup Status:
+                                            <span style="text-transform: uppercase;">
+                                                {{ $checkupData->statuses->status }}
+                                            </span>
+                                        </h4>
+
+                                        @if ($checkupData->status_id == 2)
                                             <div class="mt-2" style="width:15%;">
                                                 <a class="btn btn-success waves-effect waves-light"
                                                     href='{{ route('admin.patient.checkup.print', $checkupData->id) }}'>
