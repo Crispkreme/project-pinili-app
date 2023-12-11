@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\Models\Patient;
 use App\Contracts\PatientContract;
 
@@ -44,8 +45,28 @@ class PatientRepository implements PatientContract {
         return $patient;
     }
 
+    public function getTotalPatient()
+    {
+        return $this->model->count();
+    }
+
     public function getTotalPatientPerMonth()
     {
-        dd('asdasd');
+        return $this->model
+            ->selectRaw('
+                DATE_FORMAT(created_at, "%Y-%m") as month,
+                COUNT(*) as totalPatients
+            ')
+            ->groupBy('month')
+            ->first();
+    }
+
+    public function getMonthlyPatient()
+    {
+        $currentMonth = Carbon::now()->format('Y-m');
+
+        return $this->model
+            ->whereRaw('DATE_FORMAT(created_at, "%Y-%m") = ?', [$currentMonth])
+            ->get();
     }
 }

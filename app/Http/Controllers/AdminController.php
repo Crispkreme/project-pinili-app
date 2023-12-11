@@ -2,28 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Contracts\RoleContract;
 use App\Contracts\UserContract;
+use App\Contracts\PatientContract;
 use Illuminate\Support\Facades\Hash;
+use App\Contracts\PatientCheckupContract;
 use App\Http\Requests\AddUserStoreRequest;
 
 class AdminController extends Controller
 {
     protected $userContract;
     protected $roleContract;
+    protected $patientCheckupContract;
+    protected $patientContract;
 
     public function __construct(
         UserContract $userContract,
+        PatientContract $patientContract,
+        PatientCheckupContract $patientCheckupContract,
         RoleContract $roleContract
     ){
         $this->userContract = $userContract;
         $this->roleContract = $roleContract;
+        $this->patientContract = $patientContract;
+        $this->patientCheckupContract = $patientCheckupContract;
     }
 
     public function index()
     {
-        return view('admin.dashboard');
+        try {
+
+            $totalPatient = $this->patientContract->getTotalPatient();
+
+            $totalPatientByMonth = $this->patientContract->getTotalPatientPerMonth();
+            $countPatients = $totalPatientByMonth->totalPatients;
+
+            $patientCheckups = $this->patientCheckupContract->getPatientCheckup();
+
+            $isNew = $this->patientCheckupContract->getNewPatientData();
+
+            $isNewMonthly = $this->patientCheckupContract->getMonthlyNewPatientData();
+
+            $isFollowUp = $this->patientCheckupContract->getFollowupPatientData();
+
+            $isFollowUpMonthly = $this->patientCheckupContract->getMonthlyFollowupPatientData();
+
+            return view('admin.dashboard', [
+                'totalPatient' => $totalPatient,
+                'countPatients' => $countPatients,
+                'patientCheckups' => $patientCheckups,
+                'isNew' => $isNew,
+                'isFollowUp' => $isFollowUp,
+                'isNewMonthly' => $isNewMonthly,
+                'isFollowUpMonthly' => $isFollowUpMonthly,
+            ]);
+
+        } catch (Exception $e) {
+            dd($e);
+        }
     }
 
     public function getAllUser()

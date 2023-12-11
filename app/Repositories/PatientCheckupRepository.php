@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\PatientCheckup;
+use Illuminate\Support\Facades\DB;
 use App\Contracts\PatientCheckupContract;
 
 class PatientCheckupRepository implements PatientCheckupContract {
@@ -12,6 +13,11 @@ class PatientCheckupRepository implements PatientCheckupContract {
     public function __construct(PatientCheckup $model)
     {
         $this->model = $model;
+    }
+
+    public function getPatientCheckup()
+    {
+        return $this->model->get();
     }
 
     public function allPatientCheckup($perPage = 10)
@@ -96,8 +102,62 @@ class PatientCheckupRepository implements PatientCheckupContract {
         $patientCheckup->update([
             'status_id' => 2,
             'remarks' => "done checkup",
+            'isNew' => 0,
+            'isFollowUp' => 1,
         ]);
 
         return $patientCheckup;
+    }
+
+    public function getNewPatientData()
+    {
+        return $this->model
+        ->select(
+            DB::raw('DATE(created_at) as date'),
+            DB::raw('COUNT(id) as totalPatientIsNew'),
+        )
+        ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
+        ->where('isNew', 1)
+        ->groupBy('date')
+        ->get();
+    }
+
+    public function getMonthlyNewPatientData()
+    {
+        return $this->model
+        ->select(
+            DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
+            DB::raw('COUNT(id) as totalPatientIsNewMonthly')
+        )
+        ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
+        ->where('isNew', 1)
+        ->groupBy('month')
+        ->get();
+    }
+
+    public function getFollowupPatientData()
+    {
+        return $this->model
+        ->select(
+            DB::raw('DATE(created_at) as date'),
+            DB::raw('COUNT(id) as totalPatientFollowup'),
+        )
+        ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
+        ->where('isFollowUp', 1)
+        ->groupBy('date')
+        ->get();
+    }
+
+    public function getMonthlyFollowupPatientData()
+    {
+        return $this->model
+        ->select(
+            DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),
+            DB::raw('COUNT(id) as totalPatientFollowupMonthly')
+        )
+        ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
+        ->where('isFollowUp', 1)
+        ->groupBy('month')
+        ->get();
     }
 }

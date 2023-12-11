@@ -10,4 +10,6 @@ interface PatientContract {
     public function updatePatient($id, $params);
     public function getPatientDataByBmiId($id);
     public function getTotalPatientPerMonth();
+    public function getTotalPatient();
+    public function getMonthlyPatient();
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +23,7 @@
 
     @stack('styles')
 </head>
+
 <body data-topbar="dark">
     <main>
         {{ $slot }}
@@ -59,7 +61,7 @@
     <script src="{{ asset('libs/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
     <script src="{{ asset('libs/datatables.net-select/js/dataTables.select.min.js') }}"></script>
 
-    <script src="{{ asset('js/pages/dashboard.init.js') }}"></script>
+    {{-- <script src="{{ asset('js/pages/dashboard.init.js') }}"></script> --}}
     <script src="{{ asset('js/pages/form-wizard.init.js') }}"></script>
     <script src="{{ asset('js/pages/form-advanced.init.js') }}"></script>
     <script src="{{ asset('js/pages/form-editor.init.js') }}"></script>
@@ -70,4 +72,5 @@
     @stack('scripts')
 
 </body>
+
 </html>

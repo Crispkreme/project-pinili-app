@@ -11,4 +11,9 @@ interface PatientCheckupContract {
     public function updateFollowUpCheckupDate($id, $params);
     public function getPatientCheckupDataById($id);
     public function updatePatientCheckupStatus($id);
+    public function getPatientCheckup();
+    public function getNewPatientData();
+    public function getFollowupPatientData();
+    public function getMonthlyNewPatientData();
+    public function getMonthlyFollowupPatientData();
 }

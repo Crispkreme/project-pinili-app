@@ -21,24 +21,27 @@
                     @php
                         $CardItem = [
                             [
-                                'title' => 'Total Sales',
-                                'total' => '1452',
+                                'title' => 'Total Patients',
+                                'total' => $totalPatient,
                                 'percentage' => '9.23%',
                                 'icon' => '<i class="ri-arrow-right-up-line me-1 align-middle"></i>',
-                                'avatar' => '<i class="ri-shopping-cart-2-line font-size-24"></i>',
-                            ],[
-                                'title' => 'New Orders',
-                                'total' => '938',
+                                'avatar' => '<i class="ri-team-line font-size-24"></i>',
+                            ],
+                            [
+                                'title' => 'New Patients',
+                                'total' => $countPatients,
                                 'percentage' => '1.09%',
                                 'icon' => '<i class="ri-arrow-right-down-line me-1 align-middle"></i>',
-                                'avatar' => '<i class="mdi mdi-currency-usd font-size-24"></i>',
-                            ],[
+                                'avatar' => '<i class="ri-user-2-line font-size-24"></i>',
+                            ],
+                            [
                                 'title' => 'New Users',
                                 'total' => '8246',
                                 'percentage' => '16.2%',
                                 'icon' => '<i class="ri-arrow-right-up-line me-1 align-middle"></i>',
                                 'avatar' => '<i class="ri-user-3-line font-size-24"></i>',
-                            ],[
+                            ],
+                            [
                                 'title' => 'Unique Visitors',
                                 'total' => '29670',
                                 'percentage' => '11.7%',
@@ -56,8 +59,10 @@
                                 <div class="card-body pb-0">
                                     <div class="float-end d-none d-md-inline-block">
                                         <div class="dropdown card-header-dropdown">
-                                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="text-muted">Report<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <span class="text-muted">Report<i
+                                                        class="mdi mdi-chevron-down ms-1"></i></span>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <a class="dropdown-item" href="#">Export</a>
@@ -66,42 +71,33 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h4 class="card-title mb-4">Email Sent</h4>
+                                    <h4 class="card-title mb-4">Daily Report</h4>
 
                                     <div class="text-center pt-3">
                                         <div class="row">
-                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                            <div class="col-sm-6 mb- mb-sm-0">
                                                 <div class="d-inline-flex">
-                                                    <h5 class="me-2">25,117</h5>
+                                                    <h5 class="me-2">{{ $totalPatient }}</h5>
                                                     <div class="text-success font-size-12">
                                                         <i class="mdi mdi-menu-up font-size-14"> </i>2.2 %
                                                     </div>
                                                 </div>
-                                                <p class="text-muted text-truncate mb-0">Marketplace</p>
+                                                <p class="text-muted text-truncate mb-0">New Patient</p>
                                             </div><!-- end col -->
-                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                            <div class="col-sm-6 mb- mb-sm-0">
                                                 <div class="d-inline-flex">
-                                                    <h5 class="me-2">$34,856</h5>
+                                                    <h5 class="me-2">{{ $countPatients }}</h5>
                                                     <div class="text-success font-size-12">
                                                         <i class="mdi mdi-menu-up font-size-14"> </i>1.2 %
                                                     </div>
                                                 </div>
-                                                <p class="text-muted text-truncate mb-0">Last Week</p>
-                                            </div><!-- end col -->
-                                            <div class="col-sm-4">
-                                                <div class="d-inline-flex">
-                                                    <h5 class="me-2">$18,225</h5>
-                                                    <div class="text-success font-size-12">
-                                                        <i class="mdi mdi-menu-up font-size-14"> </i>1.7 %
-                                                    </div>
-                                                </div>
-                                                <p class="text-muted text-truncate mb-0">Last Month</p>
+                                                <p class="text-muted text-truncate mb-0">Follow-up Patient</p>
                                             </div><!-- end col -->
                                         </div><!-- end row -->
                                     </div>
                                 </div>
                                 <div class="card-body py-0 px-2">
-                                    <div id="area_chart" class="apex-charts" dir="ltr"></div>
+                                    <div id="daily_report_chart" class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div><!-- end card -->
                         </div>
@@ -110,8 +106,10 @@
                                 <div class="card-body pb-0">
                                     <div class="float-end d-none d-md-inline-block">
                                         <div class="dropdown">
-                                            <a class="text-reset" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="text-muted">This Years<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                            <a class="text-reset" href="#" data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <span class="text-muted">This Years<i
+                                                        class="mdi mdi-chevron-down ms-1"></i></span>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <a class="dropdown-item" href="#">Today</a>
@@ -121,44 +119,39 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h4 class="card-title mb-4">Revenue</h4>
+                                    <h4 class="card-title mb-4">Monthly Report</h4>
 
                                     <div class="text-center pt-3">
                                         <div class="row">
-                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <div>
-                                                    <h5>17,493</h5>
-                                                    <p class="text-muted text-truncate mb-0">Marketplace</p>
+                                                    <h5>{{ $totalPatient }}</h5>
+                                                    <p class="text-muted text-truncate mb-0">Total Patient</p>
                                                 </div>
                                             </div><!-- end col -->
-                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <div>
-                                                    <h5>$44,960</h5>
-                                                    <p class="text-muted text-truncate mb-0">Last Week</p>
-                                                </div>
-                                            </div><!-- end col -->
-                                            <div class="col-sm-4">
-                                                <div>
-                                                    <h5>$29,142</h5>
-                                                    <p class="text-muted text-truncate mb-0">Last Month</p>
+                                                    <h5>{{ $countPatients }}</h5>
+                                                    <p class="text-muted text-truncate mb-0">New Patient</p>
                                                 </div>
                                             </div><!-- end col -->
                                         </div><!-- end row -->
                                     </div>
                                 </div>
                                 <div class="card-body py-0 px-2">
-                                    <div id="column_line_chart" class="apex-charts" dir="ltr"></div>
+                                    <div id="monthly_report_chart" class="apex-charts" dir="ltr"></div>
                                 </div>
                             </div><!-- end card -->
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-xl-8">
+                        <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="dropdown float-end">
-                                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a href="#" class="dropdown-toggle arrow-none card-drop"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
@@ -176,174 +169,69 @@
                                     <h4 class="card-title mb-4">Latest Transactions</h4>
 
                                     <div class="table-responsive">
-                                        <table class="table table-centered mb-0 align-middle table-hover table-nowrap">
+                                        <table id="state-saving-datatable"
+                                            class="table activate-select dt-responsive nowrap w-100">
                                             <thead class="table-light">
                                                 <tr>
+                                                    <th>ID</th>
+                                                    <th>Checkup Number</th>
                                                     <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Status</th>
                                                     <th>Age</th>
-                                                    <th>Start date</th>
-                                                    <th style="width: 120px;">Salary</th>
+                                                    <th>Client</th>
+                                                    <th>Status</th>
+                                                    <th>Remarks</th>
+                                                    <th>Date</th>
                                                 </tr>
-                                            </thead><!-- end thead -->
+                                            </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td><h6 class="mb-0">Charles Casey</h6></td>
-                                                    <td>Web Developer</td>
-                                                    <td>
-                                                        <div class="font-size-13"><i class="ri-checkbox-blank-circle-fill font-size-10 text-success align-middle me-2"></i>Active</div>
-                                                    </td>
-                                                    <td>
-                                                        23
-                                                    </td>
-                                                    <td>
-                                                        04 Apr, 2021
-                                                    </td>
-                                                    <td>$42,450</td>
-                                                </tr>
-                                                    <!-- end -->
+                                                @foreach ($patientCheckups as $key => $item)
                                                     <tr>
-                                                    <td><h6 class="mb-0">Alex Adams</h6></td>
-                                                    <td>Python Developer</td>
-                                                    <td>
-                                                        <div class="font-size-13"><i class="ri-checkbox-blank-circle-fill font-size-10 text-warning align-middle me-2"></i>Deactive</div>
-                                                    </td>
-                                                    <td>
-                                                        28
-                                                    </td>
-                                                    <td>
-                                                        01 Aug, 2021
-                                                    </td>
-                                                    <td>$25,060</td>
-                                                </tr>
-                                                    <!-- end -->
-                                                    <tr>
-                                                    <td><h6 class="mb-0">Prezy Kelsey</h6></td>
-                                                    <td>Senior Javascript Developer</td>
-                                                    <td>
-                                                        <div class="font-size-13"><i class="ri-checkbox-blank-circle-fill font-size-10 text-success align-middle me-2"></i>Active</div>
-                                                    </td>
-                                                    <td>
-                                                        35
-                                                    </td>
-                                                    <td>
-                                                        15 Jun, 2021
-                                                    </td>
-                                                    <td>$59,350</td>
-                                                </tr>
-                                                    <!-- end -->
-                                                    <tr>
-                                                    <td><h6 class="mb-0">Ruhi Fancher</h6></td>
-                                                    <td>React Developer</td>
-                                                    <td>
-                                                        <div class="font-size-13"><i class="ri-checkbox-blank-circle-fill font-size-10 text-success align-middle me-2"></i>Active</div>
-                                                    </td>
-                                                    <td>
-                                                        25
-                                                    </td>
-                                                    <td>
-                                                        01 March, 2021
-                                                    </td>
-                                                    <td>$23,700</td>
-                                                </tr>
-                                                    <!-- end -->
-                                                    <tr>
-                                                    <td><h6 class="mb-0">Juliet Pineda</h6></td>
-                                                    <td>Senior Web Designer</td>
-                                                    <td>
-                                                        <div class="font-size-13"><i class="ri-checkbox-blank-circle-fill font-size-10 text-success align-middle me-2"></i>Active</div>
-                                                    </td>
-                                                    <td>
-                                                        38
-                                                    </td>
-                                                    <td>
-                                                        01 Jan, 2021
-                                                    </td>
-                                                    <td>$69,185</td>
-                                                </tr>
-                                                    <!-- end -->
-                                                    <tr>
-                                                    <td><h6 class="mb-0">Den Simpson</h6></td>
-                                                    <td>Web Designer</td>
-                                                    <td>
-                                                        <div class="font-size-13"><i class="ri-checkbox-blank-circle-fill font-size-10 text-warning align-middle me-2"></i>Deactive</div>
-                                                    </td>
-                                                    <td>
-                                                        21
-                                                    </td>
-                                                    <td>
-                                                        01 Sep, 2021
-                                                    </td>
-                                                    <td>$37,845</td>
-                                                </tr>
-                                                    <!-- end -->
-                                                    <tr>
-                                                    <td><h6 class="mb-0">Mahek Torres</h6></td>
-                                                    <td>Senior Laravel Developer</td>
-                                                    <td>
-                                                        <div class="font-size-13"><i class="ri-checkbox-blank-circle-fill font-size-10 text-success align-middle me-2"></i>Active</div>
-                                                    </td>
-                                                    <td>
-                                                        32
-                                                    </td>
-                                                    <td>
-                                                        20 May, 2021
-                                                    </td>
-                                                    <td>$55,100</td>
-                                                </tr>
-                                                    <!-- end -->
+                                                        <td>{{ $key + 1 }}</td>
+                                                        <td>{{ $item->id_number }}</td>
+                                                        <td>
+                                                            <h6 class="mb-0">
+                                                                {{ $item->patientBmi->patient->firstname }}
+                                                                {{ $item->patientBmi->patient->mi }}
+                                                                {{ $item->patientBmi->patient->lastname }}
+                                                            </h6>
+                                                        </td>
+                                                        <td>{{ $item->patientBmi->patient->age }}</td>
+                                                        <td>
+                                                            @if ($item->isNew == 1 && $item->isFollowUp == 0)
+                                                                New
+                                                            @endif
+                                                            @if ($item->isNew == 1 && $item->isFollowUp == 1)
+                                                                Follow-up
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            <div class="font-size-13">
+                                                                @if ($item->status_id == 2)
+                                                                    <i
+                                                                        class="ri-checkbox-blank-circle-fill font-size-10 text-success align-middle me-2"></i>
+                                                                    {{ $item->statuses->status }}
+                                                                @else
+                                                                    <i
+                                                                        class="ri-checkbox-blank-circle-fill font-size-10 text-warning align-middle me-2"></i>
+                                                                    {{ $item->statuses->status }}
+                                                                @endif
+
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            {{ $item->remarks }}
+                                                        </td>
+                                                        <td>
+                                                            {{ \Carbon\Carbon::parse($item->created_at)->format('d M, Y') }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody><!-- end tbody -->
                                         </table> <!-- end table -->
                                     </div>
                                 </div><!-- end card -->
                             </div><!-- end card -->
                         </div>
-                        <!-- end col -->
-                        <div class="col-xl-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="float-end">
-                                        <select class="form-select shadow-none form-select-sm">
-                                            <option selected>Apr</option>
-                                            <option value="1">Mar</option>
-                                            <option value="2">Feb</option>
-                                            <option value="3">Jan</option>
-                                        </select>
-                                    </div>
-                                    <h4 class="card-title mb-4">Monthly Earnings</h4>
-
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <div class="text-center mt-4">
-                                                <h5>3475</h5>
-                                                <p class="mb-2 text-truncate">Market Place</p>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                        <div class="col-4">
-                                            <div class="text-center mt-4">
-                                                <h5>458</h5>
-                                                <p class="mb-2 text-truncate">Last Week</p>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                        <div class="col-4">
-                                            <div class="text-center mt-4">
-                                                <h5>9062</h5>
-                                                <p class="mb-2 text-truncate">Last Month</p>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                    </div>
-                                    <!-- end row -->
-
-                                    <div class="mt-4">
-                                        <div id="donut-chart" class="apex-charts"></div>
-                                    </div>
-                                </div>
-                            </div><!-- end card -->
-                        </div><!-- end col -->
                     </div>
                 </div>
 
@@ -364,5 +252,125 @@
 
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
+
+    @push('scripts')
+        {{-- for areachart --}}
+        <script>
+            var isNewData = @json($isNew);
+            var isFollowUpData = @json($isFollowUp);
+
+            var options = {
+                series: [{
+                    name: 'New',
+                    data: [
+                        @foreach ($isNew as $data)
+                            {{ $data->totalPatientIsNew }},
+                        @endforeach
+                    ]
+                }, {
+                    name: 'Follow up',
+                    data: [
+                        @foreach ($isFollowUp as $data)
+                            {{ $data->totalPatientIsFollowUp }},
+                        @endforeach
+                    ]
+                }],
+                chart: {
+                    height: 350,
+                    type: 'area'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+                xaxis: {
+                    type: 'datetime',
+                    categories: [
+                        @foreach ($isNew as $data)
+                            '{{ $data->date }}',
+                        @endforeach
+                    ]
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                },
+            };
+
+            var chart = new ApexCharts(document.querySelector("#daily_report_chart"), options);
+            chart.render();
+        </script>
+
+        {{-- for barchart --}}
+        <script>
+            var isNewMonthlyData = @json($isNewMonthly);
+            var isFollowUpMonthlyData = @json($isFollowUpMonthly);
+
+            var options = {
+                series: [{
+                    name: 'New',
+                    data: [
+                        @foreach ($isNewMonthly as $data)
+                            {{ $data->totalPatientIsNewMonthly }},
+                        @endforeach
+                    ]
+                }, {
+                    name: 'Follow up',
+                    data: [
+                        @foreach ($isFollowUpMonthly as $data)
+                            {{ $data->totalPatientFollowupMonthly }},
+                        @endforeach
+                    ]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                xaxis: {
+                    categories: [
+                        @foreach ($isNewMonthly as $data)
+                            '{{ $data->date }}',
+                        @endforeach
+                    ],
+                },
+                yaxis: {
+                    title: {
+                        text: 'Monthly Patient Checkup Report'
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return val;
+                        }
+                    }
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#monthly_report_chart"), options);
+            chart.render();
+        </script>
+    @endpush
 
 </x-app-layout>
