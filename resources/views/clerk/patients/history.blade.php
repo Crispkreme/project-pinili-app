@@ -79,7 +79,7 @@
                                                         {{ $item->patientBmi->patient->mi }}
                                                         {{ $item->patientBmi->patient->lastname }}</td>
                                                     <td>{{ $item->patientBmi->patient->age }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}
+                                                    <td>{{ \Carbon\Carbon::parse($item->check_up_date)->format('M d, Y') }}
                                                     </td>
                                                     @if ($item->follow_up_date === '1900-01-01')
                                                         <td>None</td>

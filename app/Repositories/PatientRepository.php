@@ -15,11 +15,13 @@ class PatientRepository implements PatientContract {
         $this->model = $model;
     }
 
-    public function allPatient($perPage = 10)
+    public function allPatient()
     {
         return $this->model
-            ->orderBy('id','desc')
-            ->paginate($perPage);
+        ->with('gender')
+        ->orderBy('id', 'DESC')
+        ->latest()
+        ->get();
     }
 
     public function storePatient($params)

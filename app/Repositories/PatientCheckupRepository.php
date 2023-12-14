@@ -20,12 +20,12 @@ class PatientCheckupRepository implements PatientCheckupContract {
         return $this->model->get();
     }
 
-    public function allPatientCheckup($perPage = 10)
+    public function allPatientCheckup()
     {
         return $this->model
         ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
         ->where('status_id', 1)
-        ->paginate($perPage);
+        ->get();
     }
 
     public function storePatientCheckup($params)
@@ -74,7 +74,7 @@ class PatientCheckupRepository implements PatientCheckupContract {
         return $patientCheckup;
     }
 
-    public function getPatientCheckupDataById($id, $perPage = 10)
+    public function getPatientCheckupDataById($id)
     {
         return $this->model
             ->with(['patientBmi', 'patientBmi.patient', 'statuses'])
@@ -82,7 +82,7 @@ class PatientCheckupRepository implements PatientCheckupContract {
                 $query->where('patient_id', $id);
             })
             ->orderBy('id','desc')
-            ->paginate($perPage);
+            ->get();
     }
 
     public function getPatientCheckupIdById($id)

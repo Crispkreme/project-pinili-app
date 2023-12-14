@@ -21,7 +21,7 @@ class PrescriptionRepository implements PrescriptionContract {
         return $this->model->create($params);
     }
 
-    public function getPatientPrescription($id, $perPage = 10)
+    public function getPatientPrescription($id)
     {
         try {
             $patient = Patient::findOrFail($id);
@@ -36,7 +36,7 @@ class PrescriptionRepository implements PrescriptionContract {
                     });
                 })
                 ->orderBy('id','desc')
-                ->paginate($perPage);
+                ->get();
         } catch (ModelNotFoundException $exception) {
             dd("Patient not found");
         }

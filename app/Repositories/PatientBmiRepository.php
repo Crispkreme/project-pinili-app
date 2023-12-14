@@ -72,4 +72,11 @@ class PatientBmiRepository implements PatientBmiContract {
             return null;
         }
     }
+
+    public function getPatientCheckupDate($id)
+    {
+        return $this->model
+        ->where('patient_id', $id)
+        ->first();
+    }
 }

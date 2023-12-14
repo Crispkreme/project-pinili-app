@@ -106,7 +106,6 @@ class PatientController extends Controller
     }
 
     public function storePatient(Request $request) {
-
         DB::beginTransaction();
 
         try {
@@ -114,6 +113,7 @@ class PatientController extends Controller
             $prefix = "PNT";
             $transactionNumber = Carbon::now()->format('mHis');
             $id_number = $prefix.'-'.$transactionNumber;
+            $date = $request->created_at.' '.'00:00:00';
 
             $patientParams = [
                 'id_number' => $id_number,
@@ -149,6 +149,7 @@ class PatientController extends Controller
                 'remarks' => "for checkup",
                 'isNew' => 1,
                 'isFollowUp' => 0,
+                'check_up_date' => $date,
             ];
             $patientCheckup = $this->patientCheckupContract->storePatientCheckup($patientCheckupParams);
 

@@ -15,7 +15,7 @@ class OrderRepository implements OrderContract {
         $this->model = $model;
     }
 
-    public function getAllOrder($perPage = 10)
+    public function getAllOrder()
     {
         return $this->model->with([
             'user',
@@ -25,10 +25,10 @@ class OrderRepository implements OrderContract {
             'status'
         ])
         ->orderBy('id', 'desc')
-        ->paginate($perPage);
+        ->get();
     }
 
-    public function getAllStockReport($perPage = 10)
+    public function getAllStockReport()
     {
         return $this->model
         ->with([
@@ -40,7 +40,7 @@ class OrderRepository implements OrderContract {
         ])
         ->where('status_id', 8)
         ->orderBy('id','desc')
-        ->paginate($perPage);
+        ->get();
     }
 
     public function getSpecificProduct($id)
@@ -54,7 +54,7 @@ class OrderRepository implements OrderContract {
             ->pluck('invoice_number');
     }
 
-    public function printOrderInvoice($id, $perPage = 10)
+    public function printOrderInvoice($id)
     {
         return $this->model->with([
             'user',
@@ -65,20 +65,20 @@ class OrderRepository implements OrderContract {
         ])
         ->where('status_id', $id)
         ->orderBy('id','desc')
-        ->paginate($perPage);
+        ->get();
     }
 
     public function storeOrder($params) {
         return $this->model->create($params);
     }
 
-    public function pendingOrder($id, $perPage = 10)
+    public function pendingOrder($id)
     {
         $relationships = ['user', 'supplier', 'manufacturer', 'product', 'status'];
         $pendingOrders = $this->model
             ->with($relationships)
             ->where('status_id', $id)
-            ->paginate($perPage);
+            ->get();
         return $pendingOrders;
     }
 
@@ -123,9 +123,9 @@ class OrderRepository implements OrderContract {
         ->get();
     }
 
-    public function getAllDeletedOrder($perPage = 10)
+    public function getAllDeletedOrder()
     {
-        $deletedOrders = $this->model->onlyTrashed()->paginate($perPage);
+        $deletedOrders = $this->model->onlyTrashed()->get();
         return $deletedOrders;
     }
 

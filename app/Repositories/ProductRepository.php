@@ -20,13 +20,13 @@ class ProductRepository implements ProductContract {
         return $this->model->create($params);
     }
 
-    public function getAllProduct($perPage = 10)
+    public function getAllProduct()
     {
         return $this->model
         ->with(['category', 'form'])
         ->where('id', '!=', 1)
         ->orderBy('id','desc')
-        ->paginate($perPage);
+        ->get();
     }
 
     public function getProductData()

@@ -222,7 +222,7 @@
                                                             {{ $item->remarks }}
                                                         </td>
                                                         <td>
-                                                            {{ \Carbon\Carbon::parse($item->created_at)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($item->check_up_date)->format('d M, Y') }}
                                                         </td>
                                                     </tr>
                                                 @endforeach

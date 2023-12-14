@@ -19,6 +19,7 @@ class PatientCheckup extends Model
         'isNew',
         'isFollowUp',
         'follow_up_date',
+        'check_up_date',
     ];
 
     public function patientBmi() {

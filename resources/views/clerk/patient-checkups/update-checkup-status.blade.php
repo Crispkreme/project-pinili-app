@@ -139,7 +139,7 @@
                                 <div class="col-5">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="row mb-3">
+                                            <div class="row mb-3 mt-3">
                                                 <label class="col-sm-4 col-form-label" for="example-text-input">Blood
                                                     Pressure</label>
                                                 <div class="col-sm-8">
