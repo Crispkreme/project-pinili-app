@@ -59,8 +59,8 @@
                                                 <th>Checkup No.</th>
                                                 <th>Name</th>
                                                 <th>Age</th>
-                                                <th>Checkup Date</th>
-                                                <th>Followup Date</th>
+                                                <th>Check up Date</th>
+                                                <th>Follow up Date</th>
                                                 <th>Status</th>
                                                 <th>Remarks</th>
                                             </tr>

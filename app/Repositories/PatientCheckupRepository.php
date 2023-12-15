@@ -49,7 +49,7 @@ class PatientCheckupRepository implements PatientCheckupContract {
         ->whereHas('patientBmi.patient', function ($query) use ($id) {
             $query->where('id', $id);
         })
-        ->get();
+        ->first();
     }
 
     public function getPatientCheckupByBmiId($id)
@@ -159,5 +159,15 @@ class PatientCheckupRepository implements PatientCheckupContract {
         ->where('isFollowUp', 1)
         ->groupBy('month')
         ->get();
+    }
+
+    public function updatePatientCheckup($id, $params)
+    {
+        $patientCheckup = $this->model->findOrFail($id);
+        $patientCheckup->update([
+            'check_up_date' => $params['check_up_date'],
+        ]);
+
+        return $patientCheckup;
     }
 }

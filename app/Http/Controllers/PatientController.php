@@ -225,24 +225,21 @@ class PatientController extends Controller
         try {
             $patientCheckups = $this->patientCheckupContract->getPatientCheckupByPatientId($id);
 
-            if ($patientCheckups->isNotEmpty()) {
+            $firstPatientCheckup = $patientCheckups->first();
+            $patientBmiID = $firstPatientCheckup->patient_bmi_id;
 
-                $firstPatientCheckup = $patientCheckups->first();
-                $patientBmiID = $firstPatientCheckup->patient_bmi_id;
+            $patientBmi = $this->patientBmiContract->getPatientBmiByPatientId($patientBmiID);
+            $patientID = $patientBmi->patient_id;
 
-                $patientBmi = $this->patientBmiContract->getPatientBmiByPatientId($patientBmiID);
-                $patientID = $patientBmi->patient_id;
+            $this->patientCheckupImageContract->getPatientCheckupImageById($id);
 
-                $this->patientCheckupImageContract->getPatientCheckupImageById($id);
+            $patient = $this->patientContract->getPatientById($patientID);
 
-                $patient = $this->patientContract->getPatientById($patientID);
-
-                return view('clerk.patients.edit', [
-                    'patient' => $patient,
-                    'patientBmi' => $patientBmi,
-                ]);
-            }
-
+            return view('clerk.patients.edit', [
+                'patient' => $patient,
+                'patientBmi' => $patientBmi,
+                'patientCheckups' => $patientCheckups,
+            ]);
             $patientData = $this->patientContract->allPatient();
 
             if (Auth::check()) {
@@ -301,6 +298,12 @@ class PatientController extends Controller
 
             $checkup = $this->patientCheckupContract->getPatientCheckupByBmiId($bmiID);
             $checkupId = $checkup->id;
+
+            $patientCheckupParams = [
+                'check_up_date' => $request->check_up_date,
+            ];
+
+            $this->patientCheckupContract->updatePatientCheckup($checkupId, $patientCheckupParams);
 
             $imagePaths = [];
             $patientCheckupImageData = [];
