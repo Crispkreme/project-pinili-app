@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use Carbon\Carbon;
-use App\Models\Order;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 use App\Contracts\UserContract;
 use App\Contracts\OrderContract;
 use App\Contracts\StatusContract;
@@ -13,15 +16,18 @@ use App\Contracts\ProductContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\InventoryContract;
 use App\Contracts\TransactionContract;
-use Illuminate\Support\Facades\Auth;
 use App\Contracts\DistributorContract;
 use App\Contracts\EntityContract;
 use App\Contracts\FormContract;
 use App\Contracts\RepresentativeContract;
 use App\Contracts\DrugClassContract;
+
+use Carbon\Carbon;
+use App\Models\Order;
+
 use App\Http\Requests\AddOrderStoreRequest;
 use App\Http\Requests\AddProductStoreRequest;
-use Illuminate\Support\Facades\DB;
+
 
 class OrderController extends Controller
 {
@@ -68,8 +74,33 @@ class OrderController extends Controller
 
     public function getAllOrder()
     {
-        $userData = $this->orderContract->getAllOrder();
-        return view('admin.orders.index', ['userData' => $userData]);
+        
+        try {
+
+            $userData = $this->orderContract->getAllOrder();
+
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.orders.index', ['userData' => $userData]);
+                } elseif (Auth::user()->role_id == 2) {
+                    return view('manager.orders.index', ['userData' => $userData]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.orders.index', ['userData' => $userData]);
+                } else {
+                    return view('404');
+                }
+            }
+
+        } catch (Exception $e) {
+            Log::error('Error in getAllOrder: ' . $e->getMessage());
+
+            $notification = [
+                'message' => 'An error occurred while updating the brand.',
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->back()->with($notification);
+        }
     }
 
     public function printOrderInvoice()
@@ -80,34 +111,103 @@ class OrderController extends Controller
 
     public function createOrder()
     {
-        $userData = $this->userContract->getAllUserData();
-        $representativeData = $this->representativeContract->getRepresentativeData();
-        $distributorData = $this->distributorContract->getAllDistributorData();
-        $productData = $this->productContract->getProductData();
-        $statusData = $this->statusContract->getAllStatusData();
-        $categoryData = $this->categoryContract->getCategoryData();
+        
+        try {
 
-        return view('admin.orders.create', [
-            'userData' => $userData,
-            'representativeData' => $representativeData,
-            'distributorData' => $distributorData,
-            'productData' => $productData,
-            'statusData' => $statusData,
-            'categoryData' => $categoryData,
-        ]);
+            $userData = $this->userContract->getAllUserData();
+            $representativeData = $this->representativeContract->getRepresentativeData();
+            $distributorData = $this->distributorContract->getAllDistributorData();
+            $productData = $this->productContract->getProductData();
+            $statusData = $this->statusContract->getAllStatusData();
+            $categoryData = $this->categoryContract->getCategoryData();
+
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.orders.create', [
+                        'userData' => $userData,
+                        'representativeData' => $representativeData,
+                        'distributorData' => $distributorData,
+                        'productData' => $productData,
+                        'statusData' => $statusData,
+                        'categoryData' => $categoryData,
+                    ]);
+                } elseif (Auth::user()->role_id == 2) {
+                    return view('manager.orders.create', [
+                        'userData' => $userData,
+                        'representativeData' => $representativeData,
+                        'distributorData' => $distributorData,
+                        'productData' => $productData,
+                        'statusData' => $statusData,
+                        'categoryData' => $categoryData,
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.orders.create', [
+                        'userData' => $userData,
+                        'representativeData' => $representativeData,
+                        'distributorData' => $distributorData,
+                        'productData' => $productData,
+                        'statusData' => $statusData,
+                        'categoryData' => $categoryData,
+                    ]);
+                } else {
+                    return view('404');
+                }
+            }
+
+        } catch (Exception $e) {
+            Log::error('Error in createOrder: ' . $e->getMessage());
+
+            $notification = [
+                'message' => 'An error occurred while updating the brand.',
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->back()->with($notification);
+        }
     }
 
     public function editOrder($id)
     {
-        $productData = $this->productContract->editProduct($id);
-        $categoryData = $this->categoryContract->getCategory();
-        $formData = $this->formContract->getForm();
+        try {
 
-        return view('admin.orders.edit', [
-            'productData' => $productData,
-            'categoryData' => $categoryData,
-            'formData' => $formData,
-        ]);
+            $productData = $this->productContract->editProduct($id);
+            $categoryData = $this->categoryContract->getCategory();
+            $formData = $this->formContract->getForm();
+
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.orders.edit', [
+                        'productData' => $productData,
+                        'categoryData' => $categoryData,
+                        'formData' => $formData,
+                    ]);
+                } elseif (Auth::user()->role_id == 2) {
+                    return view('manager.orders.edit', [
+                        'productData' => $productData,
+                        'categoryData' => $categoryData,
+                        'formData' => $formData,
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.orders.edit', [
+                        'productData' => $productData,
+                        'categoryData' => $categoryData,
+                        'formData' => $formData,
+                    ]);;
+                } else {
+                    return view('404');
+                }
+            }
+
+        } catch (Exception $e) {
+            Log::error('Error in editOrder: ' . $e->getMessage());
+
+            $notification = [
+                'message' => 'An error occurred while updating the brand.',
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->back()->with($notification);
+        }
     }
 
     public function getSpecificCategory(Request $request, $id)
@@ -179,18 +279,30 @@ class OrderController extends Controller
                 'message' => 'Data saved successfully!',
             ];
 
-            return redirect()->route('admin.all.order')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.order')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.order')->with($notification);
+                } elseif (Auth::user()->role_id == 3) {
+                    return redirect()->route('clerk.all.order')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (\Exception $e) {
 
             DB::rollback();
 
+            Log::error('Error in storeOrder: ' . $e->getMessage());
+
             $notification = [
-                'alert-type' => 'danger',
-                'message' => 'Error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred while updating the brand.',
+                'alert-type' => 'error',
             ];
 
-            return redirect()->route('admin.all.order')->with($notification);
+            return redirect()->back()->with($notification);
         }
     }
 
@@ -374,13 +486,25 @@ class OrderController extends Controller
                 'message' => 'Password updated successfully!',
             ];
 
-            return redirect()->route('admin.all.order')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.order')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.order')->with($notification);
+                } elseif (Auth::user()->role_id == 3) {
+                    return redirect()->route('clerk.all.order')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (\Exception $e) {
 
+            Log::error('Error in storeOrder: ' . $e->getMessage());
+
             $notification = [
-                'alert-type' => 'danger',
-                'message' => 'Error occurred: ' . $e->getMessage(),
+                'message' => 'An error occurred while updating the brand.',
+                'alert-type' => 'error',
             ];
 
             return redirect()->back()->with($notification);
@@ -389,25 +513,66 @@ class OrderController extends Controller
 
     public function editOrderData($id)
     {
-        $orderData = $this->orderContract->editOrderData($id);
-        $representativeData = $this->representativeContract->getRepresentativeData();
-        $distributorData = $this->distributorContract->getAllDistributorData();
 
-        $invoiceNumber = $orderData->invoice_number;
-        $manufacturingDate = $orderData->manufacturing_date;
-        $expiryDate = $orderData->expiry_date;
+        try {
 
-        $productData = $this->orderContract->getOrderDataByInvoiceNumber($invoiceNumber);
+            $orderData = $this->orderContract->editOrderData($id);
+            $representativeData = $this->representativeContract->getRepresentativeData();
+            $distributorData = $this->distributorContract->getAllDistributorData();
 
-        return view('admin.orders.edit-order', [
-            'productData' => $productData,
-            'orderData' => $orderData,
-            'invoiceNumber' => $invoiceNumber,
-            'manufacturingDate' => $manufacturingDate,
-            'expiryDate' => $expiryDate,
-            'distributorData' => $distributorData,
-            'representativeData' => $representativeData,
-        ]);
+            $invoiceNumber = $orderData->invoice_number;
+            $manufacturingDate = $orderData->manufacturing_date;
+            $expiryDate = $orderData->expiry_date;
+
+            $productData = $this->orderContract->getOrderDataByInvoiceNumber($invoiceNumber);
+
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.orders.edit-order', [
+                        'productData' => $productData,
+                        'orderData' => $orderData,
+                        'invoiceNumber' => $invoiceNumber,
+                        'manufacturingDate' => $manufacturingDate,
+                        'expiryDate' => $expiryDate,
+                        'distributorData' => $distributorData,
+                        'representativeData' => $representativeData,
+                    ]);
+                } elseif (Auth::user()->role_id == 2) {
+                    return view('manager.orders.edit-order', [
+                        'productData' => $productData,
+                        'orderData' => $orderData,
+                        'invoiceNumber' => $invoiceNumber,
+                        'manufacturingDate' => $manufacturingDate,
+                        'expiryDate' => $expiryDate,
+                        'distributorData' => $distributorData,
+                        'representativeData' => $representativeData,
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.orders.edit-order', [
+                        'productData' => $productData,
+                        'orderData' => $orderData,
+                        'invoiceNumber' => $invoiceNumber,
+                        'manufacturingDate' => $manufacturingDate,
+                        'expiryDate' => $expiryDate,
+                        'distributorData' => $distributorData,
+                        'representativeData' => $representativeData,
+                    ]);
+                } else {
+                    return view('404');
+                }
+            }
+
+        } catch (\Exception $e) {
+
+            Log::error('Error in editOrderData: ' . $e->getMessage());
+
+            $notification = [
+                'message' => 'An error occurred while updating the brand.',
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->back()->with($notification);
+        }
     }
 
     public function printOrderList(Request $request)

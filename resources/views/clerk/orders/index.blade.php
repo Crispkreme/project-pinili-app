@@ -38,12 +38,12 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('manager.create.order') }}"
+                                    <a href="{{ route('clerk.create.order') }}"
                                         class="btn btn-dark btn-rounded waves-effect waves-light"
                                         style="float:right;">
                                             <i class="ri-add-fill" style="margin-right:5px;"></i>
                                             Add Order
-                                        </a>
+                                        </a>    
                                         <br><br>
 
                                     <h4 class="card-title">Product List Data</h4>
@@ -52,24 +52,24 @@
                                     <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">ID</th>
-                                                <th>Purchase Order Number</th>
+                                                <th style="width: 5%;" class="text-center">ID</th>
+                                                <th style="width: 15%;">Purchase Order Number</th>
                                                 <th>Product Name</th>
-                                                <th>Supplier</th>
+                                                <th style="width: 15%;">Supplier</th>
                                                 <th>Manufacturer</th>
-                                                <th>Order Date</th>
+                                                <th style="width: 15%;">Order Date</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                <th style="width: 15%;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @if ($userData)
                                                 @foreach($userData as $key => $item)
                                                     <tr style="vertical-align: middle;">
-                                                        <td style="text-align: center;">{{ (int)$key + 1 }}</td>
+                                                        <td style="text-align: center;" class="text-center">{{ (int)$key + 1 }}</td>
                                                         <td>
                                                             @if($item->status_id == 7)
-                                                                <a href="{{ route('admin.edit.order.data', $item->id) }}">
+                                                                <a href="{{ route('clerk.edit.order.data', $item->id) }}">
                                                                     {{ $item->invoice_number }}
                                                                 </a>
                                                             @else
@@ -78,7 +78,7 @@
                                                         </td>
                                                         <td>
                                                             @if($item->status_id == 7)
-                                                                <a href="{{ route('admin.edit.order.data', $item->id) }}">
+                                                                <a href="{{ route('clerk.edit.order.data', $item->id) }}">
                                                                     {{ $item->product->medicine_name }}
                                                                 </a>
                                                             @else

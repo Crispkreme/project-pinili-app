@@ -19,7 +19,7 @@ class OrderSeeder extends Seeder
             'approve_id' => 1,
             'manufacturer_id' => 1,
             'product_id' => 2,
-            'status_id' => 1,
+            'status_id' => 7,
             'order_status_id' => 4,
             'invoice_number' => 'INV-3942347234',
             'quantity' => 5,

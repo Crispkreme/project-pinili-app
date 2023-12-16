@@ -483,6 +483,12 @@
                                     'icon' => '',
                                     'class' => '',
                                 ],
+                                [
+                                    'list' => 'Order',
+                                    'url' => route('clerk.all.order'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ],
                             ],
                         ],
                         [

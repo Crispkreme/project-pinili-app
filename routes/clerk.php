@@ -5,6 +5,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientCheckupController;
 use App\Http\Controllers\DrugClassController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PettyCashController;
 use Illuminate\Support\Facades\Route;
 
@@ -65,4 +66,16 @@ Route::group(['controller' => PettyCashController::class], function () {
     Route::post('store/petty/cash', 'storePettyCash')->name('store.petty.cash');
     Route::get('edit/petty/cash/{id}', 'editPettyCash')->name('edit.petty.cash');
     Route::post('update/petty/cash/{id}', 'updatePettyCash')->name('update.petty.cash');
+});
+
+Route::group(['controller' => OrderController::class], function () {
+    Route::get('/all/order', 'getAllOrder')->name('all.order');
+    Route::get('/create/order', 'createOrder')->name('create.order');
+    Route::post('/store/order', 'storeOrder')->name('store.order');
+    Route::get('/get/specific/category/{id}', 'getSpecificCategory')->name('get.specific.category');
+    Route::get('/get/specific/form', 'getSpecificForm')->name('get.specific.form');
+    Route::get('/get/specific/product', 'getSpecificProduct')->name('get.specific.product');
+    Route::get('/edit/order/{id}', 'editOrder')->name('edit.order');
+    Route::get('/edit/order/data/{id}', 'editOrderData')->name('edit.order.data');
+    Route::post('/update/order/{id}', 'updateOrder')->name('update.order');
 });

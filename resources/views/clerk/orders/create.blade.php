@@ -131,7 +131,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('manager.store.order') }}" id="myForm">
+                                    <form method="POST" action="{{ route('clerk.store.order') }}" id="myForm">
                                         @csrf
                                         <table class="table-sm table-bordered" width="100%" style="border-color:#ddd;">
                                             <thead>
@@ -214,7 +214,7 @@
                     <input type="number" name="quantity[]" min="1" class="form-control quantity text-right" value="">
                 </td>
                 <td>
-                    <input type="number" name="srp[]" class="form-control srp text-right" value="">
+                    <input type="number" name="srp[]" class="form-control srp text-right" value="0" readonly>
                 </td>
                 <td>
                     <input type="text" class="form-control subtotal" id="subtotal" name="subtotal" value="0" style="background-color:#ddd;" readonly>
@@ -319,7 +319,7 @@
             $(document).on('change', '#category_id', function() {
                 var category_id = $(this).val();
                 $.ajax({
-                    url: "{{ url('manager/get/specific/category/') }}/" + category_id,
+                    url: "{{ url('clerk/get/specific/category/') }}/" + category_id,
                     type: "GET",
                     data: { category_id: category_id },
                     success: function(data) {
@@ -339,7 +339,7 @@
                     var form_id = $(this).val();
 
                     $.ajax({
-                        url: "{{ route('manager.get.specific.form') }}",
+                        url: "{{ route('clerk.get.specific.form') }}",
                         type: "GET",
                         data: { form_id: form_id },
                         success: function(data){

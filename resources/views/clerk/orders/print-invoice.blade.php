@@ -38,22 +38,21 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('manager.create.order') }}"
+                                    @if(request()->routeIs('admin.all.order'))
+                                        <a href="{{ route('admin.create.order') }}"
                                         class="btn btn-dark btn-rounded waves-effect waves-light"
-                                        style="float:right;">
-                                            <i class="ri-add-fill" style="margin-right:5px;"></i>
-                                            Add Order
-                                        </a>
+                                        style="float:right;">Add Order</a>
                                         <br><br>
+                                    @endif
 
                                     <h4 class="card-title">Product List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our product.</p>
 
-                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
+                                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ID</th>
-                                                <th>Purchase Order Number</th>
+                                                <th>Invoice Number</th>
                                                 <th>Product Name</th>
                                                 <th>Supplier</th>
                                                 <th>Manufacturer</th>
@@ -65,26 +64,10 @@
                                         <tbody>
                                             @if ($userData)
                                                 @foreach($userData as $key => $item)
-                                                    <tr style="vertical-align: middle;">
-                                                        <td style="text-align: center;">{{ (int)$key + 1 }}</td>
-                                                        <td>
-                                                            @if($item->status_id == 7)
-                                                                <a href="{{ route('admin.edit.order.data', $item->id) }}">
-                                                                    {{ $item->invoice_number }}
-                                                                </a>
-                                                            @else
-                                                                {{ $item->invoice_number }}
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if($item->status_id == 7)
-                                                                <a href="{{ route('admin.edit.order.data', $item->id) }}">
-                                                                    {{ $item->product->medicine_name }}
-                                                                </a>
-                                                            @else
-                                                                {{ $item->product->medicine_name }}
-                                                            @endif
-                                                        </td>
+                                                    <tr>
+                                                        <td>{{ (int)$key + 1 }}</td>
+                                                        <td>{{ $item->invoice_number }}</td>
+                                                        <td>{{ $item->product->medicine_name }}</td>
                                                         <td>{{ $item->supplier->name }}</td>
                                                         <td>{{ $item->manufacturer->company->company_name }}</td>
                                                         <td>{{ $item->created_at->format('M. j, Y') }}</td>
@@ -104,32 +87,9 @@
                                                             @endif
                                                         </td>
                                                         <td style="text-align: center;">
-                                                            @if ($item->status_id == 7)
-
-                                                                @if(request()->routeIs('admin.all.order'))
-                                                                    <a href="{{ route('admin.edit.order', $item->id) }}" class="btn btn-warning waves-light" id="edit_button">
-                                                                        <i class="fas fa-edit"></i>
-                                                                    </a>
-                                                                    <a href="{{ route('admin.delete.order', $item->id) }}" class="btn btn-danger waves-light" id="delete_button">
-                                                                        <i class="fas fa-trash-alt"></i>
-                                                                    </a>
-                                                                @elseif(request()->routeIs('admin.pending.order'))
-                                                                    <a href="{{ route('admin.approve.order', $item->id) }}" type="button" class="btn btn-success waves-light">
-                                                                        <i class="ri-checkbox-circle-line"></i>
-                                                                    </a>
-                                                                @endif
-
-                                                            @endif
-
-                                                            @if ($item->status_id == 3)
-
-                                                                @if(request()->routeIs('admin.all.delete.order'))
-                                                                    <a href="{{ route('admin.restore.deleted.order', $item->id) }}" type="button" class="btn btn-success waves-light">
-                                                                        <i class="ri-recycle-line"></i>
-                                                                    </a>
-                                                                @endif
-
-                                                            @endif
+                                                            <a href="{{ route('admin.print.invoice.user.order', $item->id) }}" class="btn btn-success waves-light" id="print_button">
+                                                                <i class="ri-printer-line"></i>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
