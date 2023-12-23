@@ -74,7 +74,7 @@ class OrderController extends Controller
 
     public function getAllOrder()
     {
-        
+
         try {
 
             $userData = $this->orderContract->getAllOrder();
@@ -111,7 +111,7 @@ class OrderController extends Controller
 
     public function createOrder()
     {
-        
+
         try {
 
             $userData = $this->userContract->getAllUserData();
@@ -358,7 +358,31 @@ class OrderController extends Controller
     public function pendingOrder()
     {
         $userData = $this->orderContract->pendingOrder(7);
-        return view('admin.orders.index', ['userData' => $userData]);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.orders.index', ['userData' => $userData]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.orders.index', ['userData' => $userData]);
+            } else {
+                return view('404');
+            }
+        }
+    }
+
+    public function approveOrderList()
+    {
+        $userData = $this->orderContract->pendingOrder(8);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.orders.approve-order', ['userData' => $userData]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.orders.approve-order', ['userData' => $userData]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function deleteOrder($id)
@@ -516,6 +540,10 @@ class OrderController extends Controller
 
         try {
 
+            $productData = $this->productContract->getProductData();
+            $statusData = $this->statusContract->getAllStatusData();
+            $categoryData = $this->categoryContract->getCategoryData();
+
             $orderData = $this->orderContract->editOrderData($id);
             $representativeData = $this->representativeContract->getRepresentativeData();
             $distributorData = $this->distributorContract->getAllDistributorData();
@@ -536,6 +564,9 @@ class OrderController extends Controller
                         'expiryDate' => $expiryDate,
                         'distributorData' => $distributorData,
                         'representativeData' => $representativeData,
+                        'productData' => $productData,
+                        'statusData' => $statusData,
+                        'categoryData' => $categoryData,
                     ]);
                 } elseif (Auth::user()->role_id == 2) {
                     return view('manager.orders.edit-order', [
@@ -546,6 +577,9 @@ class OrderController extends Controller
                         'expiryDate' => $expiryDate,
                         'distributorData' => $distributorData,
                         'representativeData' => $representativeData,
+                        'productData' => $productData,
+                        'statusData' => $statusData,
+                        'categoryData' => $categoryData,
                     ]);
                 } elseif (Auth::user()->role_id == 3) {
                     return view('clerk.orders.edit-order', [
@@ -556,6 +590,9 @@ class OrderController extends Controller
                         'expiryDate' => $expiryDate,
                         'distributorData' => $distributorData,
                         'representativeData' => $representativeData,
+                        'productData' => $productData,
+                        'statusData' => $statusData,
+                        'categoryData' => $categoryData,
                     ]);
                 } else {
                     return view('404');
@@ -593,5 +630,10 @@ class OrderController extends Controller
         $invoice_number = $request->invoice_number;
         $orderData = $this->orderContract->getOrderInvoiceNumber($invoice_number);
         return response()->json($orderData);
+    }
+
+    public function patientPayment()
+    {
+        return view('manager.cashiers.payment');
     }
 }

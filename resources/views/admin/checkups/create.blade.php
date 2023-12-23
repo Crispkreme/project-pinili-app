@@ -34,11 +34,10 @@
                     <!-- end page title -->
 
                     <div class="row">
-                        <form method="POST" action="{{ route('admin.store.patient.followup.checkup') }}"
+                        <form method="POST" action="{{ route('admin.store.patient.checkup', $bmiData->id) }}"
                             enctype="multipart/form-data">
                             @csrf
                             <input name="patient_id" type="hidden" value="{{ $patientData->id }}" readonly>
-                            sdfsdfsdf
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -51,15 +50,20 @@
                                             </span>
                                         </h4>
 
-                                        @if ($checkupData->status_id == 2)
-                                            <div class="mt-2" style="width:15%;">
+                                        <div class="mt-2" style="display: flex;justify-content: space-between;">
+                                            @if ($checkupData->status_id == 2)
                                                 <a class="btn btn-success waves-effect waves-light"
                                                     href='{{ route('admin.patient.checkup.print', $checkupData->id) }}'>
                                                     <i class="ri-printer-line align-middle me-2"></i>
                                                     Print Certificate
                                                 </a>
-                                            </div>
-                                        @endif
+                                            @endif
+                                            <a class="btn btn-success waves-effect waves-light"
+                                                href="{{ route('admin.create.patient.checkup', $patientData->id) }}">
+                                                <i class="ri-printer-line align-middle me-2"></i>
+                                                Prescription
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -172,15 +176,14 @@
                                             <div class="row mb-3">
                                                 <label class="col-sm-4 col-form-label">Symptom</label>
                                                 <div class="col-sm-8">
-                                                    <textarea class="form-control" name="symptoms" required="" placeholder="{{ $bmiData->symptoms }}"
-                                                        rows="2" readonly></textarea>
+                                                    <textarea class="form-control" name="symptoms" required="" rows="2" readonly>{{ $bmiData->symptoms }}</textarea>
                                                 </div>
                                             </div>
                                             @if (auth()->user()->role_id == 1)
                                                 <div class="row mb-3">
                                                     <label class="col-sm-4 col-form-label">Diagnosis</label>
                                                     <div class="col-sm-8">
-                                                        <textarea class="form-control" name="diagnosis" placeholder="{{ strip_tags($bmiData->diagnosis) }}" rows="3"></textarea>
+                                                        <textarea class="form-control" name="diagnosis" rows="3">{{ strip_tags($bmiData->diagnosis) }}</textarea>
                                                     </div>
                                                 </div>
                                             @endif

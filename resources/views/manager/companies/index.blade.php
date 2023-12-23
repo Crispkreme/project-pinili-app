@@ -4,9 +4,11 @@
         input[switch]+label {
             width: 80px !important;
         }
+
         input[switch]:checked+label:after {
             left: 58px !important;
         }
+
         select {
             width: 60px !important;
         }
@@ -35,12 +37,15 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('admin.create.company') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Company</a><br><br>
+                                    <a class="btn btn-dark btn-rounded waves-effect waves-light"
+                                        href="{{ route('manager.create.company') }}" style="float:right;"> Add
+                                        Company</a><br><br>
 
                                     <h4 class="card-title">Representative List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our representative.</p>
 
-                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
+                                    <table class="table activate-select dt-responsive nowrap w-100"
+                                        id="state-saving-datatable">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ID</th>
@@ -53,13 +58,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($userData as $key => $item)
+                                            @foreach ($userData as $key => $item)
                                                 <tr>
-                                                    <td>
-                                                        <a href="{{ route('admin.all.history.company', $item->id) }}">
-                                                            {{ $item->id_number }}
-                                                        </a>
-                                                    </td>
+                                                    <td>{{ $key + 1 }}</td>
                                                     <td>
                                                         <a href="{{ route('admin.all.history.company', $item->id) }}">
                                                             {{ $item->company_name }}
@@ -70,10 +71,13 @@
                                                     <td>{{ $item->email }}</td>
                                                     <td>{{ $item->address }}</td>
                                                     <td>
-                                                        <a href="{{ route('admin.edit.company', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                        <a class="btn btn-info sm"
+                                                            href="{{ route('admin.edit.company', $item->id) }}"
+                                                            title="Edit Data">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <a href="" class="btn btn-danger sm" title="Delete Data" id="delete">
+                                                        <a class="btn btn-danger sm" id="delete" href=""
+                                                            title="Delete Data">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </a>
                                                     </td>

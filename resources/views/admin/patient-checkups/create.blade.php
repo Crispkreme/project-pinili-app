@@ -100,7 +100,7 @@
                                                     <a class="nav-link" data-toggle="tab"
                                                         href="#progress-purchase-products">
                                                         <span class="step-number">04</span>
-                                                        <span class="step-title">Purchase Product</span>
+                                                        <span class="step-title">Confirm Prescription</span>
                                                     </a>
                                                 </li>
                                             </ul>

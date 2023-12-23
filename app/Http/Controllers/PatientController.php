@@ -465,6 +465,101 @@ class PatientController extends Controller
         }
     }
 
+    public function patientCheckup($id)
+    {
+        try {
+            $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
+            $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->id);
+            $patientData = $this->patientContract->getPatientDataByBmiId($bmiData->patient_id);
+
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return view('admin.checkups.create', [
+                        'patientData' => $patientData,
+                        'checkupData' => $checkupData,
+                        'bmiData' => $bmiData,
+                    ]);
+                } elseif (Auth::user()->role_id == 2) {
+                    return view('manager.follow-up-checkups.create', [
+                        'patientData' => $patientData,
+                        'checkupData' => $checkupData,
+                        'bmiData' => $bmiData,
+                    ]);
+                } elseif (Auth::user()->role_id == 3) {
+                    return view('clerk.follow-up-checkups.create', [
+                        'patientData' => $patientData,
+                        'checkupData' => $checkupData,
+                        'bmiData' => $bmiData,
+                    ]);
+                } else {
+                    return view('404');
+                }
+            }
+        } catch (Exception $e) {
+            dd($e);
+        }
+    }
+
+    public function storePatientCheckup($id, Request $request)
+    {
+        try {
+
+            $this->patientBmiContract->getPatientBmiById($id);
+
+            $bmiParams = [
+                'diagnosis' => $request->diagnosis,
+                'symptoms' => $request->symptoms,
+            ];
+
+            $this->patientBmiContract->updatePatientBmi($id, $bmiParams);
+
+            $this->patientCheckupContract->updatePatientCheckupStatus($id);
+
+            return redirect()
+            ->back()
+            ->with('success', 'Recommendation added successfully.');
+
+        } catch (Exception $e) {
+            dd($e);
+        }
+    }
+
+    public function patientFollowCheckup($id)
+    {
+        $patientData = $this->patientContract->getPatientById($id);
+        $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
+        $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->patient_bmi_id);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.checkups.followup', [
+                    'patientData' => $patientData,
+                    'checkupData' => $checkupData,
+                    'bmiData' => $bmiData,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.follow-up-checkups.create', [
+                    'patientData' => $patientData,
+                    'checkupData' => $checkupData,
+                    'bmiData' => $bmiData,
+                ]);
+            } elseif (Auth::user()->role_id == 3) {
+                return view('clerk.follow-up-checkups.create', [
+                    'patientData' => $patientData,
+                    'checkupData' => $checkupData,
+                    'bmiData' => $bmiData,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
+    }
+
+    public function storePatientFollowCheckup($id, Request $request)
+    {
+        dd($request);
+    }
+
     public function storePatientDiagnosis($id, Request $request)
     {
         try {

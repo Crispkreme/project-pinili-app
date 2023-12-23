@@ -28,6 +28,12 @@ class PatientBmiRepository implements PatientBmiContract {
         return $this->model->create($params);
     }
 
+    public function getPatientBmiById($id)
+    {
+        $patientBmi = $this->model->findOrFail($id);
+        return $patientBmi;
+    }
+
     public function getPatientBmiByPatientId($id)
     {
         return $this->model

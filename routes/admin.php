@@ -134,12 +134,20 @@ Route::group(['controller' => PatientController::class], function () {
     Route::get('/patient/diagnosis/{id}', 'patientDiagnosis')->name('patient.diagnosis');
     Route::get('/patient/prescription/history/{id}', 'patientPrescriptionHistory')->name('patient.prescription.history');
     Route::post('/store/patient/diagnosis/{id}', 'storePatientDiagnosis')->name('store.patient.diagnosis');
+
+    // CHECKUP FUNCTIONALITY
+    Route::get('/patient/checkup/{id}', 'patientCheckup')->name('patient.checkup');
+    Route::post('/store/patient/checkup/{id}', 'storePatientCheckup')->name('store.patient.checkup');
+
+    // FOLLOWUP CHECKUP
+    Route::get('/patient/followup/checkup/{id}', 'patientFollowCheckup')->name('patient.followup.checkup');
+    Route::post('/store/patient/followup/checkup/{id}', 'storePatientFollowCheckup')->name('store.patient.followup.checkup');
 });
 
 Route::group(['controller' => PatientCheckupController::class], function () {
     Route::get('/patient/checkup/print/{id}', 'patientCheckupPdf')->name('patient.checkup.print');
     Route::get('/patient/checkup', 'getAllPatientCheckup')->name('all.patient.checkup');
-    Route::get('/patient/followup/checkup/{id}', 'createPatientFollowupCheckup')->name('create.patient.followup.checkup');
+    // Route::get('/patient/followup/checkup/{id}', 'createPatientFollowupCheckup')->name('create.patient.followup.checkup');
     Route::get('/patient/create/checkup/{id}', 'createPatientCheckup')->name('create.patient.checkup');
     Route::post('/store/patient/followup/checkup', 'storePatientFollowupCheckup')->name('store.patient.followup.checkup');
 });

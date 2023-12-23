@@ -37,61 +37,46 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h4 class="card-title">Patient Checkup List Data</h4>
-                                            <p class="card-title-desc">This are the complete list of our users.</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <a class="btn btn-dark btn-rounded waves-effect waves-light mb-3"
-                                                href="{{ route('manager.create.patient.followup.checkup', $patientID) }}"
-                                                style="float:right;margin-left:5px;">
-                                                Follow-up Checkup
-                                            </a>
-                                        </div>
-                                    </div>
+
+                                    <h4 class="card-title">For patient payment list.</h4>
+                                    <p class="card-title-desc">This are the complete list of our users.</p>
 
                                     <table class="table activate-select dt-responsive nowrap w-100"
                                         id="state-saving-datatable">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ID</th>
-                                                <th>Checkup No.</th>
+                                                <th>Patient No.</th>
                                                 <th>Name</th>
                                                 <th>Age</th>
-                                                <th>Checkup Date</th>
-                                                <th>Followup Date</th>
-                                                <th>Status</th>
-                                                <th>Remarks</th>
+                                                <th>Contact Number</th>
+                                                <th>Address</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($patientCheckupData as $key => $item)
+                                            {{-- @foreach ($patientData as $key => $item)
                                                 <tr>
-                                                    <td>{{ $key + 1 }}</td>
+                                                    <td class="text-center">{{ $key + 1 }}</td>
                                                     <td>
-                                                        <a
-                                                            href="{{ route('manager.patient.update.checkup.status', $item->id) }}">
+                                                        <a href="{{ route('manager.patient.history', $item->id) }}">
                                                             {{ $item->id_number }}
                                                         </a>
                                                     </td>
-                                                    <td>{{ $item->patientBmi->patient->firstname }}
-                                                        {{ $item->patientBmi->patient->mi }}
-                                                        {{ $item->patientBmi->patient->lastname }}</td>
-                                                    <td>{{ $item->patientBmi->patient->age }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}
+                                                    <td>{{ $item->firstname }} {{ $item->mi }} {{ $item->lastname }}
                                                     </td>
-                                                    @if ($item->follow_up_date === '1900-01-01')
-                                                        <td>None</td>
-                                                    @else
-                                                        <td>{{ \Carbon\Carbon::parse($item->follow_up_date)->format('M d, Y') }}
-                                                        </td>
-                                                    @endif
-                                                    <td>{{ $item->statuses->status }}</td>
-                                                    <td>{{ $item->remarks }}</td>
+                                                    <td>{{ $item->age }}</td>
+                                                    <td>{{ $item->contact_number }}</td>
+                                                    <td>{{ $item->address }}</td>
+                                                    <td>
+                                                        <a class="btn btn-info sm"
+                                                            href="{{ route('manager.edit.patient', $item->id) }}"
+                                                            title="Edit Data">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
-                                            @endforeach
-
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>

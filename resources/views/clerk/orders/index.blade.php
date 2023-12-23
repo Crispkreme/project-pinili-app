@@ -43,7 +43,7 @@
                                         style="float:right;">
                                             <i class="ri-add-fill" style="margin-right:5px;"></i>
                                             Add Order
-                                        </a>    
+                                        </a>
                                         <br><br>
 
                                     <h4 class="card-title">Product List Data</h4>
@@ -53,7 +53,6 @@
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%;" class="text-center">ID</th>
-                                                <th style="width: 15%;">Purchase Order Number</th>
                                                 <th>Product Name</th>
                                                 <th style="width: 15%;">Supplier</th>
                                                 <th>Manufacturer</th>
@@ -67,15 +66,6 @@
                                                 @foreach($userData as $key => $item)
                                                     <tr style="vertical-align: middle;">
                                                         <td style="text-align: center;" class="text-center">{{ (int)$key + 1 }}</td>
-                                                        <td>
-                                                            @if($item->status_id == 7)
-                                                                <a href="{{ route('clerk.edit.order.data', $item->id) }}">
-                                                                    {{ $item->invoice_number }}
-                                                                </a>
-                                                            @else
-                                                                {{ $item->invoice_number }}
-                                                            @endif
-                                                        </td>
                                                         <td>
                                                             @if($item->status_id == 7)
                                                                 <a href="{{ route('clerk.edit.order.data', $item->id) }}">

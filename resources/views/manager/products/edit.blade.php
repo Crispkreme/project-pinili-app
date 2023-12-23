@@ -23,44 +23,57 @@
                                     <h4 class="card-title">Update Company Information</h4>
                                     <p class="card-title-desc">You can update here you company information.</p>
 
-                                    @if(count($errors))
+                                    @if (count($errors))
                                         @foreach ($errors->all() as $error)
-                                        <p class="alert alert-danger alert-dismissible fade show"> {{ $error}} </p>
+                                            <p class="alert alert-danger alert-dismissible fade show">
+                                                {{ $error }} </p>
                                         @endforeach
                                     @endif
 
-                                    <form method="POST" action="{{ route('admin.update.product', ['id' => $product->id]) }}" enctype="multipart/form-data" id="myForm">
+                                    <form id="myForm" method="POST"
+                                        action="{{ route('manager.update.product', ['id' => $product->id]) }}"
+                                        enctype="multipart/form-data">
                                         @csrf
 
                                         <h4 class="card-title">General Information</h4><br>
                                         <div class="row mb-3">
-                                            <label for="name" class="col-sm-2 col-form-label">Serial Number</label>
+                                            <label class="col-sm-2 col-form-label" for="name">Serial Number</label>
                                             <div class="form-group col-sm-10">
-                                                <input class="form-control" type="text" name="serial_number" value="{{ $product->serial_number }}" placeholder="Serial Number" id="serial_number">
+                                                <input class="form-control" id="serial_number" name="serial_number"
+                                                    type="text" value="{{ $product->serial_number }}"
+                                                    placeholder="Serial Number">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="name" class="col-sm-2 col-form-label">Medicine Name</label>
+                                            <label class="col-sm-2 col-form-label" for="name">Medicine Name</label>
                                             <div class="form-group col-sm-10">
-                                                <input class="form-control" type="text" name="medicine_name" value="{{ $product->medicine_name }}" placeholder="Medicine Name" id="medicine_name">
+                                                <input class="form-control" id="medicine_name" name="medicine_name"
+                                                    type="text" value="{{ $product->medicine_name }}"
+                                                    placeholder="Medicine Name">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="name" class="col-sm-2 col-form-label">Generic Name</label>
+                                            <label class="col-sm-2 col-form-label" for="name">Generic Name</label>
                                             <div class="form-group col-sm-10">
-                                                <input class="form-control" type="text" name="generic_name" placeholder="Generic Name" value="{{ $product->generic_name }}" id="generic_name">
+                                                <input class="form-control" id="generic_name" name="generic_name"
+                                                    type="text" value="{{ $product->generic_name }}"
+                                                    placeholder="Generic Name">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label class="col-sm-2 col-form-label">Category</label>
                                             <div class="col-sm-10">
-                                                <select class="form-select" name="category_id" aria-label="Default select example" id="category_id">
-                                                    <option value="{{ $product->category_id }}" selected>{{ $product->category->name }}</option>
+                                                <select class="form-select" id="category_id" name="category_id"
+                                                    aria-label="Default select example">
+                                                    <option value="{{ $product->category_id }}" selected>
+                                                        {{ $product->category->name }}</option>
                                                     @if (empty($categories))
                                                         <option value="" disabled>No data found</option>
                                                     @else
                                                         @foreach ($categories as $categoryId => $name)
-                                                            <option value="{{ $categoryId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                            <option value="{{ $categoryId }}"
+                                                                style="text-transform: capitalize">{{ $name }}
+                                                            </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -69,26 +82,31 @@
                                         <div class="row mb-3">
                                             <label class="col-sm-2 col-form-label">Form</label>
                                             <div class="col-sm-10">
-                                                <select class="form-select" name="form_id" aria-label="Default select example" id="form_id">
-                                                    <option value="{{ $product->form_id }}" selected>{{ $product->form->name }}</option>
+                                                <select class="form-select" id="form_id" name="form_id"
+                                                    aria-label="Default select example">
+                                                    <option value="{{ $product->form_id }}" selected>
+                                                        {{ $product->form->name }}</option>
                                                     @if (empty($forms))
                                                         <option value="" disabled>No data found</option>
                                                     @else
                                                         @foreach ($forms as $formId => $name)
-                                                            <option value="{{ $formId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                            <option value="{{ $formId }}"
+                                                                style="text-transform: capitalize">{{ $name }}
+                                                            </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="name" class="col-sm-2 col-form-label">Description</label>
+                                            <label class="col-sm-2 col-form-label" for="name">Description</label>
                                             <div class="form-group col-sm-10">
-                                                <textarea name="description" id="description" cols="10" rows="5" class="form-control" placeholder="Description">{{ $product->description }}</textarea>
+                                                <textarea class="form-control" id="description" name="description" cols="10" rows="5"
+                                                    placeholder="Description">{{ $product->description }}</textarea>
                                             </div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                                        <button class="btn btn-success waves-effect waves-light" type="submit">
                                             Edit Product
                                             <i class="ri-user-add-line align-middle ms-2"></i>
                                         </button>

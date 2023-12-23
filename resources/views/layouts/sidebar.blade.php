@@ -1,6 +1,6 @@
 <div class="vertical-menu">
 
-    <div data-simplebar class="h-100">
+    <div class="h-100" data-simplebar>
 
         <!-- User details -->
         <x-user-detail />
@@ -361,8 +361,14 @@
                                     'class' => '',
                                 ],
                                 [
-                                    'list' => 'Approve Invoice',
+                                    'list' => 'Pending Invoice',
                                     'url' => route('manager.pending.order'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ],
+                                [
+                                    'list' => 'Approve Invoice',
+                                    'url' => route('manager.approve.order.list'),
                                     'icon' => '',
                                     'class' => '',
                                 ],
@@ -403,7 +409,13 @@
                             'isMenuTitle' => false,
                             'submenu' => [
                                 [
-                                    'list' => 'Cashier',
+                                    'list' => 'For Payment',
+                                    'url' => route('manager.patient.payment'),
+                                    'icon' => '',
+                                    'class' => '',
+                                ],
+                                [
+                                    'list' => 'Walk in',
                                     'url' => route('manager.cashier'),
                                     'icon' => '',
                                     'class' => '',

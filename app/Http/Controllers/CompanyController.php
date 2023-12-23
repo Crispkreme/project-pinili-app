@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Contracts\CompanyContract;
 use App\Http\Requests\AddCompanyStoreRequest;
 use App\Models\Company;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -19,12 +20,29 @@ class CompanyController extends Controller
     public function index()
     {
         $userData = $this->companyContract->getAllCompany();
-        return view('admin.companies.index', ['userData' => $userData]);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.companies.index', ['userData' => $userData]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.companies.index', ['userData' => $userData]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function createCompany()
     {
-        return view('admin.companies.create');
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.companies.create');
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.companies.create');
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function storeCompany(AddCompanyStoreRequest $request)
@@ -44,7 +62,15 @@ class CompanyController extends Controller
                 'message' => 'Password updated successfully!',
             ];
 
-            return redirect()->route('admin.all.company')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.company')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.company')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (\Exception $e) {
 
@@ -53,7 +79,15 @@ class CompanyController extends Controller
                 'message' => 'Error occurred: ' . $e->getMessage(),
             ];
 
-            return redirect()->route('admin.all.company')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.company')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.company')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
         }
     }
 
@@ -61,9 +95,19 @@ class CompanyController extends Controller
     {
         $company = $this->companyContract->editCompany($id);
 
-        return view('admin.companies.edit', [
-            'company' => $company,
-        ]);
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.companies.edit', [
+                    'company' => $company,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.companies.edit', [
+                    'company' => $company,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function updateCompany(AddCompanyStoreRequest $request, $id)
@@ -79,7 +123,15 @@ class CompanyController extends Controller
                 'message' => 'Password updated successfully!',
             ];
 
-            return redirect()->route('admin.all.company')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.company')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.company')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (\Exception $e) {
 

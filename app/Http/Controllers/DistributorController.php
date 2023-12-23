@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Contracts\CompanyContract;
 use App\Contracts\DistributorContract;
 use App\Contracts\RepresentativeContract;
 use App\Http\Requests\AddDistributorStoreRequest;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DistributorController extends Controller
 {
@@ -28,7 +29,16 @@ class DistributorController extends Controller
     public function index()
     {
         $userData = $this->distributorContract->getAllDistributor();
-        return view('admin.distributors.index', ['userData' => $userData]);
+
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.distributors.index', ['userData' => $userData]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.distributors.index', ['userData' => $userData]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function createDistributor()
@@ -36,10 +46,21 @@ class DistributorController extends Controller
         $representatives = $this->representativeContract->getRepresentativeData();
         $companies = $this->companyContract->getCompanyData();
 
-        return view('admin.distributors.create', [
-            'representatives' => $representatives,
-            'companies' => $companies,
-        ]);
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.distributors.create', [
+                    'representatives' => $representatives,
+                    'companies' => $companies,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.distributors.create', [
+                    'representatives' => $representatives,
+                    'companies' => $companies,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function storeDistributor(AddDistributorStoreRequest $request)
@@ -60,7 +81,15 @@ class DistributorController extends Controller
                 'message' => 'Password updated successfully!',
             ];
 
-            return redirect()->route('admin.all.distributor')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.distributor')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.distributor')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (\Exception $e) {
 
@@ -69,7 +98,7 @@ class DistributorController extends Controller
                 'message' => 'Error occurred: ' . $e->getMessage(),
             ];
 
-            return redirect()->route('admin.all.distributor')->with($notification);
+            return redirect()->back()->with($notification);
         }
     }
 
@@ -77,9 +106,19 @@ class DistributorController extends Controller
     {
         $distributor = $this->distributorContract->editDistributor($id);
 
-        return view('admin.distributors.edit', [
-            'distributor' => $distributor,
-        ]);
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1) {
+                return view('admin.distributors.edit', [
+                    'distributor' => $distributor,
+                ]);
+            } elseif (Auth::user()->role_id == 2) {
+                return view('manager.distributors.edit', [
+                    'distributor' => $distributor,
+                ]);
+            } else {
+                return view('404');
+            }
+        }
     }
 
     public function updateDistributor(AddDistributorStoreRequest $request, $id)
@@ -95,7 +134,15 @@ class DistributorController extends Controller
                 'message' => 'Password updated successfully!',
             ];
 
-            return redirect()->route('admin.all.distributor')->with($notification);
+            if (Auth::check()) {
+                if (Auth::user()->role_id == 1) {
+                    return redirect()->route('admin.all.distributor')->with($notification);
+                } elseif (Auth::user()->role_id == 2) {
+                    return redirect()->route('manager.all.distributor')->with($notification);
+                } else {
+                    return view('404');
+                }
+            }
 
         } catch (\Exception $e) {
 

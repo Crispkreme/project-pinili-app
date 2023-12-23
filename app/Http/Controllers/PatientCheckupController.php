@@ -106,19 +106,27 @@ class PatientCheckupController extends Controller
     public function createPatientFollowupCheckup($id)
     {
         $patientData = $this->patientContract->getPatientById($id);
+        $checkupData = $this->patientCheckupContract->getPatientCheckupById($id);
+        $bmiData = $this->patientBmiContract->getPatientBMIByCheckupId($checkupData->patient_bmi_id);
 
         if (Auth::check()) {
             if (Auth::user()->role_id == 1) {
                 return view('admin.follow-up-checkups.create', [
                     'patientData' => $patientData,
+                    'checkupData' => $checkupData,
+                    'bmiData' => $bmiData,
                 ]);
             } elseif (Auth::user()->role_id == 2) {
                 return view('manager.follow-up-checkups.create', [
                     'patientData' => $patientData,
+                    'checkupData' => $checkupData,
+                    'bmiData' => $bmiData,
                 ]);
             } elseif (Auth::user()->role_id == 3) {
                 return view('clerk.follow-up-checkups.create', [
                     'patientData' => $patientData,
+                    'checkupData' => $checkupData,
+                    'bmiData' => $bmiData,
                 ]);
             } else {
                 return view('404');
@@ -127,7 +135,6 @@ class PatientCheckupController extends Controller
     }
 
     public function storePatientFollowupCheckup(Request $request) {
-
         DB::beginTransaction();
 
         try {

@@ -4,9 +4,11 @@
         input[switch]+label {
             width: 80px !important;
         }
+
         input[switch]:checked+label:after {
             left: 58px !important;
         }
+
         select {
             width: 60px !important;
         }
@@ -35,12 +37,15 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('admin.create.product') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Product</a><br><br>
+                                    <a class="btn btn-dark btn-rounded waves-effect waves-light"
+                                        href="{{ route('manager.create.product') }}" style="float:right;">Add
+                                        Product</a><br><br>
 
                                     <h4 class="card-title">Product List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our product.</p>
 
-                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
+                                    <table class="table activate-select dt-responsive nowrap w-100"
+                                        id="state-saving-datatable">
                                         <thead>
                                             <tr>
                                                 <th style="width:15%;">ID</th>
@@ -53,7 +58,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($userData as $key => $item)
+                                            @foreach ($userData as $key => $item)
                                                 <tr>
                                                     <td>{{ $item->barcode }}</td>
                                                     <td>{{ $item->medicine_name }}</td>
@@ -62,10 +67,13 @@
                                                     <td>{{ $item->category->name }}</td>
                                                     <td>{{ $item->form->name }}</td>
                                                     <td>
-                                                        <a href="{{ route('admin.edit.product', $item->id) }}" class="btn btn-info sm" title="Edit Data">
+                                                        <a class="btn btn-info sm"
+                                                            href="{{ route('manager.edit.product', $item->id) }}"
+                                                            title="Edit Data">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <a href="" class="btn btn-danger sm" title="Delete Data" id="delete">
+                                                        <a class="btn btn-danger sm" id="delete" href=""
+                                                            title="Delete Data">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </a>
                                                     </td>

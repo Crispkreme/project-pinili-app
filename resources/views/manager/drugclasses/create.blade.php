@@ -23,44 +23,53 @@
                                     <h4 class="card-title">Add Company Information</h4>
                                     <p class="card-title-desc">You can add here you company information.</p>
 
-                                    @if(count($errors))
+                                    @if (count($errors))
                                         @foreach ($errors->all() as $error)
-                                        <p class="alert alert-danger alert-dismissible fade show"> {{ $error}} </p>
+                                            <p class="alert alert-danger alert-dismissible fade show">
+                                                {{ $error }} </p>
                                         @endforeach
                                     @endif
 
-                                    <form method="POST" action="{{ route('admin.store.drug.class') }}" enctype="multipart/form-data" id="myForm">
+                                    <form id="myForm" method="POST" action="{{ route('manager.store.drug.class') }}"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <h4 class="card-title">General Information</h4><br>
                                         <div class="row mb-3">
                                             <label class="col-sm-2 col-form-label">Classification</label>
                                             <div class="col-sm-10">
-                                                <select class="form-select" name="classification_id" aria-label="Default select example" id="classification_id">
+                                                <select class="form-select" id="classification_id"
+                                                    name="classification_id" aria-label="Default select example">
                                                     <option selected disabled>Select Classification</option>
                                                     @if (empty($classifications))
                                                         <option value="" disabled>No data found</option>
                                                     @else
                                                         @foreach ($classifications as $classificationId => $name)
-                                                            <option value="{{ $classificationId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                            <option value="{{ $classificationId }}"
+                                                                style="text-transform: capitalize">{{ $name }}
+                                                            </option>
                                                         @endforeach
                                                     @endif
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="name" class="col-sm-2 col-form-label">Drug Classification Name</label>
+                                            <label class="col-sm-2 col-form-label" for="name">Drug Classification
+                                                Name</label>
                                             <div class="form-group col-sm-10">
-                                                <input class="form-control" type="text" name="name" value="" placeholder="Drug Classification Name" id="drug_classification_name">
+                                                <input class="form-control" id="drug_classification_name" name="name"
+                                                    type="text" value=""
+                                                    placeholder="Drug Classification Name">
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="name" class="col-sm-2 col-form-label">Description</label>
+                                            <label class="col-sm-2 col-form-label" for="name">Description</label>
                                             <div class="form-group col-sm-10">
-                                                <textarea name="description" id="description" cols="10" rows="5" class="form-control" placeholder="Description"></textarea>
+                                                <textarea class="form-control" id="description" name="description" cols="10" rows="5"
+                                                    placeholder="Description"></textarea>
                                             </div>
                                         </div>
 
-                                        <button type="submit" class="btn btn-success waves-effect waves-light">
+                                        <button class="btn btn-success waves-effect waves-light" type="submit">
                                             Add Drug Classification
                                             <i class="ri-user-add-line align-middle ms-2"></i>
                                         </button>

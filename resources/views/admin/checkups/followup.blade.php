@@ -34,32 +34,15 @@
                     <!-- end page title -->
 
                     <div class="row">
-                        <form method="POST" action="{{ route('admin.store.patient.followup.checkup') }}"
+                        <form method="POST" action="{{ route('admin.store.patient.followup.checkup', $bmiData->id) }}"
                             enctype="multipart/form-data">
                             @csrf
                             <input name="patient_id" type="hidden" value="{{ $patientData->id }}" readonly>
-                            sdfsdfsdf
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">Follow up Checkup</h4>
                                         <p class="card-title-desc">This are the complete list of our patient.</p>
-
-                                        <h4 class="card-title">Checkup Status:
-                                            <span style="text-transform: uppercase;">
-                                                {{ $checkupData->statuses->status }}
-                                            </span>
-                                        </h4>
-
-                                        @if ($checkupData->status_id == 2)
-                                            <div class="mt-2" style="width:15%;">
-                                                <a class="btn btn-success waves-effect waves-light"
-                                                    href='{{ route('admin.patient.checkup.print', $checkupData->id) }}'>
-                                                    <i class="ri-printer-line align-middle me-2"></i>
-                                                    Print Certificate
-                                                </a>
-                                            </div>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +125,7 @@
                                                     Pressure</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" name="blood_pressure" type="text"
-                                                        placeholder="{{ $bmiData->blood_pressure }} mmHg" readonly>
+                                                        placeholder="{{ $bmiData->blood_pressure }} mmHg">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -150,7 +133,7 @@
                                                     Rate</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" name="heart_rate" type="text"
-                                                        placeholder="{{ $bmiData->heart_rate }} bpm" readonly>
+                                                        placeholder="{{ $bmiData->heart_rate }} bpm">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -158,7 +141,7 @@
                                                     for="example-text-input">Weight</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" name="weight" type="text"
-                                                        placeholder="{{ $bmiData->weight }} kg" readonly>
+                                                        placeholder="{{ $bmiData->weight }} kg">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -166,14 +149,14 @@
                                                     for="example-text-input">Temperature</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" name="temperature" type="text"
-                                                        placeholder="{{ $bmiData->temperature }} deg" readonly>
+                                                        placeholder="{{ $bmiData->temperature }} deg">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label class="col-sm-4 col-form-label">Symptom</label>
                                                 <div class="col-sm-8">
                                                     <textarea class="form-control" name="symptoms" required="" placeholder="{{ $bmiData->symptoms }}"
-                                                        rows="2" readonly></textarea>
+                                                        rows="2"></textarea>
                                                 </div>
                                             </div>
                                             @if (auth()->user()->role_id == 1)
@@ -185,23 +168,12 @@
                                                 </div>
                                             @endif
 
-                                            @if ($checkupData->status_id === 2)
-                                                <div>
-                                                    <a class="btn btn-warning btn-rounded waves-effect waves-light"
-                                                        href="{{ route('clerk.all.patient') }}"
-                                                        style="float:right;margin-left:5px;">
-                                                        Back
-                                                    </a>
-                                                </div>
-                                            @else
-                                                <div>
-                                                    <button class="btn btn-dark btn-rounded waves-effect waves-light"
-                                                        type="submit" style="float:right;margin-left:5px;">
-                                                        Done Checkup
-                                                    </button>
-                                                </div>
-                                            @endif
-
+                                            <div>
+                                                <button class="btn btn-dark btn-rounded waves-effect waves-light"
+                                                    type="submit" style="float:right;margin-left:5px;">
+                                                    Add Followup Checkup
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

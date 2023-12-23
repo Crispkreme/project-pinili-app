@@ -83,6 +83,7 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/get/specific/form', 'getSpecificForm')->name('get.specific.form');
     Route::get('/get/specific/product', 'getSpecificProduct')->name('get.specific.product');
     Route::get('/pending/order', 'pendingOrder')->name('pending.order');
+    Route::get('/approve/order/list', 'approveOrderList')->name('approve.order.list');
     Route::get('/delete/order/{id}', 'deleteOrder')->name('delete.order');
     Route::get('/approve/order/{id}', 'approveOrder')->name('approve.order');
     Route::get('/restore/deleted/order/{id}', 'getRestoreDeletedOrder')->name('restore.deleted.order');
@@ -102,6 +103,9 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/all/payment/history/company/{id}', 'getAllPaymentHistoryByCompany')->name('all.payment.history.company');
     Route::get('/all/stock/history/company/{id}', 'getAllStockHistoryByCompany')->name('all.stock.history.company');
     Route::get('/get/order/transaction', 'getOrderTransaction')->name('get.order.transaction');
+
+    // CASHIER FUNCTIONALITY
+    Route::get('/patient/payment', 'patientPayment')->name('patient.payment');
 });
 Route::group(['controller' => InvoiceController::class], function () {
     Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');
