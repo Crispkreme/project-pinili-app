@@ -16,7 +16,11 @@ class PrescribeMedicineRepository implements PrescribeMedicineContract {
 
     public function storePrescribeMedicine($params)
     {
-        return $this->model
-        ->create($params);
+        return $this->model->create($params);
+    }
+
+    public function getPrescribeMedicine($id)
+    {
+        return $this->model->with('product')->findOrFail($id);
     }
 }

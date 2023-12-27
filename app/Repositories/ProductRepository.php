@@ -98,4 +98,11 @@ class ProductRepository implements ProductContract {
             ->get(['medicine_name', 'generic_name', 'description', 'id'])
             ->toArray();
     }
+
+    public function getSpecificProduct($id)
+    {
+        return $this->model
+        ->with(['category', 'form'])
+        ->findOrFail($id);
+    }
 }

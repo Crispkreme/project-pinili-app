@@ -19,4 +19,9 @@ class PrescribeLaboratoryRepository implements PrescribeLaboratoryContract {
         return $this->model
         ->create($params);
     }
+
+    public function getPrescribeLaboratory($id)
+    {
+        return $this->model->findOrFail($id);
+    }
 }

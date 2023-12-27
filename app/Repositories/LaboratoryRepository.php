@@ -26,4 +26,14 @@ class LaboratoryRepository implements LaboratoryContract {
             ->get(['laboratory','description','price','id'])
             ->toArray();
     }
+
+    public function getSpecificLaboratory($id)
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    public function getLaboratory()
+    {
+        return $this->model->get();
+    }
 }

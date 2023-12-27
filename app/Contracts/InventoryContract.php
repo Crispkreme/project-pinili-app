@@ -10,4 +10,5 @@ interface InventoryContract {
     public function getAllInventory();
     public function getSpecificInventoryByProductID($id);
     public function getProductDataByInventory();
+    public function getInventory($id);
 }

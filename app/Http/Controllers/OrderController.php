@@ -13,6 +13,7 @@ use App\Contracts\UserContract;
 use App\Contracts\OrderContract;
 use App\Contracts\StatusContract;
 use App\Contracts\ProductContract;
+use App\Contracts\LaboratoryContract;
 use App\Contracts\CategoryContract;
 use App\Contracts\InventoryContract;
 use App\Contracts\TransactionContract;
@@ -20,7 +21,11 @@ use App\Contracts\DistributorContract;
 use App\Contracts\EntityContract;
 use App\Contracts\FormContract;
 use App\Contracts\RepresentativeContract;
+use App\Contracts\PrescriptionContract;
 use App\Contracts\DrugClassContract;
+use App\Contracts\PatientContract;
+use App\Contracts\PrescribeMedicineContract;
+use App\Contracts\PrescribeLaboratoryContract;
 
 use Carbon\Carbon;
 use App\Models\Order;
@@ -36,6 +41,7 @@ class OrderController extends Controller
     protected $representativeContract;
     protected $distributorContract;
     protected $productContract;
+    protected $laboratoryContract;
     protected $statusContract;
     protected $categoryContract;
     protected $inventoryContract;
@@ -43,6 +49,10 @@ class OrderController extends Controller
     protected $formContract;
     protected $transactionContract;
     protected $drugClassContract;
+    protected $prescriptionContract;
+    protected $patientContract;
+    protected $prescribeMedicineContract;
+    protected $prescribeLaboratoryContract;
 
     public function __construct(
         DrugClassContract $drugClassContract,
@@ -57,7 +67,13 @@ class OrderController extends Controller
         EntityContract $entityContract,
         FormContract $formContract,
         TransactionContract $transactionContract,
+        PrescriptionContract $prescriptionContract,
+        PatientContract $patientContract,
+        PrescribeMedicineContract $prescribeMedicineContract,
+        PrescribeLaboratoryContract $prescribeLaboratoryContract,
+        LaboratoryContract $laboratoryContract,
     ) {
+        $this->patientContract = $patientContract;
         $this->orderContract = $orderContract;
         $this->userContract = $userContract;
         $this->representativeContract = $representativeContract;
@@ -70,6 +86,10 @@ class OrderController extends Controller
         $this->formContract = $formContract;
         $this->transactionContract = $transactionContract;
         $this->drugClassContract = $drugClassContract;
+        $this->prescriptionContract = $prescriptionContract;
+        $this->prescribeMedicineContract = $prescribeMedicineContract;
+        $this->prescribeLaboratoryContract = $prescribeLaboratoryContract;
+        $this->laboratoryContract = $laboratoryContract;
     }
 
     public function getAllOrder()
@@ -634,6 +654,66 @@ class OrderController extends Controller
 
     public function patientPayment()
     {
-        return view('manager.cashiers.payment');
+        $prescriptions = $this->prescriptionContract->getAllPatientPrescription();
+
+        return view('manager.cashiers.payment', [
+            'prescriptions' => $prescriptions,
+        ]);
+    }
+
+    public function createPatientPayment($id)
+    {
+        $patient = $this->patientContract->getPatientById($id);
+        $laboratories = $this->laboratoryContract->getLaboratory();
+        $inventories = $this->inventoryContract->getAllInventory();
+
+        return view('manager.cashiers.for-payment', [
+            'patient' => $patient,
+            'id' => $id,
+            'laboratories' => $laboratories,
+            'inventories' => $inventories,
+        ]);
+    }
+
+    public function getPatientMedicinePrescription($id)
+    {
+        $prescriptions = $this->prescriptionContract->getSpecificPatientPrescription($id);
+
+        $prescribeMedicineIds = [];
+        $prescribeLaboratoryIds = [];
+        $prescribeMedicines = [];
+        $prescribeLaboratories = [];
+        $prescribeProducts = [];
+        $uniqueLaboratories = [];
+        $uniqueProductIds = [];
+        $medicineIds = [];
+
+        foreach ($prescriptions as $prescription) {
+            $prescribeMedicineIds[] = $prescription->prescribe_medicine_id;
+            $prescribeLaboratoryIds[] = $prescription->prescribe_laboratory_id;
+
+            $medicine = $this->prescribeMedicineContract->getPrescribeMedicine($prescribeMedicineIds);
+            $prescribeMedicines[] = $medicine;
+
+            if (!in_array($prescription->prescribe_laboratory_id, $uniqueLaboratories, true)) {
+                $uniqueLaboratories[] = $prescription->prescribe_laboratory_id;
+            }
+
+            $laboratory = $this->laboratoryContract->getSpecificLaboratory($uniqueLaboratories);
+            $prescribeLaboratories[] = $laboratory;
+        }
+
+        foreach ($prescribeMedicines as $medicineCollection) {
+            foreach ($medicineCollection as $medicine) {
+                $productId = $medicine->product_id;
+
+                if (!in_array($productId, $uniqueProductIds, true)) {
+                    $uniqueProductIds[] = $productId;
+                    $prescribeProducts[] = $medicine;
+                }
+            }
+        }
+
+        return response()->json($prescribeProducts);
     }
 }

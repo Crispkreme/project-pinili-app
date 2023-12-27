@@ -106,6 +106,8 @@ Route::group(['controller' => OrderController::class], function () {
 
     // CASHIER FUNCTIONALITY
     Route::get('/patient/payment', 'patientPayment')->name('patient.payment');
+    Route::get('/create/patient/payment/{id}', 'createPatientPayment')->name('create.patient.payment');
+    Route::get('/get/patient/medicine/prescription/{prescriptionId}', 'getPatientMedicinePrescription')->name('get.patient.medicine.prescription');
 });
 Route::group(['controller' => InvoiceController::class], function () {
     Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');

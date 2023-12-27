@@ -41,4 +41,41 @@ class PrescriptionRepository implements PrescriptionContract {
             dd("Patient not found");
         }
     }
+
+    public function getAllPatientPrescription()
+    {
+        return $this->model
+        ->where('qty', '!=', 0)
+        ->select(
+            'patient_checkup_id',
+            'status_id',
+            'invoice_number',
+            'remarks',
+            'qty',
+            'isActive',
+        )
+        ->get()
+        ->groupBy('invoice_number')
+        ->map(function ($group) {
+            return $group->first();
+        })
+        ->values();
+    }
+
+    public function getPrescribeMedicineLaboratoryIdByPrescription($params)
+    {
+        return $this->model
+        ->where('qty', '!=', 0)
+        ->where('invoice_number', $params)
+        ->get();
+    }
+
+    public function getSpecificPatientPrescription($id)
+    {
+        return $this->model
+        ->with('prescribe_medicine', 'prescribe_laboratory', 'status')
+        ->where('patient_checkup_id', $id)
+        ->where('qty', '!=', 0)
+        ->get();
+    }
 }

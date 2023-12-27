@@ -49,6 +49,7 @@ class InventoryRepository implements InventoryContract {
         ->where('inventories.isActive', 1)
         ->where('inventories.product_id', $id)
         ->get([
+            'products.id',
             'products.medicine_name',
             'products.generic_name',
             'products.description',
@@ -64,5 +65,12 @@ class InventoryRepository implements InventoryContract {
             ->join('products', 'inventories.product_id', '=', 'products.id')
             ->where('inventories.isActive', 1)
             ->pluck('products.medicine_name', 'inventories.product_id');
+    }
+
+    public function getInventory($id)
+    {
+        return $this->model
+        ->where('product_id', $id)
+        ->get();
     }
 }

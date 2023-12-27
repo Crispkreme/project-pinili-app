@@ -49,36 +49,37 @@
                                                 <th>Patient No.</th>
                                                 <th>Name</th>
                                                 <th>Age</th>
-                                                <th>Contact Number</th>
                                                 <th>Address</th>
+                                                <th>Remarks</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach ($patientData as $key => $item)
+                                            @foreach ($prescriptions as $key => $item)
                                                 <tr>
-                                                    <td class="text-center">{{ $key + 1 }}</td>
+                                                    <td style="text-align:center;">{{ (int) $key + 1 }}</td>
                                                     <td>
-                                                        <a href="{{ route('manager.patient.history', $item->id) }}">
-                                                            {{ $item->id_number }}
+                                                        <a
+                                                            href="{{ route('manager.create.patient.payment', $item->patientCheckup->patientBmi->patient->id) }}">
+                                                            {{ $item->patientCheckup->patientBmi->patient->id_number }}
                                                         </a>
                                                     </td>
-                                                    <td>{{ $item->firstname }} {{ $item->mi }} {{ $item->lastname }}
-                                                    </td>
-                                                    <td>{{ $item->age }}</td>
-                                                    <td>{{ $item->contact_number }}</td>
-                                                    <td>{{ $item->address }}</td>
                                                     <td>
-                                                        <a class="btn btn-info sm"
-                                                            href="{{ route('manager.edit.patient', $item->id) }}"
-                                                            title="Edit Data">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
+                                                        {{ $item->patientCheckup->patientBmi->patient->firstname }}
+                                                        {{ $item->patientCheckup->patientBmi->patient->mi }}
+                                                        {{ $item->patientCheckup->patientBmi->patient->lastname }}
                                                     </td>
+                                                    <td>{{ $item->patientCheckup->patientBmi->patient->age }}</td>
+                                                    <td>{{ $item->patientCheckup->patientBmi->patient->address }}
+                                                    </td>
+                                                    {{-- <td>{{ $item->remarks }}</td> --}}
+                                                    <td>For payment</td>
+                                                    <td><!-- Add your action buttons or links here --></td>
                                                 </tr>
-                                            @endforeach --}}
+                                            @endforeach
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                         </div>
