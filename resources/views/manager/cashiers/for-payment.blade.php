@@ -99,17 +99,19 @@
                                             <div>
                                                 <div class="input-group mb-3" id=""
                                                     style="display:flex;align-items: center;">
-                                                    <select class="form-control select2" style="width: 200px;">
+                                                    <select class="form-control select2" id="product_id"
+                                                        name="product_id" style="width: 200px;">
                                                         <option>Select</option>
                                                         <optgroup label="List of Medicine">
                                                             @foreach ($inventories as $key => $item)
-                                                                <option value="{{ $key }}">
+                                                                <option value="{{ $item->product_id }}">
                                                                     {{ $item->product->medicine_name }}
                                                                 </option>
                                                             @endforeach
                                                         </optgroup>
                                                     </select>
-                                                    <button class="btn btn-success waves-effect waves-light"
+                                                    <button
+                                                        class="btn btn-success waves-effect waves-light addeventmoremedicine"
                                                         type="button">
                                                         <i class="ri-add-fill align-middle me-2"></i> Add
                                                     </button>
@@ -211,82 +213,6 @@
     @push('scripts')
         <script type="text/javascript">
             $(function() {
-                $(document).on('click', '.addeventmore', function() {
-                    var manufacturer_id = $('#manufacturer_id').val();
-                    var supplier_id = $('#supplier_id').val();
-                    var manufacturing_date = $('#manufacturing_date').val();
-                    var expiry_date = $('#expiry_date').val();
-                    var category_id = $('#category_id').val();
-                    var form_id = $('#form_id').val();
-                    var product_id = $('#product_id').val();
-                    var category_name = $('#category_id').find('option:selected').text();
-                    var form_name = $('#form_id').find('option:selected').text();
-                    var medicine_name = $('#product_id').find('option:selected').text();
-                    var generic_name = $('#product_id').find('option:selected').text();
-                    var description = $('#product_id').find('option:selected').text();
-                    var quantity = $('#quantity').val();
-                    var purchase_cost = $('#purchase_cost').val();
-                    var srp = $('#srp').val();
-
-                    if (manufacturer_id == '') {
-                        $.notify("Manufacturer is required", {
-                            globalPosition: 'top right',
-                            className: 'error'
-                        });
-                        return false;
-                    }
-                    if (supplier_id == '') {
-                        $.notify("Supplier is required", {
-                            globalPosition: 'top right',
-                            className: 'error'
-                        });
-                        return false;
-                    }
-                    if (category_id == '') {
-                        $.notify("Category is required", {
-                            globalPosition: 'top right',
-                            className: 'error'
-                        });
-                        return false;
-                    }
-                    if (form_id == '') {
-                        $.notify("Category is required", {
-                            globalPosition: 'top right',
-                            className: 'error'
-                        });
-                        return false;
-                    }
-                    if (product_id == '') {
-                        $.notify("Product is required", {
-                            globalPosition: 'top right',
-                            className: 'error'
-                        });
-                        return false;
-                    }
-
-                    var source = $("#document-template").html();
-                    var template = Handlebars.compile(source);
-                    var data = {
-                        supplier_id: supplier_id,
-                        manufacturer_id: manufacturer_id,
-                        product_id: product_id,
-                        quantity: quantity,
-                        purchase_cost: purchase_cost,
-                        srp: srp,
-                        expiry_date: expiry_date,
-                        manufacturing_date: manufacturing_date,
-                        category_id: category_id,
-                        form_id: form_id,
-                        category_name: category_name,
-                        form_name: form_name,
-                        medicine_name: medicine_name,
-                        generic_name: generic_name,
-                        description: description,
-                    }
-                    var html = template(data);
-                    $("#addRowMedicine").append(html);
-                });
-
                 $(document).on('click', '.remove_event_more', function() {
                     $(this).closest(".delete_add_more_item").remove();
                     totalAmountPrice();
@@ -367,7 +293,7 @@
             displayCurrentDate();
         </script>
 
-        {{-- FOR CASHIER FUNCTIONALITY --}}
+        {{-- FOR MEDICINE FUNCTIONALITY --}}
         <script>
             Handlebars.registerHelper('multiply', function(a, b) {
                 return a * b;
@@ -391,36 +317,12 @@
                 }
             });
         </script>
-
-        <script>
-            $(document).ready(function() {
-                var prescriptionId = $('#prescriptionId').val();
-
-                $.ajax({
-                    url: "{{ route('manager.get.patient.medicine.prescription', ['prescriptionId' => ':prescriptionId']) }}"
-                        .replace(':prescriptionId', prescriptionId),
-                    type: "GET",
-                    data: {
-                        prescriptionId: prescriptionId
-                    },
-                    success: function(data) {
-                        var source = $("#document-template").html();
-                        var template = Handlebars.compile(source);
-                        var html = template({
-                            products: data
-                        });
-
-                        $("#output-container").html(html);
-                    }
-                });
-            });
-        </script>
         <script id="document-template" type="text/x-handlebars-template">
             @verbatim
-                {{#each products}}
+                {{#each products.prescribeMedicines}}
                     <tr>
-                        <td>{{ this.product.medicine_name }}</td>
-                        <td>{{ this.product.generic_name }}</td>
+                        <td>{{ this.medicine_name }}</td>
+                        <td>{{ this.generic_name }}</td>
                         <td style="width: 10%;">
                             <input type="text" class="form-control srp-input" value="{{ this.srp }}">
                         </td>
@@ -431,12 +333,62 @@
                             <input type="text" class="form-control calculated-value" value="{{ multiply this.srp this.quantity }}" readonly>
                         </td>
                         <td style="width: 5%;text-align:center;">
-                            <i class = "btn btn-danger btn-sm fas fa-window-close remove_event_more" ></i>
+                            <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
                         </td>
                     </tr>
                 {{/each}}
             @endverbatim
         </script>
+        <script>
+            function renderMedicine(data) {
+                var source = $("#document-template").html();
+                var template = Handlebars.compile(source);
+                var html = template({
+                    products: data
+                });
+
+                $("#output-container").append(html); // Use append instead of html
+            }
+
+            $(document).ready(function() {
+                // Initial rendering on page load
+                var prescriptionId = $('#prescriptionId').val();
+                $.ajax({
+                    url: "{{ route('manager.get.patient.medicine.prescription', ['prescriptionId' => ':prescriptionId']) }}"
+                        .replace(':prescriptionId', prescriptionId),
+                    type: "GET",
+                    data: {
+                        prescriptionId: prescriptionId
+                    },
+                    success: function(data) {
+                        renderMedicine(data);
+                    }
+                });
+
+                // Add more medicine
+                $(document).on('click', '.addeventmoremedicine', function() {
+                    var productId = $('#product_id').val();
+                    $.ajax({
+                        url: "{{ url('/manager/get/specific/product/') }}/" + productId,
+                        type: "GET",
+                        data: {
+                            productId: productId
+                        },
+                        success: function(data) {
+                            console.log("data", data);
+
+                            // Render the new data
+                            renderMedicine(data);
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            console.error("Error: ", errorThrown);
+                        }
+                    });
+                });
+            });
+        </script>
+
+        {{-- FOR LABORATORY FUNCTIONALITY --}}
     @endpush
 
 </x-app-layout>

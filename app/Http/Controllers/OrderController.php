@@ -679,41 +679,59 @@ class OrderController extends Controller
     {
         $prescriptions = $this->prescriptionContract->getSpecificPatientPrescription($id);
 
-        $prescribeMedicineIds = [];
-        $prescribeLaboratoryIds = [];
         $prescribeMedicines = [];
         $prescribeLaboratories = [];
-        $prescribeProducts = [];
-        $uniqueLaboratories = [];
-        $uniqueProductIds = [];
-        $medicineIds = [];
 
         foreach ($prescriptions as $prescription) {
-            $prescribeMedicineIds[] = $prescription->prescribe_medicine_id;
-            $prescribeLaboratoryIds[] = $prescription->prescribe_laboratory_id;
+            $prescribeMedicine = $prescription->prescribe_medicine;
+            $prescribeLaboratory = $prescription->prescribe_laboratory;
 
-            $medicine = $this->prescribeMedicineContract->getPrescribeMedicine($prescribeMedicineIds);
-            $prescribeMedicines[] = $medicine;
-
-            if (!in_array($prescription->prescribe_laboratory_id, $uniqueLaboratories, true)) {
-                $uniqueLaboratories[] = $prescription->prescribe_laboratory_id;
+            if ($prescribeMedicine) {
+                $prescribeMedicines[] = [
+                    'medicine_name' => $prescribeMedicine->product->medicine_name,
+                    'generic_name' => $prescribeMedicine->product->generic_name,
+                    'srp' => $prescribeMedicine->srp,
+                    'quantity' => $prescribeMedicine->quantity,
+                ];
             }
 
-            $laboratory = $this->laboratoryContract->getSpecificLaboratory($uniqueLaboratories);
-            $prescribeLaboratories[] = $laboratory;
-        }
-
-        foreach ($prescribeMedicines as $medicineCollection) {
-            foreach ($medicineCollection as $medicine) {
-                $productId = $medicine->product_id;
-
-                if (!in_array($productId, $uniqueProductIds, true)) {
-                    $uniqueProductIds[] = $productId;
-                    $prescribeProducts[] = $medicine;
-                }
+            if ($prescribeLaboratory) {
+                $prescribeLaboratories[] = [
+                    'laboratory' => $prescribeLaboratory->laboratory->laboratory,
+                    'description' => $prescribeLaboratory->laboratory->description,
+                ];
             }
         }
 
-        return response()->json($prescribeProducts);
+        $response = [
+            'prescribeMedicines' => $prescribeMedicines,
+            'prescribeLaboratories' => $prescribeLaboratories,
+        ];
+
+        return response()->json($response);
+    }
+
+
+    public function getSpecificProductById($id)
+    {
+        try {
+
+            $inventories = $this->inventoryContract->getSpecificInventoryByProductID($id);
+            $response = [
+                'prescribeMedicines' => $inventories,
+            ];
+            return response()->json($response);
+
+        } catch (\Exception $e) {
+
+            Log::error('Error in getSpecificProductById: ' . $e->getMessage());
+
+            $notification = [
+                'message' => 'An error occurred while updating the brand.',
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->back()->with($notification);
+        }
     }
 }
