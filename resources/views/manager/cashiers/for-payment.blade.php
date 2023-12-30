@@ -215,10 +215,12 @@
             $(document).ready(function() {
                 $(document).on('keyup', '.srp-input, .quantity-input', function() {
                     updateCalculatedValue($(this), 'srp-input', 'quantity-input', '.calculated-medicine');
+                    calculateTotalMedicine();
                 });
 
                 $(document).on('keyup', '.price-input, .qty-input', function() {
                     updateCalculatedValue($(this), 'price-input', 'qty-input', '.calculated-laboratory');
+                    calculateTotalLaboratory();
                 });
 
                 function updateCalculatedValue(input, input1Class, input2Class, resultClass) {
@@ -227,6 +229,26 @@
                     var value2 = parseFloat(row.find('.' + input2Class).val()) || 0;
                     var calculatedValue = value1 * value2;
                     row.find(resultClass).val(calculatedValue);
+                }
+
+                function calculateTotalMedicine() {
+                    var totalMedicine = 0;
+
+                    $('.calculated-medicine').each(function() {
+                        totalMedicine += parseFloat($(this).val()) || 0;
+                    });
+
+                    return totalMedicine;
+                }
+
+                function calculateTotalLaboratory() {
+                    var totalLaboratory = 0;
+
+                    $('.calculated-laboratory').each(function() {
+                        totalLaboratory += parseFloat($(this).val()) || 0;
+                    });
+
+                    return totalLaboratory;
                 }
             });
         </script>
