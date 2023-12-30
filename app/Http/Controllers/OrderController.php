@@ -695,10 +695,11 @@ class OrderController extends Controller
                 ];
             }
 
-            if ($prescribeLaboratory) {
+            if ($prescribeLaboratory && $prescribeLaboratory->isActive === 1) {
                 $prescribeLaboratories[] = [
                     'laboratory' => $prescribeLaboratory->laboratory->laboratory,
                     'description' => $prescribeLaboratory->laboratory->description,
+                    'price' => $prescribeLaboratory->laboratory->price,
                 ];
             }
         }
@@ -707,7 +708,6 @@ class OrderController extends Controller
             'prescribeMedicines' => $prescribeMedicines,
             'prescribeLaboratories' => $prescribeLaboratories,
         ];
-
         return response()->json($response);
     }
 
@@ -725,6 +725,29 @@ class OrderController extends Controller
         } catch (\Exception $e) {
 
             Log::error('Error in getSpecificProductById: ' . $e->getMessage());
+
+            $notification = [
+                'message' => 'An error occurred while updating the brand.',
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function getSpecificLaboratoryById($id)
+    {
+        try {
+
+            $laboratories = $this->laboratoryContract->getSpecificLaboratoryByID($id);
+            $response = [
+                'prescribeLaboratories' => $laboratories,
+            ];
+            return response()->json($response);
+
+        } catch (\Exception $e) {
+
+            Log::error('Error in getSpecificLaboratoryById: ' . $e->getMessage());
 
             $notification = [
                 'message' => 'An error occurred while updating the brand.',

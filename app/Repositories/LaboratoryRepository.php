@@ -34,6 +34,6 @@ class LaboratoryRepository implements LaboratoryContract {
 
     public function getLaboratory()
     {
-        return $this->model->get();
+        return $this->model->where('id', '<>', 1)->get();
     }
 }

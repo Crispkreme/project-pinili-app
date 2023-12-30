@@ -131,8 +131,7 @@
                                                     <th style="width: 5%;">Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody class="addRowMedicine" id="addRowMedicine"></tbody>
-                                            <tbody class="addRowMedicine" id="output-container"></tbody>
+                                            <tbody class="addRowMedicine" id="output-container-medicine"></tbody>
                                         </table>
                                         <div class="mt-2"
                                             style="display: flex;justify-content: space-between;align-items: center;">
@@ -140,17 +139,19 @@
                                             <div>
                                                 <div class="input-group mb-3" id=""
                                                     style="display:flex;align-items: center;">
-                                                    <select class="form-control select2" style="width: 200px;">
+                                                    <select class="form-control select2" id="laboratory_id"
+                                                        name="laboratory_id" style="width: 200px;">
                                                         <option>Select</option>
                                                         <optgroup label="List of Laboratory">
                                                             @foreach ($laboratories as $key => $item)
-                                                                <option value="{{ $key }}">
+                                                                <option value="{{ $item->id }}">
                                                                     {{ $item->laboratory }}
                                                                 </option>
                                                             @endforeach
                                                         </optgroup>
                                                     </select>
-                                                    <button class="btn btn-success waves-effect waves-light"
+                                                    <button
+                                                        class="btn btn-success waves-effect waves-light addeventmorelaboratory"
                                                         type="button">
                                                         <i class="ri-add-fill align-middle me-2"></i> Add
                                                     </button>
@@ -161,8 +162,8 @@
                                             width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Medicine Name</th>
-                                                    <th>Generic Name</th>
+                                                    <th>Laboratory</th>
+                                                    <th>Description</th>
                                                     <th style="width: 10%;">Unit Price</th>
                                                     <th style="width: 10%;">Qty</th>
                                                     <th style="width: 10%;">Total Price</th>
@@ -171,16 +172,11 @@
                                             </thead>
                                             <tbody>
                                             </tbody>
-                                            <tbody class="addRowLaboratory" id="addRowLaboratory"></tbody>
+                                            <tbody class="addRowLaboratory" id="output-container-laboratory"></tbody>
                                             <tbody>
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>Total Amount</td>
+                                                    <td colspan="2"></td>
+                                                    <td colspan="2">Total Amount</td>
                                                     <td colspan="2">
                                                         <input class="form-control total_amount" id="total_amount"
                                                             name="total_amount" type="text" value="0"
@@ -211,113 +207,30 @@
     <div class="rightbar-overlay"></div>
 
     @push('scripts')
-        <script type="text/javascript">
-            $(function() {
-                $(document).on('click', '.remove_event_more', function() {
-                    $(this).closest(".delete_add_more_item").remove();
-                    totalAmountPrice();
-                });
-
-                $(document).on('keyup click', '.purchase_cost, .quantity', function() {
-                    var purchase_cost = $(this).closest("tr").find("input.purchase_cost").val();
-                    var quantity = $(this).closest("tr").find("input.quantity").val();
-                    var subtotal = purchase_cost * quantity;
-                    $(this).closest("tr").find("input.subtotal").val(subtotal);
-                    totalAmountPrice();
-                });
-
-                function totalAmountPrice() {
-                    var sum = 0;
-                    $(".subtotal").each(function() {
-                        var value = parseFloat($(this).val()) || 0;
-                        sum += value;
-                    });
-                    $('.total_amount').val(sum.toFixed(2));
-                }
-            });
-        </script>
-        <script type="text/javascript">
-            $(document).on('change', '#category_id', function() {
-                var category_id = $(this).val();
-                $.ajax({
-                    url: "{{ url('manager/get/specific/category/') }}/" + category_id,
-                    type: "GET",
-                    data: {
-                        category_id: category_id
-                    },
-                    success: function(data) {
-                        console.log("data", data);
-                        var html = '<option value="">Select Product Form</option>';
-                        if (data && data.name) {
-                            html += '<option value="' + data.id + '">' + data.name + '</option>';
-                        }
-                        $('#form_id').html(html);
-                    }
-                });
-            });
-        </script>
-        <script type="text/javascript">
-            $(function() {
-                $(document).on('change', '#form_id', function() {
-                    var form_id = $(this).val();
-
-                    $.ajax({
-                        url: "{{ route('manager.get.specific.form') }}",
-                        type: "GET",
-                        data: {
-                            form_id: form_id
-                        },
-                        success: function(data) {
-                            var html = '<option value="">Select Product Name</option>';
-                            $.each(data, function(key, v) {
-                                html += '<option value="' + v.id + '">' + v.medicine_name +
-                                    '</option>';
-                            });
-                            $('#product_id').html(html);
-                        }
-                    });
-                });
-            });
-        </script>
-        <script>
-            function displayCurrentDate() {
-                var currentDate = new Date();
-                var options = {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                };
-                var formattedDate = currentDate.toLocaleDateString(undefined, options);
-                document.getElementById("currentDate").textContent = formattedDate;
-            }
-            displayCurrentDate();
-        </script>
-
-        {{-- FOR MEDICINE FUNCTIONALITY --}}
         <script>
             Handlebars.registerHelper('multiply', function(a, b) {
                 return a * b;
             });
 
             $(document).ready(function() {
-                $(document).on('keyup', '.srp-input', function() {
-                    updateCalculatedValue($(this));
+                $(document).on('keyup', '.srp-input, .quantity-input', function() {
+                    updateCalculatedValue($(this), 'srp-input', 'quantity-input', '.calculated-medicine');
                 });
 
-                $(document).on('keyup', '.quantity-input', function() {
-                    updateCalculatedValue($(this));
+                $(document).on('keyup', '.price-input, .qty-input', function() {
+                    updateCalculatedValue($(this), 'price-input', 'qty-input', '.calculated-laboratory');
                 });
 
-                function updateCalculatedValue(input) {
+                function updateCalculatedValue(input, input1Class, input2Class, resultClass) {
                     var row = input.closest('tr');
-                    var srp = parseFloat(row.find('.srp-input').val()) || 0;
-                    var quantity = parseFloat(row.find('.quantity-input').val()) || 0;
-                    var calculatedValue = srp * quantity;
-                    row.find('.calculated-value').val(calculatedValue);
+                    var value1 = parseFloat(row.find('.' + input1Class).val()) || 0;
+                    var value2 = parseFloat(row.find('.' + input2Class).val()) || 0;
+                    var calculatedValue = value1 * value2;
+                    row.find(resultClass).val(calculatedValue);
                 }
             });
         </script>
-        <script id="document-template" type="text/x-handlebars-template">
+        <script id="document-template-medicine" type="text/x-handlebars-template">
             @verbatim
                 {{#each products.prescribeMedicines}}
                     <tr>
@@ -330,7 +243,29 @@
                             <input type="text" class="form-control quantity-input" value="{{ this.quantity }}">
                         </td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control calculated-value" value="{{ multiply this.srp this.quantity }}" readonly>
+                            <input type="text" class="form-control calculated-medicine" value="{{ multiply this.srp this.quantity }}" readonly>
+                        </td>
+                        <td style="width: 5%;text-align:center;">
+                            <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
+                        </td>
+                    </tr>
+                {{/each}}
+            @endverbatim
+        </script>
+        <script id="document-template-laboratory" type="text/x-handlebars-template">
+            @verbatim
+                {{#each laboratories.prescribeLaboratories}}
+                    <tr>
+                        <td>{{ this.laboratory }}</td>
+                        <td>{{ this.description }}</td>
+                        <td style="width: 10%;">
+                            <input type="text" class="form-control price-input" value="{{ this.price }}">
+                        </td>
+                        <td style="width: 10%;">
+                            <input type="text" class="form-control qty-input" value="1">
+                        </td>
+                        <td style="width: 10%;">
+                            <input type="text" class="form-control calculated-laboratory" value="{{ multiply this.price 1 }}" readonly>
                         </td>
                         <td style="width: 5%;text-align:center;">
                             <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
@@ -341,18 +276,29 @@
         </script>
         <script>
             function renderMedicine(data) {
-                var source = $("#document-template").html();
+                var source = $("#document-template-medicine").html();
                 var template = Handlebars.compile(source);
                 var html = template({
                     products: data
                 });
 
-                $("#output-container").append(html); // Use append instead of html
+                $("#output-container-medicine").append(html);
+            }
+
+            function renderLaboratory(data) {
+                var source = $("#document-template-laboratory").html();
+                var template = Handlebars.compile(source);
+                var html = template({
+                    laboratories: data
+                });
+
+                $("#output-container-laboratory").append(html);
             }
 
             $(document).ready(function() {
-                // Initial rendering on page load
+
                 var prescriptionId = $('#prescriptionId').val();
+
                 $.ajax({
                     url: "{{ route('manager.get.patient.medicine.prescription', ['prescriptionId' => ':prescriptionId']) }}"
                         .replace(':prescriptionId', prescriptionId),
@@ -362,12 +308,13 @@
                     },
                     success: function(data) {
                         renderMedicine(data);
+                        renderLaboratory(data);
                     }
                 });
 
-                // Add more medicine
                 $(document).on('click', '.addeventmoremedicine', function() {
                     var productId = $('#product_id').val();
+
                     $.ajax({
                         url: "{{ url('/manager/get/specific/product/') }}/" + productId,
                         type: "GET",
@@ -375,10 +322,25 @@
                             productId: productId
                         },
                         success: function(data) {
-                            console.log("data", data);
-
-                            // Render the new data
                             renderMedicine(data);
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            console.error("Error: ", errorThrown);
+                        }
+                    });
+                });
+                $(document).on('click', '.addeventmorelaboratory', function() {
+                    var laboratoryId = $('#laboratory_id').val();
+
+                    $.ajax({
+                        url: "{{ url('/manager/get/specific/laboratory/') }}/" + laboratoryId,
+                        type: "GET",
+                        data: {
+                            laboratoryId: laboratoryId
+                        },
+                        success: function(data) {
+                            console.log("data", data);
+                            renderLaboratory(data);
                         },
                         error: function(xhr, textStatus, errorThrown) {
                             console.error("Error: ", errorThrown);
@@ -387,8 +349,6 @@
                 });
             });
         </script>
-
-        {{-- FOR LABORATORY FUNCTIONALITY --}}
     @endpush
 
 </x-app-layout>
