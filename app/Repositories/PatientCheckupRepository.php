@@ -170,4 +170,9 @@ class PatientCheckupRepository implements PatientCheckupContract {
 
         return $patientCheckup;
     }
+
+    public function getPatientCheckupData($id)
+    {
+        return $this->model->findOrFail($id);
+    }
 }

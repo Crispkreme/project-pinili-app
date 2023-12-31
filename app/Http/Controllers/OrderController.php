@@ -21,6 +21,7 @@ use App\Contracts\DistributorContract;
 use App\Contracts\EntityContract;
 use App\Contracts\FormContract;
 use App\Contracts\RepresentativeContract;
+use App\Contracts\PatientCheckupContract;
 use App\Contracts\PrescriptionContract;
 use App\Contracts\DrugClassContract;
 use App\Contracts\PatientContract;
@@ -53,9 +54,11 @@ class OrderController extends Controller
     protected $patientContract;
     protected $prescribeMedicineContract;
     protected $prescribeLaboratoryContract;
+    protected $patientCheckupContract;
 
     public function __construct(
         DrugClassContract $drugClassContract,
+        PatientCheckupContract $patientCheckupContract,
         OrderContract $orderContract,
         UserContract $userContract,
         RepresentativeContract $representativeContract,
@@ -90,6 +93,7 @@ class OrderController extends Controller
         $this->prescribeMedicineContract = $prescribeMedicineContract;
         $this->prescribeLaboratoryContract = $prescribeLaboratoryContract;
         $this->laboratoryContract = $laboratoryContract;
+        $this->patientCheckupContract = $patientCheckupContract;
     }
 
     public function getAllOrder()
@@ -762,8 +766,25 @@ class OrderController extends Controller
     public function updatePatientBilling(Request $request)
     {
         try {
+            $prescriptionId = $request->prescriptionId;
+            $patientCheckup = $this->patientCheckupContract->getPatientCheckupData($prescriptionId);
+            dd($patientCheckup);
+            // 'product_id',
+            // 'laboratory_id',
+            // 'patient_checkup_id',
+            // 'billing_status_id',
+            // 'invoice_number',
+            // 'age',
+            // 'contact_number',
+            // 'address',
+            // 'srp',
+            // 'quantity',
+            // 'price',
+            // 'qty',
+            // 'sub_total_medicine',
+            // 'sub_total_laboratory',
 
-            dd($request);
+            
 
         } catch (\Exception $e) {
 

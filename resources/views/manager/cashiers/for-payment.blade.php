@@ -274,17 +274,21 @@
             @verbatim
                 {{#each products.prescribeMedicines}}
                     <tr>
-                        <input type="hidden" value="{{ this.product_id }}" name="product_id">
+                        <input type="hidden" value="{{ this.product_id }}" name="product_id[]">
+                        <input type="hidden" value="{{ this.srp }}" name="srp[]">
+                        <input type="hidden" value="{{ this.quantity }}" name="quantity[]">
+                        <input type="hidden" value="{{ multiply this.srp this.quantity }}" name="sub_total_medicine[]">
+
                         <td>{{ this.medicine_name }}</td>
                         <td>{{ this.generic_name }}</td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control srp-input" value="{{ this.srp }}" name="srp">
+                            <input type="text" class="form-control srp-input" value="{{ this.srp }}">
                         </td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control quantity-input" value="{{ this.quantity }}" name="quantity">
+                            <input type="text" class="form-control quantity-input" value="{{ this.quantity }}">
                         </td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control calculated-medicine" value="{{ multiply this.srp this.quantity }}"  name="sub_total_medicine" readonly>
+                            <input type="text" class="form-control calculated-medicine" value="{{ multiply this.srp this.quantity }}" readonly>
                         </td>
                         <td style="width: 5%;text-align:center;">
                             <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
@@ -297,17 +301,21 @@
             @verbatim
                 {{#each laboratories.prescribeLaboratories}}
                     <tr>
-                        <input type="hidden" value="{{ this.laboratory_id }}" name="laboratory_id">
+                        <input type="hidden" value="{{ this.laboratory_id }}" name="laboratory_id[]">
+                        <input type="hidden" value="{{ this.price }}" name="price[]">
+                        <input type="hidden" value="{{ this.qty }}" name="qty[]">
+                        <input type="hidden" value="{{ multiply this.price 1 }}" name="sub_total_laboratory[]">
+
                         <td>{{ this.laboratory }}</td>
                         <td>{{ this.description }}</td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control price-input" value="{{ this.price }}" name="price">
+                            <input type="text" class="form-control price-input" value="{{ this.price }}">
                         </td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control qty-input" value="1" name="qty">
+                            <input type="text" class="form-control qty-input" value="1">
                         </td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control calculated-laboratory" value="{{ multiply this.price 1 }}" name="sub_total_laboratory" readonly>
+                            <input type="text" class="form-control calculated-laboratory" value="{{ multiply this.price 1 }}" readonly>
                         </td>
                         <td style="width: 5%;text-align:center;">
                             <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
