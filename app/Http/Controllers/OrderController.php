@@ -25,6 +25,7 @@ use App\Contracts\PatientCheckupContract;
 use App\Contracts\PrescriptionContract;
 use App\Contracts\DrugClassContract;
 use App\Contracts\PatientContract;
+use App\Contracts\PatientBillingContract;
 use App\Contracts\PrescribeMedicineContract;
 use App\Contracts\PrescribeLaboratoryContract;
 
@@ -55,6 +56,7 @@ class OrderController extends Controller
     protected $prescribeMedicineContract;
     protected $prescribeLaboratoryContract;
     protected $patientCheckupContract;
+    protected $patientBillingContract;
 
     public function __construct(
         DrugClassContract $drugClassContract,
@@ -75,6 +77,7 @@ class OrderController extends Controller
         PrescribeMedicineContract $prescribeMedicineContract,
         PrescribeLaboratoryContract $prescribeLaboratoryContract,
         LaboratoryContract $laboratoryContract,
+        PatientBillingContract $patientBillingContract,
     ) {
         $this->patientContract = $patientContract;
         $this->orderContract = $orderContract;
@@ -94,6 +97,7 @@ class OrderController extends Controller
         $this->prescribeLaboratoryContract = $prescribeLaboratoryContract;
         $this->laboratoryContract = $laboratoryContract;
         $this->patientCheckupContract = $patientCheckupContract;
+        $this->patientBillingContract = $patientBillingContract;
     }
 
     public function getAllOrder()
@@ -762,33 +766,67 @@ class OrderController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-
+    
     public function updatePatientBilling(Request $request)
     {
+        DB::beginTransaction();
+
         try {
+            $prefix = "TRNX";
+            $transactionNumber = Carbon::now()->format('Ymd-His');
+            $invoice_number = $prefix.'-'.$transactionNumber;
+
             $prescriptionId = $request->prescriptionId;
             $patientCheckup = $this->patientCheckupContract->getPatientCheckupData($prescriptionId);
-            dd($patientCheckup);
-            // 'product_id',
-            // 'laboratory_id',
-            // 'patient_checkup_id',
-            // 'billing_status_id',
-            // 'invoice_number',
-            // 'age',
-            // 'contact_number',
-            // 'address',
-            // 'srp',
-            // 'quantity',
-            // 'price',
-            // 'qty',
-            // 'sub_total_medicine',
-            // 'sub_total_laboratory',
+            $patientCheckupId = $patientCheckup->id;
 
-            
+            $productAndLaboratoryData = [];
+
+            for ($i = 0; $i < count($request->product_id); $i++) {
+                $data = [
+                    'product_id' => $request->product_id[$i] ?? 1,
+                    'laboratory_id' => $request->laboratory_id[$i] ?? 1,
+                    'srp' => $request->srp[$i] ?? 0,
+                    'quantity' => $request->quantity[$i] ?? 0,
+                    'price' => $request->price[$i] ?? 0,
+                    'qty' => $request->qty[$i] ?? 0,
+                    'sub_total_medicine' => $request->sub_total_medicine[$i] ?? 0,
+                    'sub_total_laboratory' => $request->sub_total_laboratory[$i] ?? 0,
+                    'patient_checkup_id' => $patientCheckupId,
+                    'billing_status_id' => 2,
+                    'invoice_number' => $invoice_number,
+                ];
+
+                $productAndLaboratoryData[] = $data;
+            }
+
+            foreach ($productAndLaboratoryData as $data) {
+                try {
+                    $this->patientBillingContract->storePatientBilling($data);
+                } catch (\Exception $e) {
+                    // Log detailed error information
+                    Log::error('Error in updatePatientBilling: ' . $e->getMessage() . ' Data: ' . json_encode($data));
+                    
+                    // Continue to the next iteration to process other data
+                    continue;
+                }
+            }
+
+            DB::commit();
+
+            $notification = [
+                'alert-type' => 'success',
+                'message' => 'Ordered successfully delivered!',
+            ];
+
+            return redirect()->route('admin.all.inventory.sheet')->with($notification);
 
         } catch (\Exception $e) {
+            dd($e);
 
             Log::error('Error in updatePatientBilling: ' . $e->getMessage());
+
+            DB::rollback();
 
             $notification = [
                 'message' => 'An error occurred while updating the updatePatientBilling.',
@@ -798,4 +836,5 @@ class OrderController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
 }
