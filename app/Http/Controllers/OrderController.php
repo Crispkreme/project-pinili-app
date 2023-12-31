@@ -688,6 +688,7 @@ class OrderController extends Controller
 
             if ($prescribeMedicine) {
                 $prescribeMedicines[] = [
+                    'product_id' => $prescribeMedicine->product_id,
                     'medicine_name' => $prescribeMedicine->product->medicine_name,
                     'generic_name' => $prescribeMedicine->product->generic_name,
                     'srp' => $prescribeMedicine->srp,
@@ -697,6 +698,7 @@ class OrderController extends Controller
 
             if ($prescribeLaboratory && $prescribeLaboratory->isActive === 1) {
                 $prescribeLaboratories[] = [
+                    'laboratory_id' => $prescribeLaboratory->laboratory_id,
                     'laboratory' => $prescribeLaboratory->laboratory->laboratory,
                     'description' => $prescribeLaboratory->laboratory->description,
                     'price' => $prescribeLaboratory->laboratory->price,
@@ -710,7 +712,6 @@ class OrderController extends Controller
         ];
         return response()->json($response);
     }
-
 
     public function getSpecificProductById($id)
     {
@@ -751,6 +752,25 @@ class OrderController extends Controller
 
             $notification = [
                 'message' => 'An error occurred while updating the brand.',
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function updatePatientBilling(Request $request)
+    {
+        try {
+
+            dd($request);
+
+        } catch (\Exception $e) {
+
+            Log::error('Error in updatePatientBilling: ' . $e->getMessage());
+
+            $notification = [
+                'message' => 'An error occurred while updating the updatePatientBilling.',
                 'alert-type' => 'error',
             ];
 

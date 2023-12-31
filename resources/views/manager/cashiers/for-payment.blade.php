@@ -89,7 +89,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form id="myForm" method="POST" action="{{ route('manager.store.order') }}">
+                                    <form id="myForm" method="POST" action="{{ route('manager.store.patient.Billing') }}">
                                         @csrf
                                         <input id="prescriptionId" name="prescriptionId" type="hidden"
                                             value="{{ $id }}">
@@ -100,7 +100,7 @@
                                                 <div class="input-group mb-3" id=""
                                                     style="display:flex;align-items: center;">
                                                     <select class="form-control select2" id="product_id"
-                                                        name="product_id" style="width: 200px;">
+                                                        style="width: 200px;">
                                                         <option>Select</option>
                                                         <optgroup label="List of Medicine">
                                                             @foreach ($inventories as $key => $item)
@@ -140,7 +140,7 @@
                                                 <div class="input-group mb-3" id=""
                                                     style="display:flex;align-items: center;">
                                                     <select class="form-control select2" id="laboratory_id"
-                                                        name="laboratory_id" style="width: 200px;">
+                                                        style="width: 200px;">
                                                         <option>Select</option>
                                                         <optgroup label="List of Laboratory">
                                                             @foreach ($laboratories as $key => $item)
@@ -180,13 +180,13 @@
                                                     <td colspan="2">
                                                         <input class="form-control total_amount" id="total_amount"
                                                             name="total_amount" type="text" value="0"
-                                                            style="background-color:#ddd;" readonly>
+                                                            style="background-color:#ddd;" name="total_amount" readonly>
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <div class="form-group">
-                                            <button class="btn btn-info mt-1" id="storeButton">Update Billing</button>
+                                            <button class="btn btn-info mt-1" id="storeButton" type="submit" >Update Billing</button>
                                         </div>
                                     </form>
                                 </div>
@@ -274,16 +274,17 @@
             @verbatim
                 {{#each products.prescribeMedicines}}
                     <tr>
+                        <input type="hidden" value="{{ this.product_id }}" name="product_id">
                         <td>{{ this.medicine_name }}</td>
                         <td>{{ this.generic_name }}</td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control srp-input" value="{{ this.srp }}">
+                            <input type="text" class="form-control srp-input" value="{{ this.srp }}" name="srp">
                         </td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control quantity-input" value="{{ this.quantity }}">
+                            <input type="text" class="form-control quantity-input" value="{{ this.quantity }}" name="quantity">
                         </td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control calculated-medicine" value="{{ multiply this.srp this.quantity }}" readonly>
+                            <input type="text" class="form-control calculated-medicine" value="{{ multiply this.srp this.quantity }}"  name="sub_total_medicine" readonly>
                         </td>
                         <td style="width: 5%;text-align:center;">
                             <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
@@ -296,16 +297,17 @@
             @verbatim
                 {{#each laboratories.prescribeLaboratories}}
                     <tr>
+                        <input type="hidden" value="{{ this.laboratory_id }}" name="laboratory_id">
                         <td>{{ this.laboratory }}</td>
                         <td>{{ this.description }}</td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control price-input" value="{{ this.price }}">
+                            <input type="text" class="form-control price-input" value="{{ this.price }}" name="price">
                         </td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control qty-input" value="1">
+                            <input type="text" class="form-control qty-input" value="1" name="qty">
                         </td>
                         <td style="width: 10%;">
-                            <input type="text" class="form-control calculated-laboratory" value="{{ multiply this.price 1 }}" readonly>
+                            <input type="text" class="form-control calculated-laboratory" value="{{ multiply this.price 1 }}" name="sub_total_laboratory" readonly>
                         </td>
                         <td style="width: 5%;text-align:center;">
                             <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
@@ -379,7 +381,6 @@
                             laboratoryId: laboratoryId
                         },
                         success: function(data) {
-                            console.log("data", data);
                             renderLaboratory(data);
                         },
                         error: function(xhr, textStatus, errorThrown) {
