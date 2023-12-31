@@ -33,24 +33,23 @@ class AdminController extends Controller
     public function index()
     {
         try {
-
             $totalPatient = $this->patientContract->getTotalPatient();
-
+        
             $totalPatientByMonth = $this->patientContract->getTotalPatientPerMonth();
-            $countPatients = $totalPatientByMonth->totalPatients;
-
-            $patientCheckups = $this->patientCheckupContract->getPatientCheckup();
-
-            $isNew = $this->patientCheckupContract->getNewPatientData();
-
-            $isNewMonthly = $this->patientCheckupContract->getMonthlyNewPatientData();
-
-            $isFollowUp = $this->patientCheckupContract->getFollowupPatientData();
-
-            $isFollowUpMonthly = $this->patientCheckupContract->getMonthlyFollowupPatientData();
-
+            $countPatients = $totalPatientByMonth->totalPatients ?? 0;
+        
+            $patientCheckups = $this->patientCheckupContract->getPatientCheckup() ?? [];
+        
+            $isNew = $this->patientCheckupContract->getNewPatientData() ?? [];
+        
+            $isNewMonthly = $this->patientCheckupContract->getMonthlyNewPatientData() ?? [];
+        
+            $isFollowUp = $this->patientCheckupContract->getFollowupPatientData() ?? [];
+        
+            $isFollowUpMonthly = $this->patientCheckupContract->getMonthlyFollowupPatientData() ?? [];
+        
             return view('admin.dashboard', [
-                'totalPatient' => $totalPatient,
+                'totalPatient' => $totalPatient ?? 0,
                 'countPatients' => $countPatients,
                 'patientCheckups' => $patientCheckups,
                 'isNew' => $isNew,
@@ -58,10 +57,10 @@ class AdminController extends Controller
                 'isNewMonthly' => $isNewMonthly,
                 'isFollowUpMonthly' => $isFollowUpMonthly,
             ]);
-
+        
         } catch (Exception $e) {
             dd($e);
-        }
+        }   
     }
 
     public function getAllUser()

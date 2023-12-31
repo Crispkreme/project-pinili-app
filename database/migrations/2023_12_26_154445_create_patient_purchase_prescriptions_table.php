@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('patient_purchase_prescriptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_checkup_id');
-            $table->unsignedBigInteger('patient_purchase_status_id');
+            $table->unsignedBigInteger('purchase_status_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('laboratory_id');
 
@@ -30,7 +30,7 @@ return new class extends Migration
                   ->references('id')
                   ->on('prescribe_medicines')
                   ->onDelete('cascade');
-            $table->foreign('patient_purchase_status_id')
+            $table->foreign('purchase_status_id')
                   ->references('id')
                   ->on('statuses')
                   ->onDelete('cascade');

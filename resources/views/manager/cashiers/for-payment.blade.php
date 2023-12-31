@@ -213,14 +213,16 @@
             });
 
             $(document).ready(function() {
-                $(document).on('keyup', '.srp-input, .quantity-input', function() {
+                $(document).on('keyup click', '.srp-input, .quantity-input', function() {
                     updateCalculatedValue($(this), 'srp-input', 'quantity-input', '.calculated-medicine');
                     calculateTotalMedicine();
+                    updateTotalAmount();
                 });
 
-                $(document).on('keyup', '.price-input, .qty-input', function() {
+                $(document).on('keyup click', '.price-input, .qty-input', function() {
                     updateCalculatedValue($(this), 'price-input', 'qty-input', '.calculated-laboratory');
                     calculateTotalLaboratory();
+                    updateTotalAmount();
                 });
 
                 function updateCalculatedValue(input, input1Class, input2Class, resultClass) {
@@ -249,6 +251,22 @@
                     });
 
                     return totalLaboratory;
+                }
+
+                function updateTotalAmount() {
+                    var totalMedicine = calculateTotalMedicine();
+                    var totalLaboratory = calculateTotalLaboratory();
+                    var totalAmount = totalMedicine + totalLaboratory;
+
+                    if (totalMedicine > 0 && totalLaboratory > 0) {
+                        $('#total_amount').val(totalAmount.toFixed(2)); 
+                    } else if (totalMedicine > 0) {
+                        $('#total_amount').val(totalMedicine.toFixed(2));
+                    } else if (totalLaboratory > 0) {
+                        $('#total_amount').val(totalLaboratory.toFixed(2)); 
+                    } else {
+                        $('#total_amount').val('0.00'); 
+                    }
                 }
             });
         </script>

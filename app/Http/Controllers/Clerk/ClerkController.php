@@ -28,17 +28,17 @@ class ClerkController extends Controller
             $totalPatient = $this->patientContract->getTotalPatient();
 
             $totalPatientByMonth = $this->patientContract->getTotalPatientPerMonth();
-            $countPatients = $totalPatientByMonth->totalPatients;
+            $countPatients = $totalPatientByMonth->totalPatients ?? 0;
 
-            $patientCheckups = $this->patientCheckupContract->getPatientCheckup();
-
-            $isNew = $this->patientCheckupContract->getNewPatientData();
-
-            $isNewMonthly = $this->patientCheckupContract->getMonthlyNewPatientData();
-
-            $isFollowUp = $this->patientCheckupContract->getFollowupPatientData();
-
-            $isFollowUpMonthly = $this->patientCheckupContract->getMonthlyFollowupPatientData();
+            $patientCheckups = $this->patientCheckupContract->getPatientCheckup() ?? [];
+        
+            $isNew = $this->patientCheckupContract->getNewPatientData() ?? [];
+        
+            $isNewMonthly = $this->patientCheckupContract->getMonthlyNewPatientData() ?? [];
+        
+            $isFollowUp = $this->patientCheckupContract->getFollowupPatientData() ?? [];
+        
+            $isFollowUpMonthly = $this->patientCheckupContract->getMonthlyFollowupPatientData() ?? [];
 
             return view('clerk.dashboard', [
                 'totalPatient' => $totalPatient,
