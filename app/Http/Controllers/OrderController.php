@@ -819,7 +819,7 @@ class OrderController extends Controller
                 'message' => 'Billing successfully updated!',
             ];
 
-            return redirect()->route('admin.all.inventory.sheet')->with($notification);
+            return redirect()->route('manager.print.patient.prescription', $patientCheckupId)->with($notification);
 
         } catch (\Exception $e) {
 
@@ -834,5 +834,14 @@ class OrderController extends Controller
 
             return redirect()->back()->with($notification);
         }
+    }
+
+    public function printPrescriptionCertificate($id)
+    {
+        $billings = $this->patientBillingContract->getPatientBillingByCheckupId($id);
+
+        return view('manager.cashiers.billing-certificate', [
+            'billings' => $billings,
+        ]);
     }
 }

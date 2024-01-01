@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\PatientBilling;
-use Illuminate\Support\Facades\Auth;
 use App\Contracts\PatientBillingContract;
 
 class PatientBillingRepository implements PatientBillingContract {
@@ -18,5 +17,10 @@ class PatientBillingRepository implements PatientBillingContract {
     public function storePatientBilling($params)
     {
         return $this->model->create($params);
+    }
+
+    public function getPatientBillingByCheckupId($id)
+    {
+        return $this->model->where('patient_checkup_id', $id)->get();
     }
 }

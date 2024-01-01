@@ -92,9 +92,6 @@ Route::group(['controller' => OrderController::class], function () {
     Route::post('/update/order/{id}', 'updateOrder')->name('update.order');
 
     //Invoice functionality
-    Route::post('/print/order/list/invoice', 'printOrderList')->name('print.order.list.invoice');
-    Route::get('/print/invoice/order', 'printOrderInvoice')->name('print.invoice.order');
-    Route::get('/print/invoice/order/{id}', 'printOrderInvoiceById')->name('print.invoice.user.order');
     Route::get('/daily/order/report', 'getDailyOrderReport')->name('daily.order.report');
     Route::post('/daily/order/report/all', 'getAllDailyOrderReport')->name('daily.order.report.all');
     Route::get('/all/history/company/{id}', 'getAllHistoryByCompany')->name('all.history.company');
@@ -104,18 +101,26 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/get/order/transaction', 'getOrderTransaction')->name('get.order.transaction');
     Route::get('get/order/invoice/number', 'getOrderInvoiceNumber')->name('get.order.invoice.number');
 
+    // Print functionality
+    Route::post('/print/order/list/invoice', 'printOrderList')->name('print.order.list.invoice');
+    Route::get('/print/invoice/order', 'printOrderInvoice')->name('print.invoice.order');
+    Route::get('/print/invoice/order/{id}', 'printOrderInvoiceById')->name('print.invoice.user.order');
 });
+
 Route::group(['controller' => InvoiceController::class], function () {
     Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');
 });
+
 Route::group(['controller' => StockController::class], function () {
     Route::get('/stock/report', 'getAllStockReport')->name('stock.report');
     Route::get('/product/supplier/wise/report', 'getProductSupplierWiseReport')->name('product.supplier.wise.report');
 });
+
 Route::group(['controller' => InventoryController::class], function () {
     Route::post('get/product/wise/report', 'getProductWiseReport')->name('get.product.wise.report');
     Route::post('get/supplier/wise/report', 'getSupplierWiseReport')->name('get.supplier.wise.report');
 });
+
 Route::group(['controller' => InventorySheetController::class], function () {
     Route::get('/all/inventory/sheet', 'getAllInventorySheet')->name('all.inventory.sheet');
     Route::get('/add/inventory/sheet', 'addInventoryList')->name('add.inventory.sheet');
@@ -124,6 +129,7 @@ Route::group(['controller' => InventorySheetController::class], function () {
     Route::get('/generate/inventory/sheet/{id}', 'generateInventorySheetReport')->name('generate.inventory.sheet');
     Route::get('/all/generate/inventory/sheet/{id}', 'generateInventorySheet')->name('all.generate.inventory.sheet');
 });
+
 Route::group(['controller' => PatientController::class], function () {
     Route::get('/patient', 'getPatient')->name('all.patient');
     Route::get('/create/patient', 'addPatient')->name('create.patient');

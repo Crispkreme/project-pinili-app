@@ -49,7 +49,7 @@
                                 <div class="col-12">
                                     <div class="invoice-title">
                                         <h4 class="float-end font-size-16">
-                                            <strong>MEDICIL CERTIFICATE</strong>
+                                            <strong>BILLING CERTIFICATE</strong>
                                         </h4>
                                         <h3>
                                             <img src="assets/images/logo-sm.png" alt="logo" height="24" />
@@ -86,56 +86,93 @@
                                 </div>
                             </div>
                             <div class="row">
-                                {{-- <div class="col-12">
-                                    <div>
-                                        <hr>
-                                        <h4 class="text-center font-size-16">
-                                            <strong>MEDICIL CERTIFICATE</strong>
-                                        </h4>
-                                        <hr>
+                                <table class="table-sm table-bordered mt-2" style="border-color:#ddd;" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">ID</th>
+                                            <th>Medicine Name</th>
+                                            <th>Generic Name</th>
+                                            <th style="width: 10%;">Unit Price</th>
+                                            <th style="width: 10%;">Qty</th>
+                                            <th style="width: 10%;">Total Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="addRowMedicine" id="output-container-medicine">
+                                        @php
+                                            $totalMedicine = 0;
+                                        @endphp
 
-                                        <div>
-                                            <p>{{ \Carbon\Carbon::parse(now())->format('F j, Y g:i A') }}
-                                            </p>
-                                        </div>
-                                        <div class="row">
-                                            <p>To Whom it May Concern:</p><br>
-                                            <p>This is to certify that
-                                                Mr/Ms/Mrs.<span
-                                                    style="font-weight:bold;text-transform:uppercase">{{ $patientData->firstname }}
-                                                    {{ $patientData->mi }} {{ $patientData->lastname }}
-                                                    {{ $patientData->age }}</span> yrs old. And
-                                                residence of <span
-                                                    style="font-weight:bold;text-transform:uppercase">{{ $patientData->address }}</span>
-                                                was seen
-                                                and examined at
-                                                <span
-                                                    style="font-weight:bold;text-transform:uppercase">{{ \Carbon\Carbon::parse($patientData->created_at)->format('F j, Y g:i A') }}</span>,
-                                                and was found to have/be suffering from:
-                                            </p>
-                                            <h4 class="font-size-16">
-                                                <strong>DIAGNOSIS</strong>
-                                            </h4>
-                                            <p>{{ strip_tags(str_replace('&nbsp;', '', $bmiData->symptoms)) }}
-                                            </p>
-                                            <h4 class="font-size-16">
-                                                <strong>RECOMENDATION</strong>
-                                            </h4>
-                                            <p>{{ strip_tags(str_replace('&nbsp;', '', $bmiData->diagnosis)) }}
-                                            </p>
-                                        </div>
-                                        <div class="mt-5" id="printButtons"
-                                            style="display: flex;justify-content: space-between;">
-                                            <button class="btn btn-success waves-effect waves-light"
-                                                onclick="printCertificate()">
-                                                <i class="ri-printer-line align-middle me-2"></i> Print Certificate
-                                            </button>
-                                            <a class="btn btn-primary waves-effect waves-light ms-2"
-                                                href="{{ route('clerk.all.patient') }}">Back</a>
-                                        </div>
-                                    </div>
+                                        @foreach ($billings as $key => $item)
+                                            @unless ($item->product_id == 1)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $item->product->medicine_name }}</td>
+                                                    <td>{{ $item->product->generic_name }}</td>
+                                                    <td style="width: 10%;">{{ $item->srp }}</td>
+                                                    <td style="width: 10%;">{{ $item->quantity }}</td>
+                                                    <td style="width: 10%;">{{ $item->sub_total_medicine }}</td>
 
-                                </div> --}}
+                                                    @php
+                                                        $totalMedicine += $item->sub_total_medicine;
+                                                    @endphp
+
+                                                </tr>
+                                            @endunless
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <table class="table-sm table-bordered mt-5" style="border-color:#ddd;" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">ID</th>
+                                            <th>Laboratory</th>
+                                            <th>Description</th>
+                                            <th style="width: 10%;">Unit Price</th>
+                                            <th style="width: 10%;">Qty</th>
+                                            <th style="width: 10%;">Total Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $totalLaboratory = 0;
+                                        @endphp
+                                        @foreach ($billings as $key => $item)
+                                            @unless ($item->laboratory_id == 1)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $item->laboratory->laboratory }}</td>
+                                                    <td>{{ $item->laboratory->description }}</td>
+                                                    <td style="width: 10%;">{{ $item->price }}</td>
+                                                    <td style="width: 10%;">{{ $item->qty }}</td>
+                                                    <td style="width: 10%;">{{ $item->sub_total_laboratory }}</td>
+
+                                                    @php
+                                                        $totalLaboratory += $item->sub_total_laboratory;
+                                                    @endphp
+
+                                                </tr>
+                                            @endunless
+                                        @endforeach
+                                    </tbody>                                                                       
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td colspan="2">Total Amount</td>
+                                            <td colspan="2">
+                                                <input class="form-control total_amount" id="total_amount"
+                                                name="total_amount" type="text" value="{{ $totalMedicine + $totalLaboratory }}"
+                                                style="background-color:#ddd;" name="total_amount" readonly>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="mt-2" style="display: flex;justify-content: flex-end;padding-right: unset !important;" id="printButtons">
+                                    <button class="btn btn-success waves-effect waves-light mt-1"  onclick="printCertificate()">
+                                        <i class="ri-printer-line align-middle me-2"></i>
+                                        Print Billing
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -159,15 +196,6 @@
     <div class="rightbar-overlay"></div>
 
     <script>
-        function toggleSwitch(activeRoute, notActiveRoute) {
-            var checkbox = document.getElementById('square-switch1');
-            if (checkbox.checked) {
-                window.location.href = activeRoute;
-            } else {
-                window.location.href = notActiveRoute;
-            }
-        }
-
         function printCertificate() {
             // Hide the print buttons before printing
             document.getElementById('printButtons').style.display = 'none';

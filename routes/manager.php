@@ -111,6 +111,9 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/create/patient/payment/{id}', 'createPatientPayment')->name('create.patient.payment');
     Route::get('/get/patient/medicine/prescription/{prescriptionId}', 'getPatientMedicinePrescription')->name('get.patient.medicine.prescription');
     Route::post('/store/patient/Billing', 'updatePatientBilling')->name('store.patient.Billing');
+
+    // PRINTING FUNCTIONALITY
+    Route::get('/print/patient/prescription/{id}', 'printPrescriptionCertificate')->name('print.patient.prescription');
 });
 Route::group(['controller' => InvoiceController::class], function () {
     Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');

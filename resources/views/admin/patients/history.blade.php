@@ -46,7 +46,7 @@
                                             <a class="btn btn-dark btn-rounded waves-effect waves-light mb-3"
                                                 href="{{ route('admin.patient.prescription.history', $patientID) }}"
                                                 style="float:right;">
-                                                Prescription
+                                                History
                                             </a>
                                         </div>
                                     </div>

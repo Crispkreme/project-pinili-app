@@ -16,8 +16,6 @@ use App\Contracts\PatientBmiContract;
 use App\Contracts\PrescriptionContract;
 use Illuminate\Support\Facades\Storage;
 use App\Contracts\PatientCheckupContract;
-use App\Http\Requests\StorePatientRequest;
-use App\Http\Requests\StorePatientBmiRequest;
 
 class PatientCheckupController extends Controller
 {
