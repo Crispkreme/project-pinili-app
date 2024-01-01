@@ -4,36 +4,37 @@ namespace App\Http\Controllers;
 
 use Exception;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-
-use App\Contracts\UserContract;
-use App\Contracts\OrderContract;
-use App\Contracts\StatusContract;
-use App\Contracts\ProductContract;
-use App\Contracts\LaboratoryContract;
-use App\Contracts\CategoryContract;
-use App\Contracts\InventoryContract;
-use App\Contracts\TransactionContract;
-use App\Contracts\DistributorContract;
-use App\Contracts\EntityContract;
-use App\Contracts\FormContract;
-use App\Contracts\RepresentativeContract;
-use App\Contracts\PatientCheckupContract;
-use App\Contracts\PrescriptionContract;
-use App\Contracts\DrugClassContract;
-use App\Contracts\PatientContract;
-use App\Contracts\PatientBillingContract;
-use App\Contracts\PrescribeMedicineContract;
-use App\Contracts\PrescribeLaboratoryContract;
-
 use Carbon\Carbon;
 use App\Models\Order;
+use App\Models\Laboratory;
+use Illuminate\Http\Request;
 
+use App\Contracts\FormContract;
+use App\Contracts\UserContract;
+use App\Contracts\OrderContract;
+use App\Contracts\EntityContract;
+use App\Contracts\StatusContract;
+use App\Contracts\PatientContract;
+use App\Contracts\ProductContract;
+use Illuminate\Support\Facades\DB;
+use App\Contracts\CategoryContract;
+use Illuminate\Support\Facades\Log;
+use App\Contracts\DrugClassContract;
+use App\Contracts\InventoryContract;
+use Illuminate\Support\Facades\Auth;
+use App\Contracts\LaboratoryContract;
+use App\Contracts\DistributorContract;
+use App\Contracts\TransactionContract;
+use App\Contracts\PrescriptionContract;
+use App\Contracts\PatientBillingContract;
+use App\Contracts\PatientCheckupContract;
+
+use App\Contracts\RepresentativeContract;
 use App\Http\Requests\AddOrderStoreRequest;
+
+use App\Contracts\PrescribeMedicineContract;
 use App\Http\Requests\AddProductStoreRequest;
+use App\Contracts\PrescribeLaboratoryContract;
 
 
 class OrderController extends Controller
@@ -769,6 +770,7 @@ class OrderController extends Controller
     
     public function updatePatientBilling(Request $request)
     {
+
         DB::beginTransaction();
 
         try {
@@ -780,43 +782,71 @@ class OrderController extends Controller
             $patientCheckup = $this->patientCheckupContract->getPatientCheckupData($prescriptionId);
             $patientCheckupId = $patientCheckup->id;
 
-            $productAndLaboratoryData = [];
+            $billingData = [];
+            $inputCount = count($request->product_id) > count($request->laboratory_id)
+                ? count($request->product_id)
+                : count($request->laboratory_id);
+            
+            // for ($i = 0; $i < $inputCount; $i++) {
+            //     $existsMedicine = $this->prescribeMedicineContract->checkMedicineById($request->product_id[$i]);
+            //     $productId = $existsMedicine ? $existsMedicine->product_id : 1;
+                
+            //     $existsLaboratory = $this->prescribeLaboratoryContract->checkLaboratoryById($request->laboratory_id[$i]);
+            //     $laboratoryId = $existsLaboratory ? $existsLaboratory->laboratory_id : 1;
+            
+            //     $billing = [
+            //         'product_id' => $productId,
+            //         'laboratory_id' => $laboratoryId,
+            //         'patient_checkup_id' => $patientCheckupId,
+            //         'billing_status_id' => 2,
+            //         'invoice_number' => $invoice_number,
+            //         'srp' => $request->srp[$i] ?? 0,
+            //         'quantity' => $request->quantity[$i] ?? 0,
+            //         'price' => $request->price[$i] ?? 0,
+            //         'qty' => $request->qty[$i] ?? 0,
+            //         'sub_total_medicine' => $request->sub_total_medicine[$i] ?? 0,
+            //         'sub_total_laboratory' => $request->sub_total_laboratory[$i] ?? 0,
+            //     ];
+            
+            //     $billingData[] = $billing;
+            // }
+            
+            // foreach ($billingData as $billing) {
+            //     $this->patientBillingContract->storePatientBilling($billing);
+            // }
 
-            for ($i = 0; $i < count($request->product_id); $i++) {
-                $data = [
-                    'product_id' => $request->product_id[$i] ?? 1,
-                    'laboratory_id' => $request->laboratory_id[$i] ?? 1,
+            for ($i = 0; $i < $inputCount; $i++) {
+                $productId = isset($request->product_id[$i]) ? $this->prescribeMedicineContract->checkMedicineById($request->product_id[$i])->product_id ?? 1 : 1;
+                
+                $laboratoryId = isset($request->laboratory_id[$i]) ? $this->prescribeLaboratoryContract->checkLaboratoryById($request->laboratory_id[$i])->laboratory_id ?? 1 : 1;
+
+                $billing = [
+                    'product_id' => $productId,
+                    'laboratory_id' => $laboratoryId,
+                    'patient_checkup_id' => $patientCheckupId,
+                    'billing_status_id' => 2,
+                    'invoice_number' => $invoice_number,
                     'srp' => $request->srp[$i] ?? 0,
                     'quantity' => $request->quantity[$i] ?? 0,
                     'price' => $request->price[$i] ?? 0,
                     'qty' => $request->qty[$i] ?? 0,
                     'sub_total_medicine' => $request->sub_total_medicine[$i] ?? 0,
                     'sub_total_laboratory' => $request->sub_total_laboratory[$i] ?? 0,
-                    'patient_checkup_id' => $patientCheckupId,
-                    'billing_status_id' => 2,
-                    'invoice_number' => $invoice_number,
                 ];
 
-                $productAndLaboratoryData[] = $data;
+                $billingData[] = $billing;
             }
 
-            foreach ($productAndLaboratoryData as $data) {
-                try {
-                    $this->patientBillingContract->storePatientBilling($data);
-                } catch (\Exception $e) {
-                    // Log detailed error information
-                    Log::error('Error in updatePatientBilling: ' . $e->getMessage() . ' Data: ' . json_encode($data));
-                    
-                    // Continue to the next iteration to process other data
-                    continue;
-                }
+            foreach ($billingData as $billing) {
+                $this->patientBillingContract->storePatientBilling($billing);
             }
+
 
             DB::commit();
 
             $notification = [
                 'alert-type' => 'success',
-                'message' => 'Ordered successfully delivered!',
+                'message' => 'Billing successfully updated!',
             ];
 
             return redirect()->route('admin.all.inventory.sheet')->with($notification);
@@ -836,5 +866,4 @@ class OrderController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-
 }

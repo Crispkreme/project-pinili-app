@@ -23,4 +23,9 @@ class PrescribeMedicineRepository implements PrescribeMedicineContract {
     {
         return $this->model->with('product')->findOrFail($id);
     }
+
+    public function checkMedicineById($id)
+    {
+        return $this->model->where('product_id', $id)->first();
+    }
 }

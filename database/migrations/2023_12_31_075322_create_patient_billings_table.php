@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('patient_billings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('laboratory_id');
+            $table->unsignedBigInteger('product_id')->default(1);
+            $table->unsignedBigInteger('laboratory_id')->default(1);
             $table->unsignedBigInteger('patient_checkup_id');
             $table->unsignedBigInteger('billing_status_id');
             $table->string('invoice_number');
@@ -35,11 +35,11 @@ return new class extends Migration
                   ->onDelete('cascade');
             $table->foreign('laboratory_id')
                   ->references('id')
-                  ->on('prescribe_laboratories')
+                  ->on('laboratories')
                   ->onDelete('cascade');
             $table->foreign('product_id')
                   ->references('id')
-                  ->on('prescribe_medicines')
+                  ->on('products')
                   ->onDelete('cascade');
             $table->timestamps();
         });
