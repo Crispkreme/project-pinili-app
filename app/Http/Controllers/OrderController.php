@@ -786,38 +786,9 @@ class OrderController extends Controller
             $inputCount = count($request->product_id) > count($request->laboratory_id)
                 ? count($request->product_id)
                 : count($request->laboratory_id);
-            
-            // for ($i = 0; $i < $inputCount; $i++) {
-            //     $existsMedicine = $this->prescribeMedicineContract->checkMedicineById($request->product_id[$i]);
-            //     $productId = $existsMedicine ? $existsMedicine->product_id : 1;
-                
-            //     $existsLaboratory = $this->prescribeLaboratoryContract->checkLaboratoryById($request->laboratory_id[$i]);
-            //     $laboratoryId = $existsLaboratory ? $existsLaboratory->laboratory_id : 1;
-            
-            //     $billing = [
-            //         'product_id' => $productId,
-            //         'laboratory_id' => $laboratoryId,
-            //         'patient_checkup_id' => $patientCheckupId,
-            //         'billing_status_id' => 2,
-            //         'invoice_number' => $invoice_number,
-            //         'srp' => $request->srp[$i] ?? 0,
-            //         'quantity' => $request->quantity[$i] ?? 0,
-            //         'price' => $request->price[$i] ?? 0,
-            //         'qty' => $request->qty[$i] ?? 0,
-            //         'sub_total_medicine' => $request->sub_total_medicine[$i] ?? 0,
-            //         'sub_total_laboratory' => $request->sub_total_laboratory[$i] ?? 0,
-            //     ];
-            
-            //     $billingData[] = $billing;
-            // }
-            
-            // foreach ($billingData as $billing) {
-            //     $this->patientBillingContract->storePatientBilling($billing);
-            // }
 
             for ($i = 0; $i < $inputCount; $i++) {
                 $productId = isset($request->product_id[$i]) ? $this->prescribeMedicineContract->checkMedicineById($request->product_id[$i])->product_id ?? 1 : 1;
-                
                 $laboratoryId = isset($request->laboratory_id[$i]) ? $this->prescribeLaboratoryContract->checkLaboratoryById($request->laboratory_id[$i])->laboratory_id ?? 1 : 1;
 
                 $billing = [
@@ -841,7 +812,6 @@ class OrderController extends Controller
                 $this->patientBillingContract->storePatientBilling($billing);
             }
 
-
             DB::commit();
 
             $notification = [
@@ -852,7 +822,6 @@ class OrderController extends Controller
             return redirect()->route('admin.all.inventory.sheet')->with($notification);
 
         } catch (\Exception $e) {
-            dd($e);
 
             Log::error('Error in updatePatientBilling: ' . $e->getMessage());
 
