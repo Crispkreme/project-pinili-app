@@ -124,7 +124,7 @@
                                                     <textarea class="form-control" name="address" required="" rows="6" readonly>{{ $patientData->address }}</textarea>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
+                                            <div class="row mb-3" style="display: none !important;">
                                                 <label class="col-sm-3 col-form-label"
                                                     for="example-text-input">Picture</label>
                                                 <div class="col-sm-9">
@@ -200,7 +200,7 @@
                                                 <div>
                                                     <button class="btn btn-dark btn-rounded waves-effect waves-light"
                                                         type="submit" style="float:right;margin-left:5px;">
-                                                        Done Checkup
+                                                        Update Checkup
                                                     </button>
                                                 </div>
                                             @endif

@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Contracts\PatientContract;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Contracts\PrescriptionContract;
-use Illuminate\Validation\Rules\Exists;
 use App\Contracts\PrescribeMedicineContract;
 use App\Contracts\PrescribeLaboratoryContract;
 use App\Contracts\PatientCheckupContract;
@@ -130,10 +128,11 @@ class PatientPrescriptionController extends Controller
 
                 $prescribeIds = (count($medicineId) >= count($laboratoryId)) ? $medicineId : $laboratoryId;
                 $maxIterations = max(count($medicineId), count($laboratoryId));
+                $patientCheckupId = $request->patient_checkup_id;
 
                 for ($i = 0; $i < $maxIterations; $i++) {
                     $prescription = [
-                        'patient_checkup_id' => $request->patient_checkup_id,
+                        'patient_checkup_id' => $patientCheckupId,
                         'prescribe_medicine_id' => isset($medicineId[$i]) ? $medicineId[$i] : 1,
                         'prescribe_laboratory_id' => isset($laboratoryId[$i]) ? $laboratoryId[$i] : 1,
                         'status_id' => $statusId,
@@ -160,7 +159,9 @@ class PatientPrescriptionController extends Controller
                 ];
 
                 $redirectRoute = $this->getRedirectRoute();
-                return redirect()->route($redirectRoute)->with($notification);
+                // return redirect()->route($redirectRoute)->with($notification);
+
+                return redirect()->route('admin.print.patient.prescription', $patientCheckupId)->with($notification);
 
             } else {
 
@@ -183,5 +184,13 @@ class PatientPrescriptionController extends Controller
             $redirectRoute = $this->getRedirectRoute();
             return redirect()->route($redirectRoute)->with($notification);
         }
+    }
+
+    public function printPatientPrescription($id)
+    {
+        $prescriptions = $this->prescriptionContract->getPrescriptionByPatientCheckupId($id);
+        return view('admin.patient-checkups.prescription-certificate', [
+            'prescriptions' => $prescriptions,
+        ]);
     }
 }

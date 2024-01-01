@@ -78,4 +78,9 @@ class PrescriptionRepository implements PrescriptionContract {
         ->where('qty', '!=', 0)
         ->get();
     }
+
+    public function getPrescriptionByPatientCheckupId($id)
+    {
+        return $this->model->where('patient_checkup_id', $id)->get();
+    }
 }

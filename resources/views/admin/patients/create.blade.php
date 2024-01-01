@@ -91,7 +91,7 @@
                                                     <textarea required="" name="address" class="form-control" rows="6"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
+                                            <div class="row mb-3" style="display: none !important;">
 	                                            <label for="example-text-input" class="col-sm-3 col-form-label">Picture</label>
 	                                            <div class="col-sm-9">
 	                                                <div class="input-group">

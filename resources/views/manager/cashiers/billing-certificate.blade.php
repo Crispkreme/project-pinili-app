@@ -167,8 +167,10 @@
                                     </tbody>
                                 </table>
 
-                                <div class="mt-2" style="display: flex;justify-content: flex-end;padding-right: unset !important;" id="printButtons">
-                                    <button class="btn btn-success waves-effect waves-light mt-1"  onclick="printCertificate()">
+                                <div class="mt-2" id="printButtons"
+                                    style="display: flex;justify-content: space-between;padding-right: unset !important;padding-left: unset !important;">
+                                    <a class="btn btn-primary waves-effect waves-light" href="{{ route('manager.patient.payment') }}">Back to Payment</a>
+                                    <button class="btn btn-success waves-effect waves-light"  onclick="printCertificate()">
                                         <i class="ri-printer-line align-middle me-2"></i>
                                         Print Billing
                                     </button>

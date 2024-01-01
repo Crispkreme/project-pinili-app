@@ -86,54 +86,60 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12">
-                                    {{-- <div>
-                                        <hr>
-                                        <h4 class="text-center font-size-16">
-                                            <strong>MEDICIL CERTIFICATE</strong>
-                                        </h4>
-                                        <hr>
+                                <table class="table-sm table-bordered mt-2" style="border-color:#ddd;" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">ID</th>
+                                            <th style="width: 25%;">Medicine Name</th>
+                                            <th style="width: 25%;">Generic Name</th>
+                                            <th style="width: 5%;">Quantity</th></th>
+                                            <th style="width: 40%;">Remarks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="addRowMedicine" id="output-container-medicine">
+                                        @foreach ($prescriptions as $key => $item)
+                                            @unless ($item->prescribe_medicine->product_id == 1)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $item->prescribe_medicine->product->medicine_name }}</td>
+                                                    <td>{{ $item->prescribe_medicine->product->generic_name }}</td>
+                                                    <td class="text-center">{{ $item->prescribe_medicine->quantity }}</td>
+                                                    <td>{{ $item->prescribe_medicine->remarks }}</td>
+                                                </tr>
+                                            @endunless
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <table class="table-sm table-bordered mt-5" style="border-color:#ddd;" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">ID</th>
+                                            <th>Laboratory</th>
+                                            <th>Description</th>
+                                            <th style="width: 50%;">Remarks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($prescriptions as $key => $item)
+                                            @unless ($item->prescribe_laboratory->laboratory_id == 1)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $item->prescribe_laboratory->laboratory->laboratory }}</td>
+                                                    <td>{{ $item->prescribe_laboratory->laboratory->description }}</td>
+                                                    <td>{{ $item->prescribe_laboratory->remarks }}</td>
+                                                </tr>
+                                            @endunless
+                                        @endforeach
+                                    </tbody>                                                                       
+                                </table>
 
-                                        <div>
-                                            <p>{{ \Carbon\Carbon::parse(now())->format('F j, Y g:i A') }}
-                                            </p>
-                                        </div>
-                                        <div class="row">
-                                            <p>To Whom it May Concern:</p><br>
-                                            <p>This is to certify that
-                                                Mr/Ms/Mrs.<span
-                                                    style="font-weight:bold;text-transform:uppercase">{{ $patientData->firstname }}
-                                                    {{ $patientData->mi }} {{ $patientData->lastname }}
-                                                    {{ $patientData->age }}</span> yrs old. And
-                                                residence of <span
-                                                    style="font-weight:bold;text-transform:uppercase">{{ $patientData->address }}</span>
-                                                was seen
-                                                and examined at
-                                                <span
-                                                    style="font-weight:bold;text-transform:uppercase">{{ \Carbon\Carbon::parse($patientData->created_at)->format('F j, Y g:i A') }}</span>,
-                                                and was found to have/be suffering from:
-                                            </p>
-                                            <h4 class="font-size-16">
-                                                <strong>DIAGNOSIS</strong>
-                                            </h4>
-                                            <p>{{ strip_tags(str_replace('&nbsp;', '', $bmiData->symptoms)) }}
-                                            </p>
-                                            <h4 class="font-size-16">
-                                                <strong>RECOMENDATION</strong>
-                                            </h4>
-                                            <p>{{ strip_tags(str_replace('&nbsp;', '', $bmiData->diagnosis)) }}
-                                            </p>
-                                        </div>
-                                        <div class="mt-5" id="printButtons"
-                                            style="display: flex;justify-content: space-between;">
-                                            <button class="btn btn-success waves-effect waves-light"
-                                                onclick="printCertificate()">
-                                                <i class="ri-printer-line align-middle me-2"></i> Print Certificate
-                                            </button>
-                                            <a class="btn btn-primary waves-effect waves-light ms-2"
-                                                href="{{ route('clerk.all.patient') }}">Back</a>
-                                        </div>
-                                    </div> --}}
+                                <div class="mt-2" id="printButtons"
+                                    style="display: flex;justify-content: space-between;padding-right: unset !important;padding-left: unset !important;">
+                                    <a class="btn btn-primary waves-effect waves-light" href="{{ route('admin.all.patient') }}">Back to Patient</a>
+                                    <button class="btn btn-success waves-effect waves-light"  onclick="printCertificate()">
+                                        <i class="ri-printer-line align-middle me-2"></i>
+                                        Print Prescription
+                                    </button>
                                 </div>
                             </div>
                         </div>
