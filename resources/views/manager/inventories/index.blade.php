@@ -35,7 +35,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('admin.add.inventory.sheet') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">
+                                    <a href="{{ route('admin.add.inventory.sheet') }}" class="btn btn-dark waves-effect waves-light" style="float:right;">
                                         <i class="ri-add-fill" style="margin-right:5px;"></i>
                                         Add Payable
                                     </a>

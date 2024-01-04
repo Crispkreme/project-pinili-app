@@ -37,9 +37,11 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a class="btn btn-dark btn-rounded waves-effect waves-light"
-                                        href="{{ route('manager.create.product') }}" style="float:right;">Add
-                                        Product</a><br><br>
+                                    <a class="btn btn-dark waves-effect waves-light" href="{{ route('manager.create.product') }}" style="float:right;">
+                                        <i class="ri-add-fill" style="margin-right:5px;"></i>
+                                        Add Product
+                                    </a>
+                                    <br><br>
 
                                     <h4 class="card-title">Product List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our product.</p>

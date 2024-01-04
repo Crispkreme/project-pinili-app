@@ -39,9 +39,10 @@
                             <div class="card">
                                 <div class="card-body">
                                     @if(request()->routeIs('admin.all.order'))
-                                        <a href="{{ route('admin.create.order') }}"
-                                        class="btn btn-dark btn-rounded waves-effect waves-light"
-                                        style="float:right;">Add Order</a>
+                                        <a href="{{ route('admin.create.order') }}" class="btn btn-dark waves-effect waves-light" style="float:right;">
+                                            <i class="ri-add-fill" style="margin-right:5px;"></i>
+                                            Add Order
+                                        </a>
                                         <br><br>
                                     @endif
 

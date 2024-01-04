@@ -139,7 +139,7 @@
                                                 </div>
                                             </div>
 
-                                            <button type="submit" class="btn btn-dark btn-rounded waves-effect waves-light mb-3" style="float:right;">Update Patient Admit</button>
+                                            <button type="submit" class="btn btn-dark waves-effect waves-light mb-3" style="float:right;">Update Patient Admit</button>
                         				</div>
                         			</div>
                         		</div>

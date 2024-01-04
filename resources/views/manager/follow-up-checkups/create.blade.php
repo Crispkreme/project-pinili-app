@@ -142,8 +142,11 @@
                                                 </div>
                                             @endif
                                             <div>
-                                                <button type="submit" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;margin-left:5px;">Follow-up Checkup</button>
-                                                <button type="button" class="btn btn-warning btn-rounded waves-effect waves-light mb-3" style="float:right;" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center">Add Diagnosis</button>
+                                                <button type="submit" class="btn btn-dark waves-effect waves-light" style="float:right;margin-left:5px;">Follow-up Checkup</button>
+                                                <button type="button" class="btn btn-warning btn-rounded waves-effect waves-light mb-3" style="float:right;" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center">
+                                                    <i class="ri-add-fill" style="margin-right:5px;"></i>
+                                                    Add Diagnosis
+                                                </button>
                                             </div>
                         				</div>
                         			</div>
@@ -167,7 +170,7 @@
                             <form method="post" action="{{ route('manager.store.patient.diagnosis', $bmiData->id) }}">
                                 @csrf
                                 <textarea id="elm1" name="diagnosis"></textarea>
-                                <button type="submit" class="btn btn-dark btn-rounded waves-effect waves-light mt-2" style="float: right;">Add Diagnosis</button>
+                                <button type="submit" class="btn btn-dark waves-effect waves-light mt-2" style="float: right;">Add Diagnosis</button>
                             </form>
                         </div>
                     </div>

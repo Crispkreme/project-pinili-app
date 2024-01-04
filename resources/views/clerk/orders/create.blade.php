@@ -88,13 +88,16 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label for="name" class="col-form-label">Product Category</label>
-                                                        <select class="form-select select-2" style="width:98%;" name="category_id" aria-label="Default select example" id="category_id">
+                                                        <select class="form-select select-2" style="width: 98%;" name="category_id" aria-label="Default select example"
+                                                            id="category_id">
                                                             <option selected disabled>Select Product Category</option>
                                                             @if (empty($categoryData))
                                                                 <option value="" disabled>No data found</option>
                                                             @else
                                                                 @foreach ($categoryData as $categoryDataId => $name)
-                                                                    <option value="{{ $categoryDataId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                                    @if ($categoryDataId != 1)
+                                                                        <option value="{{ $categoryDataId }}" style="text-transform: capitalize">{{ $name }}</option>
+                                                                    @endif
                                                                 @endforeach
                                                             @endif
                                                         </select>
@@ -208,7 +211,7 @@
                     @{{ category_name }}
                 </td>
                 <td>
-                    <input type="number" name="purchase_cost[]" class="form-control purchase_cost text-right" value="">
+                    <input type="number" name="purchase_cost[]" class="form-control purchase_cost text-right" value="0" readonly>
                 </td>
                 <td>
                     <input type="number" name="quantity[]" min="1" class="form-control quantity text-right" value="">

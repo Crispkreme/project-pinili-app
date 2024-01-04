@@ -81,15 +81,15 @@
                                                         <div class="col-sm-5">
                                                             <input class="form-control" type="text"
                                                                 placeholder="John" id="example-text-input"
-                                                                name="firstname">
+                                                                name="firstname" style='text-transform:uppercase'>
                                                         </div>
                                                         <div class="col-sm-5">
                                                             <input class="form-control" type="text" placeholder="Doe"
-                                                                id="example-text-input" name="lastname">
+                                                                id="example-text-input" name="lastname" style='text-transform:uppercase'>
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <input class="form-control" type="text" placeholder="D"
-                                                                id="example-text-input" name="mi">
+                                                                id="example-text-input" name="mi" style='text-transform:uppercase'>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -98,7 +98,7 @@
                                                 <label for="example-text-input"
                                                     class="col-sm-3 col-form-label">Age</label>
                                                 <div class="col-sm-9">
-                                                    <input class="form-control" type="text" placeholder="9"
+                                                    <input class="form-control" type="text" style='text-transform:uppercase' placeholder="9"
                                                         name="age" id="example-text-input" name="age">
                                                 </div>
                                             </div>
@@ -106,7 +106,7 @@
                                                 <label for="example-text-input" class="col-sm-3 col-form-label">Contact
                                                     Number</label>
                                                 <div class="col-sm-9">
-                                                    <input class="form-control" name="contact_number" type="text"
+                                                    <input style='text-transform:uppercase' class="form-control" name="contact_number" type="text"
                                                         placeholder="09067--------" id="example-text-input">
                                                 </div>
                                             </div>
@@ -115,16 +115,16 @@
                                                 <div class="col-sm-9">
                                                     <select class="form-select" aria-label="Default select example"
                                                         name="gender_id" style="width: 100% !important;">
-                                                        <option selected="">Select Gender</option>
-                                                        <option value="1">Male</option>
-                                                        <option value="2">Female</option>
+                                                        <option style='text-transform:uppercase' selected="">SELECT GENDER</option>
+                                                        <option style='text-transform:uppercase' value="1">Male</option>
+                                                        <option style='text-transform:uppercase' value="2">Female</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label class="col-sm-3 col-form-label">Address</label>
                                                 <div class="col-sm-9">
-                                                    <textarea required="" name="address" class="form-control" rows="6"></textarea>
+                                                    <textarea required="" name="address" class="form-control" rows="6" style='text-transform:uppercase'></textarea>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -148,7 +148,7 @@
                                                     Pressure</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" type="text"
-                                                        placeholder="xxx/xx mmHg" id="example-text-input"
+                                                    style='text-transform:uppercase' placeholder="xxx/xx mmHg" id="example-text-input"
                                                         name="blood_pressure">
                                                 </div>
                                             </div>
@@ -156,7 +156,7 @@
                                                 <label for="example-text-input" class="col-sm-4 col-form-label">Heart
                                                     Rate</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" type="text" placeholder="xx bpm"
+                                                    <input style='text-transform:uppercase' class="form-control" type="text" placeholder="xx bpm"
                                                         name="heart_rate" id="example-text-input">
                                                 </div>
                                             </div>
@@ -164,7 +164,7 @@
                                                 <label for="example-text-input"
                                                     class="col-sm-4 col-form-label">Weight</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" type="text" placeholder="xx kg"
+                                                    <input style='text-transform:uppercase' class="form-control" type="text" placeholder="xx kg"
                                                         name="weight" id="example-text-input">
                                                 </div>
                                             </div>
@@ -172,20 +172,21 @@
                                                 <label for="example-text-input"
                                                     class="col-sm-4 col-form-label">Temperature</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" type="text" placeholder="xx deg"
+                                                    <input style='text-transform:uppercase' class="form-control" type="text" placeholder="xx deg"
                                                         name="temperature" id="example-text-input">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label class="col-sm-4 col-form-label">Symptom</label>
                                                 <div class="col-sm-8">
-                                                    <textarea required="" placeholder="Diagnosis" class="form-control" name="symptoms" rows="6"></textarea>
+                                                    <textarea required="" placeholder="Diagnosis" class="form-control" name="symptoms" rows="6" style='text-transform:uppercase'></textarea>
                                                 </div>
                                             </div>
 
-                                            <button type="submit"
-                                                class="btn btn-dark btn-rounded waves-effect waves-light mb-3"
-                                                style="float:right;">Admit Patient</button>
+                                            <button type="submit" class="btn btn-dark waves-effect waves-light mb-3" style="float:right;">
+                                                <i class="ri-add-fill" style="margin-right:5px;"></i>
+                                                Add Patient
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

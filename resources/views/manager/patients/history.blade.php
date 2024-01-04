@@ -43,7 +43,7 @@
                                             <p class="card-title-desc">This are the complete list of our users.</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <a class="btn btn-dark btn-rounded waves-effect waves-light mb-3"
+                                            <a class="btn btn-dark waves-effect waves-light mb-3"
                                                 href="{{ route('manager.create.patient.followup.checkup', $patientID) }}"
                                                 style="float:right;margin-left:5px;">
                                                 Follow-up Checkup

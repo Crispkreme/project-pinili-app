@@ -198,7 +198,7 @@
                                                 </div>
                                             @else
                                                 <div>
-                                                    <button class="btn btn-dark btn-rounded waves-effect waves-light"
+                                                    <button class="btn btn-dark waves-effect waves-light"
                                                         type="submit" style="float:right;margin-left:5px;">
                                                         Update Checkup
                                                     </button>
@@ -229,7 +229,7 @@
                             <form method="post" action="{{ route('admin.store.patient.diagnosis', $bmiData->id) }}">
                                 @csrf
                                 <textarea id="elm1" name="diagnosis"></textarea>
-                                <button class="btn btn-dark btn-rounded waves-effect waves-light mt-2" type="submit"
+                                <button class="btn btn-dark waves-effect waves-light mt-2" type="submit"
                                     style="float: right;">Add Diagnosis</button>
                             </form>
                         </div>

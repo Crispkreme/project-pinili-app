@@ -35,7 +35,11 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('admin.create.drug.class') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Drug Class</a><br><br>
+                                    <a href="{{ route('admin.create.drug.class') }}" class="btn btn-dark waves-effect waves-light" style="float:right;">
+                                        <i class="ri-add-fill" style="margin-right:5px;"></i>
+                                        Add Drug Class
+                                    </a>
+                                    <br><br>
 
                                     <h4 class="card-title">Drug Classes List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our drug classes.</p>

@@ -152,7 +152,7 @@
                                                 </div>
                                             @else
                                                 <div>
-                                                    <button type="submit" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;margin-left:5px;">Done Checkup</button>
+                                                    <button type="submit" class="btn btn-dark waves-effect waves-light" style="float:right;margin-left:5px;">Done Checkup</button>
                                                 </div>
                                             @endif
 

@@ -152,7 +152,7 @@
                                                     <th style="width: 10%;">Qty</th>
                                                     <th style="width: 10%;">SRP</th>
                                                     <th style="width: 10%;">Total Price</th>
-                                                    <th>Action</th>
+                                                    <th style="width: 5%;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -176,19 +176,14 @@
                                                         <td style="width: 10%;">
                                                             <input type="text" class="form-control subtotal" id="subtotal" name="subtotal" value="0" style="background-color:#ddd;" readonly>
                                                         </td>
-                                                        <td>
+                                                        <td style="width: 5%;">
                                                             <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more"></i>
                                                         </td>
                                                     </tr>
                                                 @endforeach
 
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td colspan="7"></td>
                                                     <td>Total Amount</td>
                                                     <td colspan="2">
                                                         <input type="text" class="form-control total_amount" id="total_amount" name="total_amount" value="0" style="background-color:#ddd;" readonly>

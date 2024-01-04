@@ -38,13 +38,11 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('clerk.create.order') }}"
-                                        class="btn btn-dark btn-rounded waves-effect waves-light"
-                                        style="float:right;">
-                                            <i class="ri-add-fill" style="margin-right:5px;"></i>
-                                            Add Order
-                                        </a>
-                                        <br><br>
+                                    <a href="{{ route('clerk.create.order') }}" class="btn btn-dark waves-effect waves-light" style="float:right;">
+                                        <i class="ri-add-fill" style="margin-right:5px;"></i>
+                                        Add Order
+                                    </a>
+                                    <br><br>
 
                                     <h4 class="card-title">Product List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our product.</p>
@@ -58,7 +56,6 @@
                                                 <th>Manufacturer</th>
                                                 <th style="width: 15%;">Order Date</th>
                                                 <th>Status</th>
-                                                <th style="width: 15%;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -91,34 +88,6 @@
                                                                 <span class="badge rounded-pill bg-danger" style="font-size:12px;padding:5px;">
                                                                     {{ $item->status->status }}
                                                                 </span>
-                                                            @endif
-                                                        </td>
-                                                        <td style="text-align: center;">
-                                                            @if ($item->status_id == 7)
-
-                                                                @if(request()->routeIs('admin.all.order'))
-                                                                    <a href="{{ route('admin.edit.order', $item->id) }}" class="btn btn-warning waves-light" id="edit_button">
-                                                                        <i class="fas fa-edit"></i>
-                                                                    </a>
-                                                                    <a href="{{ route('admin.delete.order', $item->id) }}" class="btn btn-danger waves-light" id="delete_button">
-                                                                        <i class="fas fa-trash-alt"></i>
-                                                                    </a>
-                                                                @elseif(request()->routeIs('admin.pending.order'))
-                                                                    <a href="{{ route('admin.approve.order', $item->id) }}" type="button" class="btn btn-success waves-light">
-                                                                        <i class="ri-checkbox-circle-line"></i>
-                                                                    </a>
-                                                                @endif
-
-                                                            @endif
-
-                                                            @if ($item->status_id == 3)
-
-                                                                @if(request()->routeIs('admin.all.delete.order'))
-                                                                    <a href="{{ route('admin.restore.deleted.order', $item->id) }}" type="button" class="btn btn-success waves-light">
-                                                                        <i class="ri-recycle-line"></i>
-                                                                    </a>
-                                                                @endif
-
                                                             @endif
                                                         </td>
                                                     </tr>

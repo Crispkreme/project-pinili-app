@@ -2,40 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-
-use Carbon\Carbon;
-use App\Models\Order;
-use App\Models\Laboratory;
-use Illuminate\Http\Request;
-
-use App\Contracts\FormContract;
-use App\Contracts\UserContract;
-use App\Contracts\OrderContract;
-use App\Contracts\EntityContract;
-use App\Contracts\StatusContract;
-use App\Contracts\PatientContract;
-use App\Contracts\ProductContract;
-use Illuminate\Support\Facades\DB;
 use App\Contracts\CategoryContract;
-use Illuminate\Support\Facades\Log;
-use App\Contracts\DrugClassContract;
-use App\Contracts\InventoryContract;
-use Illuminate\Support\Facades\Auth;
-use App\Contracts\LaboratoryContract;
+
 use App\Contracts\DistributorContract;
-use App\Contracts\TransactionContract;
-use App\Contracts\PrescriptionContract;
+use App\Contracts\DrugClassContract;
+use App\Contracts\EntityContract;
+use App\Contracts\FormContract;
+
+use App\Contracts\InventoryContract;
+use App\Contracts\LaboratoryContract;
+use App\Contracts\OrderContract;
 use App\Contracts\PatientBillingContract;
 use App\Contracts\PatientCheckupContract;
-
-use App\Contracts\RepresentativeContract;
-use App\Http\Requests\AddOrderStoreRequest;
-
-use App\Contracts\PrescribeMedicineContract;
-use App\Http\Requests\AddProductStoreRequest;
+use App\Contracts\PatientContract;
 use App\Contracts\PrescribeLaboratoryContract;
+use App\Contracts\PrescribeMedicineContract;
+use App\Contracts\PrescriptionContract;
+use App\Contracts\ProductContract;
+use App\Contracts\RepresentativeContract;
+use App\Contracts\StatusContract;
+use App\Contracts\TransactionContract;
+use App\Contracts\UserContract;
+use App\Http\Requests\AddOrderStoreRequest;
+use App\Http\Requests\AddProductStoreRequest;
+use App\Models\Laboratory;
+use App\Models\Order;
+use Carbon\Carbon;
 
+use Exception;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -526,8 +525,9 @@ class OrderController extends Controller
         return response()->json($orderData);
     }
 
-    public function updateOrder(AddProductStoreRequest $request, $id)
+    public function updateOrder(Request $request, $id)
     {
+        dd($request);
         try {
 
             $params = $request->validated();

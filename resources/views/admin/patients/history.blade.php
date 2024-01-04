@@ -43,9 +43,8 @@
                                             <p class="card-title-desc">This are the complete list of our users.</p>
                                         </div>
                                         <div class="col-md-6">
-                                            <a class="btn btn-dark btn-rounded waves-effect waves-light mb-3"
-                                                href="{{ route('admin.patient.prescription.history', $patientID) }}"
-                                                style="float:right;">
+                                            <a class="btn btn-dark waves-effect waves-light mb-3"
+                                                href="{{ route('admin.patient.prescription.history', $patientID) }}" style="float:right;">
                                                 History
                                             </a>
                                         </div>

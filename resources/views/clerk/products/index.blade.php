@@ -35,7 +35,11 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="{{ route('clerk.create.product') }}" class="btn btn-dark btn-rounded waves-effect waves-light" style="float:right;">Add Product</a><br><br>
+                                    <a href="{{ route('clerk.create.product') }}" class="btn btn-dark waves-effect waves-light" style="float:right;">
+                                        <i class="ri-add-fill" style="margin-right:5px;"></i>
+                                        Add Product
+                                    </a>
+                                    <br><br>
 
                                     <h4 class="card-title">Product List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our product.</p>
@@ -43,19 +47,19 @@
                                     <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
                                         <thead>
                                             <tr>
-                                                <th style="width:15%;">ID</th>
+                                                <th style="width:5%;">ID</th>
                                                 <th>Medicine Name</th>
                                                 <th>Generic Name</th>
                                                 <th>Description</th>
                                                 <th>Category</th>
                                                 <th>Form</th>
-                                                <th style="width:15%;text-align:center;">Action</th>
+                                                <th style="width:5%;text-align:center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($userData as $key => $item)
                                                 <tr>
-                                                    <td>{{ $item->barcode }}</td>
+                                                    <td>{{ $key + 1 }}</td>
                                                     <td>{{ $item->medicine_name }}</td>
                                                     <td>{{ $item->generic_name }}</td>
                                                     <td>{{ $item->description }}</td>
