@@ -116,12 +116,12 @@
                                             <h4 class="font-size-16">
                                                 <strong>DIAGNOSIS</strong>
                                             </h4>
-                                            <p>{{ strip_tags(str_replace('&nbsp;', '', $bmiData->symptoms)) }}
+                                            <p style="font-weight:bold;text-transform:uppercase">{{ strip_tags(str_replace('&nbsp;', '', $bmiData->symptoms)) }}
                                             </p>
                                             <h4 class="font-size-16">
                                                 <strong>RECOMENDATION</strong>
                                             </h4>
-                                            <p>{{ strip_tags(str_replace('&nbsp;', '', $bmiData->diagnosis)) }}
+                                            <p style="font-weight:bold;text-transform:uppercase">{{ strip_tags(str_replace('&nbsp;', '', $bmiData->diagnosis)) }}
                                             </p>
                                         </div>
                                         <div class="mt-5" id="printButtons"

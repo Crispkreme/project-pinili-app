@@ -60,7 +60,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($inventorySheets as $key => $item)
-                                                <tr>
+                                                <tr style="vertical-align: middle;text-transform:uppercase;">
                                                     <td style="text-align: center;">{{ (int)$key + 1 }}</td>
                                                     <td>
                                                         <a href="{{ route('admin.edit.inventory.sheet', $item->id) }}">

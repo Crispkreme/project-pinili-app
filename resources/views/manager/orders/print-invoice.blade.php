@@ -65,7 +65,7 @@
                                         <tbody>
                                             @if ($userData)
                                                 @foreach($userData as $key => $item)
-                                                    <tr>
+                                                    <tr style="vertical-align: middle;text-transform:uppercase;">
                                                         <td>{{ (int)$key + 1 }}</td>
                                                         <td>{{ $item->invoice_number }}</td>
                                                         <td>{{ $item->product->medicine_name }}</td>

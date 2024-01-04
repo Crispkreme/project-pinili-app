@@ -59,7 +59,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($userData as $key => $item)
-                                                <tr>
+                                                <tr style="vertical-align: middle;text-transform:uppercase;">
                                                     <td class="text-center">{{ $key+1}}</td>
                                                     <td>{{ $item->barcode }}</td>
                                                     <td>{{ $item->medicine_name }}</td>

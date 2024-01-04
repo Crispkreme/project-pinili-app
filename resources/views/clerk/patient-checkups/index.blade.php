@@ -56,7 +56,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($patientCheckupData as $key => $item)
-                                                <tr>
+                                                <tr style="vertical-align: middle;text-transform:uppercase;">
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>{{ $item->id_number }}</td>
                                                     <td>{{ $item->patientBmi->patient->firstname }}

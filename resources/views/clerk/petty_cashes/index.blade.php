@@ -60,7 +60,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($pettyCash as $key => $item)
-                                                <tr style="vertical-align:baseline;">
+                                                <tr style="vertical-align: middle;text-transform:uppercase;">
                                                     <td style="text-align: center;">
                                                         {{ (int)$key + 1 }}
                                                     </td>

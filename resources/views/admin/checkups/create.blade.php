@@ -77,15 +77,15 @@
                                                 <div class="col-sm-9">
                                                     <div class="row">
                                                         <div class="col-sm-5">
-                                                            <input class="form-control" name="firstname" type="text"
+                                                            <input class="form-control" style='text-transform:uppercase' name="firstname" type="text"
                                                                 value="{{ $patientData->firstname }}" readonly>
                                                         </div>
                                                         <div class="col-sm-5">
-                                                            <input class="form-control" name="lastname" type="text"
+                                                            <input class="form-control" style='text-transform:uppercase' name="lastname" type="text"
                                                                 value="{{ $patientData->lastname }}" readonly>
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <input class="form-control" name="mi" type="text"
+                                                            <input class="form-control" style='text-transform:uppercase' name="mi" type="text"
                                                                 value="{{ $patientData->mi }}" readonly>
                                                         </div>
                                                     </div>
@@ -95,7 +95,7 @@
                                                 <label class="col-sm-3 col-form-label"
                                                     for="example-text-input">Age</label>
                                                 <div class="col-sm-9">
-                                                    <input class="form-control" name="age" type="text"
+                                                    <input class="form-control" style='text-transform:uppercase' name="age" type="text"
                                                         value="{{ $patientData->age }}" readonly>
                                                 </div>
                                             </div>
@@ -103,7 +103,7 @@
                                                 <label class="col-sm-3 col-form-label" for="example-text-input">Contact
                                                     Number</label>
                                                 <div class="col-sm-9">
-                                                    <input class="form-control" name="contact_number" type="text"
+                                                    <input class="form-control" style='text-transform:uppercase' name="contact_number" type="text"
                                                         value="{{ $patientData->contact_number }}" readonly>
                                                 </div>
                                             </div>
@@ -113,15 +113,16 @@
                                                     <select class="form-select" name="gender_id"
                                                         aria-label="Default select example"
                                                         style="width: 100% !important;">
-                                                        <option selected="" disabled>
-                                                            {{ $patientData->gender->gender }}</option>
+                                                        <option selected="" disabled style='text-transform:uppercase'>
+                                                            {{ $patientData->gender->gender }}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label class="col-sm-3 col-form-label">Address</label>
                                                 <div class="col-sm-9">
-                                                    <textarea class="form-control" name="address" required="" rows="6" readonly>{{ $patientData->address }}</textarea>
+                                                    <textarea class="form-control" style='text-transform:uppercase' name="address" required="" rows="6" readonly>{{ $patientData->address }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="row mb-3" style="display: none !important;">
@@ -145,7 +146,7 @@
                                                 <label class="col-sm-4 col-form-label" for="example-text-input">Blood
                                                     Pressure</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" name="blood_pressure" type="text"
+                                                    <input class="form-control" name="blood_pressure" type="text" style='text-transform:uppercase'
                                                         placeholder="{{ $bmiData->blood_pressure }} mmHg" readonly>
                                                 </div>
                                             </div>
@@ -153,7 +154,7 @@
                                                 <label class="col-sm-4 col-form-label" for="example-text-input">Heart
                                                     Rate</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" name="heart_rate" type="text"
+                                                    <input class="form-control" name="heart_rate" type="text" style='text-transform:uppercase'
                                                         placeholder="{{ $bmiData->heart_rate }} bpm" readonly>
                                                 </div>
                                             </div>
@@ -161,7 +162,7 @@
                                                 <label class="col-sm-4 col-form-label"
                                                     for="example-text-input">Weight</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" name="weight" type="text"
+                                                    <input class="form-control" name="weight" type="text" style='text-transform:uppercase'
                                                         placeholder="{{ $bmiData->weight }} kg" readonly>
                                                 </div>
                                             </div>
@@ -169,28 +170,28 @@
                                                 <label class="col-sm-4 col-form-label"
                                                     for="example-text-input">Temperature</label>
                                                 <div class="col-sm-8">
-                                                    <input class="form-control" name="temperature" type="text"
+                                                    <input class="form-control" name="temperature" type="text" style='text-transform:uppercase'
                                                         placeholder="{{ $bmiData->temperature }} deg" readonly>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label class="col-sm-4 col-form-label">Symptom</label>
                                                 <div class="col-sm-8">
-                                                    <textarea class="form-control" name="symptoms" required="" rows="2" readonly>{{ $bmiData->symptoms }}</textarea>
+                                                    <textarea style='text-transform:uppercase' class="form-control" name="symptoms" required="" rows="2" readonly>{{ $bmiData->symptoms }}</textarea>
                                                 </div>
                                             </div>
                                             @if (auth()->user()->role_id == 1)
                                                 <div class="row mb-3">
                                                     <label class="col-sm-4 col-form-label">Diagnosis</label>
                                                     <div class="col-sm-8">
-                                                        <textarea class="form-control" name="diagnosis" rows="3">{{ strip_tags($bmiData->diagnosis) }}</textarea>
+                                                        <textarea style='text-transform:uppercase' class="form-control" name="diagnosis" rows="3">{{ strip_tags($bmiData->diagnosis) }}</textarea>
                                                     </div>
                                                 </div>
                                             @endif
 
                                             @if ($checkupData->status_id === 2)
                                                 <div>
-                                                    <a class="btn btn-warning btn-rounded waves-effect waves-light"
+                                                    <a class="btn btn-warning waves-effect waves-light"
                                                         href="{{ route('clerk.all.patient') }}"
                                                         style="float:right;margin-left:5px;">
                                                         Back

@@ -56,7 +56,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($userData as $key => $item)
-                                                <tr>
+                                                <tr style="vertical-align: middle;text-transform:uppercase;">
                                                     <td style="width:10%;">{{ $key + 1 }}</td>
                                                     <td style="width:20%;">{{ $item->name }}</td>
                                                     <td>{{ $item->description }}</td>

@@ -57,15 +57,15 @@
                                                     <div class="row">
                                                         <div class="col-sm-5">
                                                             <input class="form-control" type="text" name="firstname"
-                                                                value="{{ $patientData->firstname }}" readonly>
+                                                                value="{{ $patientData->firstname }}" readonly style='text-transform:uppercase'>
                                                         </div>
                                                         <div class="col-sm-5">
                                                             <input class="form-control" type="text" name="lastname"
-                                                                value="{{ $patientData->lastname }}" readonly>
+                                                                value="{{ $patientData->lastname }}" readonly style='text-transform:uppercase'>
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <input class="form-control" type="text" name="mi"
-                                                                value="{{ $patientData->mi }}" readonly>
+                                                                value="{{ $patientData->mi }}" readonly style='text-transform:uppercase'>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -75,7 +75,7 @@
                                                     class="col-sm-3 col-form-label">Age</label>
                                                 <div class="col-sm-9">
                                                     <input class="form-control" type="text" name="age"
-                                                        value="{{ $patientData->age }}" readonly>
+                                                        value="{{ $patientData->age }}" readonly style='text-transform:uppercase'>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -83,7 +83,7 @@
                                                     Number</label>
                                                 <div class="col-sm-9">
                                                     <input class="form-control" name="contact_number" type="text"
-                                                        value="{{ $patientData->contact_number }}" readonly>
+                                                        value="{{ $patientData->contact_number }}" readonly style='text-transform:uppercase'>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -91,7 +91,7 @@
                                                 <div class="col-sm-9">
                                                     <select class="form-select" aria-label="Default select example"
                                                         name="gender_id" style="width: 100% !important;">
-                                                        <option selected="" disabled>
+                                                        <option selected="" style='text-transform:uppercase' disabled>
                                                             {{ $patientData->gender->gender }}</option>
                                                     </select>
                                                 </div>
@@ -99,7 +99,7 @@
                                             <div class="row mb-3">
                                                 <label class="col-sm-3 col-form-label">Address</label>
                                                 <div class="col-sm-9">
-                                                    <textarea required="" name="address" class="form-control" rows="6" readonly>{{ $patientData->address }}</textarea>
+                                                    <textarea required="" name="address" class="form-control" rows="6" readonly style='text-transform:uppercase'>{{ $patientData->address }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -123,7 +123,7 @@
                                                     Pressure</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" type="text" placeholder="xxx mmHg"
-                                                        name="blood_pressure">
+                                                        name="blood_pressure" style='text-transform:uppercase'>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -131,7 +131,7 @@
                                                     Rate</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" type="text" placeholder="xxx bpm"
-                                                        name="heart_rate">
+                                                        name="heart_rate" style='text-transform:uppercase'>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -139,7 +139,7 @@
                                                     class="col-sm-4 col-form-label">Weight</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" type="text" placeholder="xxx kg"
-                                                        name="weight">
+                                                        name="weight" style='text-transform:uppercase'>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -147,13 +147,13 @@
                                                     class="col-sm-4 col-form-label">Temperature</label>
                                                 <div class="col-sm-8">
                                                     <input class="form-control" type="text" placeholder="xxx deg"
-                                                        name="temperature">
+                                                        name="temperature" style='text-transform:uppercase'>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label class="col-sm-4 col-form-label">Symptom</label>
                                                 <div class="col-sm-8">
-                                                    <textarea required="" placeholder="xxx" class="form-control" name="symptoms" rows="6"></textarea>
+                                                    <textarea required="" style='text-transform:uppercase' placeholder="xxx" class="form-control" name="symptoms" rows="6"></textarea>
                                                 </div>
                                             </div>
                                             <div>
