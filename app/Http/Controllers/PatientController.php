@@ -686,6 +686,7 @@ class PatientController extends Controller
         }
     }
     public function storePatientFollowupCheckup(Request $request) {
+
         DB::beginTransaction();
 
         try {
@@ -742,16 +743,16 @@ class PatientController extends Controller
                $this->patientCheckupImageContract->storePatientCheckupImage($patientCheckupImage);
             }
 
-            $patientPrescriptionParams = [
-                'product_id' => 1,
-                'patient_checkup_id' => $patientCheckup->id,
-                'laboratory_id' => 1,
-                'status_id' => 1,
-                'invoice_number' => "",
-                'remarks' => "pending",
-                'isActive' => 1,
-            ];
-            $this->prescriptionContract->storePrescription($patientPrescriptionParams);
+            // $patientPrescriptionParams = [
+            //     'product_id' => 1,
+            //     'patient_checkup_id' => $patientCheckup->id,
+            //     'laboratory_id' => 1,
+            //     'status_id' => 1,
+            //     'invoice_number' => "",
+            //     'remarks' => "pending",
+            //     'isActive' => 1,
+            // ];
+            // $this->prescriptionContract->storePrescription($patientPrescriptionParams);
 
             DB::commit();
 
@@ -868,7 +869,7 @@ class PatientController extends Controller
     // PATIENT PRESCRIPTION FUNCTIONALITY
     public function getPatientPrescription()
     {
-        $patientData = $this->patientContract->allPatient();
+        $patientData = $this->prescriptionContract->getAllPatientPrescription();
 
         return view('admin.prescriptions.index', [
             'patientData' => $patientData,

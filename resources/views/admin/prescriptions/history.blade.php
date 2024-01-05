@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <a class="btn btn-dark waves-effect waves-light mb-3"
-                                                href="{{ route('admin.all.patient.checkup') }}"
+                                                href="{{ route('admin.all.patient') }}" 
                                                 style="float:right;margin-left:5px;">
                                                 Checkup
                                             </a>
@@ -67,8 +67,8 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($patientCheckupData as $key => $item)
-                                                <tr>
-                                                    <td>{{ $key + 1 }}</td>
+                                                <tr style="text-transform:uppercase;">
+                                                    <td class="text-center">{{ $key + 1 }}</td>
                                                     <td>{{ $item->patientCheckup->id_number }}</td>
                                                     <td>{{ $item->patientCheckup->patientBmi->patient->firstname }}
                                                         {{ $item->patientCheckup->patientBmi->patient->mi }}

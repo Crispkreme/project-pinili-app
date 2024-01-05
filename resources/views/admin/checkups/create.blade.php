@@ -52,20 +52,19 @@
 
                                         <div class="mt-2" style="display: flex;justify-content: space-between;">
                                             @if ($checkupData->status_id == 2)
-                                                <a class="btn btn-success waves-effect waves-light"
-                                                    href='{{ route('admin.patient.checkup.print', $checkupData->id) }}'>
+                                                <a class="btn btn-success waves-effect waves-light" href='{{ route('admin.patient.checkup.print', $checkupData->id) }}'>
                                                     <i class="ri-printer-line align-middle me-2"></i>
                                                     Print Certificate
+                                                </a>
+                                                <a class="btn btn-success waves-effect waves-light" href="{{ route('admin.print.patient.prescription', $patientData->id) }}">
+                                                    <i class="ri-printer-line align-middle me-2"></i>
+                                                    Print Prescription
                                                 </a>
                                             @endif
                                             <div style="display: flex;">
                                                 <a style="margin-right:5px;" class="btn btn-success waves-effect waves-light" href="{{ route('admin.create.patient.checkup', $patientData->id) }}">
                                                     <i class="ri-printer-line align-middle me-2"></i>
                                                     Prescription
-                                                </a>
-                                                <a class="btn btn-success waves-effect waves-light" href="{{ route('admin.print.patient.prescription', $patientData->id) }}">
-                                                    <i class="ri-printer-line align-middle me-2"></i>
-                                                    Print Prescription
                                                 </a>
                                             </div>
                                         </div>
@@ -108,20 +107,13 @@
                                                 <label class="col-sm-3 col-form-label" for="example-text-input">Contact
                                                     Number</label>
                                                 <div class="col-sm-9">
-                                                    <input class="form-control" style='text-transform:uppercase' name="contact_number" type="text"
-                                                        value="{{ $patientData->contact_number }}" readonly>
+                                                    <input class="form-control" style='text-transform:uppercase' name="contact_number" type="text" value="{{ $patientData->contact_number }}" readonly>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label class="col-sm-3 col-form-label">Gender</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-select" name="gender_id"
-                                                        aria-label="Default select example"
-                                                        style="width: 100% !important;">
-                                                        <option selected="" disabled style='text-transform:uppercase'>
-                                                            {{ $patientData->gender->gender }}
-                                                        </option>
-                                                    </select>
+                                                    <input class="form-control" style='text-transform:uppercase' name="gender_id" type="text" value="{{ $patientData->gender->gender }}" readonly>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">

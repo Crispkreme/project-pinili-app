@@ -66,7 +66,13 @@
                                                     <td>{{ $item->address }}</td>
                                                     <td style="text-align: center;">
                                                         <a href="{{ route('admin.create.patient.checkup', $item->id) }}" class="btn btn-warning sm" title="Checkup Patient">
-                                                            <i class="ri-hospital-line"></i>
+                                                            <i class="ri-book-mark-line"></i>
+                                                        </a>
+                                                        <a href="{{ route('admin.create.patient.checkup', $item->id) }}" class="btn btn-success sm" title="Checkup Patient">
+                                                            <i class="ri-article-line"></i>
+                                                        </a>
+                                                        <a href="{{ route('admin.create.patient.checkup', $item->id) }}" class="btn btn-primary sm" title="Checkup Patient">
+                                                            <i class="ri-file-list-3-line"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
