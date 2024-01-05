@@ -30,9 +30,8 @@ Route::group(['controller' => PatientController::class], function () {
     Route::get('/edit/patient/{id}', 'editPatient')->name('edit.patient');
     Route::post('/update/patient/{id}', 'updatePatient')->name('update.patient');
     Route::get('/patient/prescription/history/{id}', 'patientPrescriptionHistory')->name('patient.prescription.history');
-});
 
-Route::group(['controller' => PatientCheckupController::class], function () {
+    // PATIENT CHECKUP FUNCTIONALITY
     Route::get('/patient/checkup/print/{id}', 'patientCheckupPdf')->name('patient.checkup.print');
     Route::get('/patient/checkup', 'getAllPatientCheckup')->name('all.patient.checkup');
     Route::get('/patient/history/{id}', 'patientHistory')->name('patient.history');

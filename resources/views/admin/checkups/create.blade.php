@@ -58,11 +58,16 @@
                                                     Print Certificate
                                                 </a>
                                             @endif
-                                            <a class="btn btn-success waves-effect waves-light"
-                                                href="{{ route('admin.create.patient.checkup', $patientData->id) }}">
-                                                <i class="ri-printer-line align-middle me-2"></i>
-                                                Prescription
-                                            </a>
+                                            <div style="display: flex;">
+                                                <a style="margin-right:5px;" class="btn btn-success waves-effect waves-light" href="{{ route('admin.create.patient.checkup', $patientData->id) }}">
+                                                    <i class="ri-printer-line align-middle me-2"></i>
+                                                    Prescription
+                                                </a>
+                                                <a class="btn btn-success waves-effect waves-light" href="{{ route('admin.print.patient.prescription', $patientData->id) }}">
+                                                    <i class="ri-printer-line align-middle me-2"></i>
+                                                    Print Prescription
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

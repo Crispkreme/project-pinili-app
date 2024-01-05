@@ -3,18 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\StockController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DrugClassController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\DistributorController;
-use App\Http\Controllers\InventorySheetController;
 use App\Http\Controllers\PatientController;
-use App\Http\Controllers\PatientCheckupController;
-use App\Http\Controllers\PatientPrescriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,27 +102,24 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/print/invoice/order/{id}', 'printOrderInvoiceById')->name('print.invoice.user.order');
 });
 
-Route::group(['controller' => InvoiceController::class], function () {
-    Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');
-});
-
-Route::group(['controller' => StockController::class], function () {
-    Route::get('/stock/report', 'getAllStockReport')->name('stock.report');
-    Route::get('/product/supplier/wise/report', 'getProductSupplierWiseReport')->name('product.supplier.wise.report');
-});
-
 Route::group(['controller' => InventoryController::class], function () {
     Route::post('get/product/wise/report', 'getProductWiseReport')->name('get.product.wise.report');
     Route::post('get/supplier/wise/report', 'getSupplierWiseReport')->name('get.supplier.wise.report');
-});
 
-Route::group(['controller' => InventorySheetController::class], function () {
+    // INVENTORY SHEET FUNCTIONALITY
     Route::get('/all/inventory/sheet', 'getAllInventorySheet')->name('all.inventory.sheet');
     Route::get('/add/inventory/sheet', 'addInventoryList')->name('add.inventory.sheet');
     Route::get('/edit/inventory/sheet/{id}', 'editInventorySheet')->name('edit.inventory.sheet');
     Route::post('/store/inventory/sheet', 'storeInventorySheet')->name('store.inventory.sheet');
     Route::get('/generate/inventory/sheet/{id}', 'generateInventorySheetReport')->name('generate.inventory.sheet');
     Route::get('/all/generate/inventory/sheet/{id}', 'generateInventorySheet')->name('all.generate.inventory.sheet');
+
+    // INVOICE FUNCTIONALITY
+    Route::get('/all/invoice', 'getAllInvoice')->name('all.invoice');
+
+    // STOCK FUNCTIONALITY
+    Route::get('/stock/report', 'getAllStockReport')->name('stock.report');
+    Route::get('/product/supplier/wise/report', 'getProductSupplierWiseReport')->name('product.supplier.wise.report');
 });
 
 Route::group(['controller' => PatientController::class], function () {
@@ -141,24 +133,19 @@ Route::group(['controller' => PatientController::class], function () {
     Route::get('/patient/prescription/history/{id}', 'patientPrescriptionHistory')->name('patient.prescription.history');
     Route::post('/store/patient/diagnosis/{id}', 'storePatientDiagnosis')->name('store.patient.diagnosis');
 
-    // CHECKUP FUNCTIONALITY
+    // PATIENT CHECKUP FUNCTIONALITY
     Route::get('/patient/checkup/{id}', 'patientCheckup')->name('patient.checkup');
     Route::post('/store/patient/checkup/{id}', 'storePatientCheckup')->name('store.patient.checkup');
+    Route::get('/patient/checkup/print/{id}', 'patientCheckupPdf')->name('patient.checkup.print');
+    Route::get('/patient/checkup', 'getAllPatientCheckup')->name('all.patient.checkup');
+    Route::get('/patient/create/checkup/{id}', 'createPatientCheckup')->name('create.patient.checkup');
+    Route::post('/store/patient/followup/checkup', 'storePatientFollowupCheckup')->name('store.patient.followup.checkup');
 
     // FOLLOWUP CHECKUP
     Route::get('/patient/followup/checkup/{id}', 'patientFollowCheckup')->name('patient.followup.checkup');
     Route::post('/store/patient/followup/checkup/{id}', 'storePatientFollowCheckup')->name('store.patient.followup.checkup');
-});
 
-Route::group(['controller' => PatientCheckupController::class], function () {
-    Route::get('/patient/checkup/print/{id}', 'patientCheckupPdf')->name('patient.checkup.print');
-    Route::get('/patient/checkup', 'getAllPatientCheckup')->name('all.patient.checkup');
-    // Route::get('/patient/followup/checkup/{id}', 'createPatientFollowupCheckup')->name('create.patient.followup.checkup');
-    Route::get('/patient/create/checkup/{id}', 'createPatientCheckup')->name('create.patient.checkup');
-    Route::post('/store/patient/followup/checkup', 'storePatientFollowupCheckup')->name('store.patient.followup.checkup');
-});
-
-Route::group(['controller' => PatientPrescriptionController::class], function () {
+    // PATIENT PRESCRIPTION FUNCTIONALITY
     Route::get('/patient/all/prescription', 'getPatientPrescription')->name('all.patient.prescription');
     Route::post('/create/patient/prescription', 'storePatientPrescription')->name('store.patient.prescription');
 
