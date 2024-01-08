@@ -91,7 +91,7 @@
                                 <div class="card-body">
                                     <form id="myForm" method="POST" action="{{ route('manager.store.patient.Billing') }}">
                                         @csrf
-                                        <input id="prescriptionId" name="prescriptionId" type="hidden"
+                                        <input id="prescriptionId" name="prescriptionId[]" type="hidden"
                                             value="{{ $id }}">
                                         <div class="mt-2"
                                             style="display: flex;justify-content: space-between;align-items: center;">

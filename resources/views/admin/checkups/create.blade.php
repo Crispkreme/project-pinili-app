@@ -52,14 +52,16 @@
 
                                         <div class="mt-2" style="display: flex;justify-content: space-between;">
                                             @if ($checkupData->status_id == 2)
-                                                <a class="btn btn-success waves-effect waves-light" href='{{ route('admin.patient.checkup.print', $checkupData->id) }}'>
-                                                    <i class="ri-printer-line align-middle me-2"></i>
-                                                    Print Certificate
-                                                </a>
-                                                <a class="btn btn-success waves-effect waves-light" href="{{ route('admin.print.patient.prescription', $patientData->id) }}">
-                                                    <i class="ri-printer-line align-middle me-2"></i>
-                                                    Print Prescription
-                                                </a>
+                                                <div style="display: flex;">
+                                                    <a class="btn btn-success waves-effect waves-light" href='{{ route('admin.patient.checkup.print', $checkupData->id) }}'>
+                                                        <i class="ri-printer-line align-middle me-2"></i>
+                                                        Print Certificate
+                                                    </a>
+                                                    <a class="btn btn-success waves-effect waves-light" href="{{ route('admin.print.patient.prescription', $patientData->id) }}" style="margin-left:10px;">
+                                                        <i class="ri-printer-line align-middle me-2"></i>
+                                                        Print Prescription
+                                                    </a>
+                                                </div>
                                             @endif
                                             <div style="display: flex;">
                                                 <a style="margin-right:5px;" class="btn btn-success waves-effect waves-light" href="{{ route('admin.create.patient.checkup', $patientData->id) }}">

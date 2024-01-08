@@ -10,4 +10,5 @@ interface PrescriptionContract {
     public function getPrescribeMedicineLaboratoryIdByPrescription($params);
     public function getSpecificPatientPrescription($id);
     public function getPrescriptionByPatientCheckupId($id);
+    public function updatePrescriptionStatus($id);
 }

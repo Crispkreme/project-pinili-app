@@ -44,22 +44,20 @@
                                     <h4 class="card-title">Drug Classes List Data</h4>
                                     <p class="card-title-desc">This are the complete list of our drug classes.</p>
 
-                                    <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
+                                    <table id="state-saving-datatable" class="table activate-select dt-responsive">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">ID</th>
-                                                <th>Drug Class No.</th>
-                                                <th>Drug Classification Name</th>
-                                                <th>description</th>
+                                                <th class="text-center" style="width:5%;">ID</th>
+                                                <th style="width:20%;">Drug Classification Name</th>
+                                                <th style="width:50% !important;">Description</th>
                                                 <th>Classification</th>
-                                                <th>Action</th>
+                                                <th style="width:10%;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($userData as $key => $item)
                                                 <tr style="vertical-align: middle;text-transform:uppercase;">
-                                                    <td class="text-center">{{ $key+1}}</td>
-                                                    <td>{{ $item->id_number }}</td>
+                                                    <td class="text-center">{{ $key + 1 }}</td>
                                                     <td>{{ $item->name }}</td>
                                                     <td>{{ $item->description }}</td>
                                                     <td>{{ $item->classification->classification }}</td>

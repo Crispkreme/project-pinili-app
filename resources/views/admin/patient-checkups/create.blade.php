@@ -385,6 +385,7 @@
     <div class="rightbar-overlay"></div>
 
     @push('scripts')
+
         <!-- medicine -->
         <script id="document-template-medicine" type="text/x-handlerbars-template">
             <tr class="delete_add_more_item_medicine" id="delete_add_more_item_medicine">
@@ -413,77 +414,6 @@
                     <i class="btn btn-danger btn-sm fas fa-window-close remove_event_more_medicine"></i>
                 </td>
             </tr>
-        </script>
-        <script type="text/javascript">
-            $(function() {
-                $(document).on('change', '#product_id', function() {
-                    var product_id = $(this).val();
-
-                    $.ajax({
-                        url: "{{ url('admin/get/product/data/') }}/" + product_id,
-                        type: "GET",
-                        success: function(data) {
-                            selectedMedicineData = data;
-                            var html_generic = '<div class="mb-3">';
-                            var html_medicine_description = '<div class="mb-3">';
-
-                            $.each(data, function(key, v) {
-                                html_generic +=
-                                    '<label class="form-label" for="progress-basicpill-email-input">Generic Name</label><input type="text" class="form-control" value="' +
-                                    v.medicine_name + '" readonly></div>';
-                                html_medicine_description +=
-                                    '<label class="form-label" for="progress-basicpill-address-input">Description</label><textarea class="form-control" rows="2" readonly>' +
-                                    v.medicine_name + '</textarea>';
-                            });
-
-                            $('#generic_name').html(html_generic);
-                            $('#medicine_description').html(html_medicine_description);
-                        }
-
-                    });
-                });
-
-                $(document).on('click', '.addEventMoreMedicine', function() {
-                    var product_id = $('#product_id').val();
-                    var medicine_name;
-                    var generic_name;
-                    var description;
-                    var srp;
-
-                    if (product_id == '') {
-                        $.notify("Product is required", {
-                            globalPosition: 'top right',
-                            className: 'error'
-                        });
-                        return false;
-                    }
-
-                    if (selectedMedicineData) {
-                        medicine_name = selectedMedicineData[0].medicine_name;
-                        generic_name = selectedMedicineData[0].generic_name;
-                        description = selectedMedicineData[0].description;
-                        srp = selectedMedicineData[0].srp;
-                    }
-
-                    var source = $("#document-template-medicine").html();
-                    var template = Handlebars.compile(source);
-                    var data = {
-                        product_id: product_id,
-                        medicine_name: medicine_name,
-                        generic_name: generic_name,
-                        description: description,
-                        srp: srp,
-                    }
-                    var html = template(data);
-
-                    $("#medicineRow").append(html);
-                });
-
-                $(document).on('click', '.remove_event_more_medicine', function() {
-                    $(this).closest(".delete_add_more_item_medicine").remove();
-                    totalAmountPrice();
-                });
-            });
         </script>
 
         <!-- laboratory -->
@@ -514,86 +444,127 @@
                 </td>
             </tr>
         </script>
+
         <script type="text/javascript">
-            $(function() {
-                $(document).on('change', '#laboratory_id', function() {
-                    var laboratory_id = $(this).val();
+            $(document).on('change', '#laboratory_id', function() {
+                var laboratory_id = $(this).val();
 
-                    $.ajax({
-                        url: "{{ url('admin/get/laboratory/data/') }}/" + laboratory_id,
-                        type: "GET",
-                        success: function(data) {
-                            var html_laboratory_description = '<div class="mb-3">';
-                            selectedLaboratoryData = data;
-                            $.each(data, function(key, v) {
-                                html_laboratory_description +=
-                                    '<label class="form-label" for="progress-basicpill-address-input">Description</label><textarea class="form-control" rows="2" readonly>' +
-                                    v.laboratory + '</textarea>';
-                            });
-
-                            $('#laboratory_description').html(html_laboratory_description);
-                        }
-                    });
-                });
-
-                $(document).on('click', '.addEventMoreLaboratory', function() {
-                    var laboratory_id = $('#laboratory_id').val();
-                    var laboratory = $('#laboratory_id').find('option:selected').text();
-                    var description = $('#laboratory_id').find('option:selected').text();
-                    var price;
-
-                    if (laboratory_id == '') {
-                        $.notify("Product is required", {
-                            globalPosition: 'top right',
-                            className: 'error'
+                $.ajax({
+                    url: "{{ url('admin/get/laboratory/data/') }}/" + laboratory_id,
+                    type: "GET",
+                    success: function(data) {
+                        var html_laboratory_description = '<div class="mb-3">';
+                        selectedLaboratoryData = data;
+                        $.each(data, function(key, v) {
+                            html_laboratory_description +=
+                                '<label class="form-label" for="progress-basicpill-address-input">Description</label><textarea class="form-control" rows="2" readonly>' +
+                                v.laboratory + '</textarea>';
                         });
-                        return false;
-                    }
 
-                    if (selectedLaboratoryData) {
-                        price = selectedLaboratoryData[0].price;
+                        $('#laboratory_description').html(html_laboratory_description);
                     }
-
-                    var source = $("#document-template-laboratory").html();
-                    var template = Handlebars.compile(source);
-                    var data = {
-                        laboratory_id: laboratory_id,
-                        laboratory: laboratory,
-                        description: description,
-                        price: price,
-                    }
-                    var html = template(data);
-                    $("#laboratoryRow").append(html);
-                });
-
-                $(document).on('click', '.remove_event_more_laboratory', function() {
-                    $(this).closest(".delete_add_more_item_laboratory").remove();
-                    totalAmountPrice();
                 });
             });
-        </script>
-        <script>
-            function handleNext() {
-                // Add logic for handling the "Next" button click
-                console.log('Next button clicked');
-                // You can add additional logic or navigate to the next tab here
-            }
+            $(document).on('change', '#product_id', function() {
+                var product_id = $(this).val();
 
-            function handleBack() {
-                // Add logic for handling the "Back" button click
-                console.log('Back button clicked');
-                // You can add additional logic or navigate to the previous tab here
-            }
+                $.ajax({
+                    url: "{{ url('admin/get/product/data/') }}/" + product_id,
+                    type: "GET",
+                    success: function(data) {
+                        selectedMedicineData = data;
+                        var html_generic = '<div class="mb-3">';
+                        var html_medicine_description = '<div class="mb-3">';
 
-            // You can conditionally hide/show buttons using JavaScript
-            var pagerButtons = document.getElementById('pagerButtons');
-            if ( /* Add your condition for hiding/showing Next button */ ) {
-                pagerButtons.querySelector('.next').style.display = 'none';
-            }
+                        if (data.length > 0) {
+                            html_generic +=
+                                '<label class="form-label" for="progress-basicpill-email-input">Generic Name</label><input type="text" class="form-control" value="' +
+                                data[0].medicine_name + '" readonly></div>';
+                            html_medicine_description +=
+                                '<label class="form-label" for="progress-basicpill-address-input">Description</label><textarea class="form-control" rows="2" readonly>' +
+                                data[0].description + '</textarea>';
+                        } else {
+                            html_generic += '<p>No data available</p>';
+                            html_medicine_description += '<p>No data available</p>';
+                        }
 
-            if ( /* Add your condition for hiding/showing Back button */ ) {
-                pagerButtons.querySelector('.previous').style.display = 'none';
-            }
+                        $('#generic_name').html(html_generic);
+                        $('#medicine_description').html(html_medicine_description);
+                    }
+                });
+            });
+            $(document).on('click', '.addEventMoreLaboratory', function() {
+                var laboratory_id = $('#laboratory_id').val();
+                var laboratory = $('#laboratory_id').find('option:selected').text();
+                var description = $('#laboratory_id').find('option:selected').text();
+                var price;
+
+                if (laboratory_id == '') {
+                    $.notify("Product is required", {
+                        globalPosition: 'top right',
+                        className: 'error'
+                    });
+                    return false;
+                }
+
+                if (selectedLaboratoryData) {
+                    price = selectedLaboratoryData[0].price;
+                }
+
+                var source = $("#document-template-laboratory").html();
+                var template = Handlebars.compile(source);
+                var data = {
+                    laboratory_id: laboratory_id,
+                    laboratory: laboratory,
+                    description: description,
+                    price: price,
+                }
+                var html = template(data);
+                $("#laboratoryRow").append(html);
+            });
+            $(document).on('click', '.addEventMoreMedicine', function() {
+                var product_id = $('#product_id').val();
+                var medicine_name;
+                var generic_name;
+                var description;
+                var srp;
+
+                if (product_id == '') {
+                    $.notify("Product is required", {
+                        globalPosition: 'top right',
+                        className: 'error'
+                    });
+                    return false;
+                }
+
+                if (selectedMedicineData) {
+                    medicine_name = selectedMedicineData[0].medicine_name;
+                    generic_name = selectedMedicineData[0].generic_name;
+                    description = selectedMedicineData[0].description;
+                    srp = selectedMedicineData[0].srp;
+                }
+
+                var source = $("#document-template-medicine").html();
+                var template = Handlebars.compile(source);
+                var data = {
+                    product_id: product_id,
+                    medicine_name: medicine_name,
+                    generic_name: generic_name,
+                    description: description,
+                    srp: srp,
+                }
+                var html = template(data);
+
+                $("#medicineRow").append(html);
+            });
+            $(document).on('click', '.remove_event_more_laboratory', function() {
+                $(this).closest(".delete_add_more_item_laboratory").remove();
+                totalAmountPrice();
+            });
+            $(document).on('click', '.remove_event_more_medicine', function() {
+                $(this).closest(".delete_add_more_item_medicine").remove();
+                totalAmountPrice();
+            });
         </script>
     @endpush
 

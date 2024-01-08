@@ -770,7 +770,6 @@ class OrderController extends Controller
     
     public function updatePatientBilling(Request $request)
     {
-
         DB::beginTransaction();
 
         try {
@@ -782,6 +781,9 @@ class OrderController extends Controller
             $patientCheckup = $this->patientCheckupContract->getPatientCheckupData($prescriptionId);
             $patientCheckupId = $patientCheckup->id;
 
+            $updatedPrescription = $this->prescriptionContract->updatePrescriptionStatus($patientCheckupId);
+            dd($updatedPrescription);
+            
             $billingData = [];
             $inputCount = count($request->product_id) > count($request->laboratory_id)
                 ? count($request->product_id)

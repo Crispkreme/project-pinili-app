@@ -83,4 +83,9 @@ class PrescriptionRepository implements PrescriptionContract {
     {
         return $this->model->where('patient_checkup_id', $id)->get();
     }
+
+    public function updatePrescriptionStatus($id)
+    {
+        return $this->model->where('patient_checkup_id', $id)->get();
+    }
 }
