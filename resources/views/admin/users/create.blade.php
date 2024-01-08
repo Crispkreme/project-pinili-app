@@ -107,7 +107,7 @@
                                         </div>
 
                                         <button type="submit" class="btn btn-success waves-effect waves-light">
-                                            Add User
+                                            Add Clinic Staff
                                             <i class="ri-user-add-line align-middle ms-2"></i>
                                         </button>
                                     </form>

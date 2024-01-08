@@ -37,7 +37,7 @@
                                 <div class="card-body">
                                     <a href="{{ route('admin.create.user') }}" class="btn btn-dark waves-effect waves-light" style="float:right;">
                                         <i class="ri-add-fill" style="margin-right:5px;"></i>
-                                        Add User
+                                        Add Clinic Staff
                                     </a>
                                     <br><br>
 

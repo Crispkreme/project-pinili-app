@@ -101,7 +101,6 @@ Route::group(['controller' => OrderController::class], function () {
     Route::get('/print/invoice/order', 'printOrderInvoice')->name('print.invoice.order');
     Route::get('/print/invoice/order/{id}', 'printOrderInvoiceById')->name('print.invoice.user.order');
 });
-
 Route::group(['controller' => InventoryController::class], function () {
     Route::post('get/product/wise/report', 'getProductWiseReport')->name('get.product.wise.report');
     Route::post('get/supplier/wise/report', 'getSupplierWiseReport')->name('get.supplier.wise.report');
@@ -121,7 +120,6 @@ Route::group(['controller' => InventoryController::class], function () {
     Route::get('/stock/report', 'getAllStockReport')->name('stock.report');
     Route::get('/product/supplier/wise/report', 'getProductSupplierWiseReport')->name('product.supplier.wise.report');
 });
-
 Route::group(['controller' => PatientController::class], function () {
     Route::get('/patient', 'getPatient')->name('all.patient');
     Route::get('/create/patient', 'addPatient')->name('create.patient');
