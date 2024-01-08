@@ -184,6 +184,20 @@
             'title' => 'Cashier',
             'breadcrumb' => ['Home', 'Walk in'],
         ],
+
+        // PETTY CASH 
+        'create.petty.cash' => [
+            'title' => 'Petty Cash',
+            'breadcrumb' => ['Home', 'Create Petty Cash'],
+        ],
+        'petty.cash' => [
+            'title' => 'Petty Cash',
+            'breadcrumb' => ['Home', 'List Petty Cashs'],
+        ],
+        'edit.petty.cash' => [
+            'title' => 'Petty Cash',
+            'breadcrumb' => ['Home', 'Update Petty Cash'],
+        ],
     ];
 
     $routeInfo = $routeMappings[$routeWithoutPrefix] ?? null;
