@@ -56,7 +56,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($prescriptions as $key => $item)
-                                                <tr>
+                                                <tr style="text-transform:uppercase;">
                                                     <td style="text-align:center;">{{ (int) $key + 1 }}</td>
                                                     <td>
                                                         <a

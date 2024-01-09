@@ -46,6 +46,8 @@ class PrescriptionRepository implements PrescriptionContract {
     {
         return $this->model
         ->where('qty', '!=', 0)
+        ->where('isActive', 1)
+        ->where('status_id', 1)
         ->select(
             'patient_checkup_id',
             'status_id',
@@ -56,9 +58,7 @@ class PrescriptionRepository implements PrescriptionContract {
         )
         ->get()
         ->groupBy('invoice_number')
-        ->map(function ($group) {
-            return $group->first();
-        })
+        ->map->first()
         ->values();
     }
 
@@ -86,6 +86,14 @@ class PrescriptionRepository implements PrescriptionContract {
 
     public function updatePrescriptionStatus($id)
     {
-        return $this->model->where('patient_checkup_id', $id)->get();
+        $prescriptions = $this->model->where('patient_checkup_id', $id)->get();
+        $prescriptions->each(function ($prescription) {
+            $prescription->update([
+                'status_id' => 2,
+                'remarks' => "Prescription Release",
+                'isActive' => 0,
+            ]);
+        });
+        return $prescriptions;
     }
 }

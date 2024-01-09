@@ -770,20 +770,29 @@ class OrderController extends Controller
     
     public function updatePatientBilling(Request $request)
     {
-        DB::beginTransaction();
 
+        DB::beginTransaction();
+        
         try {
+
+            if (!isset($request['laboratory_id']) || empty($request['laboratory_id'])) {
+                $request['laboratory_id'] = [1];
+            }
+    
+            if (!isset($request['product_id']) || empty($request['product_id'])) {
+                $request['product_id'] = [1];
+            }
+
             $prefix = "TRNX";
             $transactionNumber = Carbon::now()->format('Ymd-His');
             $invoice_number = $prefix.'-'.$transactionNumber;
-
+            
             $prescriptionId = $request->prescriptionId;
             $patientCheckup = $this->patientCheckupContract->getPatientCheckupData($prescriptionId);
-            $patientCheckupId = $patientCheckup->id;
+            $patientCheckupId = $patientCheckup->first()->id;
 
             $updatedPrescription = $this->prescriptionContract->updatePrescriptionStatus($patientCheckupId);
-            dd($updatedPrescription);
-            
+
             $billingData = [];
             $inputCount = count($request->product_id) > count($request->laboratory_id)
                 ? count($request->product_id)
