@@ -25,4 +25,5 @@ interface OrderContract {
     public function getOrderData($params);
     public function editOrderData($id);
     public function getOrderDataByInvoiceNumber($params);
+    public function updateOrder($id, $params);
 }

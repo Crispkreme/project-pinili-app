@@ -159,6 +159,7 @@
 
                                                 @foreach ($productData as $key => $item)
                                                     <tr class="order-data">
+                                                        <input type="hidden" value="{{ $item->id }}" name="order_id[]">
                                                         <td>{{ (int)$key + 1 }}</td>
                                                         <td style="text-align:left;">{{ $item->product->medicine_name }}</td>
                                                         <td style="text-align:left;">{{ $item->product->generic_name }}</td>

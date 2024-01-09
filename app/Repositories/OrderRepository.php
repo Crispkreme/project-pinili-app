@@ -272,4 +272,15 @@ class OrderRepository implements OrderContract {
         ->where('order_status_id', 7)
         ->get();
     }
+
+    public function updateOrder($id, $params)
+    {
+        $order = $this->model->findOrFail($id);
+        $order->update([
+            'quantity' => $params['quantity'],
+            'purchase_cost' => $params['purchase_cost'],
+            'srp' => $params['srp'],
+        ]);
+        return $order;
+    }
 }

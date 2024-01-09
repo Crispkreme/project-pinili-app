@@ -527,17 +527,36 @@ class OrderController extends Controller
 
     public function updateOrder(Request $request, $id)
     {
-        dd($request);
+
+        DB::beginTransaction();
+
         try {
 
-            $params = $request->validated();
+            $orderIds = $request->order_id;
+            $purchaseCosts = $request->purchase_cost; 
+            $quantities = $request->quantity; 
+            $srps = $request->srp; 
 
-            $this->productContract->updateProduct($id, $params);
+            foreach ($orderIds as $key => $orderId) {
+                $purchaseCost = $purchaseCosts[$key]; 
+                $quantity = $quantities[$key]; 
+                $srp = $srps[$key]; 
+
+                $params = [
+                    'quantity' => $quantity,
+                    'purchase_cost' => $purchaseCost,
+                    'srp' => $srp,
+                ];
+
+                $this->orderContract->updateOrder($orderId, $params); 
+            }            
 
             $notification = [
                 'alert-type' => 'success',
                 'message' => 'Password updated successfully!',
             ];
+
+            DB::commit();
 
             if (Auth::check()) {
                 if (Auth::user()->role_id == 1) {
@@ -554,6 +573,8 @@ class OrderController extends Controller
         } catch (\Exception $e) {
 
             Log::error('Error in storeOrder: ' . $e->getMessage());
+
+            DB::rollback();
 
             $notification = [
                 'message' => 'An error occurred while updating the brand.',
